@@ -1,27 +1,49 @@
-# Laravel + React Starter Kit
+# Laravel Satellite Starter
 
-## Introduction
+A **start-from-scratch ground** for a Splicewire **satellite** site — a consumer app that rides the
+Splicewire platform over HTTP.
 
-Our React starter kit provides a robust, modern starting point for building Laravel applications with a React frontend using [Inertia](https://inertiajs.com).
+Forked from [`laravel-beam-starter`](https://github.com/splicewire/laravel-beam-starter) (Laravel 13 +
+React/Inertia), it adds the **`splicewire/laravel-satellite`** backend stack: the generation pipeline,
+frozen-composition model concern, attribute beat-grammar, schema-spine resolver, and the HTML lifecycle
+runner over the `splicewire/client` connector.
 
-Inertia allows you to build modern, single-page React applications using classic server-side routing and controllers. This lets you enjoy the frontend power of React combined with the incredible backend productivity of Laravel and lightning-fast Vite compilation.
+## Tier ladder
 
-This React starter kit utilizes React 19, TypeScript, Tailwind, and the [shadcn/ui](https://ui.shadcn.com) and [radix-ui](https://www.radix-ui.com) component libraries.
+```
+beam  (free-tier foundation)  ⊂  satellite  (consumer-app backend stack)  ⊂  tower  (self-hosted host)
+ laravel-beam-starter              laravel-satellite-starter                  laravel-tower-starter
+```
 
-## Official Documentation
+Each starter forks the tier below it and layers on one package family plus that tier's topology
+stop-gap.
 
-Documentation for all Laravel starter kits can be found on the [Laravel website](https://laravel.com/docs/starter-kits).
+## Co-dev overlay
 
-## Contributing
+Local package development is driven by a parked overlay. To work against your local checkouts in
+`~/Workspaces/laravel/packages/**` (symlinked into `vendor/`):
 
-Thank you for considering contributing to our starter kit! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+cp composer.local.json.off composer.local.json
+composer update
+```
 
-All contributions to the Starter Kits from now on should be made through [Maestro](https://github.com/laravel/maestro).
+The overlay's `type: path` repositories win over the git `repositories` in `composer.json`
+(via `wikimedia/composer-merge-plugin`). Delete `composer.local.json` to go back to git-resolved.
 
-## Code of Conduct
+## Package-topology stop-gap
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Instead of bespoke tests, the starter carries the **package-topology conformance**
+(`rushing/laravel-package-topology`) as the cross-package guard that catches a misplaced refactor —
+a package depending UP, a namespace leaking across the vendor seam, or a require cycle. A green
+`tests/Feature/Topology/` suite means "the tier hierarchy holds". Contracts accumulate down the fork
+chain (this tier inherits the beam vendor-seam rules and adds the satellite-tier ones).
+
+```bash
+composer test              # app boot/auth tests + topology stop-gap
+composer test:packages     # runs each co-dev tier package's OWN suite (overlay must be active)
+```
 
 ## License
 
-The Laravel + React starter kit is open-sourced software licensed under the MIT license.
+MIT.

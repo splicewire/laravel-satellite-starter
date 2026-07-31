@@ -1,8 +1,8 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/react-starter-kit",
+    "name": "splicewire/laravel-satellite-starter",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "Start-from-scratch ground for a Splicewire satellite site — forks laravel-beam-starter and adds the splicewire/laravel-satellite backend stack (generation pipeline + splicewire/client connector).",
     "keywords": [
         "laravel",
         "framework"
@@ -44,6 +44,22 @@
         {
             "type": "git",
             "url": "https://github.com/stephenr85/laravel-graphine.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/splicewire/laravel-satellite.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/splicewire/client.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/splicewire/laravel-composition-spine-data.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/stephenr85/laravel-marquee.git"
         }
     ],
     "require": {
@@ -56,6 +72,7 @@
         "laravel/wayfinder": "^0.1.14",
         "splicewire/laravel-beam": "*",
         "splicewire/laravel-beam-mdx": "*",
+        "splicewire/laravel-satellite": "*",
         "schemastud/laravel-frame": "*",
         "schemastud/laravel-schema-forms": "*",
         "schemastud/laravel-data-schemas": "*",
@@ -71,7 +88,7 @@
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.9.3",
         "phpunit/phpunit": "^12.5.23",
-        "rushing/laravel-package-topology": "*"
+        "rushing/laravel-package-topology": "dev-main"
     },
     "autoload": {
         "psr-4": {
