@@ -280,13 +280,6 @@
                 "symlink": true
             }
         },
-        "splicewire/laravel-beam-submissions": {
-            "type": "path",
-            "url": "../../packages/splicewire/laravel-beam-submissions",
-            "options": {
-                "symlink": true
-            }
-        },
         "splicewire/laravel-beam-ux-prototype": {
             "type": "path",
             "url": "../../packages/splicewire/laravel-beam-ux-prototype",
