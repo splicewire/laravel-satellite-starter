@@ -177,6 +177,9 @@
             "php-http/discovery": true,
             "wikimedia/composer-merge-plugin": true,
             "spatie/laravel-package-tools": true
+        },
+        "audit": {
+            "block-insecure": false
         }
     },
     "minimum-stability": "dev",
