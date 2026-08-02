@@ -413,69 +413,6 @@
                 "symlink": true
             }
         },
-        "splicewire/laravel-tower-circuit": {
-            "type": "path",
-            "url": "../../packages/splicewire/laravel-tower-circuit",
-            "options": {
-                "symlink": true
-            }
-        },
-        "splicewire/laravel-tower-commerce": {
-            "type": "path",
-            "url": "../../packages/splicewire/laravel-tower-commerce",
-            "options": {
-                "symlink": true
-            }
-        },
-        "splicewire/laravel-tower-compliance": {
-            "type": "path",
-            "url": "../../packages/splicewire/laravel-tower-compliance",
-            "options": {
-                "symlink": true
-            }
-        },
-        "splicewire/laravel-tower-compositions": {
-            "type": "path",
-            "url": "../../packages/splicewire/laravel-tower-compositions",
-            "options": {
-                "symlink": true
-            }
-        },
-        "splicewire/laravel-tower-conduit": {
-            "type": "path",
-            "url": "../../packages/splicewire/laravel-tower-conduit",
-            "options": {
-                "symlink": true
-            }
-        },
-        "splicewire/laravel-tower-core": {
-            "type": "path",
-            "url": "../../packages/splicewire/laravel-tower-core",
-            "options": {
-                "symlink": true
-            }
-        },
-        "splicewire/laravel-tower-embed": {
-            "type": "path",
-            "url": "../../packages/splicewire/laravel-tower-embed",
-            "options": {
-                "symlink": true
-            }
-        },
-        "splicewire/laravel-tower-provisioning": {
-            "type": "path",
-            "url": "../../packages/splicewire/laravel-tower-provisioning",
-            "options": {
-                "symlink": true
-            }
-        },
-        "splicewire/laravel-tower-tenancy": {
-            "type": "path",
-            "url": "../../packages/splicewire/laravel-tower-tenancy",
-            "options": {
-                "symlink": true
-            }
-        },
         "splicewire/spiders": {
             "type": "path",
             "url": "../../packages/splicewire/spiders",
