@@ -245,6 +245,13 @@
                 "symlink": true
             }
         },
+        "splicewire/laravel-beam-embed": {
+            "type": "path",
+            "url": "../../packages/splicewire/laravel-beam-embed",
+            "options": {
+                "symlink": true
+            }
+        },
         "splicewire/laravel-beam-inference": {
             "type": "path",
             "url": "../../packages/splicewire/laravel-beam-inference",
@@ -259,9 +266,23 @@
                 "symlink": true
             }
         },
-        "splicewire/laravel-beam-multi-tenancy": {
+        "splicewire/laravel-beam-sync": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-beam-multi-tenancy",
+            "url": "../../packages/splicewire/laravel-beam-sync",
+            "options": {
+                "symlink": true
+            }
+        },
+        "splicewire/laravel-beam-taxonomy": {
+            "type": "path",
+            "url": "../../packages/splicewire/laravel-beam-taxonomy",
+            "options": {
+                "symlink": true
+            }
+        },
+        "splicewire/laravel-beam-tenancy": {
+            "type": "path",
+            "url": "../../packages/splicewire/laravel-beam-tenancy",
             "options": {
                 "symlink": true
             }
