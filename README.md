@@ -31,6 +31,31 @@ composer update
 The overlay's `type: path` repositories win over the git `repositories` in `composer.json`
 (via `wikimedia/composer-merge-plugin`). Delete `composer.local.json` to go back to git-resolved.
 
+## Install (satellite tier — cascades to beam)
+
+`composer setup` runs the satellite tier installer — **`splicewire:satellite:install`** — instead of a
+bare `migrate`. The satellite installer **chains down** to `splicewire:beam:install` first (the base
+tier), then publishes + migrates the satellite tier on top:
+
+```bash
+composer setup
+# or, standalone, after key:generate:
+php artisan splicewire:satellite:install --no-interaction --force
+#   → INFO satellite tier: chaining splicewire:beam:install (base tier).
+#   → beam stack installed.
+#   → INFO satellite tier installed.
+```
+
+### Local-package run loop
+
+```bash
+cp composer.local.json.off composer.local.json   # engage the overlay (gitignored active copy)
+composer update                                   # resolve to local checkouts
+php artisan splicewire:satellite:install --no-interaction --force   # cascades satellite → beam
+
+rm composer.local.json && composer update         # reset to git-resolved
+```
+
 ## Package-topology stop-gap
 
 The starter runs ONE thin `tests/Feature/Topology/DeclaredTopologyTest` (`rushing/laravel-package-topology`'s
