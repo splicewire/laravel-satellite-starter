@@ -294,13 +294,6 @@
                 "symlink": true
             }
         },
-        "splicewire/laravel-beam-publishing": {
-            "type": "path",
-            "url": "../../packages/splicewire/laravel-beam-publishing",
-            "options": {
-                "symlink": true
-            }
-        },
         "splicewire/laravel-beam-ux-prototype": {
             "type": "path",
             "url": "../../packages/splicewire/laravel-beam-ux-prototype",
@@ -395,13 +388,6 @@
         "splicewire/laravel-knowledge-spine-data": {
             "type": "path",
             "url": "../../packages/splicewire/laravel-knowledge-spine-data",
-            "options": {
-                "symlink": true
-            }
-        },
-        "splicewire/laravel-satellite-publishing": {
-            "type": "path",
-            "url": "../../packages/splicewire/laravel-satellite-publishing",
             "options": {
                 "symlink": true
             }
