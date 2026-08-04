@@ -84,9 +84,9 @@
                 "symlink": true
             }
         },
-        "rushing/laravel-package-topology": {
+        "rushing/php-package-topology": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-package-topology",
+            "url": "../../packages/rushing/php-package-topology",
             "options": {
                 "symlink": true
             }

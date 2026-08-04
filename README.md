@@ -58,7 +58,7 @@ rm composer.local.json && composer update         # reset to git-resolved
 
 ## Package-topology stop-gap
 
-The starter runs ONE thin `tests/Feature/Topology/DeclaredTopologyTest` (`rushing/laravel-package-topology`'s
+The starter runs ONE thin `tests/Feature/Topology/DeclaredTopologyTest` (`rushing/php-package-topology`'s
 `AssertsDeclaredTopology`) that **declares no rules itself**. Each *package* owns the invariants about its
 own place in the graph in its `composer.json` `extra.package-topology` block; `DeclaredContractSource`
 merges every installed fragment into one contract and asserts it. A green suite means "the declared
