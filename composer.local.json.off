@@ -329,9 +329,9 @@
                 "symlink": true
             }
         },
-        "splicewire/laravel-circuit-spine-data": {
+        "splicewire/laravel-circuit-spine": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-circuit-spine-data",
+            "url": "../../packages/splicewire/laravel-circuit-spine",
             "options": {
                 "symlink": true
             }
@@ -350,16 +350,16 @@
                 "symlink": true
             }
         },
-        "splicewire/laravel-composition-music-spine-data": {
+        "splicewire/laravel-composition-music-spine": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-composition-music-spine-data",
+            "url": "../../packages/splicewire/laravel-composition-music-spine",
             "options": {
                 "symlink": true
             }
         },
-        "splicewire/laravel-composition-spine-data": {
+        "splicewire/laravel-composition-spine": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-composition-spine-data",
+            "url": "../../packages/splicewire/laravel-composition-spine",
             "options": {
                 "symlink": true
             }
@@ -371,9 +371,9 @@
                 "symlink": true
             }
         },
-        "splicewire/laravel-grounding-spine-data": {
+        "splicewire/laravel-grounding-spine": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-grounding-spine-data",
+            "url": "../../packages/splicewire/laravel-grounding-spine",
             "options": {
                 "symlink": true
             }
@@ -385,9 +385,9 @@
                 "symlink": true
             }
         },
-        "splicewire/laravel-knowledge-spine-data": {
+        "splicewire/laravel-knowledge-spine": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-knowledge-spine-data",
+            "url": "../../packages/splicewire/laravel-knowledge-spine",
             "options": {
                 "symlink": true
             }

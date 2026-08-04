@@ -51,7 +51,7 @@
         },
         {
             "type": "git",
-            "url": "https://github.com/splicewire/laravel-composition-spine-data.git"
+            "url": "https://github.com/splicewire/laravel-composition-spine.git"
         },
         {
             "type": "git",
