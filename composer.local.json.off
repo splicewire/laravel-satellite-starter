@@ -266,6 +266,13 @@
                 "symlink": true
             }
         },
+        "splicewire/laravel-beam-sitemap": {
+            "type": "path",
+            "url": "../../packages/splicewire/laravel-beam-sitemap",
+            "options": {
+                "symlink": true
+            }
+        },
         "splicewire/laravel-beam-sync": {
             "type": "path",
             "url": "../../packages/splicewire/laravel-beam-sync",
