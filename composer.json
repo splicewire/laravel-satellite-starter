@@ -35,7 +35,7 @@
         },
         {
             "type": "git",
-            "url": "https://github.com/stephenr85/laravel-package-topology.git"
+            "url": "https://github.com/stephenr85/php-package-topology.git"
         },
         {
             "type": "git",
@@ -83,7 +83,7 @@
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.9.3",
         "phpunit/phpunit": "^12.5.23",
-        "rushing/laravel-package-topology": "*"
+        "rushing/php-package-topology": "*"
     },
     "autoload": {
         "psr-4": {
