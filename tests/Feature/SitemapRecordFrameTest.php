@@ -12,8 +12,8 @@ use App\Sitemap\RootSitemap;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Cache;
-use Schemastud\Doctor\DoctorStatus;
-use Schemastud\Frame\Registry\AdminResourceRegistry;
+use Rushing\Doctor\DoctorStatus;
+use Splicewire\Beam\Frame\AdminResourceRegistry;
 use Tests\TestCase;
 
 /**
@@ -112,7 +112,7 @@ class SitemapRecordFrameTest extends TestCase
         $this->assertFalse($sitemap->isAllContentDerived());
     }
 
-    // ── kind A registration: the AdminResource registers under `sitemap` ──────────────────
+    // ── kind A registration: the auto-discovered #[ParticleResource] registers under `sitemap` ──
 
     public function test_the_sitemap_admin_resource_registers(): void
     {

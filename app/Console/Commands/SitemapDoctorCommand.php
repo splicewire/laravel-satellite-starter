@@ -5,8 +5,8 @@ namespace App\Console\Commands;
 use App\Doctor\OrphanedNavItemAudit;
 use Illuminate\Console\Command;
 use Illuminate\Routing\Router;
-use Schemastud\Doctor\DoctorStatus;
-use Schemastud\Doctor\Finding;
+use Rushing\Doctor\DoctorStatus;
+use Rushing\Doctor\Finding;
 
 /**
  * `php artisan sitemap:doctor` — a starter-LOCAL doctor for the editable-sitemap example.
