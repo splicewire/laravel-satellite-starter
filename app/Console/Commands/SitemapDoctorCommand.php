@@ -12,7 +12,7 @@ use Rushing\Doctor\Finding;
  * `php artisan sitemap:doctor` — a starter-LOCAL doctor for the editable-sitemap example.
  *
  * The base `splicewire:beam:doctor` hard-codes its advisory audit list and offers no host
- * extension seam, so the starter surfaces its own #[AdminResource]-specific check here. It
+ * extension seam, so the starter surfaces its own #[ParticleResource]-specific check here. It
  * follows the base doctor's contract exactly: renders each {@see Finding} as `<check>: <detail>`
  * and is ADVISORY — a Warn (an orphaned record nav link) renders yellow but never turns the run
  * red. Only a genuine failure would, and this audit emits none by design.
