@@ -5,7 +5,7 @@ namespace App\Doctor;
 use App\Console\Commands\SitemapDoctorCommand;
 use App\Models\SitemapRecord;
 use Illuminate\Routing\Router;
-use Schemastud\Doctor\Finding;
+use Rushing\Doctor\Finding;
 use Throwable;
 
 /**

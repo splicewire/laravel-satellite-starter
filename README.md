@@ -56,6 +56,33 @@ php artisan splicewire:satellite:install --no-interaction --force   # cascades s
 rm composer.local.json && composer update         # reset to git-resolved
 ```
 
+## Exposing a model in the admin — drop one annotated Data class
+
+A model shows up in the Frame admin by dropping **one** `#[ParticleResource]`-annotated Data class into
+`app/Data/`. That is the whole declaration — no second declaration, no `registerClass()` in a provider,
+no handler-map entry. Beam's boot-time attributed discovery scans `app/Data` (config
+`frame.discover_paths`), reflects the attribute into the admin manifest, and the resource appears at
+`/frame/manifest` with its editor route wired.
+
+The unified `#[ParticleResource]` carries the full manifest field set on the Data class itself — label,
+model, nav placement (`group` / `section` / `navOrder` / `icon`), and route identity (`routeName`):
+
+```php
+#[ParticleResource(
+    key: 'sitemap',
+    model: SitemapRecord::class,
+    label: 'Sitemap',           // a non-empty label marks the resource FRAMED (navigable + editable)
+    group: 'Site',
+    section: 'links',
+    navOrder: 99,
+    routeName: 'frame.resources.sitemap',
+)]
+class SitemapData extends Data { /* … Column-annotated fields … */ }
+```
+
+See `app/Data/SitemapData.php` for the worked example (the editable sitemap resource). Adding your own
+resource is the same one-file move: annotate a Data class, drop it in `app/Data/`, done.
+
 ## Package-topology stop-gap
 
 The starter runs ONE thin `tests/Feature/Topology/DeclaredTopologyTest` (`rushing/php-package-topology`'s

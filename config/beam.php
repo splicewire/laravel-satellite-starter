@@ -1,7 +1,7 @@
 <?php
 
+use Splicewire\Beam\Models\BeamParticle;
 use Splicewire\Beam\Models\BeamSubmission;
-use Splicewire\Beam\Models\SchemaRecord;
 
 return [
 
@@ -22,7 +22,7 @@ return [
     | traits on its own record/reference models points these at its subclasses.
     */
     'models' => [
-        'schema_record' => SchemaRecord::class,
+        'particle' => BeamParticle::class,
         'submission' => BeamSubmission::class,
     ],
 

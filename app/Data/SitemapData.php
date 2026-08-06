@@ -4,26 +4,28 @@ namespace App\Data;
 
 use App\Models\SitemapRecord;
 use App\Sitemap\NavItem;
-use Schemastud\Frame\Attributes\AdminResource;
 use Schemastud\Frame\Attributes\Column;
 use Schemastud\Frame\Attributes\NotInList;
 use Spatie\LaravelData\Data;
+use Splicewire\Beam\Particle\Attributes\ParticleResource;
 
 /**
  * The record leaf's edit+read shape (kind A) — the single authored artifact the Frame
- * editor writes and the {@see NavItem} projection reads. Mirrors the
- * satellite-publishing `PostData` exemplar (ONE `#[AdminResource]` is both list and edit),
- * but moat-free: it needs only `schemastud/laravel-frame`, never satellite.
+ * editor writes and the {@see NavItem} projection reads. ONE `#[ParticleResource]` is the
+ * whole declaration: label + model + nav placement + route identity, all carried on this Data
+ * class. Beam's attributed discovery reflects it into the admin manifest at boot — no
+ * `registerClass()` in a provider, no second declaration. Dropping this one annotated file into
+ * `app/Data/` IS the wiring (it sits under the scanned `discover_paths`).
  *
  * `externalUrl` is the load-bearing field: when set it makes the projected NavItem point
  * OFF-HOST — the cross-host affordance a content-derived (kind C) nav structurally cannot
  * express. `href` (in-host path) and `externalUrl` (off-host) are mutually informative: the
  * projection prefers `externalUrl` when present (see {@see SitemapRecord::toNavItem()}).
  *
- * Registered under the `sitemap` key at boot (see AppServiceProvider), which surfaces the
- * `frame/resources/sitemap` editor route so an owner can edit the nav via Frame.
+ * A non-empty `label` marks the resource FRAMED — it lights up the `@schemastud/frame` editor
+ * and surfaces the `frame/resources/sitemap` editor route so an owner can edit the nav.
  */
-#[AdminResource(
+#[ParticleResource(
     key: 'sitemap',
     model: SitemapRecord::class,
     label: 'Sitemap',
