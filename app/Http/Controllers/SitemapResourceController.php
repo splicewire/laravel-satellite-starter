@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use Inertia\Response;
-use Splicewire\Beam\Frame\AdminResourceRegistry;
+use Splicewire\Beam\Particle\ParticleResourceRegistry;
 
 /**
  * The host-owned Frame resource page for the editable sitemap (kind A). Frame ships only
@@ -19,10 +19,10 @@ use Splicewire\Beam\Frame\AdminResourceRegistry;
  */
 class SitemapResourceController extends Controller
 {
-    public function __invoke(AdminResourceRegistry $registry): Response
+    public function __invoke(ParticleResourceRegistry $registry): Response
     {
         return Inertia::render('frame/resource', [
-            'resource' => $registry->get('sitemap'),
+            'resource' => $registry->definition('sitemap'),
         ]);
     }
 }
