@@ -2,7 +2,7 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "splicewire/laravel-satellite-starter",
     "type": "project",
-    "description": "Start-from-scratch ground for a Splicewire satellite site — forks laravel-beam-starter and adds the splicewire/laravel-satellite backend stack (generation pipeline + splicewire/client connector).",
+    "description": "Start-from-scratch ground for a Splicewire satellite site — forks laravel-beam-starter and adds the splicewire/laravel-satellite backend stack (generation pipeline + splicewire/laravel-connector connector).",
     "keywords": [
         "laravel",
         "framework"
@@ -47,7 +47,7 @@
         },
         {
             "type": "git",
-            "url": "https://github.com/splicewire/client.git"
+            "url": "https://github.com/splicewire/laravel-connector.git"
         },
         {
             "type": "git",

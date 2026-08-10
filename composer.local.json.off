@@ -217,9 +217,9 @@
                 "symlink": true
             }
         },
-        "splicewire/client": {
+        "splicewire/laravel-connector": {
             "type": "path",
-            "url": "../../packages/splicewire/client",
+            "url": "../../packages/splicewire/laravel-connector",
             "options": {
                 "symlink": true
             }
