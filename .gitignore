@@ -30,3 +30,6 @@ yarn-error.log
 
 # Local co-dev overlay (path repos for base-beam packages) — never commit
 composer.local.json
+
+# Ecosystem-local orientation pointer — never commit
+CLAUDE.md
