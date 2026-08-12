@@ -56,6 +56,26 @@ php artisan splicewire:satellite:install --no-interaction --force   # cascades s
 rm composer.local.json && composer update         # reset to git-resolved
 ```
 
+### Remove (satellite tier)
+
+**`splicewire:satellite:uninstall`** is the installer's counterpart — config rollback, migration
+rollback, then a chained `splicewire:beam:uninstall` step, in that order (the install cascade run in
+reverse). Gated on exactly ONE always-required acknowledgment (unified — covers both capability loss
+and the local `SPLICEWIRE_TOKEN` clear in a single confirmation):
+
+```bash
+php artisan splicewire:satellite:uninstall --acknowledge --no-interaction --force
+#   → INFO satellite tier: rolling back config
+#   → INFO satellite tier: rolling back migrations
+#   → WARN splicewire:beam:uninstall not registered — skipping the base-tier uninstall step
+#   →   ↳ local SPLICEWIRE_TOKEN cleared (best-effort — no remote revoke call exists).
+#   → INFO satellite tier removed.
+```
+
+Never calls into `laravel-beam-licenser` — Satellite's entitlement is the live connector-pairing
+state itself, not a license file. The `SPLICEWIRE_TOKEN` clear is local-only/best-effort: revoke the
+token itself from the central Splicewire UI if it may have leaked.
+
 ## Exposing a model in the admin — drop one annotated Data class
 
 A model shows up in the Frame admin by dropping **one** `#[ParticleResource]`-annotated Data class into
