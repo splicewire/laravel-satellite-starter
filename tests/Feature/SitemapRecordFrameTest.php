@@ -147,7 +147,7 @@ class SitemapRecordFrameTest extends TestCase
     {
         SitemapRecord::create(['payload' => ['label' => 'Dash', 'href' => '/dashboard', 'order' => 1]]);
 
-        $finding = (new OrphanedNavItemAudit(app(Router::class)))->run();
+        [$finding] = (new OrphanedNavItemAudit(app(Router::class)))->run();
 
         $this->assertSame(DoctorStatus::Pass, $finding->status);
         $this->assertSame('orphaned nav item', $finding->check);
@@ -157,7 +157,7 @@ class SitemapRecordFrameTest extends TestCase
     {
         SitemapRecord::create(['payload' => ['label' => 'Gone', 'href' => '/no-such-route', 'order' => 1]]);
 
-        $finding = (new OrphanedNavItemAudit(app(Router::class)))->run();
+        [$finding] = (new OrphanedNavItemAudit(app(Router::class)))->run();
 
         // Advisory: a broken link WARNs (never fails) so the doctor gate stays green.
         $this->assertSame(DoctorStatus::Warn, $finding->status);
@@ -171,10 +171,19 @@ class SitemapRecordFrameTest extends TestCase
             'externalUrl' => 'https://elsewhere.example',
         ]]);
 
-        $finding = (new OrphanedNavItemAudit(app(Router::class)))->run();
+        [$finding] = (new OrphanedNavItemAudit(app(Router::class)))->run();
 
         // An off-host target is not the app's to validate — no orphan.
         $this->assertSame(DoctorStatus::Pass, $finding->status);
+    }
+
+    public function test_the_base_doctor_reports_the_host_audit_via_the_manifest(): void
+    {
+        // The host registers the audit into BeamDoctorManifest from AppServiceProvider (advisory) —
+        // one `splicewire:beam:doctor` run reports it; no starter-local doctor command needed.
+        $this->artisan('splicewire:beam:doctor')
+            ->expectsOutputToContain('orphaned nav item')
+            ->run();
     }
 
     /**

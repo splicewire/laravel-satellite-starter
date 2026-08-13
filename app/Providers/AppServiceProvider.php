@@ -3,11 +3,13 @@
 namespace App\Providers;
 
 use App\Data\SitemapData;
+use App\Doctor\OrphanedNavItemAudit;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Splicewire\Beam\Doctor\BeamDoctorManifest;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,6 +33,25 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+        $this->registerDoctorAudits();
+    }
+
+    /**
+     * Register this HOST's doctor audit into beam-core's aggregation manifest — the same seam every
+     * beam-* package uses (the manifest is a singleton bound in beam's register phase and read fresh
+     * when `splicewire:beam:doctor` runs, so an app registering in boot always lands). Advisory: an
+     * orphaned nav link renders yellow but never turns the run red. Guarded on the manifest being
+     * bound so the starter still boots against a beam-core that predates it.
+     */
+    protected function registerDoctorAudits(): void
+    {
+        if ($this->app->bound(BeamDoctorManifest::class)) {
+            $this->app->make(BeamDoctorManifest::class)->register(
+                package: 'app',
+                audit: OrphanedNavItemAudit::class,
+                gate: false,
+            );
+        }
     }
 
     /**

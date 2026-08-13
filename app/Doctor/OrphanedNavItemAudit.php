@@ -2,14 +2,15 @@
 
 namespace App\Doctor;
 
-use App\Console\Commands\SitemapDoctorCommand;
 use App\Models\SitemapRecord;
+use App\Providers\AppServiceProvider;
 use Illuminate\Routing\Router;
+use Rushing\Doctor\DoctorAudit;
 use Rushing\Doctor\Finding;
 use Throwable;
 
 /**
- * Advisory doctor check (a moat-free {@see Finding} from schemastud/laravel-doctor): validate
+ * Advisory doctor check (a moat-free {@see Finding} from rushing/laravel-doctor): validate
  * every record-leaf (kind A) nav link against the app's REAL registered routes and report
  * drift. A record link can rot in a way a content-glob (kind C) leaf cannot — an owner can
  * point a NavItem at a path that no route serves (a rename, a removed page), producing an
@@ -23,17 +24,28 @@ use Throwable;
  *   - WARN  when one or more in-host record links resolve to no registered route (the drift signal).
  *
  * ── Plugging into the base doctor ──
- *   The base `splicewire:beam:doctor` (BeamDoctorCommand) hard-codes its advisory audit list and
- *   exposes no extension seam from a host. So the starter ships {@see SitemapDoctorCommand}
- *   (`sitemap:doctor`), which runs this audit with the same Pass/Warn/Fail render and advisory
- *   (never-red) exit semantics. If/when the base command grows a host-audit hook, this class drops
- *   straight into it unchanged — it already returns the base-tier {@see Finding} contract.
+ *   Registered — ADVISORY — into beam-core's `BeamDoctorManifest` from this app's own
+ *   {@see AppServiceProvider}, so one `splicewire:beam:doctor` run reports it
+ *   alongside the rest of the family. A HOST registers through exactly the same seam a package
+ *   does: the manifest is a container singleton bound in beam's register phase and read fresh at
+ *   command invocation, and an app's boot runs after every package's register — so there is no
+ *   boot-order problem and no package-only constraint. (An earlier starter-local `sitemap:doctor`
+ *   command claimed the base doctor "offers no host extension seam"; that was written ten days
+ *   before the manifest existed and has been deleted.)
  */
-class OrphanedNavItemAudit
+class OrphanedNavItemAudit implements DoctorAudit
 {
     public function __construct(private Router $router) {}
 
-    public function run(): Finding
+    /**
+     * @return list<Finding>
+     */
+    public function run(): array
+    {
+        return [$this->finding()];
+    }
+
+    private function finding(): Finding
     {
         $check = 'orphaned nav item';
 
