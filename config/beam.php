@@ -26,6 +26,8 @@ return [
         'submission' => BeamSubmission::class,
     ],
 
+    // Table names are NOT here — they live in the beam-core config the package publishes,
+    // config/beam/core.php. A host copy in this file is a stale duplicate.
 
     // 'media'         => [ ... ]   // (ticket 08)
     // 'hooks'         => [ ... ]   // (webhook / sitemap / doctor registries)
