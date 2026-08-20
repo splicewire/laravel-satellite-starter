@@ -1,4 +1,4 @@
-import { Form, Head, setLayoutProps } from '@inertiajs/react';
+import { Form, setLayoutProps } from '@inertiajs/react';
 import { REGEXP_ONLY_DIGITS } from 'input-otp';
 import { useMemo, useState } from 'react';
 import InputError from '@/components/input-error';
@@ -12,6 +12,9 @@ import {
 import { OTP_MAX_LENGTH } from '@/hooks/use-two-factor-auth';
 import { store } from '@/routes/two-factor/login';
 
+// theme-entries-and-authoring STR-03: a sealed island (editor/registry.tsx), no longer the top-level
+// Inertia page. Its dynamic title/description toggle (below) is session-state-driven, not editorial
+// copy, so it keeps calling setLayoutProps itself rather than going through the composable tree.
 export default function TwoFactorChallenge() {
     const [showRecoveryInput, setShowRecoveryInput] = useState<boolean>(false);
     const [code, setCode] = useState<string>('');
@@ -51,8 +54,6 @@ export default function TwoFactorChallenge() {
 
     return (
         <>
-            <Head title="Two-factor authentication" />
-
             <div className="space-y-6">
                 <Form
                     {...store.form()}

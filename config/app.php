@@ -123,4 +123,23 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Entitlement (feature-plane) key universe
+    |--------------------------------------------------------------------------
+    |
+    | The flat set of entitlement keys the front-end `can` map spans (Frame OS ADR-0013 §2). beam registers
+    | one Laravel Gate ability per key (`entitlement:{key}`), each consulting the bound EntitlementResolver.
+    | The DefaultEntitlementResolver (splicewire/laravel-beam-accounts) grants a staff principal the staff
+    | bundle mapping to these three, opening the operator + OS realms. Keep in sync with the staff bundle in
+    | config/beam/accounts.php.
+    |
+    */
+
+    'entitlements' => [
+        'ux.author' => [],
+        'os.enter' => [],
+        'os.operate' => [],
+    ],
+
 ];

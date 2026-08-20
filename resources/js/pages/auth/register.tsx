@@ -1,4 +1,4 @@
-import { Form, Head } from '@inertiajs/react';
+import { Form, usePage } from '@inertiajs/react';
 import InputError from '@/components/input-error';
 import PasswordInput from '@/components/password-input';
 import TextLink from '@/components/text-link';
@@ -13,10 +13,13 @@ type Props = {
     passwordRules: string;
 };
 
-export default function Register({ passwordRules }: Props) {
+// theme-entries-and-authoring STR-03: a sealed island (editor/registry.tsx), no longer the top-level
+// Inertia page — read via usePage() instead of received as a direct component prop.
+export default function Register() {
+    const { passwordRules } = usePage<Props>().props;
+
     return (
         <>
-            <Head title="Register" />
             <Form
                 {...store.form()}
                 resetOnSuccess={['password', 'password_confirmation']}
@@ -113,8 +116,3 @@ export default function Register({ passwordRules }: Props) {
         </>
     );
 }
-
-Register.layout = {
-    title: 'Create an account',
-    description: 'Enter your details below to create your account',
-};

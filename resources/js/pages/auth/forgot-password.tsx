@@ -1,5 +1,5 @@
 // Components
-import { Form, Head } from '@inertiajs/react';
+import { Form, usePage } from '@inertiajs/react';
 import { LoaderCircle } from 'lucide-react';
 import InputError from '@/components/input-error';
 import TextLink from '@/components/text-link';
@@ -9,11 +9,13 @@ import { Label } from '@/components/ui/label';
 import { login } from '@/routes';
 import { email } from '@/routes/password';
 
-export default function ForgotPassword({ status }: { status?: string }) {
+// theme-entries-and-authoring STR-03: a sealed island (editor/registry.tsx), no longer the top-level
+// Inertia page — read via usePage() instead of received as a direct component prop.
+export default function ForgotPassword() {
+    const { status } = usePage<{ status?: string }>().props;
+
     return (
         <>
-            <Head title="Forgot password" />
-
             {status && (
                 <div className="mb-4 text-center text-sm font-medium text-green-600">
                     {status}
@@ -62,8 +64,3 @@ export default function ForgotPassword({ status }: { status?: string }) {
         </>
     );
 }
-
-ForgotPassword.layout = {
-    title: 'Forgot password',
-    description: 'Enter your email to receive a password reset link',
-};

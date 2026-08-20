@@ -40,10 +40,14 @@ class TwoFactorChallengeTest extends TestCase
             'password' => 'password',
         ]);
 
+        // theme-entries-and-authoring STR-03: every auth route renders the SAME beam-ux entry-resolution
+        // page (`auth/entry`), differentiated by the `slug` prop — the sealed `TwoFactorChallenge` form
+        // island renders inside its resolved tree (editor/registry.tsx), not as its own top-level page.
         $this->get(route('two-factor.login'))
             ->assertOk()
             ->assertInertia(fn (Assert $page) => $page
-                ->component('auth/two-factor-challenge'),
+                ->component('auth/entry')
+                ->where('slug', 'two-factor-challenge'),
             );
     }
 }

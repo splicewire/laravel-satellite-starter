@@ -1,4 +1,4 @@
-import { Form, Head } from '@inertiajs/react';
+import { Form } from '@inertiajs/react';
 import InputError from '@/components/input-error';
 import PasswordInput from '@/components/password-input';
 import { Button } from '@/components/ui/button';
@@ -13,11 +13,11 @@ import {
 import PasskeyVerify from '@/components/passkey-verify';
 /* @end-chisel-passkeys */
 
+// theme-entries-and-authoring STR-03: a sealed island (editor/registry.tsx), no longer the top-level
+// Inertia page.
 export default function ConfirmPassword() {
     return (
         <>
-            <Head title="Confirm password" />
-
             {/* @chisel-passkeys */}
             <PasskeyVerify
                 routes={{
@@ -62,9 +62,3 @@ export default function ConfirmPassword() {
         </>
     );
 }
-
-ConfirmPassword.layout = {
-    title: 'Confirm password',
-    description:
-        'This is a secure area of the application. Please confirm your password before continuing.',
-};

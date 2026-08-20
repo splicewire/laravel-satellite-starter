@@ -1,0 +1,38 @@
+# beam-ux content nav (the DATA `splicewire:beam:ux:seed-nav` seeds).
+#
+# The app provides only this data; the machinery is package-native (NavSource →
+# ux:seed-nav → per-realm sitemaps). slug ⇒ {segment, title, type, realm}.
+# The realm splits the nav:
+#   - site     PUBLIC  — projected to everyone via <SiteNav>.
+#   - account  AUTHED  — its own sitemap, signed-in only.
+#   - operator STAFF   — its own sitemap, staff-gated.
+
+home:
+  segment: /
+  title: Home
+  type: page
+  realm: site
+
+about:
+  segment: /about
+  title: About
+  type: page
+  realm: site
+
+dashboard:
+  segment: /dashboard
+  title: Dashboard
+  type: page
+  realm: account
+
+settings-profile:
+  segment: /settings/profile
+  title: Profile
+  type: page
+  realm: account
+
+operator-dashboard:
+  segment: /operator
+  title: Operator
+  type: page
+  realm: operator

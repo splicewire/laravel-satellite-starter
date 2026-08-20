@@ -1,5 +1,7 @@
 <?php
 
+use Splicewire\Beam\Ux\Data\BeamUxEntryData;
+
 return [
 
     /*
@@ -19,7 +21,12 @@ return [
     | single source of the declaration.
     */
 
-    'resources' => [],
+    // BeamUxEntryData lives in the laravel-beam-ux PACKAGE, so discover_paths' app_path('Data') scan
+    // (this host's own app/Data) never finds it — it needs the explicit list (theme-entries-and-
+    // authoring ticket str-01).
+    'resources' => [
+        BeamUxEntryData::class,
+    ],
 
     'discover_paths' => [
         app_path('Data'),

@@ -1,4 +1,4 @@
-import { Form, Head } from '@inertiajs/react';
+import { Form, usePage } from '@inertiajs/react';
 import InputError from '@/components/input-error';
 import PasswordInput from '@/components/password-input';
 import { Button } from '@/components/ui/button';
@@ -13,11 +13,13 @@ type Props = {
     passwordRules: string;
 };
 
-export default function ResetPassword({ token, email, passwordRules }: Props) {
+// theme-entries-and-authoring STR-03: a sealed island (editor/registry.tsx), no longer the top-level
+// Inertia page — read via usePage() instead of received as direct component props.
+export default function ResetPassword() {
+    const { token, email, passwordRules } = usePage<Props>().props;
+
     return (
         <>
-            <Head title="Reset password" />
-
             <Form
                 {...update.form()}
                 transform={(data) => ({ ...data, token, email })}
@@ -89,8 +91,3 @@ export default function ResetPassword({ token, email, passwordRules }: Props) {
         </>
     );
 }
-
-ResetPassword.layout = {
-    title: 'Reset password',
-    description: 'Please enter your new password below',
-};

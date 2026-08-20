@@ -19,8 +19,12 @@ class PasswordConfirmationTest extends TestCase
 
         $response->assertOk();
 
+        // theme-entries-and-authoring STR-03: every auth route renders the SAME beam-ux entry-resolution
+        // page (`auth/entry`), differentiated by the `slug` prop — the sealed `ConfirmPassword` form
+        // island renders inside its resolved tree (editor/registry.tsx), not as its own top-level page.
         $response->assertInertia(fn (Assert $page) => $page
-            ->component('auth/confirm-password'),
+            ->component('auth/entry')
+            ->where('slug', 'confirm-password'),
         );
     }
 

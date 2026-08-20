@@ -37,7 +37,17 @@
         @fonts
 
         @viteReactRefresh
-        @vite(['resources/css/app.css', 'resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
+        {{--
+            Deliberately NOT preloading "resources/js/pages/{$page['component']}.tsx" here (removed - it
+            used to be a 3rd @vite() entry). vite.config.ts only registers app.css/app.tsx as real Vite
+            inputs; every page loads via app.tsx's own dynamic import (resolvePageComponent), which this
+            preload hint was never load-bearing for. Any page file ALSO statically imported elsewhere
+            (confirmed live: os/operator-desk.tsx's OperatorDashboard tool) gets merged into that
+            importer's chunk by Rollup instead of getting its own manifest entry - the preload lookup then
+            throws "Unable to locate file in Vite manifest" and 500s the ENTIRE page, not just skips the
+            hint. Same fix already landed in rushing/audiostud's identical scaffold-inherited line.
+        --}}
+        @vite(['resources/css/app.css', 'resources/js/app.tsx'])
         <x-inertia::head>
             <title>{{ config('app.name', 'Laravel') }}</title>
         </x-inertia::head>

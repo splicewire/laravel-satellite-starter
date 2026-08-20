@@ -38,6 +38,17 @@ return [
             'report' => false,
         ],
 
+        // The beam-ux disk-mirror root: a git-tracked dev dir (resources/beam-ux/) that holds the
+        // authored nav.yml + Puck page bodies. `splicewire:beam:ux:seed-nav` / `register-from-disk`
+        // read from this disk's root when `beam.ux.storage.mirror_disk` points at it (below), so
+        // resources/beam-ux/nav.yml is discovered. Env-overridable per deploy.
+        'beam-ux' => [
+            'driver' => 'local',
+            'root' => env('BEAM_UX_STORAGE_ROOT', resource_path('beam-ux')),
+            'throw' => false,
+            'report' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

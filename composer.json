@@ -19,7 +19,7 @@
         },
         {
             "type": "git",
-            "url": "https://github.com/schemastud/laravel-frame.git"
+            "url": "https://github.com/splicewire/laravel-beam-ux-prototype.git"
         },
         {
             "type": "git",
@@ -329,6 +329,10 @@
         "splicewire/laravel-beam": "*",
         "splicewire/laravel-beam-mdx": "*",
         "splicewire/laravel-satellite": "*",
+        "splicewire/laravel-beam-ux": "*",
+        "splicewire/laravel-beam-accounts": "*",
+        "splicewire/laravel-beam-sitemap": "*",
+        "splicewire/laravel-beam-ux-prototype": "*",
         "schemastud/laravel-frame": "*",
         "schemastud/laravel-data-schemas": "*",
         "wikimedia/composer-merge-plugin": "^2.1"
