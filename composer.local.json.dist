@@ -2,420 +2,413 @@
     "repositories": {
         "rushing/laravel-augmentation-loop": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-augmentation-loop",
+            "url": "../../../php/packages/rushing/laravel-augmentation-loop",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-auth-vault": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-auth-vault",
+            "url": "../../../php/packages/rushing/laravel-auth-vault",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-commerce": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-commerce",
+            "url": "../../../php/packages/rushing/laravel-commerce",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-data-filters": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-data-filters",
+            "url": "../../../php/packages/rushing/laravel-data-filters",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-data-nav": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-data-nav",
+            "url": "../../../php/packages/rushing/laravel-data-nav",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-data-oscal": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-data-oscal",
+            "url": "../../../php/packages/rushing/laravel-data-oscal",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-data-schemas-scribe": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-data-schemas-scribe",
+            "url": "../../../php/packages/rushing/laravel-data-schemas-scribe",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-doctor": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-doctor",
+            "url": "../../../php/packages/rushing/laravel-doctor",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-graphine": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-graphine",
+            "url": "../../../php/packages/rushing/laravel-graphine",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-marquee": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-marquee",
+            "url": "../../../php/packages/rushing/laravel-marquee",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-mcp-registry": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-mcp-registry",
+            "url": "../../../php/packages/rushing/laravel-mcp-registry",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-notification-status": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-notification-status",
+            "url": "../../../php/packages/rushing/laravel-notification-status",
             "options": {
                 "symlink": true
             }
         },
         "rushing/php-package-topology": {
             "type": "path",
-            "url": "../../packages/rushing/php-package-topology",
+            "url": "../../../php/packages/rushing/php-package-topology",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-permission-cascade": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-permission-cascade",
+            "url": "../../../php/packages/rushing/laravel-permission-cascade",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-pipeline-registry": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-pipeline-registry",
+            "url": "../../../php/packages/rushing/laravel-pipeline-registry",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-popcorn-bubble": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-popcorn-bubble",
+            "url": "../../../php/packages/rushing/laravel-popcorn-bubble",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-popcorn-wasm": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-popcorn-wasm",
+            "url": "../../../php/packages/rushing/laravel-popcorn-wasm",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-popcorn": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-popcorn",
+            "url": "../../../php/packages/rushing/laravel-popcorn",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-prism-plus": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-prism-plus",
+            "url": "../../../php/packages/rushing/laravel-prism-plus",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-request-logs": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-request-logs",
+            "url": "../../../php/packages/rushing/laravel-request-logs",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-saloon-kernel": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-saloon-kernel",
+            "url": "../../../php/packages/rushing/laravel-saloon-kernel",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-timeline-schema": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-timeline-schema",
+            "url": "../../../php/packages/rushing/laravel-timeline-schema",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-versioning-git": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-versioning-git",
+            "url": "../../../php/packages/rushing/laravel-versioning-git",
             "options": {
                 "symlink": true
             }
         },
         "rushing/laravel-versioning": {
             "type": "path",
-            "url": "../../packages/rushing/laravel-versioning",
+            "url": "../../../php/packages/rushing/laravel-versioning",
             "options": {
                 "symlink": true
             }
         },
         "rushing/prism-cassette": {
             "type": "path",
-            "url": "../../packages/rushing/prism-cassette",
+            "url": "../../../php/packages/rushing/prism-cassette",
             "options": {
                 "symlink": true
             }
         },
         "schemastud/laravel-blockdoc": {
             "type": "path",
-            "url": "../../packages/schemastud/laravel-blockdoc",
+            "url": "../../../php/packages/schemastud/laravel-blockdoc",
             "options": {
                 "symlink": true
             }
         },
         "schemastud/laravel-data-schema-org": {
             "type": "path",
-            "url": "../../packages/schemastud/laravel-data-schema-org",
+            "url": "../../../php/packages/schemastud/laravel-data-schema-org",
             "options": {
                 "symlink": true
             }
         },
         "schemastud/laravel-data-schemas": {
             "type": "path",
-            "url": "../../packages/schemastud/laravel-data-schemas",
+            "url": "../../../php/packages/schemastud/laravel-data-schemas",
             "options": {
                 "symlink": true
             }
         },
         "schemastud/laravel-frame": {
             "type": "path",
-            "url": "../../packages/schemastud/laravel-frame",
+            "url": "../../../php/packages/schemastud/laravel-frame",
             "options": {
                 "symlink": true
             }
         },
         "schemastud/laravel-json-reference": {
             "type": "path",
-            "url": "../../packages/schemastud/laravel-json-reference",
+            "url": "../../../php/packages/schemastud/laravel-json-reference",
             "options": {
                 "symlink": true
             }
         },
         "schemastud/laravel": {
             "type": "path",
-            "url": "../../packages/schemastud/laravel",
+            "url": "../../../php/packages/schemastud/laravel",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-connector": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-connector",
+            "url": "../../../php/packages/splicewire/laravel-connector",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-beam-accounts": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-beam-accounts",
+            "url": "../../../php/packages/splicewire/laravel-beam-accounts",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-beam-analytics": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-beam-analytics",
+            "url": "../../../php/packages/splicewire/laravel-beam-analytics",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-beam-commerce": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-beam-commerce",
+            "url": "../../../php/packages/splicewire/laravel-beam-commerce",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-beam-embed": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-beam-embed",
-            "options": {
-                "symlink": true
-            }
-        },
-        "splicewire/laravel-beam-inference": {
-            "type": "path",
-            "url": "../../packages/splicewire/laravel-beam-inference",
+            "url": "../../../php/packages/splicewire/laravel-beam-embed",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-beam-mdx": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-beam-mdx",
+            "url": "../../../php/packages/splicewire/laravel-beam-mdx",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-beam-sitemap": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-beam-sitemap",
+            "url": "../../../php/packages/splicewire/laravel-beam-sitemap",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-beam-sync": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-beam-sync",
+            "url": "../../../php/packages/splicewire/laravel-beam-sync",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-beam-taxonomy": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-beam-taxonomy",
+            "url": "../../../php/packages/splicewire/laravel-beam-taxonomy",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-beam-tenancy": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-beam-tenancy",
+            "url": "../../../php/packages/splicewire/laravel-beam-tenancy",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-beam-notifications": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-beam-notifications",
+            "url": "../../../php/packages/splicewire/laravel-beam-notifications",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-beam-ux-prototype": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-beam-ux-prototype",
+            "url": "../../../php/packages/splicewire/laravel-beam-ux-prototype",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-beam-versioning": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-beam-versioning",
+            "url": "../../../php/packages/splicewire/laravel-beam-versioning",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-beam-workflows": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-beam-workflows",
+            "url": "../../../php/packages/splicewire/laravel-beam-workflows",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-beam": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-beam",
+            "url": "../../../php/packages/splicewire/laravel-beam",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-circuit-engine": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-circuit-engine",
+            "url": "../../../php/packages/splicewire/laravel-circuit-engine",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-circuit-spine": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-circuit-spine",
+            "url": "../../../php/packages/splicewire/laravel-circuit-spine",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-composition-engine-music": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-composition-engine-music",
+            "url": "../../../php/packages/splicewire/laravel-composition-engine-music",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-composition-engine": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-composition-engine",
+            "url": "../../../php/packages/splicewire/laravel-composition-engine",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-composition-music-spine": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-composition-music-spine",
+            "url": "../../../php/packages/splicewire/laravel-composition-music-spine",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-composition-spine": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-composition-spine",
+            "url": "../../../php/packages/splicewire/laravel-composition-spine",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-grounding-kernel": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-grounding-kernel",
+            "url": "../../../php/packages/splicewire/laravel-grounding-kernel",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-grounding-spine": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-grounding-spine",
+            "url": "../../../php/packages/splicewire/laravel-grounding-spine",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-knowledge-engine": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-knowledge-engine",
+            "url": "../../../php/packages/splicewire/laravel-knowledge-engine",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-knowledge-spine": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-knowledge-spine",
+            "url": "../../../php/packages/splicewire/laravel-knowledge-spine",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/laravel-satellite": {
             "type": "path",
-            "url": "../../packages/splicewire/laravel-satellite",
+            "url": "../../../php/packages/splicewire/laravel-satellite",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/spiders": {
             "type": "path",
-            "url": "../../packages/splicewire/spiders",
+            "url": "../../../php/packages/splicewire/spiders",
             "options": {
                 "symlink": true
             }
         },
         "splicewire/tower": {
             "type": "path",
-            "url": "../../packages/splicewire/tower",
+            "url": "../../../php/packages/splicewire/tower",
             "options": {
                 "symlink": true
             }
