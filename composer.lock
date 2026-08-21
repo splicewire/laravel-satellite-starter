@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1bc8efcf4b274581f9d8c68237b1768f",
+    "content-hash": "d69e000d90604bf6a60d238669a2a5d4",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -188,6 +188,153 @@
                 }
             ],
             "time": "2024-02-09T16:56:22+00:00"
+        },
+        {
+            "name": "cocur/slugify",
+            "version": "v4.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cocur/slugify.git",
+                "reference": "a860dab2b9f5f37775fc6414d4f049434848165f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cocur/slugify/zipball/a860dab2b9f5f37775fc6414d4f049434848165f",
+                "reference": "a860dab2b9f5f37775fc6414d4f049434848165f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": "~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
+            },
+            "conflict": {
+                "symfony/config": "<3.4 || >=4,<4.3",
+                "symfony/dependency-injection": "<3.4 || >=4,<4.3",
+                "symfony/http-kernel": "<3.4 || >=4,<4.3",
+                "twig/twig": "<2.12.1"
+            },
+            "require-dev": {
+                "laravel/framework": "^5.0|^6.0|^7.0|^8.0",
+                "latte/latte": "~2.2",
+                "league/container": "^2.2.0",
+                "mikey179/vfsstream": "~1.6.8",
+                "mockery/mockery": "^1.3",
+                "nette/di": "~2.4",
+                "pimple/pimple": "~1.1",
+                "plumphp/plum": "~0.1",
+                "symfony/config": "^3.4 || ^4.3 || ^5.0 || ^6.0",
+                "symfony/dependency-injection": "^3.4 || ^4.3 || ^5.0 || ^6.0",
+                "symfony/http-kernel": "^3.4 || ^4.3 || ^5.0 || ^6.0",
+                "symfony/phpunit-bridge": "^5.4 || ^6.0",
+                "twig/twig": "^2.12.1 || ~3.0",
+                "zendframework/zend-modulemanager": "~2.2",
+                "zendframework/zend-servicemanager": "~2.2",
+                "zendframework/zend-view": "~2.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cocur\\Slugify\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Florian Eckerstorfer",
+                    "email": "florian@eckerstorfer.co",
+                    "homepage": "https://florian.ec"
+                },
+                {
+                    "name": "Ivo Bathke",
+                    "email": "ivo.bathke@gmail.com"
+                }
+            ],
+            "description": "Converts a string into a slug.",
+            "keywords": [
+                "slug",
+                "slugify"
+            ],
+            "support": {
+                "issues": "https://github.com/cocur/slugify/issues",
+                "source": "https://github.com/cocur/slugify/tree/v4.7.1"
+            },
+            "time": "2025-11-27T18:57:36+00:00"
+        },
+        {
+            "name": "cviebrock/eloquent-sluggable",
+            "version": "13.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cviebrock/eloquent-sluggable.git",
+                "reference": "a0e2e342461ac04f5c41eb1c52f9bc77eafa6a03"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cviebrock/eloquent-sluggable/zipball/a0e2e342461ac04f5c41eb1c52f9bc77eafa6a03",
+                "reference": "a0e2e342461ac04f5c41eb1c52f9bc77eafa6a03",
+                "shasum": ""
+            },
+            "require": {
+                "cocur/slugify": "^4.3",
+                "illuminate/config": "^13.0",
+                "illuminate/database": "^13.0",
+                "illuminate/support": "^13.0",
+                "php": "^8.3"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "~3.94.2",
+                "larastan/larastan": "^3.0",
+                "mockery/mockery": "^1.4.4",
+                "orchestra/testbench": "^11.0",
+                "pestphp/pest": "^3.7",
+                "phpstan/phpstan": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Cviebrock\\EloquentSluggable\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Cviebrock\\EloquentSluggable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Colin Viebrock",
+                    "email": "colin@viebrock.ca"
+                }
+            ],
+            "description": "Easy creation of slugs for your Eloquent models in Laravel",
+            "homepage": "https://github.com/cviebrock/eloquent-sluggable",
+            "keywords": [
+                "eloquent",
+                "eloquent-sluggable",
+                "laravel",
+                "slug",
+                "sluggable"
+            ],
+            "support": {
+                "issues": "https://github.com/cviebrock/eloquent-sluggable/issues",
+                "source": "https://github.com/cviebrock/eloquent-sluggable/tree/13.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/cviebrock",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-07-20T13:44:42+00:00"
         },
         {
             "name": "dasprid/enum",
@@ -659,6 +806,259 @@
                 }
             ],
             "time": "2025-03-06T22:45:56+00:00"
+        },
+        {
+            "name": "facade/ignition-contracts",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/facade/ignition-contracts.git",
+                "reference": "3c921a1cdba35b68a7f0ccffc6dffc1995b18267"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/facade/ignition-contracts/zipball/3c921a1cdba35b68a7f0ccffc6dffc1995b18267",
+                "reference": "3c921a1cdba35b68a7f0ccffc6dffc1995b18267",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^v2.15.8",
+                "phpunit/phpunit": "^9.3.11",
+                "vimeo/psalm": "^3.17.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Facade\\IgnitionContracts\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://flareapp.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Solution contracts for Ignition",
+            "homepage": "https://github.com/facade/ignition-contracts",
+            "keywords": [
+                "contracts",
+                "flare",
+                "ignition"
+            ],
+            "support": {
+                "issues": "https://github.com/facade/ignition-contracts/issues",
+                "source": "https://github.com/facade/ignition-contracts/tree/1.0.2"
+            },
+            "time": "2020-10-16T08:27:54+00:00"
+        },
+        {
+            "name": "fakerphp/faker",
+            "version": "v1.24.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FakerPHP/Faker.git",
+                "reference": "e0ee18eb1e6dc3cda3ce9fd97e5a0689a88a64b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/e0ee18eb1e6dc3cda3ce9fd97e5a0689a88a64b5",
+                "reference": "e0ee18eb1e6dc3cda3ce9fd97e5a0689a88a64b5",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0",
+                "psr/container": "^1.0 || ^2.0",
+                "symfony/deprecation-contracts": "^2.2 || ^3.0"
+            },
+            "conflict": {
+                "fzaninotto/faker": "*"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4.1",
+                "doctrine/persistence": "^1.3 || ^2.0",
+                "ext-intl": "*",
+                "phpunit/phpunit": "^9.5.26",
+                "symfony/phpunit-bridge": "^5.4.16"
+            },
+            "suggest": {
+                "doctrine/orm": "Required to use Faker\\ORM\\Doctrine",
+                "ext-curl": "Required by Faker\\Provider\\Image to download images.",
+                "ext-dom": "Required by Faker\\Provider\\HtmlLorem for generating random HTML.",
+                "ext-iconv": "Required by Faker\\Provider\\ru_RU\\Text::realText() for generating real Russian text.",
+                "ext-mbstring": "Required for multibyte Unicode string functionality."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Faker\\": "src/Faker/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Zaninotto"
+                }
+            ],
+            "description": "Faker is a PHP library that generates fake data for you.",
+            "keywords": [
+                "data",
+                "faker",
+                "fixtures"
+            ],
+            "support": {
+                "issues": "https://github.com/FakerPHP/Faker/issues",
+                "source": "https://github.com/FakerPHP/Faker/tree/v1.24.1"
+            },
+            "time": "2024-11-21T13:46:39+00:00"
+        },
+        {
+            "name": "filp/whoops",
+            "version": "2.18.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/filp/whoops.git",
+                "reference": "d2102955e48b9fd9ab24280a7ad12ed552752c4d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/d2102955e48b9fd9ab24280a7ad12ed552752c4d",
+                "reference": "d2102955e48b9fd9ab24280a7ad12ed552752c4d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1 || ^8.0",
+                "psr/log": "^1.0.1 || ^2.0 || ^3.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^7.5.20 || ^8.5.8 || ^9.3.3",
+                "symfony/var-dumper": "^4.0 || ^5.0"
+            },
+            "suggest": {
+                "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
+                "whoops/soap": "Formats errors as SOAP responses"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Whoops\\": "src/Whoops/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Filipe Dobreira",
+                    "homepage": "https://github.com/filp",
+                    "role": "Developer"
+                }
+            ],
+            "description": "php error handling for cool kids",
+            "homepage": "https://filp.github.io/whoops/",
+            "keywords": [
+                "error",
+                "exception",
+                "handling",
+                "library",
+                "throwable",
+                "whoops"
+            ],
+            "support": {
+                "issues": "https://github.com/filp/whoops/issues",
+                "source": "https://github.com/filp/whoops/tree/2.18.4"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/denis-sokolov",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-08-08T12:00:00+00:00"
+        },
+        {
+            "name": "firebase/php-jwt",
+            "version": "v7.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/googleapis/php-jwt.git",
+                "reference": "b374a5d1a4f1f67fadc2165cdb284645945e2fc0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/googleapis/php-jwt/zipball/b374a5d1a4f1f67fadc2165cdb284645945e2fc0",
+                "reference": "b374a5d1a4f1f67fadc2165cdb284645945e2fc0",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "guzzlehttp/guzzle": "^7.4",
+                "phpfastcache/phpfastcache": "^9.2",
+                "phpseclib/phpseclib": "~3.0",
+                "phpspec/prophecy-phpunit": "^2.0",
+                "phpunit/phpunit": "^9.5",
+                "psr/cache": "^2.0||^3.0",
+                "psr/http-client": "^1.0",
+                "psr/http-factory": "^1.0"
+            },
+            "suggest": {
+                "ext-sodium": "Support EdDSA (Ed25519) signatures",
+                "paragonie/sodium_compat": "Support EdDSA (Ed25519) signatures when libsodium is not present",
+                "phpseclib/phpseclib": "Support PS256 (RSASSA-PSS) signatures"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Firebase\\JWT\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Neuman Vong",
+                    "email": "neuman+pear@twilio.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Anant Narayanan",
+                    "email": "anant@php.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
+            "homepage": "https://github.com/googleapis/php-jwt",
+            "keywords": [
+                "jwt",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/googleapis/php-jwt/issues",
+                "source": "https://github.com/googleapis/php-jwt/tree/v7.1.0"
+            },
+            "time": "2026-06-11T17:54:14+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -1177,26 +1577,26 @@
         },
         {
             "name": "guzzlehttp/uri-template",
-            "version": "v1.0.10",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/uri-template.git",
-                "reference": "f6c24c21f42b990e9a58912b332d0874df6ba839"
+                "reference": "516c3bf2af176c532d5b59b3430292f7e9ecccb1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/uri-template/zipball/f6c24c21f42b990e9a58912b332d0874df6ba839",
-                "reference": "f6c24c21f42b990e9a58912b332d0874df6ba839",
+                "url": "https://api.github.com/repos/guzzle/uri-template/zipball/516c3bf2af176c532d5b59b3430292f7e9ecccb1",
+                "reference": "516c3bf2af176c532d5b59b3430292f7e9ecccb1",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2.5 || ^8.0",
+                "php": "^7.4 || ^8.0",
                 "symfony/polyfill-php80": "^1.25"
             },
             "require-dev": {
                 "bamarni/composer-bin-plugin": "^1.8.2",
-                "phpunit/phpunit": "^8.5.52 || ^9.6.34",
-                "uri-template/tests": "1.0.0"
+                "phpunit/phpunit": "^9.6.34",
+                "uri-template/tests": "1.0.2"
             },
             "type": "library",
             "extra": {
@@ -1243,7 +1643,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/uri-template/issues",
-                "source": "https://github.com/guzzle/uri-template/tree/v1.0.10"
+                "source": "https://github.com/guzzle/uri-template/tree/v2.0.0"
             },
             "funding": [
                 {
@@ -1259,7 +1659,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-17T13:53:03+00:00"
+            "time": "2026-07-20T13:40:43+00:00"
         },
         {
             "name": "inertiajs/inertia-laravel",
@@ -1378,6 +1778,98 @@
             "time": "2026-06-12T13:19:10+00:00"
         },
         {
+            "name": "knuckleswtf/scribe",
+            "version": "5.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/knuckleswtf/scribe.git",
+                "reference": "71c8c4acac495401ab8af1a68a46f09d45aff426"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/knuckleswtf/scribe/zipball/71c8c4acac495401ab8af1a68a46f09d45aff426",
+                "reference": "71c8c4acac495401ab8af1a68a46f09d45aff426",
+                "shasum": ""
+            },
+            "require": {
+                "ext-fileinfo": "*",
+                "ext-pdo": "*",
+                "fakerphp/faker": "^1.23.1",
+                "laravel/framework": "^9.21 || ^10.0 || ^11.0 || ^12.0 || ^13.0",
+                "league/flysystem": "^3.0",
+                "mpociot/reflection-docblock": "^1.0.1",
+                "nikic/php-parser": "^5.0",
+                "nunomaduro/collision": "^6.0 || ^7.0 || ^8.0",
+                "parsedown/parsedown": "^1.7",
+                "php": ">=8.1",
+                "ramsey/uuid": "^4.2.2",
+                "shalvah/upgrader": "^0.6.0",
+                "symfony/var-exporter": "^6.0 || ^7.0 || ^8.0",
+                "symfony/yaml": "^6.0 || ^7.0 || ^8.0"
+            },
+            "replace": {
+                "mpociot/laravel-apidoc-generator": "*"
+            },
+            "require-dev": {
+                "dms/phpunit-arraysubset-asserts": "^0.5.0",
+                "laravel/legacy-factories": "^1.3.0",
+                "laravel/pint": "^1.20",
+                "league/fractal": "^0.20",
+                "nikic/fast-route": "^1.3",
+                "orchestra/testbench": "^7.0 || ^8.0 || ^9.10 || ^10.0 || ^11.0",
+                "pestphp/pest": "^1.21 || ^2.0 || ^3.0 || ^4.0",
+                "phpstan/phpstan": "^2.1.5",
+                "phpunit/phpunit": "^9.0 || ^10.0 || ^11.0 || ^12.0",
+                "spatie/ray": "^1.41",
+                "symfony/css-selector": "^6.0 || ^7.0 || ^8.0",
+                "symfony/dom-crawler": "^6.0 || ^7.0 || ^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Knuckles\\Scribe\\ScribeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Config/helpers.php"
+                ],
+                "psr-4": {
+                    "Knuckles\\Camel\\": "camel/",
+                    "Knuckles\\Scribe\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Shalvah"
+                }
+            ],
+            "description": "Generate API documentation for humans from your Laravel codebase.✍",
+            "homepage": "https://github.com/knuckleswtf/scribe",
+            "keywords": [
+                "api",
+                "documentation",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/knuckleswtf/scribe/issues",
+                "source": "https://github.com/knuckleswtf/scribe/tree/5.11.0"
+            },
+            "funding": [
+                {
+                    "url": "https://patreon.com/shalvah",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2026-06-08T15:39:10+00:00"
+        },
+        {
             "name": "laravel/chisel",
             "version": "v0.1.1",
             "source": {
@@ -1431,16 +1923,16 @@
         },
         {
             "name": "laravel/fortify",
-            "version": "v1.37.3",
+            "version": "v1.38.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/fortify.git",
-                "reference": "66b9503330e7c18b3edebb9c3b4087037826573b"
+                "reference": "c04ca2998631e1816f2e94a78b668f3a59b3962d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/fortify/zipball/66b9503330e7c18b3edebb9c3b4087037826573b",
-                "reference": "66b9503330e7c18b3edebb9c3b4087037826573b",
+                "url": "https://api.github.com/repos/laravel/fortify/zipball/c04ca2998631e1816f2e94a78b668f3a59b3962d",
+                "reference": "c04ca2998631e1816f2e94a78b668f3a59b3962d",
                 "shasum": ""
             },
             "require": {
@@ -1454,7 +1946,7 @@
             },
             "require-dev": {
                 "orchestra/testbench": "^9.15|^10.8|^11.0",
-                "phpstan/phpstan": "^1.10"
+                "phpstan/phpstan": "^2.2.6"
             },
             "type": "library",
             "extra": {
@@ -1491,24 +1983,24 @@
                 "issues": "https://github.com/laravel/fortify/issues",
                 "source": "https://github.com/laravel/fortify"
             },
-            "time": "2026-06-29T16:22:02+00:00"
+            "time": "2026-08-07T14:07:45+00:00"
         },
         {
             "name": "laravel/framework",
-            "version": "v13.24.0",
+            "version": "v13.26.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "6d481710375d2aa67656922ef760cdd2b18bcfe0"
+                "reference": "e4a1bc52ef551d52e60244bb004256d6861da7ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/6d481710375d2aa67656922ef760cdd2b18bcfe0",
-                "reference": "6d481710375d2aa67656922ef760cdd2b18bcfe0",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/e4a1bc52ef551d52e60244bb004256d6861da7ab",
+                "reference": "e4a1bc52ef551d52e60244bb004256d6861da7ab",
                 "shasum": ""
             },
             "require": {
-                "brick/math": "^0.14.2 || ^0.15 || ^0.16 || ^0.17 || ^0.18",
+                "brick/math": "^0.14.2 || ^0.15 || ^0.16 || ^0.17 || ^0.18 || ^0.19",
                 "composer-runtime-api": "^2.2",
                 "doctrine/inflector": "^2.0.5",
                 "dragonmantank/cron-expression": "^3.4",
@@ -1521,9 +2013,10 @@
                 "ext-session": "*",
                 "ext-tokenizer": "*",
                 "fruitcake/php-cors": "^1.3",
-                "guzzlehttp/guzzle": "^7.8.2",
-                "guzzlehttp/promises": "^2.0.3",
-                "guzzlehttp/uri-template": "^1.0",
+                "guzzlehttp/guzzle": "^7.8.2 || ^8.0",
+                "guzzlehttp/promises": "^2.0.3 || ^3.0",
+                "guzzlehttp/psr7": "^2.9 || ^3.0",
+                "guzzlehttp/uri-template": "^1.0 || ^2.0",
                 "laravel/prompts": "^0.3.11",
                 "laravel/serializable-closure": "^2.0.10",
                 "league/commonmark": "^2.8.1",
@@ -1535,6 +2028,7 @@
                 "nunomaduro/termwind": "^2.0",
                 "php": "^8.3",
                 "psr/container": "^1.1.1 || ^2.0.1",
+                "psr/http-message": "^1.0 || ^2.0",
                 "psr/log": "^1.0 || ^2.0 || ^3.0",
                 "psr/simple-cache": "^1.0 || ^2.0 || ^3.0",
                 "ramsey/uuid": "^4.7",
@@ -1609,7 +2103,6 @@
                 "aws/aws-sdk-php": "^3.322.9",
                 "ext-gmp": "*",
                 "fakerphp/faker": "^1.24",
-                "guzzlehttp/psr7": "^2.9",
                 "intervention/image": "^4.0",
                 "laravel/pint": "^1.18",
                 "league/flysystem-aws-s3-v3": "^3.25.1",
@@ -1659,7 +2152,6 @@
                 "php-http/discovery": "Required to use PSR-7 bridging features (^1.15).",
                 "phpunit/phpunit": "Required to use assertions and run tests (^11.5.50 || ^12.5.8 || ^13.0.3).",
                 "predis/predis": "Required to use the predis connector (^2.3 || ^3.0).",
-                "psr/http-message": "Required to allow Storage::put to accept a StreamInterface (^1.0).",
                 "pusher/pusher-php-server": "Required to use the Pusher broadcast driver (^6.0 || ^7.0).",
                 "resend/resend-php": "Required to enable support for the Resend mail transport (^0.10.0 || ^1.0).",
                 "spatie/fork": "Required to use the 'fork' concurrency driver (^1.2).",
@@ -1718,7 +2210,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2026-08-04T15:54:59+00:00"
+            "time": "2026-08-18T20:31:28+00:00"
         },
         {
             "name": "laravel/passkeys",
@@ -1790,16 +2282,16 @@
         },
         {
             "name": "laravel/prompts",
-            "version": "v0.3.22",
+            "version": "v0.3.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/prompts.git",
-                "reference": "02b89b39e8972a998db4d5d4ad4719239dd4aee4"
+                "reference": "b7b4c35e5bc47450f6b6238c6cc9c47ba19b2221"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/prompts/zipball/02b89b39e8972a998db4d5d4ad4719239dd4aee4",
-                "reference": "02b89b39e8972a998db4d5d4ad4719239dd4aee4",
+                "url": "https://api.github.com/repos/laravel/prompts/zipball/b7b4c35e5bc47450f6b6238c6cc9c47ba19b2221",
+                "reference": "b7b4c35e5bc47450f6b6238c6cc9c47ba19b2221",
                 "shasum": ""
             },
             "require": {
@@ -1843,9 +2335,152 @@
             "description": "Add beautiful and user-friendly forms to your command-line applications.",
             "support": {
                 "issues": "https://github.com/laravel/prompts/issues",
-                "source": "https://github.com/laravel/prompts/tree/v0.3.22"
+                "source": "https://github.com/laravel/prompts/tree/v0.3.23"
             },
-            "time": "2026-08-04T14:50:50+00:00"
+            "time": "2026-08-11T18:58:24+00:00"
+        },
+        {
+            "name": "laravel/sanctum",
+            "version": "v4.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/sanctum.git",
+                "reference": "fee27a573d1a013af3721d86153a65e0b11927e6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/sanctum/zipball/fee27a573d1a013af3721d86153a65e0b11927e6",
+                "reference": "fee27a573d1a013af3721d86153a65e0b11927e6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/console": "^11.0|^12.0|^13.0",
+                "illuminate/contracts": "^11.0|^12.0|^13.0",
+                "illuminate/database": "^11.0|^12.0|^13.0",
+                "illuminate/support": "^11.0|^12.0|^13.0",
+                "php": "^8.2",
+                "symfony/console": "^7.0|^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.6",
+                "orchestra/testbench": "^9.15|^10.8|^11.0",
+                "phpstan/phpstan": "^1.10"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Sanctum\\SanctumServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Sanctum\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Laravel Sanctum provides a featherweight authentication system for SPAs and simple APIs.",
+            "keywords": [
+                "auth",
+                "laravel",
+                "sanctum"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/sanctum/issues",
+                "source": "https://github.com/laravel/sanctum"
+            },
+            "time": "2026-06-23T18:26:55+00:00"
+        },
+        {
+            "name": "laravel/scout",
+            "version": "v11.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/scout.git",
+                "reference": "14bb75714813f6437adb5c07510be624cd4aef5f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/scout/zipball/14bb75714813f6437adb5c07510be624cd4aef5f",
+                "reference": "14bb75714813f6437adb5c07510be624cd4aef5f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/bus": "^9.0|^10.0|^11.0|^12.0|^13.0",
+                "illuminate/contracts": "^9.0|^10.0|^11.0|^12.0|^13.0",
+                "illuminate/database": "^9.0|^10.0|^11.0|^12.0|^13.0",
+                "illuminate/http": "^9.0|^10.0|^11.0|^12.0|^13.0",
+                "illuminate/pagination": "^9.0|^10.0|^11.0|^12.0|^13.0",
+                "illuminate/queue": "^9.0|^10.0|^11.0|^12.0|^13.0",
+                "illuminate/support": "^9.0|^10.0|^11.0|^12.0|^13.0",
+                "php": "^8.0",
+                "symfony/console": "^6.0|^7.0|^8.0"
+            },
+            "conflict": {
+                "algolia/algoliasearch-client-php": "<3.2.0|>=5.0.0"
+            },
+            "require-dev": {
+                "algolia/algoliasearch-client-php": "^3.2|^4.0",
+                "meilisearch/meilisearch-php": "^1.0",
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench": "^7.31|^8.36|^9.15|^10.8|^11.0",
+                "php-http/guzzle7-adapter": "^1.0",
+                "phpstan/phpstan": "^1.10",
+                "typesense/typesense-php": "^4.9.3"
+            },
+            "suggest": {
+                "algolia/algoliasearch-client-php": "Required to use the Algolia engine (^3.2).",
+                "meilisearch/meilisearch-php": "Required to use the Meilisearch engine (^1.0).",
+                "typesense/typesense-php": "Required to use the Typesense engine (^4.9)."
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Scout\\ScoutServiceProvider"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-master": "11.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Scout\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Laravel Scout provides a driver based solution to searching your Eloquent models.",
+            "keywords": [
+                "algolia",
+                "laravel",
+                "search"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/scout/issues",
+                "source": "https://github.com/laravel/scout"
+            },
+            "time": "2026-08-04T19:29:36+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -2045,16 +2680,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "2.9.0",
+            "version": "2.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "5703d83ba3da3b2e356a5fedc848ed6d8ffb6529"
+                "reference": "d2d1aa8b35e072966c89bc0c66cf926e56767dc4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/5703d83ba3da3b2e356a5fedc848ed6d8ffb6529",
-                "reference": "5703d83ba3da3b2e356a5fedc848ed6d8ffb6529",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/d2d1aa8b35e072966c89bc0c66cf926e56767dc4",
+                "reference": "d2d1aa8b35e072966c89bc0c66cf926e56767dc4",
                 "shasum": ""
             },
             "require": {
@@ -2091,7 +2726,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "2.10-dev"
+                    "dev-main": "2.11-dev"
                 }
             },
             "autoload": {
@@ -2148,7 +2783,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-03T13:42:31+00:00"
+            "time": "2026-08-11T16:06:25+00:00"
         },
         {
             "name": "league/config",
@@ -2603,6 +3238,82 @@
             "time": "2026-03-08T20:05:35+00:00"
         },
         {
+            "name": "mehdi-fathi/eloquent-filter",
+            "version": "4.5.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mehdi-fathi/eloquent-filter.git",
+                "reference": "ea8c280333095571187cdaf0f877c5aa39a4b709"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mehdi-fathi/eloquent-filter/zipball/ea8c280333095571187cdaf0f877c5aa39a4b709",
+                "reference": "ea8c280333095571187cdaf0f877c5aa39a4b709",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/container": "~9.0|~10.0|~11.0|~12.0|^13.0",
+                "illuminate/database": "~9.0|~10.0|~11.0|~12.0|^13.0",
+                "illuminate/pagination": "~9.0|~10.0|~11.0|~12.0|^13.0",
+                "illuminate/support": "~9.0|~10.0|~11.0|~12.0|^13.0",
+                "php": "^8.0|^8.1|^8.2|^8.3|^8.4|^8.5"
+            },
+            "require-dev": {
+                "mockery/mockery": "1.4.2|1.5.1|^1.6",
+                "orchestra/testbench": "^6.0|^6.6.0|^7.0.0|^8.0.0|v9.0.0|v10.0.0|^11.0",
+                "phpstan/phpstan": "^1.8|^2.1",
+                "phpunit/phpunit": "8.5|9.3|^9.5|10.5.5|^11.5.3|^12.5.12"
+            },
+            "type": "lib",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "EloquentFilter": "eloquentFilter\\Facade\\EloquentFilter"
+                    },
+                    "providers": [
+                        "eloquentFilter\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "eloquentFilter\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mehdi Fathi",
+                    "email": "mehdifathi.developer@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Eloquent Filter adds custom filters automatically to your Eloquent Models in Laravel.It's easy to use and fully dynamic, just with sending the Query Strings to it.",
+            "homepage": "https://github.com/mehdi-fathi/eloquent-filter",
+            "keywords": [
+                "dynamic-filters",
+                "eloquent",
+                "eloquent filter",
+                "filter",
+                "laravel",
+                "laravel filter",
+                "laravel filter multiple parameters",
+                "laravel query filter",
+                "laravel tools",
+                "query",
+                "query-filter",
+                "search"
+            ],
+            "support": {
+                "issues": "https://github.com/mehdi-fathi/eloquent-filter/issues",
+                "source": "https://github.com/mehdi-fathi/eloquent-filter/tree/4.5.6"
+            },
+            "time": "2026-02-27T12:55:03+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "3.10.0",
             "source": {
@@ -2706,17 +3417,70 @@
             "time": "2026-01-02T08:56:05+00:00"
         },
         {
-            "name": "nesbot/carbon",
-            "version": "3.13.1",
+            "name": "mpociot/reflection-docblock",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/CarbonPHP/carbon.git",
-                "reference": "2937ad3d1d2c506fd2bc97d571438a95641f44e2"
+                "url": "https://github.com/mpociot/reflection-docblock.git",
+                "reference": "c8b2e2b1f5cebbb06e2b5ccbf2958f2198867587"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/2937ad3d1d2c506fd2bc97d571438a95641f44e2",
-                "reference": "2937ad3d1d2c506fd2bc97d571438a95641f44e2",
+                "url": "https://api.github.com/repos/mpociot/reflection-docblock/zipball/c8b2e2b1f5cebbb06e2b5ccbf2958f2198867587",
+                "reference": "c8b2e2b1f5cebbb06e2b5ccbf2958f2198867587",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "dflydev/markdown": "~1.0",
+                "erusev/parsedown": "~1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Mpociot": [
+                        "src/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mike van Riel",
+                    "email": "mike.vanriel@naenius.com"
+                }
+            ],
+            "support": {
+                "issues": "https://github.com/mpociot/reflection-docblock/issues",
+                "source": "https://github.com/mpociot/reflection-docblock/tree/master"
+            },
+            "time": "2016-06-20T20:53:12+00:00"
+        },
+        {
+            "name": "nesbot/carbon",
+            "version": "3.13.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CarbonPHP/carbon.git",
+                "reference": "a1c54919f5fff9800cd03c32bd01defd5a4061cb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/a1c54919f5fff9800cd03c32bd01defd5a4061cb",
+                "reference": "a1c54919f5fff9800cd03c32bd01defd5a4061cb",
                 "shasum": ""
             },
             "require": {
@@ -2808,7 +3572,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-09T18:23:49+00:00"
+            "time": "2026-08-08T11:40:35+00:00"
         },
         {
             "name": "nette/php-generator",
@@ -2886,16 +3650,16 @@
         },
         {
             "name": "nette/schema",
-            "version": "v1.3.5",
+            "version": "v1.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/schema.git",
-                "reference": "f0ab1a3cda782dbc5da270d28545236aa80c4002"
+                "reference": "c54350438cd6914616f790a49cb424605f421562"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/schema/zipball/f0ab1a3cda782dbc5da270d28545236aa80c4002",
-                "reference": "f0ab1a3cda782dbc5da270d28545236aa80c4002",
+                "url": "https://api.github.com/repos/nette/schema/zipball/c54350438cd6914616f790a49cb424605f421562",
+                "reference": "c54350438cd6914616f790a49cb424605f421562",
                 "shasum": ""
             },
             "require": {
@@ -2947,9 +3711,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/schema/issues",
-                "source": "https://github.com/nette/schema/tree/v1.3.5"
+                "source": "https://github.com/nette/schema/tree/v1.3.6"
             },
-            "time": "2026-02-23T03:47:12+00:00"
+            "time": "2026-08-16T21:58:41+00:00"
         },
         {
             "name": "nette/utils",
@@ -3098,6 +3862,102 @@
                 "source": "https://github.com/nikic/PHP-Parser/tree/v5.8.0"
             },
             "time": "2026-07-04T14:30:18+00:00"
+        },
+        {
+            "name": "nunomaduro/collision",
+            "version": "v8.9.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nunomaduro/collision.git",
+                "reference": "fb53eacd509a1d303858e2d20cfebf2d630254ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/fb53eacd509a1d303858e2d20cfebf2d630254ec",
+                "reference": "fb53eacd509a1d303858e2d20cfebf2d630254ec",
+                "shasum": ""
+            },
+            "require": {
+                "filp/whoops": "^2.18.4",
+                "nunomaduro/termwind": "^2.4.0",
+                "php": "^8.2.0",
+                "symfony/console": "^7.4.14 || ^8.1.1"
+            },
+            "conflict": {
+                "laravel/framework": "<11.48.0 || >=14.0.0",
+                "phpunit/phpunit": "<11.5.50 || >=14.0.0"
+            },
+            "require-dev": {
+                "brianium/paratest": "^7.8.5",
+                "larastan/larastan": "^3.10.0",
+                "laravel/framework": "^11.48.0 || ^12.56.0 || ^13.20.0",
+                "laravel/pint": "^1.29.3",
+                "orchestra/testbench-core": "^9.12.0 || ^10.12.1 || ^11.3.5",
+                "pestphp/pest": "^3.8.5 || ^4.7.5 || ^5.0.0",
+                "sebastian/environment": "^7.2.1 || ^8.1.2 || ^9.3.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-8.x": "8.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "./src/Adapters/Phpunit/Autoload.php"
+                ],
+                "psr-4": {
+                    "NunoMaduro\\Collision\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nuno Maduro",
+                    "email": "enunomaduro@gmail.com"
+                }
+            ],
+            "description": "Cli error handling for console/command-line PHP applications.",
+            "keywords": [
+                "artisan",
+                "cli",
+                "command-line",
+                "console",
+                "dev",
+                "error",
+                "handling",
+                "laravel",
+                "laravel-zero",
+                "php",
+                "symfony"
+            ],
+            "support": {
+                "issues": "https://github.com/nunomaduro/collision/issues",
+                "source": "https://github.com/nunomaduro/collision"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/paypalme/enunomaduro",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/nunomaduro",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/nunomaduro",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2026-07-15T19:09:14+00:00"
         },
         {
             "name": "nunomaduro/termwind",
@@ -3446,6 +4306,56 @@
             "time": "2025-09-24T15:06:41+00:00"
         },
         {
+            "name": "parsedown/parsedown",
+            "version": "1.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/parsedown/parsedown.git",
+                "reference": "96baaad00f71ba04d76e45b4620f54d3beabd6f7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/parsedown/parsedown/zipball/96baaad00f71ba04d76e45b4620f54d3beabd6f7",
+                "reference": "96baaad00f71ba04d76e45b4620f54d3beabd6f7",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.5|^8.5|^9.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Parsedown": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emanuil Rusev",
+                    "email": "hello@erusev.com",
+                    "homepage": "http://erusev.com"
+                }
+            ],
+            "description": "Parser for Markdown.",
+            "homepage": "http://parsedown.org",
+            "keywords": [
+                "markdown",
+                "parser"
+            ],
+            "support": {
+                "issues": "https://github.com/parsedown/parsedown/issues",
+                "source": "https://github.com/parsedown/parsedown/tree/1.8.0"
+            },
+            "time": "2026-02-16T11:41:01+00:00"
+        },
+        {
             "name": "phpdocumentor/reflection-common",
             "version": "2.2.0",
             "source": {
@@ -3745,16 +4655,16 @@
         },
         {
             "name": "pragmarx/google2fa",
-            "version": "v9.0.0",
+            "version": "v9.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/antonioribeiro/google2fa.git",
-                "reference": "e6bc62dd6ae83acc475f57912e27466019a1f2cf"
+                "reference": "f00bc788c555adfb6765c437ff3538e59cd88af1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/antonioribeiro/google2fa/zipball/e6bc62dd6ae83acc475f57912e27466019a1f2cf",
-                "reference": "e6bc62dd6ae83acc475f57912e27466019a1f2cf",
+                "url": "https://api.github.com/repos/antonioribeiro/google2fa/zipball/f00bc788c555adfb6765c437ff3538e59cd88af1",
+                "reference": "f00bc788c555adfb6765c437ff3538e59cd88af1",
                 "shasum": ""
             },
             "require": {
@@ -3762,8 +4672,11 @@
                 "php": "^7.1|^8.0"
             },
             "require-dev": {
-                "phpstan/phpstan": "^1.9",
-                "phpunit/phpunit": "^7.5.15|^8.5|^9.0"
+                "phpstan/phpstan": "^1.0|^2.0",
+                "phpstan/phpstan-phpunit": "^1.0|^2.0",
+                "phpunit/phpunit": "~9|~10|~11|~12|~13",
+                "psalm/plugin-phpunit": "^0.19|^0.20",
+                "vimeo/psalm": "^5.26|^6.13"
             },
             "type": "library",
             "autoload": {
@@ -3786,14 +4699,23 @@
             "keywords": [
                 "2fa",
                 "Authentication",
+                "MFA",
                 "Two Factor Authentication",
-                "google2fa"
+                "google-authenticator",
+                "google2fa",
+                "hotp",
+                "otp",
+                "rfc4226",
+                "rfc6238",
+                "totp"
             ],
             "support": {
+                "docs": "https://github.com/antonioribeiro/google2fa#readme",
                 "issues": "https://github.com/antonioribeiro/google2fa/issues",
-                "source": "https://github.com/antonioribeiro/google2fa/tree/v9.0.0"
+                "security": "https://github.com/antonioribeiro/google2fa/security/policy",
+                "source": "https://github.com/antonioribeiro/google2fa"
             },
-            "time": "2025-09-19T22:51:08+00:00"
+            "time": "2026-08-15T13:22:01+00:00"
         },
         {
             "name": "psr/clock",
@@ -4559,7 +5481,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/codegen",
-                "reference": "de6eb16c25585481bf7d485c46aac5e0497b677a"
+                "reference": "092fe735753ff2245bf7c291bb87613885fce040"
             },
             "require": {
                 "php": "^8.3",
@@ -4628,7 +5550,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/laravel-data-filters",
-                "reference": "8f2d51f34c9a812a24a50f4a140d8614d41c78b9"
+                "reference": "63afea490d72d0f6dbe7ac89ff658cdde67ae87d"
             },
             "require": {
                 "illuminate/contracts": "^12.0|^13.0",
@@ -4636,6 +5558,7 @@
                 "illuminate/support": "^12.0|^13.0",
                 "illuminate/validation": "^12.0|^13.0",
                 "php": "^8.3",
+                "rushing/php-popcorn": "dev-main",
                 "schemastud/laravel-data-schemas": "dev-main",
                 "spatie/laravel-data": "^4.0",
                 "spatie/laravel-package-tools": "^1.16",
@@ -4684,12 +5607,138 @@
             }
         },
         {
+            "name": "rushing/laravel-data-nav",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../../../php/packages/rushing/laravel-data-nav",
+                "reference": "9e0b39c3c5dc88a7460e7ec38fe83afb64995e1c"
+            },
+            "require": {
+                "illuminate/contracts": "^12.0|^13.0",
+                "illuminate/http": "^12.0|^13.0",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3",
+                "rushing/laravel-popcorn": "dev-main",
+                "schemastud/laravel-data-schemas": "dev-main",
+                "spatie/laravel-data": "^4.0",
+                "spatie/laravel-package-tools": "^1.16",
+                "spatie/typescript-transformer": "^3.3"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^10.0",
+                "pestphp/pest": "^3.0",
+                "pestphp/pest-plugin-laravel": "^3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.0.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Rushing\\DataNav\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rushing\\DataNav\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Rushing\\DataNav\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "pint": [
+                    "@php -d memory_limit=512M vendor/bin/pint"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Domain-agnostic navigation spine for Laravel. A polymorphic NavItem interface with SchemaIdentity DTO implementations (static NavLink + invocable-backed InvokableNavItem) and a NavTree, resolved server-side through a laravel-popcorn invocable. Consumable by both Inertia/React (JSON) and Blade (array) hosts. Emits no HTML. Part of the laravel-data-* family.",
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "rushing/laravel-data-schemas-scribe",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../../../php/packages/rushing/laravel-data-schemas-scribe",
+                "reference": "2a6dab00c5f2e74b5f4fcb4d5c881a9ed7cbc58b"
+            },
+            "require": {
+                "illuminate/support": "^11.0|^12.0|^13.0",
+                "knuckleswtf/scribe": "^4.0|^5.0",
+                "php": "^8.2",
+                "schemastud/laravel-data-schemas": "^1.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^9.0|^10.0|^11.0",
+                "phpunit/phpunit": "^11.0",
+                "wikimedia/composer-merge-plugin": "^2.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rushing\\LaravelDataSchemasScribe\\LaravelDataSchemasScribeServiceProvider"
+                    ]
+                },
+                "merge-plugin": {
+                    "include": [
+                        "composer.local.json"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rushing\\LaravelDataSchemasScribe\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Rushing\\LaravelDataSchemasScribe\\Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Rushing",
+                    "email": "stephen@rushing.dev"
+                }
+            ],
+            "description": "Scribe bridge that drives request/response extraction from Laravel Data classes via rushing/laravel-data-schemas",
+            "keywords": [
+                "json-schema",
+                "laravel",
+                "laravel-data",
+                "openapi",
+                "scribe",
+                "spatie"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
             "name": "rushing/laravel-doctor",
             "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/laravel-doctor",
-                "reference": "73cd0156fd396555ff1b425768fd60879bf68e65"
+                "reference": "ce33e9af21254a737e9554270237ec65787abb0b"
             },
             "require": {
                 "illuminate/support": "^11.0|^12.0|^13.0",
@@ -4752,12 +5801,91 @@
             }
         },
         {
+            "name": "rushing/laravel-graphine",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../../../php/packages/rushing/laravel-graphine",
+                "reference": "378e880d486ffa3d5259a191fe089e19d3e5145a"
+            },
+            "require": {
+                "illuminate/contracts": "^11.0 || ^12.0 || ^13.0",
+                "illuminate/database": "^11.0 || ^12.0 || ^13.0",
+                "illuminate/support": "^11.0 || ^12.0 || ^13.0",
+                "php": "^8.3",
+                "rushing/php-graphine": "dev-main"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nikic/php-parser": "^5.0",
+                "orchestra/testbench": "^9.0 || ^10.0",
+                "pestphp/pest": "^3.0"
+            },
+            "suggest": {
+                "graphp/graph": "MIT — pure-PHP in-memory graph algorithms behind the reference driver (roles 1/2)",
+                "laudis/neo4j-php-client": "MIT Bolt client → Neo4j server behind a network boundary; for a consumer's Neo4j driver (role 3)",
+                "nikic/php-parser": "BSD-3 — AST scanner behind the seam guard a consumer runs over its own App\\Graph\\Drivers",
+                "staudenmeir/laravel-adjacency-list": "MIT — recursive-CTE trees AND graphs; for a CONSUMER's relational driver (roles 1-3), not shipped here",
+                "sweetrdf/easyrdf": "BSD-3 — SPARQL 1.1 client; for a consumer's RDF-query driver (role 3)"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rushing\\Graphine\\Laravel\\GraphineServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rushing\\Graphine\\Laravel\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Rushing\\Graphine\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "pint": [
+                    "@php -d memory_limit=512M vendor/bin/pint"
+                ],
+                "test": [
+                    "@php vendor/bin/pest"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Rushing",
+                    "email": "stephenr85@gmail.com"
+                }
+            ],
+            "description": "A pluggable Laravel graph-substrate seam: the GraphStore contract + role sub-contracts + value types + one in-memory reference driver + a conformance test-kit. Ships zero persistence drivers — real drivers are the consumer's, authored over its own wheel.",
+            "keywords": [
+                "driver",
+                "gql",
+                "graph",
+                "knowledge-graph",
+                "laravel",
+                "manager",
+                "seam",
+                "substrate"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
             "name": "rushing/laravel-marquee",
             "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/laravel-marquee",
-                "reference": "fb1ed02409341ace8925b69f82f8b88918d85ec5"
+                "reference": "3c84f5d9b9c5eb643229ebd48efc336e066ed286"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -4765,6 +5893,7 @@
                 "illuminate/http": "^11.0|^12.0|^13.0",
                 "illuminate/support": "^11.0|^12.0|^13.0",
                 "php": "^8.3",
+                "rushing/laravel-schema-convergence": "*",
                 "spatie/laravel-package-tools": "^1.16"
             },
             "require-dev": {
@@ -4818,7 +5947,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/laravel-permission-cascade",
-                "reference": "16d63ddf96c5e63b3ae769ce9cc207722c3d3271"
+                "reference": "c81b71ad638f4cbecaf57b7fd605952b21fbc5ed"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -4889,7 +6018,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/laravel-pipeline-registry",
-                "reference": "d7711392b2f2b6781d6ec7fa8ea3319a3c8699f7"
+                "reference": "7b0c0f4d1ab4e629fb06ada69337edf0654520b0"
             },
             "require": {
                 "illuminate/console": "^11.0|^12.0|^13.0",
@@ -4959,7 +6088,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/laravel-popcorn",
-                "reference": "f343aa7bd816199b0e2f1c15967e8ff98e981688"
+                "reference": "0cc1cff3affe74204eaf8fd190c65d355b77cebc"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -5023,12 +6152,72 @@
             }
         },
         {
+            "name": "rushing/laravel-schema-convergence",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../../../php/packages/rushing/laravel-schema-convergence",
+                "reference": "c608e0ee682fa7b57c49a15419fac95c29a8d0e7"
+            },
+            "require": {
+                "illuminate/database": "^11.0|^12.0|^13.0",
+                "illuminate/support": "^11.0|^12.0|^13.0",
+                "php": "^8.2"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^9.0|^10.0|^11.0",
+                "phpunit/phpunit": "^11.0|^12.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Rushing\\SchemaConvergence\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Rushing\\SchemaConvergence\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "pint": [
+                    "@php -d memory_limit=512M vendor/bin/pint"
+                ],
+                "test": [
+                    "@php vendor/bin/phpunit"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Rushing",
+                    "email": "stephenr85@gmail.com"
+                }
+            ],
+            "description": "Convergent migration guards: a published `create_*` migration that creates the table when it is absent, adds the columns it is missing, and refuses — writing nothing — when a column already exists with an incompatible shape. Replaces the bare `Schema::hasTable($t) → return` guard, whose success report is a lie whenever another package won the filename race with a different shape.",
+            "keywords": [
+                "convergence",
+                "idempotent",
+                "laravel",
+                "migrations",
+                "publishing",
+                "schema"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
             "name": "rushing/laravel-versioning",
             "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/laravel-versioning",
-                "reference": "9d755d723fe31ed750509394a0f3976b35cec61a"
+                "reference": "2880191834c616e9ab22bd5a29036ad64569f0a5"
             },
             "require": {
                 "illuminate/contracts": "^11.0 || ^12.0 || ^13.0",
@@ -5092,12 +6281,81 @@
             }
         },
         {
+            "name": "rushing/php-graphine",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../../../php/packages/rushing/php-graphine",
+                "reference": "634b3b47dc7fd25217fed77e687a9767e2ad98e8"
+            },
+            "require": {
+                "php": "^8.3"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nikic/php-parser": "^5.0",
+                "pestphp/pest": "^3.0"
+            },
+            "suggest": {
+                "graphp/graph": "MIT — pure-PHP in-memory graph algorithms behind the reference driver (roles 1/2)",
+                "nikic/php-parser": "BSD-3 — AST scanner behind the seam guard a consumer runs over its own App\\Graph\\Drivers"
+            },
+            "type": "library",
+            "extra": {
+                "package-topology": {
+                    "mustNotRequire": [
+                        "illuminate/*"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rushing\\Graphine\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Rushing\\Graphine\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "pint": [
+                    "@php -d memory_limit=512M vendor/bin/pint"
+                ],
+                "test": [
+                    "@php vendor/bin/pest"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Rushing",
+                    "email": "stephenr85@gmail.com"
+                }
+            ],
+            "description": "The framework-free graph algebra behind graphine: the GraphStore contract + role sub-contracts + value types + in-memory reference driver + conformance test-kit. Zero illuminate; the Eloquent binding lives in rushing/laravel-graphine.",
+            "keywords": [
+                "algebra",
+                "driver",
+                "graph",
+                "knowledge-graph",
+                "seam",
+                "substrate"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
             "name": "rushing/php-popcorn",
             "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/php-popcorn",
-                "reference": "a9e39b581bcd8487edd732241b3b783f32a4d410"
+                "reference": "301f4b37619f04b0bea029817cfd97ed3805c018"
             },
             "require": {
                 "php": "^8.3",
@@ -5343,23 +6601,25 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/schemastud/laravel-data-schemas",
-                "reference": "eb00c4fcb0cef9e62682af2bcbb00c8c5702abe6"
+                "reference": "d0bb0a38cc7308e44f0786c241d370a88c278d90"
             },
             "require": {
                 "galbar/jsonpath": "^3.0",
                 "illuminate/console": "^11.0|^12.0|^13.0",
                 "illuminate/support": "^11.0|^12.0|^13.0",
                 "opis/json-schema": "^2.3",
-                "php": "^8.2",
+                "php": "^8.3",
                 "rushing/laravel-pipeline-registry": "dev-main",
                 "rushing/laravel-popcorn": "dev-main",
+                "schemastud/php-json-ns": "*",
                 "spatie/laravel-data": "^4.0|^5.0",
                 "symfony/finder": "^6.0|^7.0|^8.0"
             },
             "require-dev": {
                 "laravel/pint": "^1.0",
                 "orchestra/testbench": "^9.0|^10.0|^11.0",
-                "phpunit/phpunit": "^11.0|^12.0"
+                "phpunit/phpunit": "^11.0|^12.0",
+                "wikimedia/composer-merge-plugin": "^2.1"
             },
             "type": "library",
             "extra": {
@@ -5370,6 +6630,11 @@
                 },
                 "branch-alias": {
                     "dev-main": "1.0.x-dev"
+                },
+                "merge-plugin": {
+                    "include": [
+                        "composer.local.json"
+                    ]
                 }
             },
             "autoload": {
@@ -5416,12 +6681,12 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/schemastud/laravel-frame",
-                "reference": "34b22996fcc4c478927e4981312fe0f7d16ef874"
+                "reference": "7ea730b54f000e1058127d57144f72e8238888c8"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
                 "illuminate/support": "^11.0|^12.0|^13.0",
-                "php": "^8.2",
+                "php": "^8.3",
                 "schemastud/laravel-data-schemas": "dev-main",
                 "spatie/laravel-data": "^4.9",
                 "spatie/laravel-package-tools": "^1.16",
@@ -5473,17 +6738,225 @@
             }
         },
         {
-            "name": "spatie/crawler",
-            "version": "9.4.1",
+            "name": "schemastud/laravel-json-ns",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../../../php/packages/schemastud/laravel-json-ns",
+                "reference": "cdeba195f280a8e5d815788bbb6b176f898e8b94"
+            },
+            "require": {
+                "illuminate/contracts": "^11.0|^12.0|^13.0",
+                "illuminate/support": "^11.0|^12.0|^13.0",
+                "php": "^8.3",
+                "rushing/php-popcorn": "*",
+                "schemastud/php-json-ns": "*",
+                "spatie/laravel-package-tools": "^1.16"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^10.0|^11.0",
+                "pestphp/pest": "^3.0",
+                "schemastud/laravel-data-schemas": "*",
+                "wikimedia/composer-merge-plugin": "^2.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Schemastud\\JsonNs\\Laravel\\JsonNsServiceProvider"
+                    ]
+                },
+                "package-topology": {
+                    "mustRequire": [
+                        "schemastud/php-json-ns",
+                        "rushing/php-popcorn"
+                    ],
+                    "because": "The Laravel binding is the tier where the popcorn coupling rides: it wires the framework-free @namespace grammar (schemastud/php-json-ns) into the popcorn InvocableRegistry (rushing/php-popcorn) as a URI-keyed dispatch socket. Neither dependency may be dropped — the grammar has no dispatch, the registry has no namespace resolution; this package is exactly their join (asset 06 §8)."
+                },
+                "merge-plugin": {
+                    "include": [
+                        "composer.local.json"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Schemastud\\JsonNs\\Laravel\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Schemastud\\JsonNs\\Laravel\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "pint": [
+                    "@php -d memory_limit=512M vendor/bin/pint"
+                ],
+                "test": [
+                    "@php vendor/bin/pest"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Rushing",
+                    "email": "stephenr85@gmail.com"
+                }
+            ],
+            "description": "The Laravel binding for the @namespace grammar — a URI-keyed dispatch socket over schemastud/php-json-ns + rushing/php-popcorn: bind your own namespace URI to your own handler (registered as a popcorn Invocable), with pick-one-by-URI (pinned > stem) resolution and a no-op-after-validation fallback.",
+            "keywords": [
+                "curie",
+                "dispatch",
+                "invocable",
+                "json",
+                "laravel",
+                "namespace",
+                "popcorn"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "schemastud/php-json-ns",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../../../php/packages/schemastud/php-json-ns",
+                "reference": "3062d50738786360aa74acff4958fb00121beb77"
+            },
+            "require": {
+                "opis/json-schema": "^2.3",
+                "php": "^8.3"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "pestphp/pest": "^3.0"
+            },
+            "type": "library",
+            "extra": {
+                "package-topology": {
+                    "mustNotRequire": [
+                        "illuminate/*"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Schemastud\\JsonNs\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Schemastud\\JsonNs\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "pint": [
+                    "@php -d memory_limit=512M vendor/bin/pint"
+                ],
+                "test": [
+                    "@php vendor/bin/pest"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Rushing",
+                    "email": "stephenr85@gmail.com"
+                }
+            ],
+            "description": "The framework-free @namespace grammar: a CURIE-shaped, RDF-stripped prefix→URI map (SchemaId-shaped URIs) with @namespaced subtree overlays, late scope-local URI-is-identity resolution, and a namespace-aware validation-scoping model.",
+            "keywords": [
+                "curie",
+                "json",
+                "json-ld",
+                "namespace",
+                "schema",
+                "vocabulary"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "shalvah/upgrader",
+            "version": "0.6.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/spatie/crawler.git",
-                "reference": "13ac9ee30f5336d300048b964fa8d2af4453048e"
+                "url": "https://github.com/shalvah/upgrader.git",
+                "reference": "d95ed17fe9f5e1ee7d47ad835595f1af080a867f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/crawler/zipball/13ac9ee30f5336d300048b964fa8d2af4453048e",
-                "reference": "13ac9ee30f5336d300048b964fa8d2af4453048e",
+                "url": "https://api.github.com/repos/shalvah/upgrader/zipball/d95ed17fe9f5e1ee7d47ad835595f1af080a867f",
+                "reference": "d95ed17fe9f5e1ee7d47ad835595f1af080a867f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=8.0",
+                "nikic/php-parser": "^5.0",
+                "php": ">=8.0"
+            },
+            "require-dev": {
+                "dms/phpunit-arraysubset-asserts": "^0.2.0",
+                "pestphp/pest": "^1.21",
+                "phpstan/phpstan": "^1.0",
+                "spatie/ray": "^1.33"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Shalvah\\Upgrader\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Shalvah",
+                    "email": "hello@shalvah.me"
+                }
+            ],
+            "description": "Create automatic upgrades for your package.",
+            "homepage": "http://github.com/shalvah/upgrader",
+            "keywords": [
+                "upgrade"
+            ],
+            "support": {
+                "issues": "https://github.com/shalvah/upgrader/issues",
+                "source": "https://github.com/shalvah/upgrader/tree/0.6.0"
+            },
+            "funding": [
+                {
+                    "url": "https://patreon.com/shalvah",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2024-02-20T11:51:46+00:00"
+        },
+        {
+            "name": "spatie/crawler",
+            "version": "9.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/crawler.git",
+                "reference": "937bcf5786e66bca20da50db004f6d1443e81418"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/crawler/zipball/937bcf5786e66bca20da50db004f6d1443e81418",
+                "reference": "937bcf5786e66bca20da50db004f6d1443e81418",
                 "shasum": ""
             },
             "require": {
@@ -5538,7 +7011,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/crawler/issues",
-                "source": "https://github.com/spatie/crawler/tree/9.4.1"
+                "source": "https://github.com/spatie/crawler/tree/9.4.2"
             },
             "funding": [
                 {
@@ -5550,7 +7023,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-07-22T06:44:02+00:00"
+            "time": "2026-08-07T07:19:51+00:00"
         },
         {
             "name": "spatie/file-system-watcher",
@@ -5612,22 +7085,22 @@
         },
         {
             "name": "spatie/laravel-activitylog",
-            "version": "5.0.0",
+            "version": "5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-activitylog.git",
-                "reference": "0e00fe74fd071cc572a045459f6d4c9de33130bd"
+                "reference": "97c9f7e82033b18dc9db25de276f9b71e01449ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/0e00fe74fd071cc572a045459f6d4c9de33130bd",
-                "reference": "0e00fe74fd071cc572a045459f6d4c9de33130bd",
+                "url": "https://api.github.com/repos/spatie/laravel-activitylog/zipball/97c9f7e82033b18dc9db25de276f9b71e01449ea",
+                "reference": "97c9f7e82033b18dc9db25de276f9b71e01449ea",
                 "shasum": ""
             },
             "require": {
-                "illuminate/config": "^12.0 || ^13.0",
-                "illuminate/database": "^12.0 || ^13.0",
-                "illuminate/support": "^12.0 || ^13.0",
+                "illuminate/config": "^13.0",
+                "illuminate/database": "^13.0",
+                "illuminate/support": "^13.0",
                 "php": "^8.4",
                 "spatie/laravel-package-tools": "^1.6.3"
             },
@@ -5635,8 +7108,8 @@
                 "ext-json": "*",
                 "larastan/larastan": "^3.0",
                 "laravel/pint": "^1.29",
-                "orchestra/testbench": "^10.0 || ^11.0",
-                "pestphp/pest": "^4.0"
+                "orchestra/testbench": "^11.0",
+                "pestphp/pest": "^5.0"
             },
             "type": "library",
             "extra": {
@@ -5679,7 +7152,7 @@
                 }
             ],
             "description": "A very simple activity logger to monitor the users of your website or application",
-            "homepage": "https://github.com/spatie/activitylog",
+            "homepage": "https://github.com/spatie/laravel-activitylog",
             "keywords": [
                 "activity",
                 "laravel",
@@ -5689,7 +7162,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-activitylog/issues",
-                "source": "https://github.com/spatie/laravel-activitylog/tree/5.0.0"
+                "source": "https://github.com/spatie/laravel-activitylog/tree/5.1.0"
             },
             "funding": [
                 {
@@ -5701,7 +7174,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-25T10:04:54+00:00"
+            "time": "2026-08-12T12:07:38+00:00"
         },
         {
             "name": "spatie/laravel-data",
@@ -6075,16 +7548,16 @@
         },
         {
             "name": "spatie/laravel-query-builder",
-            "version": "7.3.1",
+            "version": "7.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-query-builder.git",
-                "reference": "85e9ead77fd54555a07201ac7e9fc93ab9cfdde3"
+                "reference": "eb1e0835018fff80900160d4bfd730c560c54ec4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-query-builder/zipball/85e9ead77fd54555a07201ac7e9fc93ab9cfdde3",
-                "reference": "85e9ead77fd54555a07201ac7e9fc93ab9cfdde3",
+                "url": "https://api.github.com/repos/spatie/laravel-query-builder/zipball/eb1e0835018fff80900160d4bfd730c560c54ec4",
+                "reference": "eb1e0835018fff80900160d4bfd730c560c54ec4",
                 "shasum": ""
             },
             "require": {
@@ -6145,7 +7618,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2026-07-29T16:10:36+00:00"
+            "time": "2026-08-07T11:50:57+00:00"
         },
         {
             "name": "spatie/laravel-schemaless-attributes",
@@ -6296,6 +7769,84 @@
                 }
             ],
             "time": "2026-06-24T07:59:14+00:00"
+        },
+        {
+            "name": "spatie/laravel-typescript-transformer",
+            "version": "3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-typescript-transformer.git",
+                "reference": "1978273b6407adf78f7f55833423a81ace6ba03c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-typescript-transformer/zipball/1978273b6407adf78f7f55833423a81ace6ba03c",
+                "reference": "1978273b6407adf78f7f55833423a81ace6ba03c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^11.0|^12.0|^13.0",
+                "php": "^8.2",
+                "spatie/typescript-transformer": "^3.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "orchestra/testbench": "^9.0|^10.0|^11.0",
+                "pestphp/pest": "^3.0|^4.2",
+                "pestphp/pest-plugin-arch": "^3.0|^4.0",
+                "pestphp/pest-plugin-laravel": "^3.0|^4.0",
+                "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan": "^2.0",
+                "phpstan/phpstan-deprecation-rules": "^2.0",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "spatie/laravel-data": "^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\LaravelTypeScriptTransformer\\TypeScriptTransformerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LaravelTypeScriptTransformer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ruben Van Assche",
+                    "email": "ruben@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Transform your PHP structures to TypeScript types",
+            "homepage": "https://github.com/spatie/typescript-transformer",
+            "keywords": [
+                "spatie",
+                "typescript-transformer"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-typescript-transformer/issues",
+                "source": "https://github.com/spatie/laravel-typescript-transformer/tree/3.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-06-19T12:19:54+00:00"
         },
         {
             "name": "spatie/php-structure-discoverer",
@@ -6510,42 +8061,48 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-beam",
-                "reference": "3c586acfe0d7bb74695a5d89b72fe41170c73d53"
+                "reference": "7ec487f3c7fbf2214732d6b5fa97e99610ded388"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
                 "illuminate/support": "^11.0|^12.0|^13.0",
                 "nette/php-generator": "^3.4|^4.0",
-                "php": "^8.2",
+                "php": "^8.3",
                 "rushing/codegen": "dev-main",
                 "rushing/laravel-data-filters": "*",
+                "rushing/laravel-data-schemas-scribe": "*",
                 "rushing/laravel-doctor": "*",
                 "rushing/laravel-permission-cascade": "*",
                 "rushing/laravel-popcorn": "dev-main",
+                "rushing/laravel-schema-convergence": "*",
                 "rushing/laravel-versioning": "dev-main",
                 "schemastud/laravel-data-schemas": "^1.0",
                 "schemastud/laravel-frame": "dev-main",
+                "schemastud/laravel-json-ns": "dev-main",
                 "spatie/laravel-activitylog": "^4.0|^5.0",
                 "spatie/laravel-data": "^4.0|^5.0",
                 "spatie/laravel-model-flags": "*",
                 "spatie/laravel-model-status": "*",
                 "spatie/laravel-package-tools": "^1.16",
                 "spatie/laravel-schemaless-attributes": "*",
-                "spatie/typescript-transformer": "^2.0|^3.0"
+                "spatie/typescript-transformer": "^2.0|^3.0",
+                "symfony/yaml": "^6.0|^7.0|^8.0"
             },
             "require-dev": {
                 "laravel/pint": "^1.0",
                 "orchestra/testbench": "^9.0|^10.0|^11.0",
                 "phpunit/phpunit": "^11.0|^12.0",
                 "rushing/laravel-surgeon": "*",
+                "rushing/php-package-topology": "dev-main",
                 "wikimedia/composer-merge-plugin": "^2.1"
             },
             "type": "library",
             "extra": {
                 "package-topology": {
-                    "because": "beam depends DOWN on frame (direction corrected — see tower refactor); the vendor-seam policy lives on the base package",
+                    "because": "beam depends DOWN on frame (direction corrected — see tower refactor); the vendor-seam policy lives on the base package. beam also depends DOWN on schemastud/laravel-json-ns (ADR-0191): SchemaId extends the one fleet-wide NamespaceUri parser, and the Laravel binding tier is where beam binds json-ns ports (VocabularyRegistry, ADR-0192) into the container — the splicewire/* → schemastud/* direction R1 sanctions",
                     "mustRequire": [
-                        "schemastud/laravel-frame"
+                        "schemastud/laravel-frame",
+                        "schemastud/laravel-json-ns"
                     ],
                     "mustRequireDev": [
                         "rushing/laravel-surgeon"
@@ -6561,6 +8118,11 @@
                                 "fromPrefix": "splicewire/laravel-beam",
                                 "toPrefix": "splicewire/laravel-satellite",
                                 "because": "R2: a beam package never requires a satellite"
+                            },
+                            {
+                                "fromPrefix": "splicewire/laravel-beam",
+                                "toPrefix": "splicewire/tower",
+                                "because": "R3 (marketplace build, Seam 1): a beam package never requires the composed Tower host tier — laravel-beam-market in particular must stay entirely blind to Tower's world, the same DOWN-only direction R2 already holds for satellite"
                             }
                         ]
                     }
@@ -6607,12 +8169,123 @@
             }
         },
         {
+            "name": "splicewire/laravel-beam-accounts",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../../../php/packages/splicewire/laravel-beam-accounts",
+                "reference": "206782dc7e2e1eb1d9b478a0d7e0e42aa9a65878"
+            },
+            "require": {
+                "firebase/php-jwt": "^6.0|^7.0",
+                "illuminate/contracts": "^11.0|^12.0|^13.0",
+                "illuminate/database": "^11.0|^12.0|^13.0",
+                "illuminate/support": "^11.0|^12.0|^13.0",
+                "inertiajs/inertia-laravel": "^2.0|^3.0",
+                "laravel/fortify": "^1.20",
+                "laravel/passkeys": "^0.2",
+                "laravel/sanctum": "^4.0",
+                "php": "^8.2",
+                "rushing/laravel-data-filters": "*",
+                "rushing/laravel-data-schemas-scribe": "*",
+                "rushing/laravel-permission-cascade": "*",
+                "rushing/laravel-schema-convergence": "*",
+                "schemastud/laravel-data-schemas": "*",
+                "spatie/laravel-package-tools": "^1.16",
+                "spatie/laravel-permission": "^6.0",
+                "splicewire/laravel-beam": "*",
+                "stancl/tenancy": "^3.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^9.0|^10.0|^11.0",
+                "pestphp/pest": "^2.0|^3.0",
+                "wikimedia/composer-merge-plugin": "^2.1"
+            },
+            "suggest": {
+                "laravel/sanctum": "Install in a satellite to activate its own opt-in token 'api' guard seam alongside the engine's session/Fortify web guard."
+            },
+            "type": "library",
+            "extra": {
+                "package-topology": {
+                    "because": "beam-accounts is the account engine and now OWNS the auth public surface relocated DOWN out of tower (HTTP-04/07/08): the TokenProvenance enum, AuthTokenFactory, the CentralRoot support helper, base AuthUserData + its AuthUserExtrasContributor port/config seam, and the 5 Api/V1/* auth controllers. That surface is consumed DOWN by the tower host (which requires beam-accounts) and by the host App tier; the engine itself depends DOWN on beam + the permission-cascade/fortify foundations and must NEVER reach UP into tower / satellite / the host App tier.",
+                    "policy": {
+                        "noRequire": [
+                            {
+                                "fromPrefix": "splicewire/laravel-beam-accounts",
+                                "toPrefix": "splicewire/laravel-tower",
+                                "because": "the account engine is reusable by any beam site; the auth surface lives DOWN here and is consumed UP by the tower host (host-specific TowerAuthUserData/Extras subclass stays in tower) — beam-accounts never requires tower"
+                            },
+                            {
+                                "fromPrefix": "splicewire/laravel-beam-accounts",
+                                "toPrefix": "splicewire/laravel-satellite",
+                                "because": "the foundation never reaches up into the consumer-app tier"
+                            }
+                        ]
+                    }
+                },
+                "branch-alias": {
+                    "dev-main": "1.0.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Splicewire\\Beam\\Accounts\\BeamAccountsServiceProvider"
+                    ]
+                },
+                "merge-plugin": {
+                    "include": [
+                        "composer.local.json"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Splicewire\\Beam\\Accounts\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Splicewire\\Beam\\Accounts\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/pest"
+                ],
+                "pint": [
+                    "@php -d memory_limit=512M vendor/bin/pint"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Rushing",
+                    "email": "stephen@rushing.dev"
+                }
+            ],
+            "description": "The account engine of the schemastud stack: Fortify/session as the default auth substrate, the whole self-service account runtime (profile/security surface + Fortify registration/reset actions), and the generic team/membership/invitation primitives on the permission-cascade base leaf. A capability peer of the beam family; concrete tenant-provisioning + demo stay in the consuming satellite. Not Passport.",
+            "keywords": [
+                "account",
+                "beam",
+                "fortify",
+                "laravel",
+                "schemastud",
+                "teams"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
             "name": "splicewire/laravel-beam-mdx",
             "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-beam-mdx",
-                "reference": "aeae4032e60fdbcede4b3bb27cb585e0efb39586"
+                "reference": "7159ec571708b37a7fa129d869e7563d9db3e959"
             },
             "require": {
                 "illuminate/console": "^11.0|^12.0|^13.0",
@@ -6620,18 +8293,25 @@
                 "illuminate/support": "^11.0|^12.0|^13.0",
                 "inertiajs/inertia-laravel": "^1.0|^2.0|^3.0",
                 "php": "^8.2",
+                "rushing/laravel-doctor": "*",
                 "spatie/laravel-package-tools": "^1.16"
             },
             "require-dev": {
                 "laravel/pint": "^1.0",
                 "orchestra/testbench": "^9.0|^10.0|^11.0",
-                "phpunit/phpunit": "^11.0|^12.0"
+                "phpunit/phpunit": "^11.0|^12.0",
+                "wikimedia/composer-merge-plugin": "^2.1"
             },
             "type": "library",
             "extra": {
                 "laravel": {
                     "providers": [
                         "Splicewire\\Beam\\Mdx\\BeamMdxServiceProvider"
+                    ]
+                },
+                "merge-plugin": {
+                    "include": [
+                        "composer.local.json"
                     ]
                 }
             },
@@ -6668,7 +8348,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-beam-sitemap",
-                "reference": "0d5bd7f04f41e2e50be89b2e01dcd045a566a1f9"
+                "reference": "8832ba3ea6086fde4c138fed5a0bba7f15ac89c8"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -6741,14 +8421,464 @@
             }
         },
         {
+            "name": "splicewire/laravel-beam-sync",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../../../php/packages/splicewire/laravel-beam-sync",
+                "reference": "d171ed8af5ca5ffe1ab7edc282e32491bac4d803"
+            },
+            "require": {
+                "illuminate/contracts": "^11.0|^12.0|^13.0",
+                "illuminate/support": "^11.0|^12.0|^13.0",
+                "php": "^8.3",
+                "rushing/laravel-graphine": "dev-main",
+                "spatie/laravel-data": "^4.0|^5.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^9.0|^10.0|^11.0",
+                "pestphp/pest": "^2.0|^3.0"
+            },
+            "suggest": {
+                "splicewire/laravel-beam": "Ride the Particle read/write/hydrate pipeline for sync-in/sync-out (the beam-sync-beam bridge)."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.0.x-dev"
+                },
+                "package-topology": {
+                    "because": "beam-sync is a foundation both a beam package (taxonomy) and the tenancy target depend DOWN on; it must never reach UP into either.",
+                    "policy": {
+                        "noRequire": [
+                            {
+                                "fromPrefix": "splicewire/laravel-beam-sync",
+                                "toPrefix": "splicewire/laravel-beam",
+                                "because": "sync is useful without beam and from remote sources; the base never requires beam (the Particle bridge is a separate optional package)"
+                            },
+                            {
+                                "fromPrefix": "splicewire/laravel-beam-sync",
+                                "toPrefix": "splicewire/laravel-tower",
+                                "because": "sync is useful without tenancy; the base never requires tower/tenancy"
+                            },
+                            {
+                                "fromPrefix": "splicewire/laravel-beam-sync",
+                                "toPrefix": "splicewire/laravel-satellite",
+                                "because": "the foundation never reaches up into the consumer-app tier"
+                            },
+                            {
+                                "fromPrefix": "splicewire/laravel-beam-sync",
+                                "toPrefix": "stancl/",
+                                "because": "tower Sync is independent of stancl's resource-syncing (single-row mirror); beam-sync must not inherit that mechanism"
+                            }
+                        ]
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Splicewire\\Sync\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Splicewire\\Sync\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/pest"
+                ],
+                "pint": [
+                    "vendor/bin/pint"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Rushing",
+                    "email": "stephen@rushing.dev"
+                }
+            ],
+            "description": "Generic sync foundation: the Syncable contract, the byte-stable SyncData transit base, a tenancy-blind dependency resolver (scope-expand + Kahn topo-sort), and the SyncSource/SyncTarget ports. Copies a dependency cone BY VALUE across shared-nothing boundaries — usable off a local tenant context AND from remote sources. NOT built on stancl/tenancy's resource-syncing (a different, single-row-mirror mechanism); requires no beam, tenancy, or tower.",
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "splicewire/laravel-beam-taxonomy",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../../../php/packages/splicewire/laravel-beam-taxonomy",
+                "reference": "a92ce7a32b99f3c9af6de3e73b7b78ea967ef629"
+            },
+            "require": {
+                "cviebrock/eloquent-sluggable": "*",
+                "illuminate/contracts": "^11.0|^12.0|^13.0",
+                "illuminate/support": "^11.0|^12.0|^13.0",
+                "laravel/scout": "^10.0|^11.0",
+                "mehdi-fathi/eloquent-filter": "*",
+                "php": "^8.3",
+                "rushing/laravel-data-filters": "*",
+                "rushing/laravel-permission-cascade": "*",
+                "rushing/laravel-schema-convergence": "*",
+                "schemastud/laravel-data-schemas": "*",
+                "spatie/laravel-data": "^4.0|^5.0",
+                "spatie/laravel-package-tools": "^1.16",
+                "spatie/laravel-query-builder": "^5.0|^6.0|^7.0",
+                "spatie/laravel-typescript-transformer": "^2.0|^3.0",
+                "splicewire/laravel-beam": "*",
+                "splicewire/laravel-beam-sync": "*",
+                "staudenmeir/laravel-adjacency-list": "*"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^9.0|^10.0|^11.0",
+                "pestphp/pest": "^2.0|^3.0",
+                "wikimedia/composer-merge-plugin": "^2.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.0.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Splicewire\\Beam\\Taxonomy\\BeamTaxonomyServiceProvider"
+                    ]
+                },
+                "merge-plugin": {
+                    "include": [
+                        "composer.local.json"
+                    ]
+                },
+                "package-topology": {
+                    "because": "beam-taxonomy owns the reusable Tag/Silo (BeamTag/BeamSilo) model cone; it depends DOWN on beam + the sync/data-filters/permission-cascade foundations and must NEVER reach UP into tower / satellite / the host App tier.",
+                    "policy": {
+                        "noRequire": [
+                            {
+                                "fromPrefix": "splicewire/laravel-beam-taxonomy",
+                                "toPrefix": "splicewire/laravel-tower",
+                                "because": "the taxonomy cone is reusable by any beam site; it never requires tower/tenancy (host relations + tenant-sync stay in the App\\ subclass shim)"
+                            },
+                            {
+                                "fromPrefix": "splicewire/laravel-beam-taxonomy",
+                                "toPrefix": "splicewire/laravel-satellite",
+                                "because": "the foundation never reaches up into the consumer-app tier"
+                            }
+                        ]
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Splicewire\\Beam\\Taxonomy\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Splicewire\\Beam\\Taxonomy\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/pest"
+                ],
+                "pint": [
+                    "vendor/bin/pint"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Rushing",
+                    "email": "stephen@rushing.dev"
+                }
+            ],
+            "description": "Beam taxonomy — the reusable Tag/Silo (BeamTag/BeamSilo) surface for beam sites. Ships the tag/silo ParticleResource declarations over host-bound models, so a beam site gets a schema-typed taxonomy CRUD surface with no controller code.",
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "splicewire/laravel-beam-ux",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../../../php/packages/splicewire/laravel-beam-ux",
+                "reference": "b8039892aafbefd84736604d5de385ae103a188f"
+            },
+            "require": {
+                "illuminate/contracts": "^11.0|^12.0|^13.0",
+                "illuminate/database": "^11.0|^12.0|^13.0",
+                "illuminate/support": "^11.0|^12.0|^13.0",
+                "php": "^8.2",
+                "rushing/laravel-data-nav": "*",
+                "rushing/laravel-schema-convergence": "*",
+                "splicewire/laravel-beam": "*",
+                "splicewire/laravel-beam-accounts": "*",
+                "splicewire/laravel-beam-mdx": "*",
+                "splicewire/laravel-beam-sitemap": "*",
+                "splicewire/laravel-beam-taxonomy": "*",
+                "splicewire/laravel-beam-workflows": "*",
+                "symfony/process": "^6.4|^7.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^9.0|^10.0|^11.0",
+                "phpunit/phpunit": "^11.0|^12.0",
+                "wikimedia/composer-merge-plugin": "^2.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.0.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Splicewire\\Beam\\Ux\\BeamUxServiceProvider"
+                    ]
+                },
+                "merge-plugin": {
+                    "include": [
+                        "composer.local.json"
+                    ]
+                },
+                "package-topology": {
+                    "because": "beam-ux is the beam-tier authoring engine; it composes sibling beam-family arms DOWN (beam-core, mdx, sitemap, workflows, and — S7 — beam-taxonomy for the BeamSilo/BeamTag classification facets) and must NEVER reach UP into satellite / tower / the host App tier.",
+                    "mustRequire": [
+                        "splicewire/laravel-beam-taxonomy"
+                    ],
+                    "mustNotRequire": [
+                        "splicewire/laravel-satellite",
+                        "splicewire/tower"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Splicewire\\Beam\\Ux\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Splicewire\\Beam\\Ux\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "@php vendor/bin/phpunit"
+                ],
+                "pint": [
+                    "@php -d memory_limit=512M vendor/bin/pint"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Rushing",
+                    "email": "stephen@rushing.dev"
+                }
+            ],
+            "description": "The BeamUx authoring engine (beam tier — free, ADR-0092/ADR-0159): the BeamUxEntry model + beam_ux_entries table — the generic authoring entry that has-a versioned BeamParticle body ridden through beam-core's shared ParticleWriter. The base spans content AND components (a layout is not a component), so it is BeamUxEntry, never BeamUxComponent. Residency is context-following (default central); the table shape is ubiquitous from day one via a shared migration dir run in both the central and tenant passes.",
+            "keywords": [
+                "authoring",
+                "beam",
+                "cms",
+                "laravel",
+                "splicewire",
+                "ux"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "splicewire/laravel-beam-ux-prototype",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../../../php/packages/splicewire/laravel-beam-ux-prototype",
+                "reference": "d8bdc58055d4649625bf005c0498ad5f52e8b4e1"
+            },
+            "require": {
+                "illuminate/console": "^11.0|^12.0|^13.0",
+                "illuminate/contracts": "^11.0|^12.0|^13.0",
+                "illuminate/support": "^11.0|^12.0|^13.0",
+                "php": "^8.2",
+                "rushing/laravel-doctor": "*",
+                "spatie/laravel-package-tools": "^1.16",
+                "splicewire/laravel-beam": "*"
+            },
+            "require-dev": {
+                "inertiajs/inertia-laravel": "^2.0",
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^9.0|^10.0|^11.0",
+                "phpunit/phpunit": "^11.0|^12.0",
+                "wikimedia/composer-merge-plugin": "^2.1"
+            },
+            "suggest": {
+                "inertiajs/inertia-laravel": "Auto-registers the dev-only /_prototype route + Inertia host page for the monolith default (register_route config)."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.0.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Splicewire\\Beam\\UxPrototype\\BeamUxPrototypeServiceProvider"
+                    ]
+                },
+                "merge-plugin": {
+                    "include": [
+                        "composer.local.json"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Splicewire\\Beam\\UxPrototype\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Splicewire\\Beam\\UxPrototype\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "pint": [
+                    "@php -d memory_limit=512M vendor/bin/pint"
+                ],
+                "test": [
+                    "@php vendor/bin/phpunit"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Rushing",
+                    "email": "stephen@rushing.dev"
+                }
+            ],
+            "description": "The Laravel twin of @splicewire/beam-ux-prototype (ADR-0116 Amendment 1): install + doctor for the rushing-prototype UX-prototyping mechanism. Stamps the convention doc + starter stubs into a beam host and audits the host's wiring (dep, router glob under a DEV guard, CSS token contract, prod-boundary script). The runtime stays JS-only; this side owns only the install/doctor return. First consumer citizen of BeamDoctorManifest.",
+            "keywords": [
+                "beam",
+                "doctor",
+                "install",
+                "laravel",
+                "prototype",
+                "splicewire"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "splicewire/laravel-beam-workflows",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../../../php/packages/splicewire/laravel-beam-workflows",
+                "reference": "2d615b5415c290629fe31067f4d474e240646448"
+            },
+            "require": {
+                "illuminate/contracts": "^11.0|^12.0|^13.0",
+                "illuminate/support": "^11.0|^12.0|^13.0",
+                "php": "^8.2",
+                "rushing/laravel-schema-convergence": "*",
+                "spatie/laravel-activitylog": "^4.0|^5.0",
+                "splicewire/laravel-beam": "*",
+                "symfony/workflow": "^6.4|^7.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^9.0|^10.0",
+                "pestphp/pest": "^2.0|^3.0",
+                "rushing/laravel-popcorn": "@dev",
+                "splicewire/laravel-circuit-engine": "@dev",
+                "splicewire/laravel-circuit-spine": "@dev"
+            },
+            "suggest": {
+                "splicewire/laravel-circuit-engine": "Enables the state-machine Circuit node type (Seam B): the local `workflow.apply` capability registers into the kernel's CapabilityManifest so a state machine slots into a Circuit graph. Without it, the Display substrate (Seam A) and the DefinitionBuilder still work standalone."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.0.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Splicewire\\Beam\\Workflows\\BeamWorkflowsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Splicewire\\Beam\\Workflows\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Splicewire\\Beam\\Workflows\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/pest"
+                ],
+                "pint": [
+                    "@php -d memory_limit=512M vendor/bin/pint"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Rushing",
+                    "email": "stephen@rushing.dev"
+                }
+            ],
+            "description": "The workflows arm of the schemastud beam family: a beam can model status. Sets the platform precedent for two seams — a normalized status projection (Display, over spatie/laravel-activitylog) and a state-machine Circuit node type (Control, over symfony/workflow) — sitting BESIDE the paid laravel-circuit-engine / laravel-composition-engine kernels without modifying either (ADR-0092, ADR-0034). Ships one shared State vocabulary + StatusEvent shape and proves both seams end-to-end on the composition lifecycle.",
+            "keywords": [
+                "beam",
+                "laravel",
+                "schemastud",
+                "state-machine",
+                "status",
+                "symfony-workflow",
+                "workflows"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
             "name": "splicewire/laravel-composition-spine",
             "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-composition-spine",
-                "reference": "b9a13a26b65bed1817d851980a9beef791659b20"
+                "reference": "32f0b4e7ff572d3c071511a9e93bdda515da5eec"
             },
             "require": {
+                "galbar/jsonpath": "^3.0",
                 "illuminate/support": "^11.0|^12.0|^13.0",
                 "php": "^8.2",
                 "schemastud/laravel-data-schemas": "*",
@@ -6810,14 +8940,14 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-connector",
-                "reference": "0d9511f5b330e577de195a18ea7d3b8a4ea33880"
+                "reference": "c09dc92073a330dde6da341b5022a43f9067e494"
             },
             "require": {
                 "illuminate/cache": "^10.0|^11.21|^12.0|^13.0",
                 "nesbot/carbon": "^2.72|^3.8",
                 "saloonphp/cache-plugin": ">=2",
                 "saloonphp/rate-limit-plugin": ">=2",
-                "saloonphp/saloon": "^3.0",
+                "saloonphp/saloon": "^3.0 || ^4.0",
                 "splicewire/laravel-composition-spine": "*"
             },
             "require-dev": {
@@ -6878,7 +9008,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-grounding-spine",
-                "reference": "cbeb6f1b048e873c73ab7920ec7dc0506b18c5ce"
+                "reference": "b1af43cee5e4b089ad2c56073c90604a91be68d9"
             },
             "require": {
                 "php": "^8.2",
@@ -6934,7 +9064,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-satellite",
-                "reference": "6c83f3b64b3f2cbc6844a365e36f46516b9c89ed"
+                "reference": "80e7b19143b81722128c0191420bf72f7ca2a33e"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -6944,8 +9074,10 @@
                 "rushing/laravel-doctor": "*",
                 "rushing/laravel-marquee": "*",
                 "rushing/laravel-permission-cascade": "*",
+                "rushing/laravel-schema-convergence": "*",
                 "schemastud/laravel-data-schemas": "*",
                 "spatie/laravel-data": "^4.0|^5.0",
+                "spatie/laravel-package-tools": "^1.16",
                 "splicewire/laravel-beam": "*",
                 "splicewire/laravel-beam-sitemap": "*",
                 "splicewire/laravel-composition-spine": "*",
@@ -7102,20 +9234,20 @@
         },
         {
             "name": "spomky-labs/pki-framework",
-            "version": "1.5.0",
+            "version": "1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Spomky-Labs/pki-framework.git",
-                "reference": "e0d61661962560c1cedfef02b51b431e720aae78"
+                "reference": "80778a25426288acd2e3a7cde2def41a3d59cddf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Spomky-Labs/pki-framework/zipball/e0d61661962560c1cedfef02b51b431e720aae78",
-                "reference": "e0d61661962560c1cedfef02b51b431e720aae78",
+                "url": "https://api.github.com/repos/Spomky-Labs/pki-framework/zipball/80778a25426288acd2e3a7cde2def41a3d59cddf",
+                "reference": "80778a25426288acd2e3a7cde2def41a3d59cddf",
                 "shasum": ""
             },
             "require": {
-                "brick/math": "^0.10|^0.11|^0.12|^0.13|^0.14|^0.15|^0.16|^0.17|^0.18",
+                "brick/math": "^0.10|^0.11|^0.12|^0.13|^0.14|^0.15|^0.16|^0.17|^0.18|^0.19",
                 "ext-mbstring": "*",
                 "php": ">=8.1"
             },
@@ -7195,7 +9327,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Spomky-Labs/pki-framework/issues",
-                "source": "https://github.com/Spomky-Labs/pki-framework/tree/1.5.0"
+                "source": "https://github.com/Spomky-Labs/pki-framework/tree/1.6.0"
             },
             "funding": [
                 {
@@ -7207,7 +9339,349 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2026-07-16T10:28:45+00:00"
+            "time": "2026-08-06T16:21:11+00:00"
+        },
+        {
+            "name": "stancl/jobpipeline",
+            "version": "v1.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/archtechx/jobpipeline.git",
+                "reference": "be9481dff1e3d50d90ad4f618cdca5ec4d763ec1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/archtechx/jobpipeline/zipball/be9481dff1e3d50d90ad4f618cdca5ec4d763ec1",
+                "reference": "be9481dff1e3d50d90ad4f618cdca5ec4d763ec1",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "ext-redis": "*",
+                "orchestra/testbench": "^8.0|^9.0|^10.0|^11.0",
+                "spatie/valuestore": "^1.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Stancl\\JobPipeline\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Samuel Štancl",
+                    "email": "samuel.stancl@gmail.com"
+                }
+            ],
+            "description": "Turn any series of jobs into Laravel listeners.",
+            "support": {
+                "issues": "https://github.com/archtechx/jobpipeline/issues",
+                "source": "https://github.com/archtechx/jobpipeline/tree/v1.9.0"
+            },
+            "time": "2026-03-18T16:48:46+00:00"
+        },
+        {
+            "name": "stancl/tenancy",
+            "version": "v3.10.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/archtechx/tenancy.git",
+                "reference": "c4cf5dc6d557fb7404feb11a6ddfe0985ddd9526"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/archtechx/tenancy/zipball/c4cf5dc6d557fb7404feb11a6ddfe0985ddd9526",
+                "reference": "c4cf5dc6d557fb7404feb11a6ddfe0985ddd9526",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "facade/ignition-contracts": "^1.0.2",
+                "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
+                "php": "^8.0",
+                "ramsey/uuid": "^4.7.3",
+                "stancl/jobpipeline": "^1.8.0",
+                "stancl/virtualcolumn": "^1.5.0"
+            },
+            "require-dev": {
+                "doctrine/dbal": "^3.6.0",
+                "laravel/framework": "^10.0|^11.0|^12.0|^13.0",
+                "league/flysystem-aws-s3-v3": "^3.12.2",
+                "orchestra/testbench": "^8.0|^9.0|^10.0|^11.0",
+                "spatie/valuestore": "^1.3.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Tenancy": "Stancl\\Tenancy\\Facades\\Tenancy",
+                        "GlobalCache": "Stancl\\Tenancy\\Facades\\GlobalCache"
+                    },
+                    "providers": [
+                        "Stancl\\Tenancy\\TenancyServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Stancl\\Tenancy\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Samuel Štancl",
+                    "email": "samuel.stancl@gmail.com"
+                }
+            ],
+            "description": "Automatic multi-tenancy for your Laravel application.",
+            "keywords": [
+                "laravel",
+                "multi-database",
+                "multi-tenancy",
+                "tenancy"
+            ],
+            "support": {
+                "issues": "https://github.com/archtechx/tenancy/issues",
+                "source": "https://github.com/archtechx/tenancy/tree/v3.10.1"
+            },
+            "funding": [
+                {
+                    "url": "https://tenancyforlaravel.com/donate",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/stancl",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-08-05T03:57:48+00:00"
+        },
+        {
+            "name": "stancl/virtualcolumn",
+            "version": "v1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/archtechx/virtualcolumn.git",
+                "reference": "75718edcfeeb19abc1970f5395043f7d43cce5bc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/archtechx/virtualcolumn/zipball/75718edcfeeb19abc1970f5395043f7d43cce5bc",
+                "reference": "75718edcfeeb19abc1970f5395043f7d43cce5bc",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": ">=10.0",
+                "illuminate/support": ">=10.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": ">=8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Stancl\\VirtualColumn\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Samuel Štancl",
+                    "email": "samuel.stancl@gmail.com"
+                }
+            ],
+            "description": "Eloquent virtual column.",
+            "support": {
+                "issues": "https://github.com/archtechx/virtualcolumn/issues",
+                "source": "https://github.com/archtechx/virtualcolumn/tree/v1.5.0"
+            },
+            "time": "2025-02-25T13:12:44+00:00"
+        },
+        {
+            "name": "staudenmeir/eloquent-has-many-deep-contracts",
+            "version": "v1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/staudenmeir/eloquent-has-many-deep-contracts.git",
+                "reference": "6eadbd6904c057e9439f86f8de185f56693fa537"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/staudenmeir/eloquent-has-many-deep-contracts/zipball/6eadbd6904c057e9439f86f8de185f56693fa537",
+                "reference": "6eadbd6904c057e9439f86f8de185f56693fa537",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^13.0",
+                "php": "^8.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Staudenmeir\\EloquentHasManyDeepContracts\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonas Staudenmeir",
+                    "email": "mail@jonas-staudenmeir.de"
+                }
+            ],
+            "description": "Contracts for staudenmeir/eloquent-has-many-deep",
+            "support": {
+                "issues": "https://github.com/staudenmeir/eloquent-has-many-deep-contracts/issues",
+                "source": "https://github.com/staudenmeir/eloquent-has-many-deep-contracts/tree/v1.4"
+            },
+            "time": "2026-02-28T21:33:50+00:00"
+        },
+        {
+            "name": "staudenmeir/laravel-adjacency-list",
+            "version": "v1.26.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/staudenmeir/laravel-adjacency-list.git",
+                "reference": "a8302f3564a8d56fff75c53ffe05521ffabe77cc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/staudenmeir/laravel-adjacency-list/zipball/a8302f3564a8d56fff75c53ffe05521ffabe77cc",
+                "reference": "a8302f3564a8d56fff75c53ffe05521ffabe77cc",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^13.0",
+                "php": "^8.3",
+                "staudenmeir/eloquent-has-many-deep-contracts": "^1.4",
+                "staudenmeir/laravel-cte": "^1.13"
+            },
+            "require-dev": {
+                "barryvdh/laravel-ide-helper": "^3.0",
+                "larastan/larastan": "^3.0",
+                "laravel/framework": "^13.0",
+                "mockery/mockery": "^1.5.1",
+                "orchestra/testbench-core": "^11.0",
+                "phpunit/phpunit": "^12.5",
+                "staudenmeir/eloquent-has-many-deep": "^1.22"
+            },
+            "suggest": {
+                "barryvdh/laravel-ide-helper": "Provide type hints for attributes and relations."
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Staudenmeir\\LaravelAdjacencyList\\IdeHelperServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Staudenmeir\\LaravelAdjacencyList\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonas Staudenmeir",
+                    "email": "mail@jonas-staudenmeir.de"
+                }
+            ],
+            "description": "Recursive Laravel Eloquent relationships with CTEs",
+            "support": {
+                "issues": "https://github.com/staudenmeir/laravel-adjacency-list/issues",
+                "source": "https://github.com/staudenmeir/laravel-adjacency-list/tree/v1.26.1"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/JonasStaudenmeir",
+                    "type": "custom"
+                }
+            ],
+            "time": "2026-04-13T19:35:25+00:00"
+        },
+        {
+            "name": "staudenmeir/laravel-cte",
+            "version": "v1.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/staudenmeir/laravel-cte.git",
+                "reference": "cf59f3b842e411cb22d7446ad40c92e4b5143bbe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/staudenmeir/laravel-cte/zipball/cf59f3b842e411cb22d7446ad40c92e4b5143bbe",
+                "reference": "cf59f3b842e411cb22d7446ad40c92e4b5143bbe",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^13.0",
+                "php": "^8.3"
+            },
+            "require-dev": {
+                "laravel/framework": "^13.0",
+                "orchestra/testbench-core": "^11.0",
+                "phpstan/phpstan": "^2.0",
+                "phpunit/phpunit": "^12.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Staudenmeir\\LaravelCte\\DatabaseServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Staudenmeir\\LaravelCte\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jonas Staudenmeir",
+                    "email": "mail@jonas-staudenmeir.de"
+                }
+            ],
+            "description": "Laravel queries with common table expressions",
+            "support": {
+                "issues": "https://github.com/staudenmeir/laravel-cte/issues",
+                "source": "https://github.com/staudenmeir/laravel-cte/tree/v1.13.0"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/JonasStaudenmeir",
+                    "type": "custom"
+                }
+            ],
+            "time": "2026-02-28T20:58:05+00:00"
         },
         {
             "name": "symfony/clock",
@@ -7288,16 +9762,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v8.1.2",
+            "version": "v8.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "535e18a1b8925f6c01a55b171d157ab66c2ace15"
+                "reference": "68efa2ebfd9a362951eb5a8b09fd177c66ddec24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/535e18a1b8925f6c01a55b171d157ab66c2ace15",
-                "reference": "535e18a1b8925f6c01a55b171d157ab66c2ace15",
+                "url": "https://api.github.com/repos/symfony/console/zipball/68efa2ebfd9a362951eb5a8b09fd177c66ddec24",
+                "reference": "68efa2ebfd9a362951eb5a8b09fd177c66ddec24",
                 "shasum": ""
             },
             "require": {
@@ -7364,7 +9838,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v8.1.2"
+                "source": "https://github.com/symfony/console/tree/v8.1.4"
             },
             "funding": [
                 {
@@ -7384,7 +9858,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-27T13:58:19+00:00"
+            "time": "2026-07-31T12:43:13+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -7913,16 +10387,16 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v8.1.2",
+            "version": "v8.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "9943adbf5a64e2951a8d9eb0485310d55624f0e8"
+                "reference": "57e712b75f2d0bc8844edbdb18a81dab6f9d55c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/9943adbf5a64e2951a8d9eb0485310d55624f0e8",
-                "reference": "9943adbf5a64e2951a8d9eb0485310d55624f0e8",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/57e712b75f2d0bc8844edbdb18a81dab6f9d55c2",
+                "reference": "57e712b75f2d0bc8844edbdb18a81dab6f9d55c2",
                 "shasum": ""
             },
             "require": {
@@ -7970,7 +10444,7 @@
             "description": "Defines an object-oriented layer for the HTTP specification",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-foundation/tree/v8.1.2"
+                "source": "https://github.com/symfony/http-foundation/tree/v8.1.4"
             },
             "funding": [
                 {
@@ -7990,20 +10464,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-29T07:22:54+00:00"
+            "time": "2026-08-07T15:02:39+00:00"
         },
         {
             "name": "symfony/http-kernel",
-            "version": "v8.1.2",
+            "version": "v8.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-kernel.git",
-                "reference": "c7bb08dc26a7a7da68fb7ac1ce9de925e6464dbc"
+                "reference": "69d81d8a5dac32a5d94e4eb063b7d97dc42c792a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/c7bb08dc26a7a7da68fb7ac1ce9de925e6464dbc",
-                "reference": "c7bb08dc26a7a7da68fb7ac1ce9de925e6464dbc",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/69d81d8a5dac32a5d94e4eb063b7d97dc42c792a",
+                "reference": "69d81d8a5dac32a5d94e4eb063b7d97dc42c792a",
                 "shasum": ""
             },
             "require": {
@@ -8080,7 +10554,7 @@
             "description": "Provides a structured process for converting a Request into a Response",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-kernel/tree/v8.1.2"
+                "source": "https://github.com/symfony/http-kernel/tree/v8.1.4"
             },
             "funding": [
                 {
@@ -8100,7 +10574,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-29T11:54:54+00:00"
+            "time": "2026-08-07T18:04:54+00:00"
         },
         {
             "name": "symfony/mailer",
@@ -8184,16 +10658,16 @@
         },
         {
             "name": "symfony/mime",
-            "version": "v8.1.2",
+            "version": "v8.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/mime.git",
-                "reference": "75f4779d4ec2e13f24a3a7e5d0347c340c7ca627"
+                "reference": "8f8ac859d369fe3d18e3837998b1c992bbee92c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/mime/zipball/75f4779d4ec2e13f24a3a7e5d0347c340c7ca627",
-                "reference": "75f4779d4ec2e13f24a3a7e5d0347c340c7ca627",
+                "url": "https://api.github.com/repos/symfony/mime/zipball/8f8ac859d369fe3d18e3837998b1c992bbee92c9",
+                "reference": "8f8ac859d369fe3d18e3837998b1c992bbee92c9",
                 "shasum": ""
             },
             "require": {
@@ -8246,7 +10720,7 @@
                 "mime-type"
             ],
             "support": {
-                "source": "https://github.com/symfony/mime/tree/v8.1.2"
+                "source": "https://github.com/symfony/mime/tree/v8.1.4"
             },
             "funding": [
                 {
@@ -8266,7 +10740,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-29T08:00:47+00:00"
+            "time": "2026-08-07T15:02:39+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -8350,6 +10824,93 @@
                 }
             ],
             "time": "2026-04-10T16:19:22+00:00"
+        },
+        {
+            "name": "symfony/polyfill-deepclone",
+            "version": "v1.40.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-deepclone.git",
+                "reference": "dca4ccba5f360070b574414dce4c1e7a559844fa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-deepclone/zipball/dca4ccba5f360070b574414dce4c1e7a559844fa",
+                "reference": "dca4ccba5f360070b574414dce4c1e7a559844fa",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "provide": {
+                "ext-deepclone": "*"
+            },
+            "suggest": {
+                "ext-deepclone": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "thanks": {
+                    "url": "https://github.com/symfony/polyfill",
+                    "name": "symfony/polyfill"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\DeepClone\\": ""
+                },
+                "classmap": [
+                    "Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for the deepclone extension",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "deepclone",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-deepclone/tree/v1.40.0"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2026-06-12T07:27:17+00:00"
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
@@ -9099,20 +11660,20 @@
         },
         {
             "name": "symfony/process",
-            "version": "v8.1.0",
+            "version": "v7.4.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "c4a9e58f235a6bf7f97ffbfedae2687353ac79e5"
+                "reference": "f5804be144caceb570f6747519999636b664f24c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/c4a9e58f235a6bf7f97ffbfedae2687353ac79e5",
-                "reference": "c4a9e58f235a6bf7f97ffbfedae2687353ac79e5",
+                "url": "https://api.github.com/repos/symfony/process/zipball/f5804be144caceb570f6747519999636b664f24c",
+                "reference": "f5804be144caceb570f6747519999636b664f24c",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.4.1"
+                "php": ">=8.2"
             },
             "type": "library",
             "autoload": {
@@ -9140,7 +11701,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v8.1.0"
+                "source": "https://github.com/symfony/process/tree/v7.4.13"
             },
             "funding": [
                 {
@@ -9160,20 +11721,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-29T05:06:50+00:00"
+            "time": "2026-05-23T16:05:06+00:00"
         },
         {
             "name": "symfony/property-access",
-            "version": "v8.1.0",
+            "version": "v8.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-access.git",
-                "reference": "9261ef060f26cc7b728f67f141ba19b98a6209a9"
+                "reference": "1a41232c678972b93ce499a504e19ea09dfcd0b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/property-access/zipball/9261ef060f26cc7b728f67f141ba19b98a6209a9",
-                "reference": "9261ef060f26cc7b728f67f141ba19b98a6209a9",
+                "url": "https://api.github.com/repos/symfony/property-access/zipball/1a41232c678972b93ce499a504e19ea09dfcd0b2",
+                "reference": "1a41232c678972b93ce499a504e19ea09dfcd0b2",
                 "shasum": ""
             },
             "require": {
@@ -9221,7 +11782,7 @@
                 "reflection"
             ],
             "support": {
-                "source": "https://github.com/symfony/property-access/tree/v8.1.0"
+                "source": "https://github.com/symfony/property-access/tree/v8.1.4"
             },
             "funding": [
                 {
@@ -9241,20 +11802,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-29T05:06:50+00:00"
+            "time": "2026-07-30T12:40:56+00:00"
         },
         {
             "name": "symfony/property-info",
-            "version": "v8.1.2",
+            "version": "v8.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-info.git",
-                "reference": "289ef0d4f2b9bd5245ac2604564289a8673837b9"
+                "reference": "d3b1ba3e69dd9fbfff3e00416d2fc60c600c599d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/property-info/zipball/289ef0d4f2b9bd5245ac2604564289a8673837b9",
-                "reference": "289ef0d4f2b9bd5245ac2604564289a8673837b9",
+                "url": "https://api.github.com/repos/symfony/property-info/zipball/d3b1ba3e69dd9fbfff3e00416d2fc60c600c599d",
+                "reference": "d3b1ba3e69dd9fbfff3e00416d2fc60c600c599d",
                 "shasum": ""
             },
             "require": {
@@ -9307,7 +11868,7 @@
                 "validator"
             ],
             "support": {
-                "source": "https://github.com/symfony/property-info/tree/v8.1.2"
+                "source": "https://github.com/symfony/property-info/tree/v8.1.4"
             },
             "funding": [
                 {
@@ -9327,7 +11888,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-22T15:42:13+00:00"
+            "time": "2026-08-07T15:02:39+00:00"
         },
         {
             "name": "symfony/routing",
@@ -9411,16 +11972,16 @@
         },
         {
             "name": "symfony/serializer",
-            "version": "v8.1.3",
+            "version": "v8.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/serializer.git",
-                "reference": "6bd396438ba6c36800224e2beaf3f8f2d7439343"
+                "reference": "ec3ae778e49a4cee5b937a779056fa23c3e834fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/serializer/zipball/6bd396438ba6c36800224e2beaf3f8f2d7439343",
-                "reference": "6bd396438ba6c36800224e2beaf3f8f2d7439343",
+                "url": "https://api.github.com/repos/symfony/serializer/zipball/ec3ae778e49a4cee5b937a779056fa23c3e834fb",
+                "reference": "ec3ae778e49a4cee5b937a779056fa23c3e834fb",
                 "shasum": ""
             },
             "require": {
@@ -9486,7 +12047,7 @@
             "description": "Handles serializing and deserializing data structures, including object graphs, into array structures or other formats like XML and JSON.",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/serializer/tree/v8.1.3"
+                "source": "https://github.com/symfony/serializer/tree/v8.1.4"
             },
             "funding": [
                 {
@@ -9506,7 +12067,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-29T14:11:26+00:00"
+            "time": "2026-08-06T09:53:08+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -9687,16 +12248,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v8.1.1",
+            "version": "v8.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "342b4218630dc2cf284cedcb2080c80b13404014"
+                "reference": "c0955eb4aa417a110e65c8162237b8a5c7d910bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/342b4218630dc2cf284cedcb2080c80b13404014",
-                "reference": "342b4218630dc2cf284cedcb2080c80b13404014",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/c0955eb4aa417a110e65c8162237b8a5c7d910bf",
+                "reference": "c0955eb4aa417a110e65c8162237b8a5c7d910bf",
                 "shasum": ""
             },
             "require": {
@@ -9756,7 +12317,7 @@
             "description": "Provides tools to internationalize your application",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/translation/tree/v8.1.1"
+                "source": "https://github.com/symfony/translation/tree/v8.1.4"
             },
             "funding": [
                 {
@@ -9776,7 +12337,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-06-06T11:11:44+00:00"
+            "time": "2026-07-30T12:40:56+00:00"
         },
         {
             "name": "symfony/translation-contracts",
@@ -9944,16 +12505,16 @@
         },
         {
             "name": "symfony/uid",
-            "version": "v8.1.0",
+            "version": "v8.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/uid.git",
-                "reference": "7393f157a55f7e70a4de0334435c55a5a8fe749a"
+                "reference": "50e98f8bc4c3fcdaf925545a65150fb42cf0caf2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/uid/zipball/7393f157a55f7e70a4de0334435c55a5a8fe749a",
-                "reference": "7393f157a55f7e70a4de0334435c55a5a8fe749a",
+                "url": "https://api.github.com/repos/symfony/uid/zipball/50e98f8bc4c3fcdaf925545a65150fb42cf0caf2",
+                "reference": "50e98f8bc4c3fcdaf925545a65150fb42cf0caf2",
                 "shasum": ""
             },
             "require": {
@@ -9998,7 +12559,7 @@
                 "uuid"
             ],
             "support": {
-                "source": "https://github.com/symfony/uid/tree/v8.1.0"
+                "source": "https://github.com/symfony/uid/tree/v8.1.4"
             },
             "funding": [
                 {
@@ -10018,7 +12579,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-29T05:06:50+00:00"
+            "time": "2026-08-02T11:29:46+00:00"
         },
         {
             "name": "symfony/var-dumper",
@@ -10106,6 +12667,183 @@
                 }
             ],
             "time": "2026-07-22T15:42:13+00:00"
+        },
+        {
+            "name": "symfony/var-exporter",
+            "version": "v8.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/var-exporter.git",
+                "reference": "6efa89335ab6d336643a807fcc89ae4f8a7a17e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/var-exporter/zipball/6efa89335ab6d336643a807fcc89ae4f8a7a17e9",
+                "reference": "6efa89335ab6d336643a807fcc89ae4f8a7a17e9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.4.1",
+                "symfony/deprecation-contracts": "^2.5|^3",
+                "symfony/polyfill-deepclone": "^1.40"
+            },
+            "require-dev": {
+                "symfony/property-access": "^7.4|^8.0",
+                "symfony/serializer": "^7.4|^8.0",
+                "symfony/var-dumper": "^7.4|^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\VarExporter\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides tools to export, instantiate, hydrate, clone and lazy-load PHP objects",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "clone",
+                "construct",
+                "deep-clone",
+                "export",
+                "hydrate",
+                "instantiate",
+                "lazy-loading",
+                "proxy",
+                "serialize"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/var-exporter/tree/v8.1.4"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2026-07-30T12:40:56+00:00"
+        },
+        {
+            "name": "symfony/workflow",
+            "version": "v7.4.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/workflow.git",
+                "reference": "0c7651c6c8f152348184d3dc3e7b40039c87d5d0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/workflow/zipball/0c7651c6c8f152348184d3dc3e7b40039c87d5d0",
+                "reference": "0c7651c6c8f152348184d3dc3e7b40039c87d5d0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.2",
+                "symfony/deprecation-contracts": "2.5|^3"
+            },
+            "conflict": {
+                "symfony/event-dispatcher": "<6.4"
+            },
+            "require-dev": {
+                "psr/log": "^1|^2|^3",
+                "symfony/config": "^6.4|^7.0|^8.0",
+                "symfony/console": "^6.4|^7.0|^8.0",
+                "symfony/dependency-injection": "^6.4|^7.0|^8.0",
+                "symfony/error-handler": "^6.4|^7.0|^8.0",
+                "symfony/event-dispatcher": "^6.4|^7.0|^8.0",
+                "symfony/expression-language": "^6.4|^7.0|^8.0",
+                "symfony/http-kernel": "^6.4|^7.0|^8.0",
+                "symfony/security-core": "^6.4|^7.0|^8.0",
+                "symfony/stopwatch": "^6.4|^7.0|^8.0",
+                "symfony/validator": "^6.4|^7.0|^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Workflow\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Grégoire Pineau",
+                    "email": "lyrixx@lyrixx.info"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Provides tools for managing a workflow or finite state machine",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "petrinet",
+                "place",
+                "state",
+                "statemachine",
+                "transition",
+                "workflow"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/workflow/tree/v7.4.9"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2026-04-18T13:18:21+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -10678,154 +13416,22 @@
     ],
     "packages-dev": [
         {
-            "name": "fakerphp/faker",
-            "version": "v1.24.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/FakerPHP/Faker.git",
-                "reference": "e0ee18eb1e6dc3cda3ce9fd97e5a0689a88a64b5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/e0ee18eb1e6dc3cda3ce9fd97e5a0689a88a64b5",
-                "reference": "e0ee18eb1e6dc3cda3ce9fd97e5a0689a88a64b5",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.4 || ^8.0",
-                "psr/container": "^1.0 || ^2.0",
-                "symfony/deprecation-contracts": "^2.2 || ^3.0"
-            },
-            "conflict": {
-                "fzaninotto/faker": "*"
-            },
-            "require-dev": {
-                "bamarni/composer-bin-plugin": "^1.4.1",
-                "doctrine/persistence": "^1.3 || ^2.0",
-                "ext-intl": "*",
-                "phpunit/phpunit": "^9.5.26",
-                "symfony/phpunit-bridge": "^5.4.16"
-            },
-            "suggest": {
-                "doctrine/orm": "Required to use Faker\\ORM\\Doctrine",
-                "ext-curl": "Required by Faker\\Provider\\Image to download images.",
-                "ext-dom": "Required by Faker\\Provider\\HtmlLorem for generating random HTML.",
-                "ext-iconv": "Required by Faker\\Provider\\ru_RU\\Text::realText() for generating real Russian text.",
-                "ext-mbstring": "Required for multibyte Unicode string functionality."
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Faker\\": "src/Faker/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "François Zaninotto"
-                }
-            ],
-            "description": "Faker is a PHP library that generates fake data for you.",
-            "keywords": [
-                "data",
-                "faker",
-                "fixtures"
-            ],
-            "support": {
-                "issues": "https://github.com/FakerPHP/Faker/issues",
-                "source": "https://github.com/FakerPHP/Faker/tree/v1.24.1"
-            },
-            "time": "2024-11-21T13:46:39+00:00"
-        },
-        {
-            "name": "filp/whoops",
-            "version": "2.18.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/filp/whoops.git",
-                "reference": "d2102955e48b9fd9ab24280a7ad12ed552752c4d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/d2102955e48b9fd9ab24280a7ad12ed552752c4d",
-                "reference": "d2102955e48b9fd9ab24280a7ad12ed552752c4d",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1 || ^8.0",
-                "psr/log": "^1.0.1 || ^2.0 || ^3.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.0",
-                "phpunit/phpunit": "^7.5.20 || ^8.5.8 || ^9.3.3",
-                "symfony/var-dumper": "^4.0 || ^5.0"
-            },
-            "suggest": {
-                "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
-                "whoops/soap": "Formats errors as SOAP responses"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.7-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Whoops\\": "src/Whoops/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Filipe Dobreira",
-                    "homepage": "https://github.com/filp",
-                    "role": "Developer"
-                }
-            ],
-            "description": "php error handling for cool kids",
-            "homepage": "https://filp.github.io/whoops/",
-            "keywords": [
-                "error",
-                "exception",
-                "handling",
-                "library",
-                "throwable",
-                "whoops"
-            ],
-            "support": {
-                "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.18.4"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/denis-sokolov",
-                    "type": "github"
-                }
-            ],
-            "time": "2025-08-08T12:00:00+00:00"
-        },
-        {
             "name": "hamcrest/hamcrest-php",
-            "version": "v2.1.1",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hamcrest/hamcrest-php.git",
-                "reference": "f8b1c0173b22fa6ec77a81fe63e5b01eba7e6487"
+                "reference": "b61cd040da1a4925bc90a51c074f5297e7c0fa52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hamcrest/hamcrest-php/zipball/f8b1c0173b22fa6ec77a81fe63e5b01eba7e6487",
-                "reference": "f8b1c0173b22fa6ec77a81fe63e5b01eba7e6487",
+                "url": "https://api.github.com/repos/hamcrest/hamcrest-php/zipball/b61cd040da1a4925bc90a51c074f5297e7c0fa52",
+                "reference": "b61cd040da1a4925bc90a51c074f5297e7c0fa52",
                 "shasum": ""
             },
             "require": {
+                "ext-ctype": "*",
+                "ext-dom": "*",
                 "php": "^7.4|^8.0"
             },
             "replace": {
@@ -10834,13 +13440,15 @@
                 "kodova/hamcrest-php": "*"
             },
             "require-dev": {
+                "phpstan/phpstan": "^2.1",
+                "phpstan/phpstan-phpunit": "^2.0",
                 "phpunit/php-file-iterator": "^1.4 || ^2.0 || ^3.0",
                 "phpunit/phpunit": "^4.8.36 || ^5.7 || ^6.5 || ^7.0 || ^8.0 || ^9.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1-dev"
+                    "dev-master": "3.0-dev"
                 }
             },
             "autoload": {
@@ -10858,9 +13466,9 @@
             ],
             "support": {
                 "issues": "https://github.com/hamcrest/hamcrest-php/issues",
-                "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.1.1"
+                "source": "https://github.com/hamcrest/hamcrest-php/tree/v3.0.0"
             },
-            "time": "2025-04-30T06:54:44+00:00"
+            "time": "2026-03-17T11:56:53+00:00"
         },
         {
             "name": "iamcal/sql-parser",
@@ -11355,29 +13963,28 @@
         },
         {
             "name": "mockery/mockery",
-            "version": "1.6.12",
+            "version": "1.6.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mockery/mockery.git",
-                "reference": "1f4efdd7d3beafe9807b08156dfcb176d18f1699"
+                "reference": "967a801bd188989a5669bd280f252d51c0fdc9ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mockery/mockery/zipball/1f4efdd7d3beafe9807b08156dfcb176d18f1699",
-                "reference": "1f4efdd7d3beafe9807b08156dfcb176d18f1699",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/967a801bd188989a5669bd280f252d51c0fdc9ee",
+                "reference": "967a801bd188989a5669bd280f252d51c0fdc9ee",
                 "shasum": ""
             },
             "require": {
-                "hamcrest/hamcrest-php": "^2.0.1",
-                "lib-pcre": ">=7.0",
+                "hamcrest/hamcrest-php": "^2.0 || ^3.0",
                 "php": ">=7.3"
             },
             "conflict": {
                 "phpunit/phpunit": "<8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^8.5 || ^9.6.17",
-                "symplify/easy-coding-standard": "^12.1.14"
+                "phpunit/phpunit": "^9.6.36",
+                "symplify/easy-coding-standard": "^13.2.17"
             },
             "type": "library",
             "autoload": {
@@ -11434,7 +14041,7 @@
                 "security": "https://github.com/mockery/mockery/security/advisories",
                 "source": "https://github.com/mockery/mockery"
             },
-            "time": "2024-05-16T03:13:13+00:00"
+            "time": "2026-08-19T19:37:52+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -11495,102 +14102,6 @@
                 }
             ],
             "time": "2025-08-01T08:46:24+00:00"
-        },
-        {
-            "name": "nunomaduro/collision",
-            "version": "v8.9.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nunomaduro/collision.git",
-                "reference": "fb53eacd509a1d303858e2d20cfebf2d630254ec"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/fb53eacd509a1d303858e2d20cfebf2d630254ec",
-                "reference": "fb53eacd509a1d303858e2d20cfebf2d630254ec",
-                "shasum": ""
-            },
-            "require": {
-                "filp/whoops": "^2.18.4",
-                "nunomaduro/termwind": "^2.4.0",
-                "php": "^8.2.0",
-                "symfony/console": "^7.4.14 || ^8.1.1"
-            },
-            "conflict": {
-                "laravel/framework": "<11.48.0 || >=14.0.0",
-                "phpunit/phpunit": "<11.5.50 || >=14.0.0"
-            },
-            "require-dev": {
-                "brianium/paratest": "^7.8.5",
-                "larastan/larastan": "^3.10.0",
-                "laravel/framework": "^11.48.0 || ^12.56.0 || ^13.20.0",
-                "laravel/pint": "^1.29.3",
-                "orchestra/testbench-core": "^9.12.0 || ^10.12.1 || ^11.3.5",
-                "pestphp/pest": "^3.8.5 || ^4.7.5 || ^5.0.0",
-                "sebastian/environment": "^7.2.1 || ^8.1.2 || ^9.3.2"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider"
-                    ]
-                },
-                "branch-alias": {
-                    "dev-8.x": "8.x-dev"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "./src/Adapters/Phpunit/Autoload.php"
-                ],
-                "psr-4": {
-                    "NunoMaduro\\Collision\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nuno Maduro",
-                    "email": "enunomaduro@gmail.com"
-                }
-            ],
-            "description": "Cli error handling for console/command-line PHP applications.",
-            "keywords": [
-                "artisan",
-                "cli",
-                "command-line",
-                "console",
-                "dev",
-                "error",
-                "handling",
-                "laravel",
-                "laravel-zero",
-                "php",
-                "symfony"
-            ],
-            "support": {
-                "issues": "https://github.com/nunomaduro/collision/issues",
-                "source": "https://github.com/nunomaduro/collision"
-            },
-            "funding": [
-                {
-                    "url": "https://www.paypal.com/paypalme/enunomaduro",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/nunomaduro",
-                    "type": "github"
-                },
-                {
-                    "url": "https://www.patreon.com/nunomaduro",
-                    "type": "patreon"
-                }
-            ],
-            "time": "2026-07-15T19:09:14+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -12210,49 +14721,74 @@
             "time": "2026-07-28T13:58:09+00:00"
         },
         {
-            "name": "rushing/php-graphine",
+            "name": "rushing/laravel-surgeon",
             "version": "dev-main",
             "dist": {
                 "type": "path",
-                "url": "../../../php/packages/rushing/php-graphine",
-                "reference": "a3da382638e7de6d0e6c6b9ac2e5d313c6778055"
+                "url": "../../../php/packages/rushing/laravel-surgeon",
+                "reference": "cdd97ff7d229a3ac057237e06d37734cfbcfc810"
             },
             "require": {
-                "php": "^8.3"
+                "illuminate/console": "^11.0|^12.0|^13.0",
+                "illuminate/support": "^11.0|^12.0|^13.0",
+                "nikic/php-parser": "^5.0",
+                "php": "^8.3",
+                "rushing/laravel-doctor": "dev-main",
+                "rushing/php-graphine": "dev-main",
+                "rushing/php-package-topology": "dev-main",
+                "rushing/php-popcorn": "dev-main"
             },
             "require-dev": {
+                "laravel/mcp": "^0.8",
                 "laravel/pint": "^1.0",
-                "nikic/php-parser": "^5.0",
-                "pestphp/pest": "^3.0"
+                "orchestra/testbench": "^9.0|^10.0|^11.0",
+                "pestphp/pest": "^2.0|^3.0",
+                "rushing/laravel-mcp-registry": "dev-main"
             },
             "suggest": {
-                "graphp/graph": "MIT — pure-PHP in-memory graph algorithms behind the reference driver (roles 1/2)",
-                "nikic/php-parser": "BSD-3 — AST scanner behind the seam guard a consumer runs over its own App\\Graph\\Drivers"
+                "laravel/mcp": "Ships surgeon:* as reflected MCP tools via Rushing\\Surgeon\\Mcp\\SurgeonMcpServer (auto-registered when installed).",
+                "rushing/laravel-mcp-registry": "The generic artisan-command→MCP-tool reflection bridge the surgeon MCP server mounts."
             },
             "type": "library",
             "extra": {
+                "branch-alias": {
+                    "dev-main": "1.0.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Rushing\\Surgeon\\SurgeonServiceProvider"
+                    ]
+                },
                 "package-topology": {
+                    "mustRequire": [
+                        "nikic/php-parser",
+                        "rushing/laravel-doctor",
+                        "rushing/php-graphine",
+                        "rushing/php-package-topology",
+                        "rushing/php-popcorn"
+                    ],
                     "mustNotRequire": [
-                        "illuminate/*"
+                        "splicewire/*",
+                        "schemastud/*"
                     ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Rushing\\Graphine\\": "src/"
+                    "Rushing\\Surgeon\\": "src/"
                 }
             },
             "autoload-dev": {
                 "psr-4": {
-                    "Rushing\\Graphine\\Tests\\": "tests/"
+                    "Rushing\\Surgeon\\Tests\\": "tests/"
                 }
             },
             "scripts": {
+                "test": [
+                    "vendor/bin/pest"
+                ],
                 "pint": [
                     "@php -d memory_limit=512M vendor/bin/pint"
-                ],
-                "test": [
-                    "@php vendor/bin/pest"
                 ]
             },
             "license": [
@@ -12264,14 +14800,16 @@
                     "email": "stephenr85@gmail.com"
                 }
             ],
-            "description": "The framework-free graph algebra behind graphine: the GraphStore contract + role sub-contracts + value types + in-memory reference driver + conformance test-kit. Zero illuminate; the Eloquent binding lives in rushing/laravel-graphine.",
+            "description": "Deterministic code-insight + operation engine for Laravel package estates: an audit-first refactor tool built on nikic/php-parser (via graphine's SeamGuard AST scanner) that collapses an agent's hunt into a structured finding-set and applies mechanical operations (Tier-1 automated / Tier-2 guided / Tier-3 advisory), with the topology cycle-guard as post-rewrite verification. Doctor diagnoses; the surgeon operates.",
             "keywords": [
-                "algebra",
-                "driver",
-                "graph",
-                "knowledge-graph",
-                "seam",
-                "substrate"
+                "ast",
+                "audit",
+                "codemod",
+                "laravel",
+                "refactor",
+                "rushing",
+                "surgeon",
+                "topology"
             ],
             "transport-options": {
                 "symlink": true,
@@ -12284,7 +14822,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/php-package-topology",
-                "reference": "38d3b73f634244f8a9bc6f0329b33d3eeaab9f03"
+                "reference": "09bd20daee7f46a673dd512755e3541250b15fc0"
             },
             "require": {
                 "php": "^8.3",
@@ -13253,6 +15791,76 @@
             "time": "2025-02-07T05:00:38+00:00"
         },
         {
+            "name": "splicewire/laravel-beam-provision",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/splicewire/laravel-beam-provision.git",
+                "reference": "92f51dcc4c73e855262150b9a16e4cf66ab618d5"
+            },
+            "require": {
+                "illuminate/console": "^11.0|^12.0|^13.0",
+                "illuminate/contracts": "^11.0|^12.0|^13.0",
+                "illuminate/http": "^11.0|^12.0|^13.0",
+                "illuminate/support": "^11.0|^12.0|^13.0",
+                "php": "^8.2",
+                "rushing/laravel-popcorn": "dev-main",
+                "rushing/php-popcorn": "dev-main"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^9.0|^10.0",
+                "pestphp/pest": "^2.0|^3.0",
+                "wikimedia/composer-merge-plugin": "^2.1"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.0.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Splicewire\\Beam\\Provision\\BeamProvisionServiceProvider"
+                    ]
+                },
+                "merge-plugin": {
+                    "include": [
+                        "composer.local.json"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Splicewire\\Beam\\Provision\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Splicewire\\Beam\\Provision\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/pest"
+                ],
+                "pint": [
+                    "@php -d memory_limit=512M vendor/bin/pint"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen Rushing",
+                    "email": "stephen@rushing.dev"
+                }
+            ],
+            "description": "A Destination contract for standing up a repo on a cloud provider (provision/teardown/healthCheck), with LaravelCloudDestination and CloudRunDestination as its two adapters, proving the seam generalizes across providers.",
+            "time": "2026-08-17T13:38:30+00:00"
+        },
+        {
             "name": "staabm/side-effects-detector",
             "version": "1.0.5",
             "source": {
@@ -13357,11 +15965,14 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": {
+        "rushing/laravel-surgeon": 20,
+        "splicewire/laravel-beam-provision": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.3"
+        "php": "^8.4"
     },
     "platform-dev": {},
     "plugin-api-version": "2.9.0"
