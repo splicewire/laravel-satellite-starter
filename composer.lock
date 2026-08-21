@@ -190,153 +190,6 @@
             "time": "2024-02-09T16:56:22+00:00"
         },
         {
-            "name": "cocur/slugify",
-            "version": "v4.7.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/cocur/slugify.git",
-                "reference": "a860dab2b9f5f37775fc6414d4f049434848165f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/cocur/slugify/zipball/a860dab2b9f5f37775fc6414d4f049434848165f",
-                "reference": "a860dab2b9f5f37775fc6414d4f049434848165f",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "php": "~8.0.0 || ~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0"
-            },
-            "conflict": {
-                "symfony/config": "<3.4 || >=4,<4.3",
-                "symfony/dependency-injection": "<3.4 || >=4,<4.3",
-                "symfony/http-kernel": "<3.4 || >=4,<4.3",
-                "twig/twig": "<2.12.1"
-            },
-            "require-dev": {
-                "laravel/framework": "^5.0|^6.0|^7.0|^8.0",
-                "latte/latte": "~2.2",
-                "league/container": "^2.2.0",
-                "mikey179/vfsstream": "~1.6.8",
-                "mockery/mockery": "^1.3",
-                "nette/di": "~2.4",
-                "pimple/pimple": "~1.1",
-                "plumphp/plum": "~0.1",
-                "symfony/config": "^3.4 || ^4.3 || ^5.0 || ^6.0",
-                "symfony/dependency-injection": "^3.4 || ^4.3 || ^5.0 || ^6.0",
-                "symfony/http-kernel": "^3.4 || ^4.3 || ^5.0 || ^6.0",
-                "symfony/phpunit-bridge": "^5.4 || ^6.0",
-                "twig/twig": "^2.12.1 || ~3.0",
-                "zendframework/zend-modulemanager": "~2.2",
-                "zendframework/zend-servicemanager": "~2.2",
-                "zendframework/zend-view": "~2.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Cocur\\Slugify\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Florian Eckerstorfer",
-                    "email": "florian@eckerstorfer.co",
-                    "homepage": "https://florian.ec"
-                },
-                {
-                    "name": "Ivo Bathke",
-                    "email": "ivo.bathke@gmail.com"
-                }
-            ],
-            "description": "Converts a string into a slug.",
-            "keywords": [
-                "slug",
-                "slugify"
-            ],
-            "support": {
-                "issues": "https://github.com/cocur/slugify/issues",
-                "source": "https://github.com/cocur/slugify/tree/v4.7.1"
-            },
-            "time": "2025-11-27T18:57:36+00:00"
-        },
-        {
-            "name": "cviebrock/eloquent-sluggable",
-            "version": "13.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/cviebrock/eloquent-sluggable.git",
-                "reference": "a0e2e342461ac04f5c41eb1c52f9bc77eafa6a03"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/cviebrock/eloquent-sluggable/zipball/a0e2e342461ac04f5c41eb1c52f9bc77eafa6a03",
-                "reference": "a0e2e342461ac04f5c41eb1c52f9bc77eafa6a03",
-                "shasum": ""
-            },
-            "require": {
-                "cocur/slugify": "^4.3",
-                "illuminate/config": "^13.0",
-                "illuminate/database": "^13.0",
-                "illuminate/support": "^13.0",
-                "php": "^8.3"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "~3.94.2",
-                "larastan/larastan": "^3.0",
-                "mockery/mockery": "^1.4.4",
-                "orchestra/testbench": "^11.0",
-                "pestphp/pest": "^3.7",
-                "phpstan/phpstan": "^2.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Cviebrock\\EloquentSluggable\\ServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Cviebrock\\EloquentSluggable\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Colin Viebrock",
-                    "email": "colin@viebrock.ca"
-                }
-            ],
-            "description": "Easy creation of slugs for your Eloquent models in Laravel",
-            "homepage": "https://github.com/cviebrock/eloquent-sluggable",
-            "keywords": [
-                "eloquent",
-                "eloquent-sluggable",
-                "laravel",
-                "slug",
-                "sluggable"
-            ],
-            "support": {
-                "issues": "https://github.com/cviebrock/eloquent-sluggable/issues",
-                "source": "https://github.com/cviebrock/eloquent-sluggable/tree/13.0.1"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/cviebrock",
-                    "type": "github"
-                }
-            ],
-            "time": "2026-07-20T13:44:42+00:00"
-        },
-        {
             "name": "dasprid/enum",
             "version": "1.0.7",
             "source": {
@@ -6355,7 +6208,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/php-popcorn",
-                "reference": "301f4b37619f04b0bea029817cfd97ed3805c018"
+                "reference": "2e943182161a1b70050fb046ddf721ab9630acb6"
             },
             "require": {
                 "php": "^8.3",
@@ -6601,7 +6454,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/schemastud/laravel-data-schemas",
-                "reference": "d0bb0a38cc7308e44f0786c241d370a88c278d90"
+                "reference": "8dfe2bc98f2351f27fa10e64ccd0956143f9caca"
             },
             "require": {
                 "galbar/jsonpath": "^3.0",
@@ -7771,6 +7624,84 @@
             "time": "2026-06-24T07:59:14+00:00"
         },
         {
+            "name": "spatie/laravel-sluggable",
+            "version": "4.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-sluggable.git",
+                "reference": "572933c61b70103be4b95fe7674070bb60243254"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-sluggable/zipball/572933c61b70103be4b95fe7674070bb60243254",
+                "reference": "572933c61b70103be4b95fe7674070bb60243254",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^12.0|^13.0",
+                "illuminate/support": "^12.0|^13.0",
+                "php": "^8.3"
+            },
+            "require-dev": {
+                "larastan/larastan": "^3.0",
+                "laravel/pint": "^1.24",
+                "orchestra/testbench": "^10.0|^11.0",
+                "pestphp/pest": "^4.0",
+                "spatie/laravel-translatable": "^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "SelfHealing": "Spatie\\Sluggable\\Facades\\SelfHealing"
+                    },
+                    "providers": [
+                        "Spatie\\Sluggable\\SluggableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Sluggable\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Generate slugs when saving Eloquent models",
+            "homepage": "https://github.com/spatie/laravel-sluggable",
+            "keywords": [
+                "eloquent",
+                "laravel",
+                "laravel-sluggable",
+                "self-healing",
+                "slug",
+                "slugs",
+                "spatie",
+                "translatable"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-sluggable/issues",
+                "source": "https://github.com/spatie/laravel-sluggable/tree/4.0.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2026-07-28T13:16:49+00:00"
+        },
+        {
             "name": "spatie/laravel-typescript-transformer",
             "version": "3.3.0",
             "source": {
@@ -8061,7 +7992,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-beam",
-                "reference": "7ec487f3c7fbf2214732d6b5fa97e99610ded388"
+                "reference": "316952ee19d96b96d9c31cf67ce5926b440f5247"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8085,6 +8016,7 @@
                 "spatie/laravel-model-status": "*",
                 "spatie/laravel-package-tools": "^1.16",
                 "spatie/laravel-schemaless-attributes": "*",
+                "spatie/laravel-sluggable": "^3.5|^4.0",
                 "spatie/typescript-transformer": "^2.0|^3.0",
                 "symfony/yaml": "^6.0|^7.0|^8.0"
             },
@@ -8515,10 +8447,9 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-beam-taxonomy",
-                "reference": "a92ce7a32b99f3c9af6de3e73b7b78ea967ef629"
+                "reference": "cb112ba5e0de69a71d67cb1af39ec25216bbc319"
             },
             "require": {
-                "cviebrock/eloquent-sluggable": "*",
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
                 "illuminate/support": "^11.0|^12.0|^13.0",
                 "laravel/scout": "^10.0|^11.0",
@@ -8531,6 +8462,7 @@
                 "spatie/laravel-data": "^4.0|^5.0",
                 "spatie/laravel-package-tools": "^1.16",
                 "spatie/laravel-query-builder": "^5.0|^6.0|^7.0",
+                "spatie/laravel-sluggable": "^3.5|^4.0",
                 "spatie/laravel-typescript-transformer": "^2.0|^3.0",
                 "splicewire/laravel-beam": "*",
                 "splicewire/laravel-beam-sync": "*",
@@ -8614,7 +8546,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-beam-ux",
-                "reference": "b8039892aafbefd84736604d5de385ae103a188f"
+                "reference": "d2656fa0b2d5e9a7bd91f5d4a0ab970b7ae1b239"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8875,7 +8807,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-composition-spine",
-                "reference": "32f0b4e7ff572d3c071511a9e93bdda515da5eec"
+                "reference": "57fee055c290c02bcfb6d4c76624b4aaa1269b02"
             },
             "require": {
                 "galbar/jsonpath": "^3.0",
@@ -8940,7 +8872,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-connector",
-                "reference": "c09dc92073a330dde6da341b5022a43f9067e494"
+                "reference": "bee9be51b920b9e469af71b27eef820c4c49ec94"
             },
             "require": {
                 "illuminate/cache": "^10.0|^11.21|^12.0|^13.0",
@@ -9064,7 +8996,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-satellite",
-                "reference": "80e7b19143b81722128c0191420bf72f7ca2a33e"
+                "reference": "e7a1a98461e09fcaa80b4fe8d735e1c8a6c44b5d"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -14726,7 +14658,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/laravel-surgeon",
-                "reference": "cdd97ff7d229a3ac057237e06d37734cfbcfc810"
+                "reference": "6a05e70e6b2837eafc79b18808b1de8f9fd61f5b"
             },
             "require": {
                 "illuminate/console": "^11.0|^12.0|^13.0",
