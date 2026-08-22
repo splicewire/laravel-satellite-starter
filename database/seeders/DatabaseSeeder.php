@@ -47,9 +47,9 @@ class DatabaseSeeder extends Seeder
         $this->command->call('splicewire:beam:seed');
 
         // A staff user — theme-entries-and-authoring: real operator/authoring reach is a Team's
-        // realm-root `manage` grant (ACC-01's cascade), not `is_staff` (this host's Gates/routes never
-        // read it at all — `DefaultEntitlementResolver`, the package default this host rides
-        // unmodified, never has).
+        // realm-root `manage` grant (ACC-01's cascade). The `is_staff` column is gone entirely
+        // (particle-identity-resources ticket 04) — this host's Gates/routes never read it, and
+        // `DefaultEntitlementResolver`, the package default this host rides unmodified, never has.
         User::factory()->staff()->create([
             'name' => 'Staff User',
             'email' => 'staff@example.com',

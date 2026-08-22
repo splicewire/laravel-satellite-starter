@@ -46,6 +46,31 @@ php artisan splicewire:satellite:install --no-interaction --force
 #   → INFO satellite tier installed.
 ```
 
+**The site self-documents on first boot.** `composer setup` leaves `/docs`, `/docs/api` and
+`/docs/mcp` live with no wiring step of your own. The API reference is generated from **this host's
+own routes** — not a copy of an upstream spec — so it describes what your deployment actually serves,
+and it re-generates at install and deploy (never on request). The pages are `BeamUxEntry` rows this
+site owns: edit them, move them, or re-root the whole subtree by changing the `/docs` row's `segment`.
+Nothing re-asserts them, and deleting them is a supported way to opt out.
+
+Two files own the host half, and both are yours to theme: `routes/web.php`'s `Route::beamUxSite()`
+mount (registered **last**, because it is a catch-all) and `resources/js/pages/site/entry.tsx`, which
+supplies the chrome and the component map a page body may reach for. An installed beam package
+contributes a docs page by seeding a row and mounting a JSON endpoint — it ships no frontend, so that
+component map is what makes its page resolve.
+
+`composer setup` runs `splicewire:beam:ux:compile` after `pnpm install`, because entry bodies compile
+with **the host's** toolchain (`@mdx-js/mdx`) and there is deliberately no in-browser compile fallback.
+Run it again after editing a body outside the app; `splicewire:beam:doctor` reports anything stale.
+
+**Prototyping ships in the bare install.** The starter requires
+`splicewire/laravel-beam-ux-prototype`, so `splicewire:beam:install` also stamps the rushing-prototype
+scaffold (`ui/src/_prototype/**` starter + `_chrome/nav.ts`) and the host-bound
+`docs/agents/rushing-prototype.convention.template.md` — the package self-registers its step into
+`BeamInstallManifest`. Confirm the wiring landed with `splicewire:beam:doctor` (the prototype audit
+reports advisory), or drive the prototype tooling directly via
+`php artisan splicewire:beam:ux:prototype:{install,doctor}`.
+
 ### Local-package run loop
 
 ```bash

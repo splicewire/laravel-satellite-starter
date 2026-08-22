@@ -1,4 +1,5 @@
 import { createInertiaApp } from '@inertiajs/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/sonner';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { initializeTheme } from '@/hooks/use-appearance';
@@ -10,6 +11,15 @@ import OsLayout from '@/layouts/os-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+
+/**
+ * One client for the whole app. Any `@splicewire/beam-ux` surface that owns its own data logic uses
+ * react-query per the package's rule — `<ManifestTable>`, which the seeded `/docs/mcp` page renders,
+ * is the first one a fresh install hits. `useQuery` throws outside a provider and offers no supported
+ * way to detect one, so this has to be mounted by the host; the package ships `<ManifestTableView>`
+ * as the pure escape hatch for SSR and provider-less embeds, not as a substitute for this.
+ */
+const queryClient = new QueryClient();
 
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
@@ -46,10 +56,12 @@ createInertiaApp({
     strictMode: true,
     withApp(app) {
         return (
-            <TooltipProvider delayDuration={0}>
-                {app}
-                <Toaster />
-            </TooltipProvider>
+            <QueryClientProvider client={queryClient}>
+                <TooltipProvider delayDuration={0}>
+                    {app}
+                    <Toaster />
+                </TooltipProvider>
+            </QueryClientProvider>
         );
     },
     progress: {

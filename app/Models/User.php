@@ -22,7 +22,6 @@ use Splicewire\Beam\Accounts\Concerns\BelongsToTeams;
  * @property string $name
  * @property string $email
  * @property Carbon|null $email_verified_at
- * @property bool $is_staff
  * @property string $password
  * @property string|null $two_factor_secret
  * @property string|null $two_factor_recovery_codes
@@ -47,7 +46,6 @@ class User extends Authenticatable implements PasskeyUser
     {
         return [
             'email_verified_at' => 'datetime',
-            'is_staff' => 'boolean',
             'password' => 'hashed',
             /* @chisel-2fa */
             'two_factor_confirmed_at' => 'datetime',

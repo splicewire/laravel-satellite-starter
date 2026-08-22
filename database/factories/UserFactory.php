@@ -41,11 +41,12 @@ class UserFactory extends Factory
     }
 
     /**
-     * Indicate that the user is STAFF — `is_staff` itself grants nothing in this host's Gates/routes
-     * (theme-entries-and-authoring: they resolve through the realm-grant cascade, ACC-01). Real
-     * operator/authoring capability is granted via `afterCreating` — a personal Team holding `manage`
-     * on every provisioned realm's root ({@see TeamProvisioner::personalTeamWithFullReachFor()}), the
-     * same grant-cascade data any other grantee reaches those abilities through.
+     * Indicate that the user is STAFF. There is no staff FLAG to set — the `is_staff` column is
+     * retired estate-wide (particle-identity-resources ticket 04); staff is `entitlement:os.operate`,
+     * which this host's Gates/routes resolve through the realm-grant cascade (ACC-01). So the whole
+     * state is `afterCreating`: a personal Team holding `manage` on every provisioned realm's root
+     * ({@see TeamProvisioner::personalTeamWithFullReachFor()}), the same grant-cascade data any other
+     * grantee reaches those abilities through.
      * `BeamUxEntry::rootFor('operator')` auto-vivifies the operator realm's root FIRST:
      * `personalTeamWithFullReachFor()` only grants realms already provisioned — an isolated test
      * creating a staff user with no prior nav-seed would otherwise find zero provisioned realms and
@@ -53,9 +54,7 @@ class UserFactory extends Factory
      */
     public function staff(): static
     {
-        return $this->state(fn (array $attributes) => [
-            'is_staff' => true,
-        ])->afterCreating(function (User $user): void {
+        return $this->afterCreating(function (User $user): void {
             BeamUxEntry::rootFor('operator');
             app(TeamProvisioner::class)->personalTeamWithFullReachFor($user);
         });
