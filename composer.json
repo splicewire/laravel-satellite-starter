@@ -320,6 +320,10 @@
         {
             "type": "git",
             "url": "https://github.com/stephenr85/laravel-surgeon.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/schemastud/laravel-frame.git"
         }
     ],
     "require": {
