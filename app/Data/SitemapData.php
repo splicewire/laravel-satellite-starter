@@ -27,7 +27,7 @@ use Splicewire\Beam\Particle\Attributes\ParticleResource;
  */
 #[ParticleResource(
     key: 'sitemap',
-    model: SitemapRecord::class,
+    backing: SitemapRecord::class,
     label: 'Sitemap',
     group: 'Site',
     icon: 'map',
