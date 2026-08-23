@@ -44,7 +44,7 @@ return new class extends Migration
 
         Schema::create(Beam::table('submissions'), function (Blueprint $table): void {
             $table->uuid('id')->primary();
-            $table->string('form_key')->index();
+            $table->string('capture_key')->index();
             $table->string('schema_ref')->nullable();
             $table->string('schema_id')->nullable()->index();
             $table->string('migration_status')->nullable()->index();
