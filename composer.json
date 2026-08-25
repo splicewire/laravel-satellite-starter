@@ -381,7 +381,7 @@
             "composer install",
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
             "@php artisan key:generate",
-            "@php artisan splicewire:satellite:install --no-interaction --force",
+            "@php artisan splicewire:satellite:install --no-interaction",
             "pnpm install",
             "@php artisan splicewire:beam:ux:compile",
             "pnpm run build"
