@@ -1,6 +1,6 @@
 import { usePage } from '@inertiajs/react';
 import { createMainframeHost, useBeamUxEntry as useBeamUxEntryBase } from '@splicewire/beam-mainframe';
-import type { HostEntryBody, RibbonRender } from '@splicewire/beam-mainframe';
+import type { EntryRef, HostEntryBody, RibbonRender } from '@splicewire/beam-mainframe';
 import { lazy, Suspense } from 'react';
 import { bodyClient } from '@/editor/transport';
 
@@ -71,7 +71,22 @@ const ribbon: RibbonRender = () => null;
  * The entry-body transport — routes through the shared host body client (the SAME transport the editor
  * saves through), so there's one load path. `null` on any miss so the page falls back to its own copy.
  */
-async function loadEntryBody(slug: string): Promise<HostEntryBody | null> {
+async function loadEntryBody(ref: EntryRef): Promise<HostEntryBody | null> {
+    // SLUG-ADDRESSED, and `EntryRef` (beam-docs-satellite ticket 37) is what makes that legible. This
+    // starter's `bodyClient` fetches `/beam/ux/entries/{slug}/body` — the `Route::beamUxEntries()` macro
+    // — while `UxBuilderClient.loadBody` has been ID-addressed since ADR-0214 §2. It was DECLARED as a
+    // `UxBuilderClient` and fed a slug, and `tsc` never once complained, because a slug and an id are
+    // both `string`. That annotation is gone from `editor/transport.ts`; reading `ref.slug` here is the
+    // other half of saying out loud which address this host is still on.
+    //
+    // An id-only ref (`?beam_entry_id=`) has no slug to give a slug endpoint, so it is refused rather
+    // than coerced.
+    const slug = ref.slug;
+
+    if (slug === null) {
+        return null;
+    }
+
     try {
         return (await bodyClient.loadBody(slug)) as HostEntryBody;
     } catch {
@@ -81,6 +96,11 @@ async function loadEntryBody(slug: string): Promise<HostEntryBody | null> {
 
 export default createMainframeHost({
     componentToEntry: COMPONENT_TO_ENTRY,
+    // Opted back IN, explicitly. The factory used to slash-swap an unmapped component name
+    // unconditionally; ticket 37 made it a choice, because guessing is what made every rendered entry
+    // probe a nonexistent `site-entry` row (a stray 401 per page view, the wrong row for an author).
+    // This starter still leans on the guess for the pages COMPONENT_TO_ENTRY does not name.
+    componentSlugFallback: true,
     // Every starter route page renders its OWN body (its layout chrome + scoped CSS). So read mode must
     // NOT swap the page for the bare entry body. Author (window) mode still opens the in-place editor.
     readMode: 'page',
@@ -96,19 +116,19 @@ export default createMainframeHost({
     },
     loadEntryBody,
     ribbon,
-    renderEditor: ({ slug }: { slug: string }) =>
-        SELF_MANAGED_COMPONENTS.has(currentComponent) ? null : (
+    renderEditor: ({ ref }: { ref: EntryRef }) =>
+        SELF_MANAGED_COMPONENTS.has(currentComponent) || ref.slug === null ? null : (
             <Suspense fallback={<div className="p-6 text-sm text-slate-500">Loading editor…</div>}>
-                <VisualEditorMount slug={slug} />
+                <VisualEditorMount slug={ref.slug} />
             </Suspense>
         ),
     // readMode: 'page' means the read fork renders the real page, never this — so it's a no-op. Kept only
     // to satisfy the factory's renderer contract.
     renderRead: () => null,
-    renderInspector: ({ slug }: { slug: string }) =>
-        SELF_MANAGED_COMPONENTS.has(currentComponent) ? null : (
+    renderInspector: ({ ref }: { ref: EntryRef }) =>
+        SELF_MANAGED_COMPONENTS.has(currentComponent) || ref.slug === null ? null : (
             <Suspense fallback={null}>
-                <VisualEditorMount slug={slug} />
+                <VisualEditorMount slug={ref.slug} />
             </Suspense>
         ),
 });
