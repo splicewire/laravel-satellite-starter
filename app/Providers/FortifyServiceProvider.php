@@ -8,6 +8,7 @@ use App\Actions\Fortify\CreateNewUser;
 /* @end-chisel-registration */
 use App\Actions\Fortify\ResetUserPassword;
 use App\Beam\EntryBody;
+use App\Support\PageEntryRef;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -67,6 +68,7 @@ class FortifyServiceProvider extends ServiceProvider
     {
         Fortify::loginView(fn (Request $request) => Inertia::render('auth/entry', [
             'slug' => 'login',
+            'entry' => PageEntryRef::for('login'),
             'body' => $entryBody->forSlug('login'),
             'canResetPassword' => Features::enabled(Features::resetPasswords()),
             'status' => $request->session()->get('status'),
@@ -78,6 +80,7 @@ class FortifyServiceProvider extends ServiceProvider
 
         Fortify::resetPasswordView(fn (Request $request) => Inertia::render('auth/entry', [
             'slug' => 'reset-password',
+            'entry' => PageEntryRef::for('reset-password'),
             'body' => $entryBody->forSlug('reset-password'),
             'email' => $request->email,
             'token' => $request->route('token'),
@@ -86,6 +89,7 @@ class FortifyServiceProvider extends ServiceProvider
 
         Fortify::requestPasswordResetLinkView(fn (Request $request) => Inertia::render('auth/entry', [
             'slug' => 'forgot-password',
+            'entry' => PageEntryRef::for('forgot-password'),
             'body' => $entryBody->forSlug('forgot-password'),
             'status' => $request->session()->get('status'),
         ]));
@@ -93,6 +97,7 @@ class FortifyServiceProvider extends ServiceProvider
         /* @chisel-email-verification */
         Fortify::verifyEmailView(fn (Request $request) => Inertia::render('auth/entry', [
             'slug' => 'verify-email',
+            'entry' => PageEntryRef::for('verify-email'),
             'body' => $entryBody->forSlug('verify-email'),
             'status' => $request->session()->get('status'),
         ]));
@@ -101,6 +106,7 @@ class FortifyServiceProvider extends ServiceProvider
         /* @chisel-registration */
         Fortify::registerView(fn () => Inertia::render('auth/entry', [
             'slug' => 'register',
+            'entry' => PageEntryRef::for('register'),
             'body' => $entryBody->forSlug('register'),
             'passwordRules' => Password::defaults()->toPasswordRulesString(),
         ]));
@@ -109,6 +115,7 @@ class FortifyServiceProvider extends ServiceProvider
         /* @chisel-2fa */
         Fortify::twoFactorChallengeView(fn () => Inertia::render('auth/entry', [
             'slug' => 'two-factor-challenge',
+            'entry' => PageEntryRef::for('two-factor-challenge'),
             'body' => $entryBody->forSlug('two-factor-challenge'),
         ]));
         /* @end-chisel-2fa */
@@ -116,6 +123,7 @@ class FortifyServiceProvider extends ServiceProvider
         /* @chisel-password-confirmation */
         Fortify::confirmPasswordView(fn () => Inertia::render('auth/entry', [
             'slug' => 'confirm-password',
+            'entry' => PageEntryRef::for('confirm-password'),
             'body' => $entryBody->forSlug('confirm-password'),
         ]));
         /* @end-chisel-password-confirmation */

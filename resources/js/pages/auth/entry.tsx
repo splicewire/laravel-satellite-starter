@@ -42,7 +42,7 @@ const HEAD_TITLES: Record<string, string> = {
     'verify-email': 'Email verification',
 };
 
-function AuthEntryForSlug({ slug, body }: { slug: string; body?: unknown }) {
+function AuthEntryForSlug({ slug, body, entryId }: { slug: string; body?: unknown; entryId: string | null }) {
     const canAuthorUx =
         usePage<{ auth?: { canAuthorUx?: boolean } }>().props.auth
             ?.canAuthorUx ?? false;
@@ -75,7 +75,7 @@ function AuthEntryForSlug({ slug, body }: { slug: string; body?: unknown }) {
                     Edit content
                 </button>
             )}
-            <PageEditor slug={slug} body={body} />
+            <PageEditor slug={slug} body={body} entryId={entryId} />
         </>
     );
 }
@@ -83,9 +83,16 @@ function AuthEntryForSlug({ slug, body }: { slug: string; body?: unknown }) {
 export default function AuthEntry({
     slug,
     body,
+    entry = null,
 }: {
     slug: string;
     body?: unknown;
+    /**
+     * The entry's `{id, slug}`, shared by `FortifyServiceProvider`'s view closures
+     * (`App\Support\PageEntryRef`). The body transport is id-addressed (ADR-0214 §2), so this is what
+     * makes an auth page's chrome SAVEABLE; the `body` prop above only makes it renderable for a guest.
+     */
+    entry?: { id: string; slug: string } | null;
 }) {
     // key={slug}: every route renders this SAME Inertia page name, so a client-side (SPA) navigation
     // between two auth pages does NOT remount AuthEntry — Inertia just re-renders it with new props. A
@@ -94,5 +101,5 @@ export default function AuthEntry({
     // via `useState(initial)` ONCE at mount — package behavior, not host-patchable here) both need
     // AuthEntryForSlug itself to remount. Keying IT from the outside, here, is what actually does that
     // — React's standard "reset state via key" pattern.
-    return <AuthEntryForSlug key={slug} slug={slug} body={body} />;
+    return <AuthEntryForSlug key={slug} slug={slug} body={body} entryId={entry?.id ?? null} />;
 }

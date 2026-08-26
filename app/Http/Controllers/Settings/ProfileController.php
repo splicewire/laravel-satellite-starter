@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Settings;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\ProfileDeleteRequest;
 use App\Http\Requests\Settings\ProfileUpdateRequest;
+use App\Support\PageEntryRef;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -20,6 +21,11 @@ class ProfileController extends Controller
     public function edit(Request $request): Response
     {
         return Inertia::render('settings/profile', [
+            // The page's beam-ux row, by ID (ADR-0214 §2). Its slug is `settings-profile`, which
+            // happens to equal the slash-swapped component name — that coincidence used to be the
+            // whole binding, via `componentSlugFallback`. It is written down now (beam-docs-satellite
+            // ticket 40): a coincidence is not a binding, and a guess cannot carry a uuid.
+            'entry' => PageEntryRef::for('settings-profile'),
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => $request->session()->get('status'),
         ]);

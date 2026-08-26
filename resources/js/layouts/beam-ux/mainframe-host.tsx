@@ -36,18 +36,19 @@ export function useBeamUxEntry() {
     return useBeamUxEntryBase<BeamUxPageBody>();
 }
 
-/**
- * Inertia component name → beam-ux `page` entry slug. Explicit because the entry slug is the DOMAIN key,
- * which is not always the slash-swapped component path. A component with no mapping falls back to the
- * slash-swap.
- */
-const COMPONENT_TO_ENTRY: Record<string, string> = {
-    'site/home': 'home',
-    // /dashboard renders the `account/home` component, but the seeded entry (DatabaseSeeder's
-    // splicewire:beam:ux:seed-nav) is named `dashboard` (the route's own name) - the slash-swap
-    // fallback would look for a nonexistent `account-home` entry instead.
-    'account/home': 'dashboard',
-};
+// NO `componentToEntry`, and NO `componentSlugFallback` — the component-name branch is off at this
+// host, deliberately (beam-docs-satellite ticket 40).
+//
+// It is the one branch of the factory's three that cannot carry an id, so leaving it on would have kept
+// the slug-addressed macro alive forever: no COMPILE-TIME frontend map can hold a per-database uuid, and
+// a starter's whole point is the fresh database it is installed into.
+//
+// Measured before switching it off, against this starter's seeded set: of its 15 Inertia page components
+// the slash-swapped name matched a real `beam_ux_entries` row for exactly TWO — `operator/dashboard` →
+// `operator-dashboard` and `settings/profile` → `settings-profile`. (Two more were carried by the
+// explicit map: `site/home` → `home`, `account/home` → `dashboard`.) The other eleven probed a slug with
+// no row — a 401 per authenticated page view. All four are now bound SERVER-side by
+// `App\Support\PageEntryRef` and addressed by id like everything else; the eleven were never bound at all.
 
 // Components that embed `PageEditor` (`@splicewire/beam-ux/canvas`) directly and already listen to
 // the SAME `beam-ux:mode`/`edit`/`exit` broadcast this factory uses, swapping their OWN internal
@@ -72,63 +73,72 @@ const ribbon: RibbonRender = () => null;
  * saves through), so there's one load path. `null` on any miss so the page falls back to its own copy.
  */
 async function loadEntryBody(ref: EntryRef): Promise<HostEntryBody | null> {
-    // SLUG-ADDRESSED, and `EntryRef` (beam-docs-satellite ticket 37) is what makes that legible. This
-    // starter's `bodyClient` fetches `/beam/ux/entries/{slug}/body` — the `Route::beamUxEntries()` macro
-    // — while `UxBuilderClient.loadBody` has been ID-addressed since ADR-0214 §2. It was DECLARED as a
-    // `UxBuilderClient` and fed a slug, and `tsc` never once complained, because a slug and an id are
-    // both `string`. That annotation is gone from `editor/transport.ts`; reading `ref.slug` here is the
-    // other half of saying out loud which address this host is still on.
+    // ID-ADDRESSED (`beam-ux-entry.op.body`, ADR-0214 §1). `null` on any miss so the page falls back to
+    // its own copy.
     //
-    // An id-only ref (`?beam_entry_id=`) has no slug to give a slug endpoint, so it is refused rather
-    // than coerced.
-    const slug = ref.slug;
-
-    if (slug === null) {
+    // **A slug-only ref is REFUSED, not resolved.** This starter has no slug→id resolver and
+    // deliberately does not want one: it has no auto-provision endpoint to double as one (audiostud's
+    // answer), and minting a read-only second resolver would re-introduce the "which row is this slug"
+    // disambiguation ADR-0214 §2 deleted, at a new address, on the hot path of every editor open. The
+    // only remaining producer of a slug-only ref here is a hand-typed `?beam_entry=<slug>`, for which
+    // `?beam_entry_id=<uuid>` is the id-addressed twin (copy the uuid out of /operator/entries).
+    if (ref.id === null) {
         return null;
     }
 
     try {
-        return (await bodyClient.loadBody(slug)) as HostEntryBody;
+        return (await bodyClient.loadBody(ref.id)) as HostEntryBody;
     } catch {
         return null;
     }
 }
 
 export default createMainframeHost({
-    componentToEntry: COMPONENT_TO_ENTRY,
-    // Opted back IN, explicitly. The factory used to slash-swap an unmapped component name
-    // unconditionally; ticket 37 made it a choice, because guessing is what made every rendered entry
-    // probe a nonexistent `site-entry` row (a stray 401 per page view, the wrong row for an author).
-    // This starter still leans on the guess for the pages COMPONENT_TO_ENTRY does not name.
-    componentSlugFallback: true,
     // Every starter route page renders its OWN body (its layout chrome + scoped CSS). So read mode must
     // NOT swap the page for the bare entry body. Author (window) mode still opens the in-place editor.
     readMode: 'page',
     usePageContext: () => {
-        const page = usePage<{ auth: { canAuthorUx?: boolean }; slug?: string }>();
+        const page = usePage<{
+            auth: { canAuthorUx?: boolean };
+            slug?: string;
+            entry?: { id?: string; slug?: string };
+        }>();
         currentComponent = page.component;
+
+        // A RENDERED ENTRY carries its identity at `props.entry.slug` (ADR-0209 §6), not at
+        // `props.slug`. Without this line the factory falls back to slash-swapping the Inertia
+        // component name — and every rendered entry is the component `site/entry`, so every one of
+        // them probed a nonexistent `site-entry` row: a harmless 401 per anonymous page view, and the
+        // WRONG row for an author. The renderer already had the id in props; the host just never read
+        // it (beam-docs-satellite ticket 26's fog item).
+        const entry = page.props.entry;
+        const explicit = typeof page.props.slug === 'string' && page.props.slug !== '' ? page.props.slug : null;
 
         return {
             component: page.component,
             canAuthor: page.props.auth?.canAuthorUx === true,
-            slug: typeof page.props.slug === 'string' && page.props.slug !== '' ? page.props.slug : null,
+            slug: explicit ?? (typeof entry?.slug === 'string' && entry.slug !== '' ? entry.slug : null),
+            // The ID half of the same prop — the branch that replaced `componentToEntry`. Shared by
+            // `App\Support\PageEntryRef` for a hand-written page, and by the package's
+            // `PublicEntryController` (ADR-0209 §6) for a RENDERED entry, which has carried it all along.
+            entryId: typeof entry?.id === 'string' && entry.id !== '' ? entry.id : null,
         };
     },
     loadEntryBody,
     ribbon,
     renderEditor: ({ ref }: { ref: EntryRef }) =>
-        SELF_MANAGED_COMPONENTS.has(currentComponent) || ref.slug === null ? null : (
+        SELF_MANAGED_COMPONENTS.has(currentComponent) || ref.id === null ? null : (
             <Suspense fallback={<div className="p-6 text-sm text-slate-500">Loading editor…</div>}>
-                <VisualEditorMount slug={ref.slug} />
+                <VisualEditorMount entryRef={ref} />
             </Suspense>
         ),
     // readMode: 'page' means the read fork renders the real page, never this — so it's a no-op. Kept only
     // to satisfy the factory's renderer contract.
     renderRead: () => null,
     renderInspector: ({ ref }: { ref: EntryRef }) =>
-        SELF_MANAGED_COMPONENTS.has(currentComponent) || ref.slug === null ? null : (
+        SELF_MANAGED_COMPONENTS.has(currentComponent) || ref.id === null ? null : (
             <Suspense fallback={null}>
-                <VisualEditorMount slug={ref.slug} />
+                <VisualEditorMount entryRef={ref} />
             </Suspense>
         ),
 });
