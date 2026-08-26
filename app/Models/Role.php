@@ -2,18 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Spatie\Permission\Models\Role as SpatieRole;
+use Splicewire\Beam\Accounts\Models\Role as BeamAccountsRole;
 
 /**
- * `spatie/laravel-permission`'s Role, keyed by uuid to match
- * `laravel-beam-accounts`' `create_permission_tables` migration (a cross-host morph-key convention,
- * ADR — the same reason `beam_access_grants`/`beam_memberships` etc. use string/uuid keys). Spatie's
- * stock model assumes an auto-increment integer PK; `HasUuids` is what actually generates one on
- * create — without it, `Role::findOrCreate()` (used by `TeamProvisioner::syncSpatieRole()`) fails a
- * NOT NULL constraint on `id`. Bound via `config('permission.models.role')`.
+ * This host's Role, extending `laravel-beam-accounts`' uuid-keyed pair.
+ *
+ * The reason the key is a uuid — and why stock Spatie's Role cannot create one against
+ * beam-accounts' `create_permission_tables` — is argued once, in {@see BeamAccountsRole}. It used to
+ * be argued here, in three byte-identical copies across the starters (beam-facade ticket 98).
+ *
+ * The class stays in `App\Models` on purpose rather than being deleted in favour of pointing
+ * `config('permission.models.role')` straight at the package: five hosts already bind
+ * `App\Models\Role::class` in their own PUBLISHED `config/permission.php`, so deleting it would
+ * require editing a published config at every one of them, and this is the seam a host expects to
+ * find when it wants to add a trait or a relation. Ticket 59 is refined by that, not overturned —
+ * app-namespace identity is still correct; it just stops re-deriving its reason.
  */
-class Role extends SpatieRole
-{
-    use HasUuids;
-}
+class Role extends BeamAccountsRole {}

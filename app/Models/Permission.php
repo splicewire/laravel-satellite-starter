@@ -2,14 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
-use Spatie\Permission\Models\Permission as SpatiePermission;
+use Splicewire\Beam\Accounts\Models\Permission as BeamAccountsPermission;
 
 /**
- * `spatie/laravel-permission`'s Permission, keyed by uuid — see {@see Role}'s docblock for the
- * cross-host morph-key rationale and why `HasUuids` is required here.
+ * This host's Permission, extending `laravel-beam-accounts`' uuid-keyed pair — see {@see Role} for
+ * why the class stays in `App\Models` and {@see BeamAccountsPermission} for the uuid rationale.
  */
-class Permission extends SpatiePermission
-{
-    use HasUuids;
-}
+class Permission extends BeamAccountsPermission {}
