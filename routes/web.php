@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Support\PageEntryRef;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Splicewire\Beam\Facades\Particle;
 use Splicewire\Beam\Ux\Models\BeamUxEntry;
 
 // The FRONT DOOR is the OOTB site realm: `/` renders the promoted <SiteLayout> chrome (public) AND —
@@ -33,15 +34,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // declaration is the real gate and it is what travels; this group is only auth + verified, exactly
     // as it was for the macro.
     //
-    // The read mounts GET (§4): `particleOp` defaults to POST regardless of kind, and the body read is
+    // The read mounts GET (§4): `Particle::ops()` defaults to POST regardless of kind, and the body read is
     // the hot path on every editor open, takes no input, and is idempotent. Because `EntryBodyShowOp`
     // declares `input: false`, a GET carrying ANY query key is a 422 — the retired `?namespace=`
     // disambiguator now fails loudly rather than being silently ignored, which is the point.
     //
     // Resource segment is the single hyphenated `beam-ux-entries`, NOT `beam-ux/entries`: a `/` in a
     // resource name breaks Wayfinder's generated-helper relative-import depth calculation.
-    Route::particleOp('beam-ux-entries', 'beam-ux-entry', 'body', ['method' => 'get']);
-    Route::particleOp('beam-ux-entries', 'beam-ux-entry', 'save-body');
+    Particle::ops('beam-ux-entries', 'beam-ux-entry', 'body', ['method' => 'get']);
+    Particle::ops('beam-ux-entries', 'beam-ux-entry', 'save-body');
 
     // The authed home IS the OOTB account realm: <AccountShell> (@splicewire/beam-ux/account). Fortify
     // redirects login here (`config/fortify.php` home => /dashboard). Shares `entry` for the same
