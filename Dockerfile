@@ -33,7 +33,13 @@ RUN --mount=type=secret,id=gh_app_token,required=false \
     fi \
     && composer install --no-dev --no-scripts --no-interaction --optimize-autoloader
 COPY . .
-RUN composer dump-autoload --optimize --no-dev --classmap-authoritative
+# NOTE: --classmap-authoritative is deliberately OFF while the determination-rename
+# expand seam is live. An alias stub declares no symbol, so it never enters the
+# optimized classmap and survives only on the PSR-4 fallback that this flag disables
+# — an authoritative build resolves the new namespace to nothing, silently.
+# Restore it at T7 (contract), once the stubs are deleted and every call site has moved.
+# .scratch/splicewire/splicewire-app/determination-rename-build/issues/07-contract.md
+RUN composer dump-autoload --optimize --no-dev
 
 # A throwaway .env for the frontend build. `php artisan key:generate` used to run here too, solely
 # so `artisan wayfinder:generate` could boot the framework during `vite build`. Wayfinder is retired
