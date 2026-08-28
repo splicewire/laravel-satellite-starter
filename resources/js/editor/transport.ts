@@ -15,8 +15,19 @@
 //    dropped the annotation rather than fake it; this is the real fix).
 //  - **A literal URL.** A literal silently stops matching the moment the mount moves. `splicewire/www`
 //    was bitten by exactly that (ticket 07: the route moved under `api/` and the editor 404'd on every
-//    page). The URL now comes from the generated Wayfinder helper, keyed by ROUTE NAME, which does not
-//    move when the URI does — and this migration moved the URI, so the point is not hypothetical.
+//    page).
+//
+// ⚠️ **That protection is GONE as of ADR-0004 (2026-08-27), and this is the literal again.** Wayfinder
+// is retired fleet-wide, so the URL below is a template literal keyed by URI, not a helper keyed by
+// route name. The hazard the bullet above describes is therefore live once more, and it is not
+// theoretical: retiring Wayfinder across the fleet found `splicewire/www` mounting these ops under
+// `api/` and `rushing/audiostud` under `/resources/`, so three roots legitimately need three different
+// literals here. ADR-0004 accepts that cost explicitly — a mistyped or moved route is now a 404 found
+// by a click or a test, not a build error.
+//
+// So: **if the editor 404s on load or save, check this URL against `php artisan route:list` for
+// `beam-ux-entry.op.body` / `.op.save-body` before looking anywhere else.** That is the whole failure
+// mode, and it is the first thing to rule out.
 import type { UxBuilderClient } from '@splicewire/beam-ux';
 /** Read the Laravel `XSRF-TOKEN` cookie for the stateful mutating POST. */
 function csrfToken(): string {
