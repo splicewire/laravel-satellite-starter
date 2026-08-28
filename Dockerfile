@@ -3,9 +3,13 @@
 # Proven live against beam-pilot-gcp-cloud-run (gcp-cloud-run-provisioning map, tickets 10 + the CI
 # follow-on); baked into laravel-beam-starter and laravel-satellite-starter identically.
 #
-# Single builder stage, not split PHP/Node stages: @laravel/vite-plugin-wayfinder's `vite build`
-# shells out to `php artisan wayfinder:generate` to emit typed route helpers, so the frontend build
-# itself needs a booted (vendor-installed) Laravel app, not just Node — found live, not assumed.
+# Single builder stage, not split PHP/Node stages. The ORIGINAL reason is now HISTORY:
+# @laravel/vite-plugin-wayfinder's `vite build` shelled out to `php artisan wayfinder:generate`, so
+# the frontend build needed a booted (vendor-installed) Laravel app and not just Node — found live,
+# not assumed. Wayfinder is retired fleet-wide as of beam-runbook ADR-0004 (2026-08-27) and `vite
+# build` no longer touches php, so splitting into separate PHP and Node stages is now POSSIBLE.
+# It has deliberately NOT been done here: this file's job today is to keep building the image it
+# already builds, and whether the split is worth its cost is the deploy owner's call.
 
 FROM php:8.4-cli-bookworm AS builder
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -31,9 +35,11 @@ RUN --mount=type=secret,id=gh_app_token,required=false \
 COPY . .
 RUN composer dump-autoload --optimize --no-dev --classmap-authoritative
 
-# A throwaway .env/APP_KEY, needed only so `artisan wayfinder:generate` can boot the framework
-# during the build — never copied into the runtime stage below; the real value is injected via
-# Cloud Run env vars at deploy time.
+# A throwaway .env/APP_KEY. It existed solely so `artisan wayfinder:generate` could boot the
+# framework during the build; with Wayfinder retired (ADR-0004) nothing in the build below boots
+# artisan any more, so this pair is very likely dead weight. Left in place deliberately —
+# removing a build step is a behaviour change, not a comment correction. It is still never copied
+# into the runtime stage below; the real value is injected via Cloud Run env vars at deploy time.
 RUN cp .env.example .env && php artisan key:generate --ansi \
     && pnpm install --no-frozen-lockfile --ignore-scripts \
     && pnpm run build \

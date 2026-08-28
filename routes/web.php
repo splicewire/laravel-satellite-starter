@@ -39,8 +39,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // declares `input: false`, a GET carrying ANY query key is a 422 — the retired `?namespace=`
     // disambiguator now fails loudly rather than being silently ignored, which is the point.
     //
-    // Resource segment is the single hyphenated `beam-ux-entries`, NOT `beam-ux/entries`: a `/` in a
-    // resource name breaks Wayfinder's generated-helper relative-import depth calculation.
+    // Resource segment is the single hyphenated `beam-ux-entries`, NOT `beam-ux/entries`. The reason
+    // it was CHOSEN is history: a `/` in a resource name broke Wayfinder's generated-helper
+    // relative-import depth calculation, and Wayfinder is retired fleet-wide (beam-runbook ADR-0004,
+    // 2026-08-27). The segment stays as it is because it is now load-bearing for a different reason —
+    // it is in the live URIs and route names, and the front end addresses these ops by string literal.
     Particle::ops('beam-ux-entries', 'beam-ux-entry', 'body', ['method' => 'get']);
     Particle::ops('beam-ux-entries', 'beam-ux-entry', 'save-body');
 
