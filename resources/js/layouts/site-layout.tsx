@@ -101,6 +101,7 @@ function AuthNavLinks() {
                 Dashboard
             </Link>
             <Link className="navlink" href="/logout" as="button">
+            method="post"
                 Log out
             </Link>
         </>

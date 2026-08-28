@@ -27,6 +27,7 @@ export default function VerifyEmail() {
 
                         <TextLink
                             href="/logout"
+                            method="post"
                             className="mx-auto block text-sm"
                         >
                             Log out
