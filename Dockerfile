@@ -35,12 +35,18 @@ RUN --mount=type=secret,id=gh_app_token,required=false \
 COPY . .
 RUN composer dump-autoload --optimize --no-dev --classmap-authoritative
 
-# A throwaway .env/APP_KEY. It existed solely so `artisan wayfinder:generate` could boot the
-# framework during the build; with Wayfinder retired (ADR-0004) nothing in the build below boots
-# artisan any more, so this pair is very likely dead weight. Left in place deliberately —
-# removing a build step is a behaviour change, not a comment correction. It is still never copied
-# into the runtime stage below; the real value is injected via Cloud Run env vars at deploy time.
-RUN cp .env.example .env && php artisan key:generate --ansi \
+# A throwaway .env for the frontend build. `php artisan key:generate` used to run here too, solely
+# so `artisan wayfinder:generate` could boot the framework during `vite build`. Wayfinder is retired
+# fleet-wide (beam-runbook ADR-0004, 2026-08-27), nothing in the build below boots artisan any more,
+# and the APP_KEY it wrote was never read by the build — vite only exposes VITE_-prefixed keys, and
+# laravel-vite-plugin reads ASSET_URL/APP_URL. So that step is gone.
+#
+# The `cp` is NOT dead weight and deliberately stays: vite loads this .env, and `.env.example`'s
+# `VITE_APP_NAME="${APP_NAME}"` is compiled into the bundle (resources/js/app.tsx reads
+# `import.meta.env.VITE_APP_NAME`). Verified by probe — a sentinel VITE_APP_NAME lands in app-*.js.
+# The .env is still never copied into the runtime stage below; real values are injected via Cloud
+# Run env vars at deploy time.
+RUN cp .env.example .env \
     && pnpm install --no-frozen-lockfile --ignore-scripts \
     && pnpm run build \
     && rm .env
