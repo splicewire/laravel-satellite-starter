@@ -18,8 +18,6 @@
 //    page). The URL now comes from the generated Wayfinder helper, keyed by ROUTE NAME, which does not
 //    move when the URI does — and this migration moved the URI, so the point is not hypothetical.
 import type { UxBuilderClient } from '@splicewire/beam-ux';
-import { body as showBody, saveBody as postSaveBody } from '@/routes/beam-ux-entry/op';
-
 /** Read the Laravel `XSRF-TOKEN` cookie for the stateful mutating POST. */
 function csrfToken(): string {
     const m = document.cookie.match(/(?:^|;\s*)XSRF-TOKEN=([^;]+)/);
@@ -42,7 +40,7 @@ export const bodyClient: UxBuilderClient = {
      * `?namespace=` disambiguator is therefore not merely ignored — appending one fails loudly.
      */
     loadBody: async (id) => {
-        const res = await fetch(showBody.url({ id }), {
+        const res = await fetch(`/beam-ux-entries/${id}/op/body`, {
             headers: { Accept: 'application/json' },
             credentials: 'same-origin',
         });
@@ -50,7 +48,7 @@ export const bodyClient: UxBuilderClient = {
         return (await readData(res, 'load')) as Awaited<ReturnType<UxBuilderClient['loadBody']>>;
     },
     saveBody: async (id, body) => {
-        const res = await fetch(postSaveBody.url({ id }), {
+        const res = await fetch(`/beam-ux-entries/${id}/op/save-body`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'X-XSRF-TOKEN': csrfToken(), Accept: 'application/json' },
             credentials: 'same-origin',

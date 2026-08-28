@@ -3,8 +3,6 @@ import { SiteLayout as BeamSiteLayout } from '@splicewire/beam-ux/site';
 import type { ReactNode } from 'react';
 import AppLogoIcon from '@/components/app-logo-icon';
 import SiteNav from '@/components/site-nav';
-import { dashboard, logout } from '@/routes';
-
 /**
  * The public-site chrome (header + footer) for the starter, in a NEUTRAL theme. The STRUCTURE comes
  * from the generic package `<SiteLayout>` (`@splicewire/beam-ux/site`); this wrapper supplies only the
@@ -99,10 +97,10 @@ function AuthNavLinks() {
                     Operator
                 </a>
             )}
-            <Link className="navlink" href={dashboard()}>
+            <Link className="navlink" href="/dashboard">
                 Dashboard
             </Link>
-            <Link className="navlink" href={logout()} as="button">
+            <Link className="navlink" href="/logout" as="button">
                 Log out
             </Link>
         </>

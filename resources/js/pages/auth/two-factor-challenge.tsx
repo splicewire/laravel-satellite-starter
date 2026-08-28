@@ -10,8 +10,6 @@ import {
     InputOTPSlot,
 } from '@/components/ui/input-otp';
 import { OTP_MAX_LENGTH } from '@/hooks/use-two-factor-auth';
-import { store } from '@/routes/two-factor/login';
-
 // theme-entries-and-authoring STR-03: a sealed island (editor/registry.tsx), no longer the top-level
 // Inertia page. Its dynamic title/description toggle (below) is session-state-driven, not editorial
 // copy, so it keeps calling setLayoutProps itself rather than going through the composable tree.
@@ -56,7 +54,7 @@ export default function TwoFactorChallenge() {
         <>
             <div className="space-y-6">
                 <Form
-                    {...store.form()}
+                    action="/two-factor-challenge" method="post"
                     className="space-y-4"
                     resetOnError
                     resetOnSuccess={!showRecoveryInput}

@@ -6,9 +6,6 @@ import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { login } from '@/routes';
-import { email } from '@/routes/password';
-
 // theme-entries-and-authoring STR-03: a sealed island (editor/registry.tsx), no longer the top-level
 // Inertia page — read via usePage() instead of received as a direct component prop.
 export default function ForgotPassword() {
@@ -23,7 +20,7 @@ export default function ForgotPassword() {
             )}
 
             <div className="space-y-6">
-                <Form {...email.form()}>
+                <Form action="/forgot-password" method="post">
                     {({ processing, errors }) => (
                         <>
                             <div className="grid gap-2">
@@ -58,7 +55,7 @@ export default function ForgotPassword() {
 
                 <div className="space-x-1 text-center text-sm text-muted-foreground">
                     <span>Or, return to</span>
-                    <TextLink href={login()}>log in</TextLink>
+                    <TextLink href="/login">log in</TextLink>
                 </div>
             </div>
         </>

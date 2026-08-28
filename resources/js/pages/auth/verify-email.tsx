@@ -3,9 +3,6 @@ import { Form, usePage } from '@inertiajs/react';
 import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
-import { logout } from '@/routes';
-import { send } from '@/routes/verification';
-
 // theme-entries-and-authoring STR-03: a sealed island (editor/registry.tsx), no longer the top-level
 // Inertia page — read via usePage() instead of received as a direct component prop.
 export default function VerifyEmail() {
@@ -20,7 +17,7 @@ export default function VerifyEmail() {
                 </div>
             )}
 
-            <Form {...send.form()} className="space-y-6 text-center">
+            <Form action="/email/verification-notification" method="post" className="space-y-6 text-center">
                 {({ processing }) => (
                     <>
                         <Button disabled={processing} variant="secondary">
@@ -29,7 +26,7 @@ export default function VerifyEmail() {
                         </Button>
 
                         <TextLink
-                            href={logout()}
+                            href="/logout"
                             className="mx-auto block text-sm"
                         >
                             Log out

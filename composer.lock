@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "66b5fee5697c92b7c051821086312140",
+    "content-hash": "097ad8b70be776b3dd6ce59ad6e9d3a3",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2538,72 +2538,6 @@
                 "source": "https://github.com/laravel/tinker/tree/v3.0.2"
             },
             "time": "2026-03-17T14:54:13+00:00"
-        },
-        {
-            "name": "laravel/wayfinder",
-            "version": "v0.1.21",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/wayfinder.git",
-                "reference": "a85a996cea189f59cac14854f8b13319a29007f3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/wayfinder/zipball/a85a996cea189f59cac14854f8b13319a29007f3",
-                "reference": "a85a996cea189f59cac14854f8b13319a29007f3",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/console": "^11.0|^12.0|^13.0",
-                "illuminate/filesystem": "^11.0|^12.0|^13.0",
-                "illuminate/routing": "^11.0|^12.0|^13.0",
-                "illuminate/support": "^11.0|^12.0|^13.0",
-                "php": "^8.2",
-                "phpstan/phpdoc-parser": "^2.3"
-            },
-            "conflict": {
-                "laravel/boost": "<2.5.0"
-            },
-            "require-dev": {
-                "laravel/pint": "^1.21",
-                "orchestra/testbench": "^11.0|^10.1|^9.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Laravel\\Wayfinder\\WayfinderServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Laravel\\Wayfinder\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
-            "description": "Generate TypeScript representations of your Laravel actions and routes.",
-            "homepage": "https://github.com/laravel/wayfinder",
-            "keywords": [
-                "laravel",
-                "php",
-                "routes",
-                "typescript"
-            ],
-            "support": {
-                "issues": "https://github.com/laravel/wayfinder/issues",
-                "source": "https://github.com/laravel/wayfinder"
-            },
-            "time": "2026-08-04T21:55:43+00:00"
         },
         {
             "name": "league/commonmark",
@@ -5332,7 +5266,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/codegen",
-                "reference": "94a72d51376d5a6e2730200cf542e2862312fba3"
+                "reference": "fc943a6be10618eedf02fe85c876c911d55de502"
             },
             "require": {
                 "php": "^8.3",
@@ -5407,7 +5341,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/laravel-data-filters",
-                "reference": "bd87dc86530f532f054746f31cbbd1270ff96221"
+                "reference": "3b56d3839e68018f6106627c88819c25e5a55995"
             },
             "require": {
                 "illuminate/contracts": "^12.0|^13.0",
@@ -5425,7 +5359,8 @@
                 "laravel/pint": "^1.0",
                 "orchestra/testbench": "^10.0",
                 "pestphp/pest": "^3.0",
-                "pestphp/pest-plugin-laravel": "^3.0"
+                "pestphp/pest-plugin-laravel": "^3.0",
+                "wikimedia/composer-merge-plugin": "^2.1"
             },
             "type": "library",
             "extra": {
@@ -5435,6 +5370,11 @@
                 "laravel": {
                     "providers": [
                         "Rushing\\DataFilters\\ServiceProvider"
+                    ]
+                },
+                "merge-plugin": {
+                    "include": [
+                        "composer.local.json"
                     ]
                 }
             },
@@ -5469,7 +5409,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/laravel-data-nav",
-                "reference": "33b7e57d7394b66760b080a9a24b42145de7db08"
+                "reference": "6e35cb38862e242305860d109a56318dbaad8e34"
             },
             "require": {
                 "illuminate/contracts": "^12.0|^13.0",
@@ -5535,7 +5475,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/laravel-data-schemas-scribe",
-                "reference": "7f67a5111c7ebb8503b691f2f31073e11e00714f"
+                "reference": "466303cca722515502344261386d64bb5b0b38f3"
             },
             "require": {
                 "illuminate/support": "^11.0|^12.0|^13.0",
@@ -5601,7 +5541,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/laravel-doctor",
-                "reference": "1657621a710a9dd5294be062df54043fcf0ae72d"
+                "reference": "473f8c3b97da54ae11b6de32e25a5f4cf25a3c96"
             },
             "require": {
                 "illuminate/support": "^11.0|^12.0|^13.0",
@@ -5669,7 +5609,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/laravel-graphine",
-                "reference": "47beb9716e9f1fa09847c9a001408ee43c791e26"
+                "reference": "9232564bc7a3f810024d09ff11508e7d49b58870"
             },
             "require": {
                 "illuminate/contracts": "^11.0 || ^12.0 || ^13.0",
@@ -5969,20 +5909,22 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/laravel-pipeline-registry",
-                "reference": "e68d993828b03a1a6305c9271240249ed9a662e2"
+                "reference": "61c8a06c67cf6c3c5b0989fcfe0cc8c1688fe174"
             },
             "require": {
                 "illuminate/console": "^11.0|^12.0|^13.0",
                 "illuminate/pipeline": "^11.0|^12.0|^13.0",
                 "illuminate/support": "^11.0|^12.0|^13.0",
-                "php": "^8.2",
+                "php": "^8.3",
+                "rushing/laravel-popcorn": "dev-main",
                 "rushing/php-popcorn": "dev-main",
                 "symfony/finder": "^6.0|^7.0|^8.0"
             },
             "require-dev": {
                 "laravel/pint": "^1.0",
                 "orchestra/testbench": "^9.0|^10.0|^11.0",
-                "pestphp/pest": "^2.0|^3.0"
+                "pestphp/pest": "^2.0|^3.0",
+                "wikimedia/composer-merge-plugin": "^2.1"
             },
             "type": "library",
             "extra": {
@@ -5992,6 +5934,11 @@
                 "laravel": {
                     "providers": [
                         "Rushing\\PipelineRegistry\\PipelineRegistryServiceProvider"
+                    ]
+                },
+                "merge-plugin": {
+                    "include": [
+                        "composer.local.json"
                     ]
                 }
             },
@@ -6040,7 +5987,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/laravel-popcorn",
-                "reference": "c907015612543263a07f44eb771ac139e18f9e2e"
+                "reference": "c5d2ed92417107845eea45dcf6174c5ccc5e7713"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -6052,7 +5999,8 @@
             "require-dev": {
                 "laravel/pint": "^1.0",
                 "orchestra/testbench": "^9.0",
-                "pestphp/pest": "^3.0"
+                "pestphp/pest": "^3.0",
+                "phpstan/phpstan": "^2.2"
             },
             "type": "library",
             "extra": {
@@ -6075,6 +6023,9 @@
             "scripts": {
                 "pint": [
                     "@php -d memory_limit=512M vendor/bin/pint"
+                ],
+                "analyse": [
+                    "phpstan analyse"
                 ],
                 "test": [
                     "@php vendor/bin/pest"
@@ -6109,7 +6060,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/laravel-schema-convergence",
-                "reference": "8beb5c4eabd2d549fe152a8a01d3af43e7a4b5b4"
+                "reference": "6a508a6ca9f82aa85343668a543d92e87e5bdc54"
             },
             "require": {
                 "illuminate/database": "^11.0|^12.0|^13.0",
@@ -6307,7 +6258,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/php-popcorn",
-                "reference": "f4220b6e3d7659c8ac4fd06c769ae481cd61e1d3"
+                "reference": "349d76e913ed763dbc3321b6be81ec5540ae1439"
             },
             "require": {
                 "php": "^8.3",
@@ -6557,7 +6508,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/schemastud/laravel-data-schemas",
-                "reference": "dafc0748af76921d38b4c947c1e16b6d8354cae2"
+                "reference": "af2505976ae3eb1c73ef961553c3862a36a25e2d"
             },
             "require": {
                 "galbar/jsonpath": "^3.0",
@@ -6640,7 +6591,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/schemastud/laravel-frame",
-                "reference": "84037eb286d63429c0f065e783d479de0a46e06d"
+                "reference": "be00b3330572eb549e51e7a7aebb9b04fa19a7bb"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -6708,7 +6659,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/schemastud/laravel-json-ns",
-                "reference": "a4850d754ff6c592c5c4c21f9a38b434e4e02723"
+                "reference": "cac69f4145defe5ad3a4dd0205e8a630ed017b57"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -6794,21 +6745,28 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/schemastud/php-json-ns",
-                "reference": "3062d50738786360aa74acff4958fb00121beb77"
+                "reference": "56b18a3429bdb6af069cc0d5b067c8a30b708938"
             },
             "require": {
                 "opis/json-schema": "^2.3",
-                "php": "^8.3"
+                "php": "^8.3",
+                "rushing/php-popcorn": "*"
             },
             "require-dev": {
                 "laravel/pint": "^1.0",
-                "pestphp/pest": "^3.0"
+                "pestphp/pest": "^3.0",
+                "wikimedia/composer-merge-plugin": "^2.1"
             },
             "type": "library",
             "extra": {
                 "package-topology": {
                     "mustNotRequire": [
                         "illuminate/*"
+                    ]
+                },
+                "merge-plugin": {
+                    "include": [
+                        "composer.local.json"
                     ]
                 }
             },
@@ -8105,7 +8063,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-beam",
-                "reference": "f5fc31ab0eeb2e17df5120ca68d89ecee3ec6555"
+                "reference": "dae8f5319086b1b355a397e328e20d5f0d1ec5d1"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8223,7 +8181,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-beam-accounts",
-                "reference": "b18931750e2fff9efc77f01a8510c465880e18dc"
+                "reference": "770279e2a900548e76e4dd0988e687cd97a24825"
             },
             "require": {
                 "firebase/php-jwt": "^6.0|^7.0",
@@ -8242,6 +8200,7 @@
                 "schemastud/laravel-data-schemas": "*",
                 "spatie/laravel-package-tools": "^1.16",
                 "spatie/laravel-permission": "^6.0",
+                "spatie/laravel-sluggable": "^3.5|^4.0",
                 "splicewire/laravel-beam": "*",
                 "stancl/tenancy": "^3.0"
             },
@@ -8249,10 +8208,12 @@
                 "laravel/pint": "^1.0",
                 "orchestra/testbench": "^9.0|^10.0|^11.0",
                 "pestphp/pest": "^2.0|^3.0",
+                "splicewire/laravel-beam-notifications": "*",
                 "wikimedia/composer-merge-plugin": "^2.1"
             },
             "suggest": {
-                "laravel/sanctum": "Install in a satellite to activate its own opt-in token 'api' guard seam alongside the engine's session/Fortify web guard."
+                "laravel/sanctum": "Install in a satellite to activate its own opt-in token 'api' guard seam alongside the engine's session/Fortify web guard.",
+                "splicewire/laravel-beam-notifications": "Activates this package's `to_roles:` / `to_teams:` recipient kinds, which it registers into `beam.notifications.recipient_kinds` unconditionally — the entries are inert strings without the notify package and live with it, so nothing here probes whether it is installed."
             },
             "type": "library",
             "extra": {
@@ -8334,7 +8295,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-beam-mcp",
-                "reference": "f1f38584afdfcf206815e4cffafa88cb81b05794"
+                "reference": "c236c2f360727575355dd0fe684b8541de7f3a62"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8344,6 +8305,7 @@
                 "rushing/laravel-mcp-registry": "dev-main",
                 "rushing/laravel-popcorn": "dev-main",
                 "rushing/php-popcorn": "dev-main",
+                "spatie/laravel-data": "^4.0|^5.0",
                 "splicewire/laravel-beam": "*"
             },
             "require-dev": {
@@ -8435,7 +8397,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-beam-mdx",
-                "reference": "0a3d1a9a7dfb7065b55f8901d88c87d6643014ca"
+                "reference": "45994eeb9517f0a3e1ecbbcfa6c2c12c69e969aa"
             },
             "require": {
                 "illuminate/console": "^11.0|^12.0|^13.0",
@@ -8498,12 +8460,13 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-beam-sitemap",
-                "reference": "1f01dfbe6c6f7f6015cfa0b1d24a546d475cccce"
+                "reference": "c5d372a4bf4ffa8df4e551b086dd4af4cbad26f7"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
                 "illuminate/support": "^11.0|^12.0|^13.0",
-                "php": "^8.2",
+                "php": "^8.3",
+                "rushing/laravel-popcorn": "*",
                 "spatie/laravel-sitemap": "^8.0"
             },
             "require-dev": {
@@ -8523,7 +8486,7 @@
                     ]
                 },
                 "package-topology": {
-                    "because": "the sitemap arm is a lean, free-tier beam-family seam: pure Illuminate + Spatie, no upward reach into satellite/beam-ux/tenancy",
+                    "because": "the sitemap arm is a lean, free-tier beam-family seam: Illuminate + Spatie plus a DOWNWARD reach into the rushing foundation tier (rushing/laravel-popcorn, for registry-kernel conformance — the same edge splicewire/laravel-beam itself takes), and no UPWARD reach into satellite/beam-ux/tenancy. The mustNotRequire list below is the normative half of this stanza; this prose is descriptive and the two must not be read as one rule (registry-kernel 60)",
                     "mustNotRequire": [
                         "splicewire/laravel-satellite",
                         "splicewire/laravel-beam-ux",
@@ -8582,7 +8545,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-beam-sync",
-                "reference": "c26006dff36f957515259d9c387a47de79b64a97"
+                "reference": "167daf1d8ff50a66926e8050674f95c202dc3466"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8678,7 +8641,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-beam-taxonomy",
-                "reference": "49a50b3a6fbf6c6a2d910ecbe3e7bab42b5e0c6a"
+                "reference": "8f87e7fc3ec1ec69c17b54630d2165819434249c"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8776,7 +8739,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-beam-ux",
-                "reference": "c562439264975f18aa96940f33a7ec44fc4792c5"
+                "reference": "eb2e4cb3e36b492e6e748eac7f19630e41b3ca93"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8873,7 +8836,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-beam-ux-prototype",
-                "reference": "d8bdc58055d4649625bf005c0498ad5f52e8b4e1"
+                "reference": "715946bec1af3eccb2fda623593a049d335b53b2"
             },
             "require": {
                 "illuminate/console": "^11.0|^12.0|^13.0",
@@ -8957,7 +8920,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-beam-workflows",
-                "reference": "522a5bbe9d501e04f7b0376c2cb1e9ae2387a254"
+                "reference": "817fe288ea854590419bae1836c177753ee00c3e"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -9045,7 +9008,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-composition-spine",
-                "reference": "b5651e375f585267c279b0d2eb603afd04e80a43"
+                "reference": "d70087122299b3977731a968ef7577d16d172305"
             },
             "require": {
                 "galbar/jsonpath": "^3.0",
@@ -9110,7 +9073,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-connector",
-                "reference": "d890d4fb5030e981465c550c06aa5a883cd76f30"
+                "reference": "8ad256b36db97787d0d947fde03acf588bb10594"
             },
             "require": {
                 "illuminate/cache": "^10.0|^11.21|^12.0|^13.0",
@@ -9234,7 +9197,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/splicewire/laravel-satellite",
-                "reference": "efe9e4f79de2ae804b720dd2e5785bd78e27adf7"
+                "reference": "7b279510ee0deac789c3a315bf233345e37e4f36"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -9244,7 +9207,9 @@
                 "rushing/laravel-doctor": "*",
                 "rushing/laravel-marquee": "*",
                 "rushing/laravel-permission-cascade": "*",
+                "rushing/laravel-popcorn": "*",
                 "rushing/laravel-schema-convergence": "*",
+                "rushing/php-popcorn": "*",
                 "schemastud/laravel-data-schemas": "*",
                 "spatie/laravel-data": "^4.0|^5.0",
                 "spatie/laravel-package-tools": "^1.16",
@@ -14896,7 +14861,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../php/packages/rushing/laravel-surgeon",
-                "reference": "84004a75d27bf67ea7d63ed45d3ba8cabcdf5102"
+                "reference": "43d0a90ad9e2d54d01b0fd0c506a159be8245e1f"
             },
             "require": {
                 "illuminate/console": "^11.0|^12.0|^13.0",
