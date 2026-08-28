@@ -12,15 +12,13 @@ use App\Support\PageEntryRef;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 use Laravel\Fortify\Fortify;
-use Splicewire\Beam\Accounts\Facades\BeamAccounts;
-use Splicewire\Beam\Accounts\Facades\BeamDemo;
+use Splicewire\Beam\Accounts\Actions\DemoLoginLinks;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -72,9 +70,9 @@ class FortifyServiceProvider extends ServiceProvider
             'body' => $entryBody->forSlug('login'),
             'canResetPassword' => Features::enabled(Features::resetPasswords()),
             'status' => $request->session()->get('status'),
-            // Controller-provided quick demo sign-in — the OOTB beam-accounts login-as affordance
-            // (Splicewire\Beam\Accounts\Facades\BeamDemo + the signed `users/{id}/op/login-as` route).
-            // Empty in production / when demo is off, so the login page's demo block simply doesn't render.
+            // Quick demo sign-in — the OOTB beam-accounts login-as affordance, minted by the package
+            // (`DemoLoginLinks::all()`: expiring signed `users/{id}/op/login-as` links, gated on demo
+            // mode). Empty unless `ACCOUNT_DEMO_LOGIN_LINKS=true`, so the demo block simply doesn't render.
             'demoAccounts' => $this->demoAccounts(),
         ]));
 
@@ -130,44 +128,35 @@ class FortifyServiceProvider extends ServiceProvider
     }
 
     /**
-     * The demo sign-in buttons for the login page — the OOTB beam-accounts login-as affordance. Each is a
-     * SIGNED link to the particle operation `users/{id}/op/login-as` (the signature is ignored in
-     * local/testing but keeps the links valid in a preview deploy, where the op requires one). Empty ⇒
-     * no buttons: the set is whichever `BeamDemo::keys()` have a seeded user when `BeamDemo::enabled()`
-     * (non-production by default), else nothing. The subjects are provisioned by the package
-     * `DemoTeamSeeder` (called from DatabaseSeeder).
+     * The demo sign-in buttons for the login page — the OOTB beam-accounts login-as affordance,
+     * delegated whole to the package.
+     *
+     * ## Why this is one call and not a body (api-surface-coherence 99)
+     *
+     * It used to be a hand-rolled roster mint here, and three sibling hosts carried the same copy.
+     * Every copy called `URL::signedRoute()`, which mints a signature with **no `expires`** — and
+     * `hasValidSignature()` enforces an expiry only when the URL carries one. The operation
+     * (`Splicewire\Beam\Accounts\Ops\LogInAsUser`) declares `signed: true` and is admitted on a
+     * valid signature BEFORE its `loginAs` ability check, precisely so an anonymous holder can
+     * follow the link. So the link is the whole credential, there is no per-link revocation, and a
+     * link minted without an expiry admitted **forever**.
+     *
+     * `DemoLoginLinks::all()` is the package's single mint. It carries the two controls the copy
+     * did not: a TTL (`beam.accounts.demo.login_link_minutes`, default 30), and the demo-mode
+     * publish gate `beam.accounts.demo.login_links` — a SECOND key, narrower than
+     * `BeamDemo::enabled()`, which ships **false** and fails closed. A published link is a bearer
+     * credential rendered into an anonymous page, so it is not something `enabled()`'s
+     * "on everywhere but production" default should hand to every preview and shared dev host.
+     *
+     * Empty ⇒ no buttons, which is the shipped default: turn one host on with
+     * `ACCOUNT_DEMO_LOGIN_LINKS=true`. The subjects themselves are provisioned by the package
+     * `DemoTeamSeeder` (called from DatabaseSeeder); a key with no seeded user is omitted.
      *
      * @return list<array{key: string, label: string, url: string}>
      */
     private function demoAccounts(): array
     {
-        if (! BeamDemo::enabled()) {
-            return [];
-        }
-
-        // The link targets the particle operation `users/{id}/op/login-as`, which resolves {id}
-        // against the user model — so the demo subject KEY has to become a user id here. One query
-        // for the whole roster; a key with no seeded user simply gets no button.
-        $emails = array_combine(BeamDemo::keys(), array_map(BeamDemo::email(...), BeamDemo::keys()));
-
-        $users = BeamAccounts::userModel()::query()
-            ->whereIn('email', array_values($emails))
-            ->get()
-            ->keyBy('email');
-
-        $urls = [];
-
-        foreach ($emails as $key => $email) {
-            if ($user = $users->get($email)) {
-                $urls[$key] = URL::signedRoute('users.op.login-as', ['id' => $user->getKey()]);
-            }
-        }
-
-        return array_map(fn (string $key): array => [
-            'key' => $key,
-            'label' => BeamDemo::name($key),
-            'url' => $urls[$key],
-        ], array_keys($urls));
+        return app(DemoLoginLinks::class)->all();
     }
 
     /**
