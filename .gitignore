@@ -34,3 +34,12 @@ composer.local.json
 
 # Ecosystem-local orientation pointer — never commit
 CLAUDE.md
+
+# Scribe generator output — the OpenAPI artifact is generated in the DEPLOYED environment
+# (docker/entrypoint.sh), never committed. `scribe:generate` also emits an intermediate cache and,
+# because Scribe publishes them unconditionally, the HTML docs assets/views this tier does not serve
+# (`scribe.laravel.add_routes` is false — beam core owns `beam/openapi.{yaml,json}`; see
+# beam-docs-satellite 38). The artifact itself is already covered by storage/app/private/.gitignore.
+/.scribe
+/public/vendor
+/resources/views/scribe
