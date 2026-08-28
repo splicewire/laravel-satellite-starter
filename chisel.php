@@ -287,7 +287,6 @@ return Chisel::script(__DIR__)
         );
 
         chiselRun(['composer', 'lint'], 'Composer Lint');
-        chiselRun(['php', 'artisan', 'wayfinder:generate', '--with-form', '--no-interaction'], 'Generate Wayfinder Resources');
 
         if (! chiselSkipsNode()) {
             $c->npm()->run('lint');
