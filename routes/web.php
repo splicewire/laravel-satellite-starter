@@ -44,7 +44,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // relative-import depth calculation, and Wayfinder is retired fleet-wide (beam-runbook ADR-0004,
     // 2026-08-27). The segment stays as it is because it is now load-bearing for a different reason —
     // it is in the live URIs and route names, and the front end addresses these ops by string literal.
-    Particle::ops('beam-ux-entries', 'beam-ux-entry', 'body', ['method' => 'get']);
+    Particle::ops('beam-ux-entries', 'beam-ux-entry', 'body');
     Particle::ops('beam-ux-entries', 'beam-ux-entry', 'save-body');
 
     // The authed home IS the OOTB account realm: <AccountShell> (@splicewire/beam-ux/account). Fortify
