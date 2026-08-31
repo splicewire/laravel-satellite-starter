@@ -102,8 +102,8 @@ return [
     'tenancy' => 'single',
 
     /*
-    | Attributed realms (realm-architecture ticket 08 slice D). The RealmRegistry ships three imperative
-    | base realms (operator·tenant·user); a host CONTRIBUTES more — or overrides a base one — by placing a
+    | Attributed realms (realm-architecture ticket 08 slice D). The RealmRegistry ships four imperative
+    | base realms (operator·tenant·user·site); a host CONTRIBUTES more — or overrides a base one — by placing a
     | `#[Realm]`-family attribute (`#[OperatorRealm]`/`#[UserRealm]`/`#[TenantRealm]`, or the generic
     | `#[Realm]`) on a realm-marker class and listing it here. Boot registration reflects each into a
     | RealmDefinition and registers it additively (last-wins by key). Realms are a small fixed set, so
@@ -130,12 +130,17 @@ return [
     |   'operator' => ['entitlement' => 'os.operate', 'mode' => 'hard'],
     |   'studio' => ['entitlement' => 'go-songwriter', 'mode' => 'soft',
     |               'upsell' => ['title' => 'Go Songwriter', 'cta' => 'Upgrade']],
+    |
+    | Keys here MUST be realm keys the RealmRegistry actually registers (`operator`·`tenant`·`user`·`site`,
+    | plus anything a host contributes via `realms.classes` above). The projector iterates the REGISTERED
+    | realms and looks up `$gates[$key]`, so an entry for a key no realm carries is inert — it neither
+    | gates nor errors. `os.enter` in particular is an ENTITLEMENT key gating the `/os` route
+    | (`can:entitlement:os.enter` in routes/web.php); there is no `os` REALM, and gating one here does
+    | nothing today while arming a hidden hard gate against any `os` realm a host adds later.
     */
     'realm_gates' => [
         // Hard-gate the operator realm: an unentitled principal never sees it in the projected manifest.
         'operator' => ['entitlement' => 'os.operate', 'mode' => 'hard'],
-        // Hard-gate the OS-shell realm on `os.enter` (a non-staff user's manifest omits it entirely).
-        'os' => ['entitlement' => 'os.enter', 'mode' => 'hard'],
     ],
 
     /*
