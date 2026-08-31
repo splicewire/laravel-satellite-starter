@@ -45,7 +45,16 @@ return new class extends Migration
         // FK pointed at the PREFIXED parent table.
         Schema::create($this->target(), function (Blueprint $table): void {
             $table->id();
-            $table->foreignId('team_id')->constrained(Beam::table('teams'))->cascadeOnDelete();
+            // The OWNING TEAM, as a `TeamContract` key rather than as a row in one table.
+            //
+            // This was `foreignId('team_id')->constrained(Beam::table('teams'))->cascadeOnDelete()`
+            // until 2026-08-31. That one line made both promises a `TeamContract` refuses to make — a
+            // WIDTH (bigint) and a TABLE (`beam_teams`) — while the contract's signature is
+            // `teamKey(): int|string` and its docblock says it "says nothing about the backing table,
+            // key type, or provisioning: those are the host's private seam". A host whose team notion
+            // is a `Tenant` keys on a STRING, so the FK made the OTB invitation structurally unable to
+            // own one. Converged with the shipped stub; see beam-accounts.
+            $table->string('team_id')->index();
             $table->string('email');
             $table->string('role')->default('member');
             $table->string('token')->unique();
