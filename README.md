@@ -40,7 +40,9 @@ tier), then publishes + migrates the satellite tier on top:
 ```bash
 composer setup
 # or, standalone, after key:generate:
-php artisan splicewire:satellite:install --no-interaction --force
+php artisan splicewire:satellite:install --no-interaction
+#   no --force: it means overwrite-published-files and would republish config/beam/accounts.php over
+#   this starter's committed tier gate. A production migrate/seed is waived only by --allow-production-migrate.
 #   → INFO satellite tier: chaining splicewire:beam:install (base tier).
 #   → beam stack installed.
 #   → INFO satellite tier installed.
@@ -76,7 +78,7 @@ reports advisory), or drive the prototype tooling directly via
 ```bash
 cp composer.local.json.off composer.local.json   # engage the overlay (gitignored active copy)
 composer update                                   # resolve to local checkouts
-php artisan splicewire:satellite:install --no-interaction --force   # cascades satellite → beam
+php artisan splicewire:satellite:install --no-interaction   # cascades satellite → beam
 
 rm composer.local.json && composer update         # reset to git-resolved
 ```

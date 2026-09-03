@@ -44,7 +44,10 @@ class DatabaseSeeder extends Seeder
         // (`Role::grantEligible()`) already reach `/operator`/`/os` and author-ux with zero further
         // seeding here; nothing needs a manual `is_staff` flip anymore.
         // (Invoked as an artisan COMMAND, not Seeder::call — the manifest, not this host, names the seeders.)
-        $this->command->call('splicewire:beam:seed');
+        // The parent `db:seed --force` (or `migrate:fresh --seed`, which forwards it) is the production
+        // consent, and it is forwarded DOWN: since beam-facade 190 `splicewire:beam:seed` no longer forces
+        // `db:seed` unconditionally, so without this a production seed declines every beam seeder.
+        $this->command->call('splicewire:beam:seed', $this->command->option('force') ? ['--force' => true] : []);
 
         // A staff user — theme-entries-and-authoring: real operator/authoring reach is a Team's
         // realm-root `manage` grant (ACC-01's cascade). The `is_staff` column is gone entirely
