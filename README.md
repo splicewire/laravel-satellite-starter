@@ -91,7 +91,10 @@ reverse). Gated on exactly ONE always-required acknowledgment (unified — cover
 and the local `SPLICEWIRE_TOKEN` clear in a single confirmation):
 
 ```bash
-php artisan splicewire:satellite:uninstall --acknowledge --no-interaction --force
+php artisan splicewire:satellite:uninstall --acknowledge --no-interaction
+#   add --allow-production-migrate on APP_ENV=production: it waives the confirm on migrate:rollback,
+#   and a declined confirm fails the uninstall. There is no --force here — that word means
+#   overwrite-published-files (see the install line above) and an uninstall overwrites nothing.
 #   → INFO satellite tier: rolling back config
 #   → INFO satellite tier: rolling back migrations
 #   → WARN splicewire:beam:uninstall not registered — skipping the base-tier uninstall step
