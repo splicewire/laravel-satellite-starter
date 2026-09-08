@@ -23,7 +23,7 @@ return [
     // Empty on purpose. BeamUxEntryData used to be listed here because discover_paths' app_path('Data')
     // scan (this host's own app/Data) cannot reach a PACKAGE class — but laravel-beam-ux now registers
     // its own declarations from its provider (ADR-0214 §5), which runs after this list and takes the key
-    // under OnDuplicate::Supersede. The line registered first, was displaced by the identical class, and
+    // under OnKeyDuplicate::Supersede. The line registered first, was displaced by the identical class, and
     // did nothing. registry-kernel 68.
     'resources' => [],
 
