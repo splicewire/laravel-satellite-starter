@@ -31,6 +31,13 @@ jobs:
         with:
           node-version: '22'
 
+      - name: Enable pnpm
+        # `composer setup` step 6 is `pnpm install`, and the ubuntu runner image ships npm and yarn
+        # only. corepack reads package.json's `packageManager` pin, so CI and a developer's machine
+        # resolve the SAME pnpm — an unpinned corepack pulls latest, which has already broken
+        # `pnpm.overrides` once (prove-the-beam-starter 09).
+        run: corepack enable && pnpm --version
+
       - name: Setup Application
         run: composer setup
 
