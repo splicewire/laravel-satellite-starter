@@ -46,6 +46,12 @@ jobs:
         with:
           app-id: ${{ vars.GH_APP_ID }}
           private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          # `owner` is load-bearing and easy to leave off: without it the action logs "Inputs
+          # 'owner' and 'repositories' are not set. Creating token for this repository" and mints a
+          # token scoped to the STARTER alone — which authenticates, so the clone fails with
+          # "Invalid username or token" rather than anything naming the scope. The packages being
+          # cloned are siblings in the same org, so the token has to be org-wide.
+          owner: ${{ github.repository_owner }}
 
       - name: Configure git to use the installation token
         run: git config --global url."https://x-access-token:${{ steps.gh-app.outputs.token }}@github.com/".insteadOf "https://github.com/"
