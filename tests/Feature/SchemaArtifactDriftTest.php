@@ -58,4 +58,45 @@ class SchemaArtifactDriftTest extends TestCase
         preg_match('/^(\d+) /', $finding->detail, $m);
         $this->assertGreaterThanOrEqual(1, (int) $m[1], $finding->detail);
     }
+
+    /**
+     * The audit above only sees DECLARED particle classes — at this starter that is one
+     * (`SitemapData`), while `schemas:generate` emits one file per class under the discovery paths.
+     * So any other committed projection is covered by nothing above, and deleting one would be
+     * silent. This is the cheap structural half: every committed artifact is real, parseable, and
+     * still has a class behind it. It writes nothing.
+     */
+    public function test_no_committed_schema_artifact_is_corrupt_or_orphaned(): void
+    {
+        $root = resource_path('schemas/App');
+
+        $files = [];
+        foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($root)) as $file) {
+            if (str_ends_with((string) $file, '.schema.json')) {
+                $files[] = (string) $file;
+            }
+        }
+        sort($files);
+
+        $this->assertNotEmpty($files, 'no committed schema artifacts were found under '.$root);
+
+        foreach ($files as $file) {
+            $relative = str_replace(resource_path('schemas').'/', '', $file);
+
+            $raw = (string) file_get_contents($file);
+            $this->assertNotSame('', trim($raw), $relative.' is empty — run `php artisan schemas:generate`.');
+
+            $decoded = json_decode($raw, true);
+            $this->assertIsArray($decoded, $relative.' is not valid JSON — run `php artisan schemas:generate`.');
+            $this->assertArrayHasKey('$schema', $decoded, $relative.' has no $schema key.');
+
+            // Orphan check: the path IS the class name, so a Data class deleted without its
+            // projection leaves a file here no regeneration would ever rewrite or remove.
+            $class = str_replace('/', '\\', substr($relative, 0, -strlen('.schema.json')));
+            $this->assertTrue(
+                class_exists($class),
+                $relative.' has no class '.$class.' behind it — delete the artifact, or restore the class.'
+            );
+        }
+    }
 }
