@@ -90,7 +90,9 @@ class RootSitemap
             return [
                 'key' => $section['key'],
                 'label' => $section['label'],
-                'items' => array_values($items),
+                // Already a list: $items is built by array_push over list-returning leaves and
+                // reordered in place by usort, both of which preserve list-ness.
+                'items' => $items,
             ];
         }, $this->sections);
     }

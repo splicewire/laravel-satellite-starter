@@ -165,6 +165,20 @@ class SitemapRecordFrameTest extends TestCase
         $this->assertStringContainsString('/no-such-route', $finding->detail);
     }
 
+    public function test_doctor_warns_on_a_record_link_whose_url_cannot_be_parsed(): void
+    {
+        // `http://:80` has no host, so parse_url() returns FALSE rather than null for its path
+        // component. normalize() used to fall back only on null, so FALSE reached trim() as ''
+        // and the href collapsed to '/' — a path that DOES resolve, so the audit reported PASS
+        // and the owner never learned their link was broken.
+        SitemapRecord::create(['payload' => ['label' => 'Typo', 'href' => 'http://:80', 'order' => 1]]);
+
+        [$finding] = (new OrphanedNavItemAudit(app(Router::class)))->run();
+
+        $this->assertSame(DoctorStatus::Warn, $finding->status);
+        $this->assertStringContainsString('http://:80', $finding->detail);
+    }
+
     public function test_doctor_skips_external_links(): void
     {
         SitemapRecord::create(['payload' => [

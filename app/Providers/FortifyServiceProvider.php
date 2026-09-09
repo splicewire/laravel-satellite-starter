@@ -156,7 +156,10 @@ class FortifyServiceProvider extends ServiceProvider
      */
     private function demoAccounts(): array
     {
-        return app(DemoLoginLinks::class)->all();
+        // array_values because this is an Inertia prop: a gappy int-keyed array serialises to a
+        // JSON object, not an array, and the view iterates it. The package types its return as
+        // `array<int, …>`, so the list-ness this method promises has to be established here.
+        return array_values(app(DemoLoginLinks::class)->all());
     }
 
     /**

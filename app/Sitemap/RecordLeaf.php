@@ -20,12 +20,15 @@ class RecordLeaf implements SitemapLeaf
 
     public function items(): array
     {
-        return Cache::rememberForever(self::CACHE_KEY, function (): array {
+        // array_values at the cache boundary, not inside the closure: the leaf contract
+        // ({@see SitemapLeaf::items()}) is a list, and neither map()->all() nor a round-trip
+        // through a cache store carries that guarantee — a hit returns whatever was serialised.
+        return array_values(Cache::rememberForever(self::CACHE_KEY, function (): array {
             return SitemapRecord::query()
                 ->orderBy('created_at')
                 ->get()
                 ->map(fn (SitemapRecord $record): NavItem => $record->toNavItem())
                 ->all();
-        });
+        }));
     }
 }

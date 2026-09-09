@@ -91,14 +91,23 @@ class OrphanedNavItemAudit implements DoctorAudit
      */
     private function registeredPaths(): array
     {
-        return array_map(
+        // array_values because the framework types getRoutes() as a plain `Route[]` — it does
+        // return a list today, but nothing in the contract says so, and this method promises one.
+        return array_values(array_map(
             fn ($route): string => $this->normalize($route->uri()),
             $this->router->getRoutes()->getRoutes(),
-        );
+        ));
     }
 
     private function normalize(string $path): string
     {
-        return '/'.trim(parse_url($path, PHP_URL_PATH) ?? $path, '/');
+        // parse_url() reports "no path component" as null and "unparseable" as FALSE. Both mean
+        // the same thing here — there is no path to lift out — so both fall back to the raw
+        // string. Treating only null that way let a malformed owner-authored href (`http://:80`)
+        // collapse to '/', which resolves to a real route and hid the orphan this audit exists
+        // to report.
+        $parsed = parse_url($path, PHP_URL_PATH);
+
+        return '/'.trim(is_string($parsed) ? $parsed : $path, '/');
     }
 }
