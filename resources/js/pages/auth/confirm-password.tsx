@@ -16,7 +16,10 @@ export default function ConfirmPassword() {
             {/* @chisel-passkeys */}
             <PasskeyVerify
                 routes={{
-                    options: { method: 'get', url: '/passkeys/confirm/options' },
+                    options: {
+                        method: 'get',
+                        url: '/passkeys/confirm/options',
+                    },
                     submit: { method: 'post', url: '/passkeys/confirm' },
                 }}
                 label="Confirm with passkey"
@@ -25,7 +28,11 @@ export default function ConfirmPassword() {
             />
             {/* @end-chisel-passkeys */}
 
-            <Form action="/user/confirm-password" method="post" resetOnSuccess={['password']}>
+            <Form
+                action="/user/confirm-password"
+                method="post"
+                resetOnSuccess={['password']}
+            >
                 {({ processing, errors }) => (
                     <div className="space-y-6">
                         <div className="grid gap-2">

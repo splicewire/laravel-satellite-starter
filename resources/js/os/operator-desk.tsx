@@ -42,7 +42,11 @@ const TOOLS: Tool[] = [
         title: 'Dashboard',
         accent: '#4B5563',
         render: () => (
-            <Suspense fallback={<div className="p-6 text-sm text-slate-500">Loading…</div>}>
+            <Suspense
+                fallback={
+                    <div className="p-6 text-sm text-slate-500">Loading…</div>
+                }
+            >
                 <OperatorDashboard />
             </Suspense>
         ),
@@ -77,7 +81,9 @@ function resolveWindow(
                         wm.minimize(key);
                         window.dispatchEvent(new CustomEvent('beam-ux:edit'));
                     }}
-                    onExitContent={() => window.dispatchEvent(new CustomEvent('beam-ux:exit'))}
+                    onExitContent={() =>
+                        window.dispatchEvent(new CustomEvent('beam-ux:exit'))
+                    }
                 />
             ),
         };
@@ -85,7 +91,9 @@ function resolveWindow(
 
     const tool = TOOLS.find((t) => t.key === key);
 
-    return tool ? { title: tool.title, accent: tool.accent, render: tool.render } : null;
+    return tool
+        ? { title: tool.title, accent: tool.accent, render: tool.render }
+        : null;
 }
 
 // The beam mark — same glyph as splicewire's `@/components/app-logo-icon`, inlined so the accent node
@@ -95,7 +103,13 @@ function resolveWindow(
 // live-themed for free the moment it defines its own `--beam-*` tokens.
 function BeamMark({ className }: { className?: string }) {
     return (
-        <svg className={className} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <svg
+            className={className}
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+        >
             <path
                 d="M3 7 C9 7 10 12 14 12 M3 17 C9 17 10 12 14 12 M14 12 H21"
                 stroke="currentColor"
@@ -104,7 +118,12 @@ function BeamMark({ className }: { className?: string }) {
             />
             <circle cx="3" cy="7" r="1.6" fill="currentColor" />
             <circle cx="3" cy="17" r="1.6" fill="currentColor" />
-            <circle cx="14" cy="12" r="2.7" fill="var(--beam-accent, #00b3c8)" />
+            <circle
+                cx="14"
+                cy="12"
+                r="2.7"
+                fill="var(--beam-accent, #00b3c8)"
+            />
         </svg>
     );
 }
@@ -181,6 +200,7 @@ function StartMenu({
                         if (!editing && !pageEditable) {
                             return;
                         }
+
                         onClose();
                         onEditToggle();
                     }}
@@ -188,7 +208,12 @@ function StartMenu({
                     <span className="ico">{editing ? '✕' : '✎'}</span>
                     {editing ? 'Exit editing' : 'Edit this page'}
                     {!editing && !pageEditable ? (
-                        <span className="muted" style={{ marginLeft: 'auto', fontSize: 11 }}>n/a</span>
+                        <span
+                            className="muted"
+                            style={{ marginLeft: 'auto', fontSize: 11 }}
+                        >
+                            n/a
+                        </span>
                     ) : null}
                 </button>
                 <div className="op-div" />
@@ -196,15 +221,27 @@ function StartMenu({
                     <button
                         key={t.key}
                         type="button"
-                        className={openKeys.includes(t.key) ? 'active' : undefined}
+                        className={
+                            openKeys.includes(t.key) ? 'active' : undefined
+                        }
                         onClick={() => {
                             onOpenTool(t);
                             onClose();
                         }}
                     >
-                        <span className="glyph" style={{ background: t.accent }} />
+                        <span
+                            className="glyph"
+                            style={{ background: t.accent }}
+                        />
                         {t.title}
-                        {openKeys.includes(t.key) ? <span className="muted" style={{ marginLeft: 'auto', fontSize: 11 }}>open</span> : null}
+                        {openKeys.includes(t.key) ? (
+                            <span
+                                className="muted"
+                                style={{ marginLeft: 'auto', fontSize: 11 }}
+                            >
+                                open
+                            </span>
+                        ) : null}
                     </button>
                 ))}
                 <div className="op-div" />
@@ -237,7 +274,14 @@ export default function OperatorDesk() {
     const [currentSlug, setCurrentSlug] = useState<string | null>(null);
     useEffect(() => {
         const onMode = (e: Event) => {
-            const d = (e as CustomEvent<{ mode?: string; editable?: boolean; slug?: string }>).detail ?? {};
+            const d =
+                (
+                    e as CustomEvent<{
+                        mode?: string;
+                        editable?: boolean;
+                        slug?: string;
+                    }>
+                ).detail ?? {};
             setEditing(d.mode === 'window');
             setPageEditable(!!d.editable);
             setCurrentSlug(d.slug ?? null);
@@ -260,7 +304,8 @@ export default function OperatorDesk() {
     const subscribeNavSuppression = () =>
         router.on('before', (event) => {
             const method = (
-                (event as CustomEvent<{ visit?: { method?: string } }>).detail?.visit?.method ?? 'get'
+                (event as CustomEvent<{ visit?: { method?: string } }>).detail
+                    ?.visit?.method ?? 'get'
             ).toLowerCase();
 
             if (suppressNextNav.current && method === 'get') {
@@ -283,7 +328,10 @@ export default function OperatorDesk() {
     // own dock item, same as every other tool window (and the same audiostud behavior this replaces the
     // direct dispatch with). Exiting an already-active edit still dispatches straight through.
     const openProperties = (wm: WindowManager, slug: string) =>
-        wm.open(`page:${slug}`, { geometry: { width: 380, height: 220 }, presentation: 'float' });
+        wm.open(`page:${slug}`, {
+            geometry: { width: 380, height: 220 },
+            presentation: 'float',
+        });
     const onEditToggle = (wm: WindowManager) => {
         if (editing) {
             window.dispatchEvent(new CustomEvent('beam-ux:exit'));
@@ -297,7 +345,9 @@ export default function OperatorDesk() {
             <style dangerouslySetInnerHTML={{ __html: OP_DESK_CSS }} />
             <OperatorOverlay
                 stableKeys={stableKeys}
-                resolveWindow={(key, wm) => resolveWindow(key, wm, pageEditable, editing)}
+                resolveWindow={(key, wm) =>
+                    resolveWindow(key, wm, pageEditable, editing)
+                }
                 orbLabel="Operator"
                 orbIcon={<BeamMark className="mark" />}
                 onWindowBodyClickCapture={armSuppress}
@@ -313,7 +363,12 @@ export default function OperatorDesk() {
                         editing={editing}
                         pageEditable={pageEditable}
                         onEditToggle={() => onEditToggle(wm)}
-                        onOpenTool={(tool) => wm.open(tool.key, { geometry: tool.size, presentation: 'float' })}
+                        onOpenTool={(tool) =>
+                            wm.open(tool.key, {
+                                geometry: tool.size,
+                                presentation: 'float',
+                            })
+                        }
                         onClose={onClose}
                     />
                 )}

@@ -154,7 +154,8 @@ function TwoFactorVerificationStep({
 
     return (
         <Form
-            action="/user/confirmed-two-factor-authentication" method="post"
+            action="/user/confirmed-two-factor-authentication"
+            method="post"
             onSuccess={() => onClose()}
             resetOnError
             resetOnSuccess

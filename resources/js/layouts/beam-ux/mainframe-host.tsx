@@ -1,6 +1,13 @@
 import { usePage } from '@inertiajs/react';
-import { createMainframeHost, useBeamUxEntry as useBeamUxEntryBase } from '@splicewire/beam-mainframe';
-import type { EntryRef, HostEntryBody, RibbonRender } from '@splicewire/beam-mainframe';
+import {
+    createMainframeHost,
+    useBeamUxEntry as useBeamUxEntryBase,
+} from '@splicewire/beam-mainframe';
+import type {
+    EntryRef,
+    HostEntryBody,
+    RibbonRender,
+} from '@splicewire/beam-mainframe';
 import { lazy, Suspense } from 'react';
 import { bodyClient } from '@/editor/transport';
 
@@ -19,7 +26,9 @@ import { bodyClient } from '@/editor/transport';
  */
 
 // The authoring renderers stay host-local (heavy, author-only), lazy-loaded only when authoring.
-const VisualEditorMount = lazy(() => import('@/editor/mount').then((m) => ({ default: m.VisualEditorMount })));
+const VisualEditorMount = lazy(() =>
+    import('@/editor/mount').then((m) => ({ default: m.VisualEditorMount })),
+);
 
 /**
  * The structured chrome body of a `page` entry — what drives a reshelled page's heading/intro. A page
@@ -112,23 +121,40 @@ export default createMainframeHost({
         // WRONG row for an author. The renderer already had the id in props; the host just never read
         // it (beam-docs-satellite ticket 26's fog item).
         const entry = page.props.entry;
-        const explicit = typeof page.props.slug === 'string' && page.props.slug !== '' ? page.props.slug : null;
+        const explicit =
+            typeof page.props.slug === 'string' && page.props.slug !== ''
+                ? page.props.slug
+                : null;
 
         return {
             component: page.component,
             canAuthor: page.props.auth?.canAuthorUx === true,
-            slug: explicit ?? (typeof entry?.slug === 'string' && entry.slug !== '' ? entry.slug : null),
+            slug:
+                explicit ??
+                (typeof entry?.slug === 'string' && entry.slug !== ''
+                    ? entry.slug
+                    : null),
             // The ID half of the same prop — the branch that replaced `componentToEntry`. Shared by
             // `App\Support\PageEntryRef` for a hand-written page, and by the package's
             // `PublicEntryController` (ADR-0209 §6) for a RENDERED entry, which has carried it all along.
-            entryId: typeof entry?.id === 'string' && entry.id !== '' ? entry.id : null,
+            entryId:
+                typeof entry?.id === 'string' && entry.id !== ''
+                    ? entry.id
+                    : null,
         };
     },
     loadEntryBody,
     ribbon,
     renderEditor: ({ ref }: { ref: EntryRef }) =>
-        SELF_MANAGED_COMPONENTS.has(currentComponent) || ref.id === null ? null : (
-            <Suspense fallback={<div className="p-6 text-sm text-slate-500">Loading editor…</div>}>
+        SELF_MANAGED_COMPONENTS.has(currentComponent) ||
+        ref.id === null ? null : (
+            <Suspense
+                fallback={
+                    <div className="p-6 text-sm text-slate-500">
+                        Loading editor…
+                    </div>
+                }
+            >
                 <VisualEditorMount entryRef={ref} />
             </Suspense>
         ),
@@ -136,7 +162,8 @@ export default createMainframeHost({
     // to satisfy the factory's renderer contract.
     renderRead: () => null,
     renderInspector: ({ ref }: { ref: EntryRef }) =>
-        SELF_MANAGED_COMPONENTS.has(currentComponent) || ref.id === null ? null : (
+        SELF_MANAGED_COMPONENTS.has(currentComponent) ||
+        ref.id === null ? null : (
             <Suspense fallback={null}>
                 <VisualEditorMount entryRef={ref} />
             </Suspense>

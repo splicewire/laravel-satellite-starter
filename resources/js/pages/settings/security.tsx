@@ -37,7 +37,8 @@ export default function Security(props: Props) {
                 />
 
                 <Form
-                    action="/settings/password" method="put"
+                    action="/settings/password"
+                    method="put"
                     options={{
                         preserveScroll: true,
                     }}

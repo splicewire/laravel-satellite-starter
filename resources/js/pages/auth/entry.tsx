@@ -42,7 +42,15 @@ const HEAD_TITLES: Record<string, string> = {
     'verify-email': 'Email verification',
 };
 
-function AuthEntryForSlug({ slug, body, entryId }: { slug: string; body?: unknown; entryId: string | null }) {
+function AuthEntryForSlug({
+    slug,
+    body,
+    entryId,
+}: {
+    slug: string;
+    body?: unknown;
+    entryId: string | null;
+}) {
     const canAuthorUx =
         usePage<{ auth?: { canAuthorUx?: boolean } }>().props.auth
             ?.canAuthorUx ?? false;
@@ -101,5 +109,12 @@ export default function AuthEntry({
     // via `useState(initial)` ONCE at mount — package behavior, not host-patchable here) both need
     // AuthEntryForSlug itself to remount. Keying IT from the outside, here, is what actually does that
     // — React's standard "reset state via key" pattern.
-    return <AuthEntryForSlug key={slug} slug={slug} body={body} entryId={entry?.id ?? null} />;
+    return (
+        <AuthEntryForSlug
+            key={slug}
+            slug={slug}
+            body={body}
+            entryId={entry?.id ?? null}
+        />
+    );
 }

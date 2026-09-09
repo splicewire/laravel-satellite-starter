@@ -65,8 +65,24 @@ function ThemeSiteStyle() {
 
 const brand = (
     <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 9 }}>
-        <AppLogoIcon style={{ width: 22, height: 22, display: 'block', color: '#0f172a' }} />
-        <span style={{ fontSize: 15, fontWeight: 600, letterSpacing: '-0.01em', color: '#0f172a' }}>Beam Starter</span>
+        <AppLogoIcon
+            style={{
+                width: 22,
+                height: 22,
+                display: 'block',
+                color: '#0f172a',
+            }}
+        />
+        <span
+            style={{
+                fontSize: 15,
+                fontWeight: 600,
+                letterSpacing: '-0.01em',
+                color: '#0f172a',
+            }}
+        >
+            Beam Starter
+        </span>
     </Link>
 );
 
@@ -74,7 +90,10 @@ const brand = (
 // authed variant) - the guest "Sign in"/"Dashboard" pair below must reflect real auth state, not a fixed
 // guest assumption. `AuthNavLinks` is the one piece of the header that reads `usePage()`.
 function AuthNavLinks() {
-    const page = usePage<{ auth: { user: { name: string } | null }; can?: Record<string, boolean> }>();
+    const page = usePage<{
+        auth: { user: { name: string } | null };
+        can?: Record<string, boolean>;
+    }>();
     const { auth, can } = page.props;
 
     if (!auth.user) {
@@ -101,15 +120,22 @@ function AuthNavLinks() {
                 Dashboard
             </Link>
             <Link className="navlink" href="/logout" as="button">
-            method="post"
-                Log out
+                method="post" Log out
             </Link>
         </>
     );
 }
 
 const nav = (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 22, marginLeft: 'auto', flexWrap: 'wrap' }}>
+    <div
+        style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 22,
+            marginLeft: 'auto',
+            flexWrap: 'wrap',
+        }}
+    >
         <SiteNav />
         <AuthNavLinks />
     </div>
@@ -120,7 +146,9 @@ export default function SiteLayout({ children }: { children: ReactNode }) {
     const footerLinks = [
         { title: 'Home', href: '/' },
         { title: 'About', href: '/about' },
-        page.props.auth.user ? { title: 'Dashboard', href: '/dashboard' } : { title: 'Sign in', href: '/login' },
+        page.props.auth.user
+            ? { title: 'Dashboard', href: '/dashboard' }
+            : { title: 'Sign in', href: '/login' },
     ];
 
     return (

@@ -14,12 +14,25 @@ export function MdxView({ md }: { file?: string; md?: string }) {
     return null;
 }
 
-export function MdxEdit({ md, onChange }: { file?: string; md?: string; onChange: (next: string) => void }) {
+export function MdxEdit({
+    md,
+    onChange,
+}: {
+    file?: string;
+    md?: string;
+    onChange: (next: string) => void;
+}) {
     return (
         <textarea
             value={typeof md === 'string' ? md : ''}
             onChange={(e) => onChange(e.target.value)}
-            style={{ width: '100%', minHeight: 120, padding: 12, fontFamily: 'ui-monospace, monospace', fontSize: 13 }}
+            style={{
+                width: '100%',
+                minHeight: 120,
+                padding: 12,
+                fontFamily: 'ui-monospace, monospace',
+                fontSize: 13,
+            }}
             placeholder="Markdown content — swap this stub for @splicewire/beam-mdx to get the rich editor."
         />
     );

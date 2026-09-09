@@ -15,7 +15,9 @@ function Stat({ label, value }: { label: string; value: number }) {
     return (
         <div className="rounded-xl border border-border bg-card p-5">
             <div className="font-mono text-3xl font-semibold">{value}</div>
-            <div className="mt-1 text-xs tracking-wide text-muted-foreground uppercase">{label}</div>
+            <div className="mt-1 text-xs tracking-wide text-muted-foreground uppercase">
+                {label}
+            </div>
         </div>
     );
 }
@@ -40,9 +42,11 @@ export default function OperatorDashboard({ staff, stats }: Props) {
 
             <p className="mt-8 text-sm text-muted-foreground">
                 This is the operator realm's front-end, framed by the promoted{' '}
-                <code className="rounded bg-muted px-1 py-0.5">@splicewire/beam-mainframe</code> Mainframe
-                host. Resource lists are served by Frame's generic particle CRUD socket; this landing is a
-                thin stats roll-up.
+                <code className="rounded bg-muted px-1 py-0.5">
+                    @splicewire/beam-mainframe
+                </code>{' '}
+                Mainframe host. Resource lists are served by Frame's generic
+                particle CRUD socket; this landing is a thin stats roll-up.
             </p>
         </div>
     );

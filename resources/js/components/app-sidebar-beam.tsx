@@ -4,7 +4,11 @@ import type { AccountNavItem } from '@splicewire/beam-ux/account';
 import { ChevronsUpDown, LayoutGrid, Settings } from 'lucide-react';
 import type { ReactNode } from 'react';
 import AppLogo from '@/components/app-logo';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { UserInfo } from '@/components/user-info';
 import { UserMenuContent } from '@/components/user-menu-content';
 
@@ -18,7 +22,9 @@ import { UserMenuContent } from '@/components/user-menu-content';
  * either shell.
  */
 function BeamNavUser() {
-    const { auth } = usePage<{ auth: { user: { name: string; email: string; avatar?: string } | null } }>().props;
+    const { auth } = usePage<{
+        auth: { user: { name: string; email: string; avatar?: string } | null };
+    }>().props;
 
     if (!auth.user) {
         return null;
@@ -36,7 +42,11 @@ function BeamNavUser() {
                     <ChevronsUpDown className="ml-auto size-4" />
                 </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="min-w-56 rounded-lg" align="end" side="top">
+            <DropdownMenuContent
+                className="min-w-56 rounded-lg"
+                align="end"
+                side="top"
+            >
                 <UserMenuContent user={auth.user} />
             </DropdownMenuContent>
         </DropdownMenu>
@@ -56,8 +66,17 @@ function BeamNavUser() {
  */
 type AccountNavTree = { items: { title: string; href: string | null }[] };
 type ShellData = {
-    plan: { tier: string; label: string; credits?: number | null; max?: number | null };
-    profile: { handle: string; avatar?: string | null; metrics: { label: string; value: string }[] };
+    plan: {
+        tier: string;
+        label: string;
+        credits?: number | null;
+        max?: number | null;
+    };
+    profile: {
+        handle: string;
+        avatar?: string | null;
+        metrics: { label: string; value: string }[];
+    };
     account: { email: string; paymentMethodLabel?: string | null };
     upsells: { key: string; label: string; href?: string | null }[];
 };
@@ -69,7 +88,8 @@ export function AppSidebarBeam({ children }: { children: ReactNode }) {
         sidebarOpen?: boolean;
     }>();
     const realmItems = page.props.accountNav?.items ?? [];
-    const currentPath = typeof window !== 'undefined' ? window.location.pathname : '';
+    const currentPath =
+        typeof window !== 'undefined' ? window.location.pathname : '';
 
     // The nav rows come entirely from the `account` sitemap (Dashboard / Profile in nav.yml) — no
     // hardcoded row, so adding an account-realm page to nav.yml is the only edit needed.
@@ -84,8 +104,13 @@ export function AppSidebarBeam({ children }: { children: ReactNode }) {
             linkComponent={Link}
             brand={<AppLogo />}
             brandHref="/dashboard"
-            isActive={(href) => currentPath === href || (href !== '/' && currentPath.startsWith(href))}
-            navItemIcon={(item) => (item.href === '/dashboard' ? <LayoutGrid /> : <Settings />)}
+            isActive={(href) =>
+                currentPath === href ||
+                (href !== '/' && currentPath.startsWith(href))
+            }
+            navItemIcon={(item) =>
+                item.href === '/dashboard' ? <LayoutGrid /> : <Settings />
+            }
             shell={page.props.accountShell ?? null}
             sections={{ plan: true, profile: true }}
             sectionLabels={{ plan: 'Plan', profile: 'Profile' }}

@@ -19,7 +19,8 @@ export default function ResetPassword() {
     return (
         <>
             <Form
-                action="/reset-password" method="post"
+                action="/reset-password"
+                method="post"
                 transform={(data) => ({ ...data, token, email })}
                 resetOnSuccess={['password', 'password_confirmation']}
             >

@@ -27,16 +27,27 @@ export function PageProperties({
                 <span>
                     slug <b>{slug}</b>
                 </span>
-                <span className={editable ? 'pp-pub on' : 'pp-pub'}>{editable ? '● editable' : '○ read-only'}</span>
+                <span className={editable ? 'pp-pub on' : 'pp-pub'}>
+                    {editable ? '● editable' : '○ read-only'}
+                </span>
             </div>
 
             <div className="pp-actions">
                 {editing ? (
-                    <button type="button" className="pp-btn" onClick={onExitContent}>
+                    <button
+                        type="button"
+                        className="pp-btn"
+                        onClick={onExitContent}
+                    >
                         ✕ Exit editing
                     </button>
                 ) : (
-                    <button type="button" className="pp-btn primary" disabled={!editable} onClick={onEditContent}>
+                    <button
+                        type="button"
+                        className="pp-btn primary"
+                        disabled={!editable}
+                        onClick={onEditContent}
+                    >
                         ✎ Edit content
                     </button>
                 )}

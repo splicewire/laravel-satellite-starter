@@ -54,7 +54,8 @@ export default function TwoFactorChallenge() {
         <>
             <div className="space-y-6">
                 <Form
-                    action="/two-factor-challenge" method="post"
+                    action="/two-factor-challenge"
+                    method="post"
                     className="space-y-4"
                     resetOnError
                     resetOnSuccess={!showRecoveryInput}

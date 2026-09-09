@@ -19,7 +19,16 @@ import { asDoc } from './page-editor';
 import { NEUTRAL_THEME } from './theme';
 import { bodyClient } from './transport';
 
-const EMPTY: JsonDoc = [{ kind: 'block', name: 'div', isComponent: false, dynamic: false, props: [{ name: 'className', kind: 'string', value: 'page' }], children: [] }];
+const EMPTY: JsonDoc = [
+    {
+        kind: 'block',
+        name: 'div',
+        isComponent: false,
+        dynamic: false,
+        props: [{ name: 'className', kind: 'string', value: 'page' }],
+        children: [],
+    },
+];
 
 /**
  * The per-slug SEED tree for a page with no persisted body yet. Keyed by slug because it is a FRONTEND
@@ -35,7 +44,9 @@ export function VisualEditorMount({ entryRef }: { entryRef: EntryRef }) {
     // With no id there is nothing to load, so the seed IS the initial state — no effect, no loading
     // flash. Reachable only for a ref that genuinely has no id (a hand-typed `?beam_entry=<slug>`,
     // which this starter deliberately does not resolve — see mainframe-host.tsx).
-    const [doc, setDoc] = useState<JsonDoc | null>(() => (entryId === null ? seedFor(slug) : null));
+    const [doc, setDoc] = useState<JsonDoc | null>(() =>
+        entryId === null ? seedFor(slug) : null,
+    );
     // theme-entries-and-authoring ticket `str-01`: the server-resolved theme (ThemeResolver cascade)
     // replaces the static NEUTRAL_THEME import — NEUTRAL_THEME stays as the degrade-safe fallback for
     // when the prop is absent (a stale build, or a request that never reached HandleInertiaRequests).
@@ -66,7 +77,11 @@ export function VisualEditorMount({ entryRef }: { entryRef: EntryRef }) {
     }, [entryId, slug]);
 
     if (!doc) {
-        return <div style={{ padding: 24, color: '#64748b', fontSize: 13 }}>Loading editor…</div>;
+        return (
+            <div style={{ padding: 24, color: '#64748b', fontSize: 13 }}>
+                Loading editor…
+            </div>
+        );
     }
 
     const save = async () => {
@@ -79,7 +94,10 @@ export function VisualEditorMount({ entryRef }: { entryRef: EntryRef }) {
         }
 
         try {
-            await bodyClient.saveBody(entryId, doc as unknown as Record<string, unknown>);
+            await bodyClient.saveBody(
+                entryId,
+                doc as unknown as Record<string, unknown>,
+            );
             toast.success('Saved');
         } catch {
             toast.error('Save failed');
@@ -88,7 +106,13 @@ export function VisualEditorMount({ entryRef }: { entryRef: EntryRef }) {
 
     return (
         <CanvasProvider config={canvasConfig}>
-            <VisualEditor value={doc} onChange={setDoc} onSave={save} theme={theme} brand="beam-starter · visual editor" />
+            <VisualEditor
+                value={doc}
+                onChange={setDoc}
+                onSave={save}
+                theme={theme}
+                brand="beam-starter · visual editor"
+            />
         </CanvasProvider>
     );
 }

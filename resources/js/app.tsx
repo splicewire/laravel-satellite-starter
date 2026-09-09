@@ -53,7 +53,9 @@ createInertiaApp({
      * in `./pages` and a package-contributed page is by definition not there.
      */
     resolve: async (name: string) => {
-        const own = import.meta.glob<{ default: ComponentType }>('./pages/**/*.tsx');
+        const own = import.meta.glob<{ default: ComponentType }>(
+            './pages/**/*.tsx',
+        );
         const local = own[`./pages/${name}.tsx`];
 
         if (local) {

@@ -56,16 +56,24 @@ export const bodyClient: UxBuilderClient = {
             credentials: 'same-origin',
         });
 
-        return (await readData(res, 'load')) as Awaited<ReturnType<UxBuilderClient['loadBody']>>;
+        return (await readData(res, 'load')) as Awaited<
+            ReturnType<UxBuilderClient['loadBody']>
+        >;
     },
     saveBody: async (id, body) => {
         const res = await fetch(`/beam-ux-entries/${id}/op/save-body`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'X-XSRF-TOKEN': csrfToken(), Accept: 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'X-XSRF-TOKEN': csrfToken(),
+                Accept: 'application/json',
+            },
             credentials: 'same-origin',
             body: JSON.stringify({ body }),
         });
 
-        return (await readData(res, 'save')) as Awaited<ReturnType<UxBuilderClient['saveBody']>>;
+        return (await readData(res, 'save')) as Awaited<
+            ReturnType<UxBuilderClient['saveBody']>
+        >;
     },
 };

@@ -12,11 +12,24 @@
 //  - each app window is a NESTED Mainframe scope framing the REAL page component. The recursion.
 import { Link, router, usePage } from '@inertiajs/react';
 import '@schemastud/mainframe/os/shell.css';
-import { MainframeOutlet, MainframeProvider, createMainframeRegistry, createSlotRegistry } from '@schemastud/mainframe';
+import {
+    MainframeOutlet,
+    MainframeProvider,
+    createMainframeRegistry,
+    createSlotRegistry,
+} from '@schemastud/mainframe';
 import type { Mainframe, MainframeInjection } from '@schemastud/mainframe';
 import type { PersistedWorkspace } from '@schemastud/mainframe/os';
-import { buildAppsFromManifest, buildDesktopChrome, Clock } from '@splicewire/beam-ux/shell';
-import type { DesktopApp, RealmManifestEntry, RealmSurfaceBinding } from '@splicewire/beam-ux/shell';
+import {
+    buildAppsFromManifest,
+    buildDesktopChrome,
+    Clock,
+} from '@splicewire/beam-ux/shell';
+import type {
+    DesktopApp,
+    RealmManifestEntry,
+    RealmSurfaceBinding,
+} from '@splicewire/beam-ux/shell';
 import { Component, Suspense, lazy } from 'react';
 import type { ErrorInfo, ReactNode } from 'react';
 
@@ -146,7 +159,10 @@ const Mark = ({ className }: { className?: string }) => (
 );
 
 // ── A per-window error boundary ─────────────────────────────────────────────────────────────────────
-class SurfaceBoundary extends Component<{ title: string; route: string; children: ReactNode }, { error: Error | null }> {
+class SurfaceBoundary extends Component<
+    { title: string; route: string; children: ReactNode },
+    { error: Error | null }
+> {
     state = { error: null as Error | null };
     static getDerivedStateFromError(error: Error) {
         return { error };
@@ -157,13 +173,44 @@ class SurfaceBoundary extends Component<{ title: string; route: string; children
     render() {
         if (this.state.error) {
             return (
-                <div style={{ padding: 28, fontFamily: 'ui-monospace,monospace', fontSize: 12, lineHeight: 1.6, color: '#475569', background: '#f8fafc', height: '100%' }}>
-                    <div style={{ color: '#dc2626', letterSpacing: '.1em', textTransform: 'uppercase', marginBottom: 10 }}>Surface needs its page props</div>
+                <div
+                    style={{
+                        padding: 28,
+                        fontFamily: 'ui-monospace,monospace',
+                        fontSize: 12,
+                        lineHeight: 1.6,
+                        color: '#475569',
+                        background: '#f8fafc',
+                        height: '100%',
+                    }}
+                >
+                    <div
+                        style={{
+                            color: '#dc2626',
+                            letterSpacing: '.1em',
+                            textTransform: 'uppercase',
+                            marginBottom: 10,
+                        }}
+                    >
+                        Surface needs its page props
+                    </div>
                     <p style={{ maxWidth: '46ch' }}>
-                        The real <b>{this.props.title}</b> component crashed without its page-specific Inertia props. Open the live route:
+                        The real <b>{this.props.title}</b> component crashed
+                        without its page-specific Inertia props. Open the live
+                        route:
                     </p>
-                    <Link href={this.props.route} style={{ color: '#2563eb' }}>open {this.props.route} ↗</Link>
-                    <pre style={{ marginTop: 14, whiteSpace: 'pre-wrap', color: '#b91c1c' }}>{String(this.state.error.message)}</pre>
+                    <Link href={this.props.route} style={{ color: '#2563eb' }}>
+                        open {this.props.route} ↗
+                    </Link>
+                    <pre
+                        style={{
+                            marginTop: 14,
+                            whiteSpace: 'pre-wrap',
+                            color: '#b91c1c',
+                        }}
+                    >
+                        {String(this.state.error.message)}
+                    </pre>
                 </div>
             );
         }
@@ -174,10 +221,23 @@ class SurfaceBoundary extends Component<{ title: string; route: string; children
 
 // ── The nested-window scope factory (the recursion) ─────────────────────────────────────────────────
 const surfaceMainframe: Mainframe = ({ slots }) => (
-    <div style={{ height: '100%', minHeight: 0, display: 'flex', flexDirection: 'column' }}>{slots.main()}</div>
+    <div
+        style={{
+            height: '100%',
+            minHeight: 0,
+            display: 'flex',
+            flexDirection: 'column',
+        }}
+    >
+        {slots.main()}
+    </div>
 );
 
-function surfaceInjection(title: string, route: string, render: () => ReactNode): MainframeInjection {
+function surfaceInjection(
+    title: string,
+    route: string,
+    render: () => ReactNode,
+): MainframeInjection {
     const slots = createSlotRegistry();
     const mainframes = createMainframeRegistry();
     mainframes.register('surface', surfaceMainframe);
@@ -207,7 +267,11 @@ export const SURFACE_MAP: Record<string, RealmSurfaceBinding> = {
         subtitle: 'Public · marketing',
         accent: '#3b82f6',
         geometry: { x: 60, y: 70, width: 640, height: 540 },
-        render: () => <Suspense fallback={null}><SiteHome /></Suspense>,
+        render: () => (
+            <Suspense fallback={null}>
+                <SiteHome />
+            </Suspense>
+        ),
     },
     user: {
         label: 'Account',
@@ -229,7 +293,11 @@ export const SURFACE_MAP: Record<string, RealmSurfaceBinding> = {
         subtitle: 'Frame · back-office',
         accent: '#f59e0b',
         geometry: { x: 220, y: 90, width: 720, height: 540 },
-        render: () => <Suspense fallback={null}><OperatorDashboard /></Suspense>,
+        render: () => (
+            <Suspense fallback={null}>
+                <OperatorDashboard />
+            </Suspense>
+        ),
     },
 };
 
@@ -249,12 +317,36 @@ export function realmForComponent(name: string): string | undefined {
 // ── Auto-surface fallback ───────────────────────────────────────────────────────────────────────────
 function genericSurface(entry: RealmManifestEntry): ReactNode {
     return (
-        <div style={{ padding: 28, fontFamily: 'ui-monospace,monospace', fontSize: 12, lineHeight: 1.6, color: '#475569', background: '#f8fafc', height: '100%' }}>
-            <div style={{ color: '#2563eb', letterSpacing: '.1em', textTransform: 'uppercase', marginBottom: 10 }}>Realm auto-surfaced</div>
+        <div
+            style={{
+                padding: 28,
+                fontFamily: 'ui-monospace,monospace',
+                fontSize: 12,
+                lineHeight: 1.6,
+                color: '#475569',
+                background: '#f8fafc',
+                height: '100%',
+            }}
+        >
+            <div
+                style={{
+                    color: '#2563eb',
+                    letterSpacing: '.1em',
+                    textTransform: 'uppercase',
+                    marginBottom: 10,
+                }}
+            >
+                Realm auto-surfaced
+            </div>
             <p style={{ maxWidth: '46ch' }}>
-                The <b>{entry.title}</b> realm (<code>{entry.key}</code>) is registered PHP-side and appears in the manifest, but no /os surface is bound to its key yet. Bind one by adding a <code>SURFACE_MAP[&apos;{entry.key}&apos;]</code> row.
+                The <b>{entry.title}</b> realm (<code>{entry.key}</code>) is
+                registered PHP-side and appears in the manifest, but no /os
+                surface is bound to its key yet. Bind one by adding a{' '}
+                <code>SURFACE_MAP[&apos;{entry.key}&apos;]</code> row.
             </p>
-            <Link href={entry.routeBase || '/'} style={{ color: '#2563eb' }}>open {entry.routeBase || '/'} ↗</Link>
+            <Link href={entry.routeBase || '/'} style={{ color: '#2563eb' }}>
+                open {entry.routeBase || '/'} ↗
+            </Link>
         </div>
     );
 }
@@ -271,7 +363,9 @@ const GENERIC_BINDING = (entry: RealmManifestEntry): RealmSurfaceBinding => ({
 // `tenant` = a page/tool reached via nav, not a launchable realm.
 const OS_REALM_EXCLUDE = new Set(['tenant']);
 
-export function osAppsFromManifest(manifest: RealmManifestEntry[]): DesktopApp[] {
+export function osAppsFromManifest(
+    manifest: RealmManifestEntry[],
+): DesktopApp[] {
     return buildAppsFromManifest(manifest, {
         surfaceMap: SURFACE_MAP,
         exclude: OS_REALM_EXCLUDE,
@@ -295,7 +389,17 @@ function OsBrand() {
 function OsStatus() {
     return (
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <span style={{ fontFamily: 'ui-monospace,monospace', fontSize: 10, color: '#94a3b8', letterSpacing: '.12em', textTransform: 'uppercase' }}>Window mode</span>
+            <span
+                style={{
+                    fontFamily: 'ui-monospace,monospace',
+                    fontSize: 10,
+                    color: '#94a3b8',
+                    letterSpacing: '.12em',
+                    textTransform: 'uppercase',
+                }}
+            >
+                Window mode
+            </span>
             <Clock />
         </div>
     );
@@ -309,7 +413,9 @@ const OS_BACKDROP = (
             os
         </div>
         <div className="hint">
-            beam·<b>os</b> — the front-end CMS as an operating system. Each realm is a launchable app; a window frames its <b>real</b> surface (its actual page component).
+            beam·<b>os</b> — the front-end CMS as an operating system. Each
+            realm is a launchable app; a window frames its <b>real</b> surface
+            (its actual page component).
         </div>
     </>
 );
@@ -343,8 +449,21 @@ const OS_ENTER_KEY = 'os.enter';
 
 /** APP-FIRST fallback: one maximized real surface, no desktop chrome (guest / unentitled principal). */
 function AppFirstSurface({ apps }: { apps: DesktopApp[] }) {
-    const primary = apps.find((a) => a.key === 'user' && !a.locked) ?? apps.find((a) => !a.locked) ?? apps[0] ?? null;
-    const binding = primary ? (SURFACE_MAP[primary.key] ?? GENERIC_BINDING({ key: primary.key, title: primary.title, routeBase: primary.route ?? '/', locked: !!primary.locked, upsell: primary.upsell })) : null;
+    const primary =
+        apps.find((a) => a.key === 'user' && !a.locked) ??
+        apps.find((a) => !a.locked) ??
+        apps[0] ??
+        null;
+    const binding = primary
+        ? (SURFACE_MAP[primary.key] ??
+          GENERIC_BINDING({
+              key: primary.key,
+              title: primary.title,
+              routeBase: primary.route ?? '/',
+              locked: !!primary.locked,
+              upsell: primary.upsell,
+          }))
+        : null;
 
     return (
         <>
@@ -352,11 +471,16 @@ function AppFirstSurface({ apps }: { apps: DesktopApp[] }) {
             <ThemeShellStyle />
             <div className="st-app-root">
                 {primary && binding ? (
-                    <SurfaceBoundary title={primary.title} route={primary.route ?? '/'}>
+                    <SurfaceBoundary
+                        title={primary.title}
+                        route={primary.route ?? '/'}
+                    >
                         {binding.render()}
                     </SurfaceBoundary>
                 ) : (
-                    <div style={{ padding: 40, color: '#64748b' }}>No surface available.</div>
+                    <div style={{ padding: 40, color: '#64748b' }}>
+                        No surface available.
+                    </div>
                 )}
             </div>
         </>
@@ -368,15 +492,23 @@ function AppFirstSurface({ apps }: { apps: DesktopApp[] }) {
  * Entitled (`can['os.enter']`) → the full desktop; unentitled → app-first (one maximized surface).
  */
 export function OsShellDesktop() {
-    const page = usePage<{ realmManifest?: RealmManifestEntry[]; can?: Record<string, boolean> }>();
-    const manifest = (page.props.realmManifest as RealmManifestEntry[] | undefined) ?? [];
-    const canEnterOs = !!(page.props.can as Record<string, boolean> | undefined)?.[OS_ENTER_KEY];
+    const page = usePage<{
+        realmManifest?: RealmManifestEntry[];
+        can?: Record<string, boolean>;
+    }>();
+    const manifest =
+        (page.props.realmManifest as RealmManifestEntry[] | undefined) ?? [];
+    const canEnterOs = !!(
+        page.props.can as Record<string, boolean> | undefined
+    )?.[OS_ENTER_KEY];
     const currentComponent = page.component;
     const apps = osAppsFromManifest(manifest);
 
     // DEV override: `?os=off` forces app-first to verify the unentitled fusion character in-browser.
     const devForceAppFirst =
-        import.meta.env.DEV && typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('os') === 'off';
+        import.meta.env.DEV &&
+        typeof window !== 'undefined' &&
+        new URLSearchParams(window.location.search).get('os') === 'off';
 
     if ((!canEnterOs && !import.meta.env.DEV) || devForceAppFirst) {
         return <AppFirstSurface apps={apps} />;
@@ -389,8 +521,11 @@ export function OsShellDesktop() {
         status: <OsStatus />,
         backdrop: OS_BACKDROP,
         statusLine: (
-            <span style={{ fontFamily: 'ui-monospace,monospace', fontSize: 10 }}>
-                {apps.length} realms · window manager live · layout persists per session
+            <span
+                style={{ fontFamily: 'ui-monospace,monospace', fontSize: 10 }}
+            >
+                {apps.length} realms · window manager live · layout persists per
+                session
             </span>
         ),
         activeKey,
@@ -411,7 +546,10 @@ export function OsShellDesktop() {
             <style dangerouslySetInnerHTML={{ __html: OS_SHELL_CSS }} />
             <ThemeShellStyle />
             <MainframeProvider injection={osInjection}>
-                <div className="st-os-root" style={{ position: 'fixed', inset: 0, overflow: 'hidden' }}>
+                <div
+                    className="st-os-root"
+                    style={{ position: 'fixed', inset: 0, overflow: 'hidden' }}
+                >
                     <MainframeOutlet
                         mode="os"
                         ctx={{

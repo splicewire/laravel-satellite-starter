@@ -17,7 +17,11 @@ export default function VerifyEmail() {
                 </div>
             )}
 
-            <Form action="/email/verification-notification" method="post" className="space-y-6 text-center">
+            <Form
+                action="/email/verification-notification"
+                method="post"
+                className="space-y-6 text-center"
+            >
                 {({ processing }) => (
                     <>
                         <Button disabled={processing} variant="secondary">

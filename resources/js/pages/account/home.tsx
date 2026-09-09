@@ -10,12 +10,19 @@ export default function AccountHome() {
         <>
             <Head title="Account" />
             <div style={{ padding: 24 }}>
-                <h1 style={{ fontSize: 28, fontWeight: 700, margin: '0 0 8px' }}>Account home</h1>
+                <h1
+                    style={{ fontSize: 28, fontWeight: 700, margin: '0 0 8px' }}
+                >
+                    Account home
+                </h1>
                 <p style={{ color: '#64748b', maxWidth: 560, lineHeight: 1.6 }}>
-                    The sidebar to the left is the promoted <code>@splicewire/beam-ux/account</code>
-                    <code> AccountShell</code>. Its nav rows come from the <code>account</code> sitemap; the
-                    Plan + Profile blocks come from the <code>accountShell</code> Inertia share (the
-                    host-bound <code>AccountShellProvider</code>). The host wrote only config.
+                    The sidebar to the left is the promoted{' '}
+                    <code>@splicewire/beam-ux/account</code>
+                    <code> AccountShell</code>. Its nav rows come from the{' '}
+                    <code>account</code> sitemap; the Plan + Profile blocks come
+                    from the <code>accountShell</code> Inertia share (the
+                    host-bound <code>AccountShellProvider</code>). The host
+                    wrote only config.
                 </p>
             </div>
         </>

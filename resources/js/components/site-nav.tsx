@@ -15,5 +15,12 @@ type PageProps = { nav?: { items: NavNode[] } };
 export default function SiteNav({ style }: { style?: CSSProperties }) {
     const { nav } = usePage<PageProps>().props;
 
-    return <BeamSiteNav nav={nav} linkComponent={Link} itemClassName="navlink" itemStyle={style} />;
+    return (
+        <BeamSiteNav
+            nav={nav}
+            linkComponent={Link}
+            itemClassName="navlink"
+            itemStyle={style}
+        />
+    );
 }

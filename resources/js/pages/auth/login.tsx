@@ -40,7 +40,8 @@ export default function Login() {
             {/* @end-chisel-passkeys */}
 
             <Form
-                action="/login" method="post"
+                action="/login"
+                method="post"
                 resetOnSuccess={['password']}
                 className="flex flex-col gap-6"
             >
