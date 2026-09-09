@@ -31,6 +31,25 @@ jobs:
         with:
           node-version: '22'
 
+      # Three of the 38 git-resolved packages in composer.lock are PRIVATE —
+      # splicewire/laravel-satellite, laravel-connector and laravel-grounding-spine, the satellite
+      # tier proper. The other 35 clone anonymously, which is why this workflow got as far as
+      # "Syncing splicewire/laravel-grounding-spine into cache" before dying on
+      # "Password authentication is not supported". Same App and same two steps deploy.yml already
+      # uses in this repo; beam's starter needs neither, its family being public by choice.
+      #
+      # ⚠️ Fork pull requests get no org secret, so the mint fails there and the run stays red —
+      # it was already red at `composer install` for the same reason, one step later.
+      - name: Mint a GitHub App installation token (satellite-family private repos)
+        id: gh-app
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          app-id: ${{ vars.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+      - name: Configure git to use the installation token
+        run: git config --global url."https://x-access-token:${{ steps.gh-app.outputs.token }}@github.com/".insteadOf "https://github.com/"
+
       - name: Enable pnpm
         # `composer setup` step 6 is `pnpm install`, and the ubuntu runner image ships npm and yarn
         # only. corepack reads package.json's `packageManager` pin, so CI and a developer's machine
