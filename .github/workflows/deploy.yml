@@ -53,6 +53,13 @@ jobs:
         with:
           app-id: ${{ vars.GH_APP_ID }}
           private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          # `owner` is load-bearing and easy to leave off — this workflow was missing it. Without it
+          # the action logs "Inputs 'owner' and 'repositories' are not set. Creating token for this
+          # repository" and mints a token scoped to the STARTER ALONE. That token authenticates, so
+          # the sibling clones fail with "Invalid username or token" — a message naming nothing about
+          # scope. Every private package this deploy installs is a sibling in this same org, so the
+          # token has to be org-wide. tests.yml in this repo carries the same line for the same reason.
+          owner: ${{ github.repository_owner }}
 
       # Rewrites plain `https://github.com/...` git URLs to use the token — covers composer's own
       # git clones for the private satellite packages when `composer install` runs directly on the
