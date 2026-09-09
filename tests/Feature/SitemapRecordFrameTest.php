@@ -13,7 +13,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Cache;
 use Rushing\Doctor\DoctorStatus;
-use Splicewire\Beam\Frame\AdminResourceRegistry;
+use Splicewire\Beam\Particle\Backing\EloquentBacking;
+use Splicewire\Beam\Particle\ParticleResourceRegistry;
 use Tests\TestCase;
 
 /**
@@ -116,14 +117,14 @@ class SitemapRecordFrameTest extends TestCase
 
     public function test_the_sitemap_admin_resource_registers(): void
     {
-        $registry = app(AdminResourceRegistry::class);
+        $registry = app(ParticleResourceRegistry::class);
 
         $this->assertTrue($registry->has('sitemap'));
 
-        $definition = $registry->get('sitemap');
+        $definition = $registry->definition('sitemap');
 
         $this->assertSame('sitemap', $definition->key);
-        $this->assertSame('model', $definition->sourceKind);
+        $this->assertInstanceOf(EloquentBacking::class, $registry->get('sitemap')->backing());
         $this->assertSame(SitemapRecord::class, $definition->model);
         $this->assertSame(SitemapData::class, $definition->data);
         $this->assertSame('Sitemap', $definition->nav->label);
