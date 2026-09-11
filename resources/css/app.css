@@ -5,6 +5,22 @@
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
+/*
+ * There is deliberately NO `@source` line here for the family packages, and their absence is not the
+ * bug it looks like. Tailwind v4 ignores symlinked `node_modules`, so a class used only inside a
+ * family package's built `dist` is never generated — correct markup, absent classes, HTTP 200.
+ *
+ * That list used to be maintained by hand (9 literal globs, added in `e587049`). It is now DERIVED at
+ * build time by `vite-plugin-family-sources.ts`, which resolves every family-scoped package carrying a
+ * `dist` and injects one `@source` each. Same output, verified: 1,011 classes / 102,014 bytes either
+ * way, down to the asset hash. The difference is that a derived list cannot go stale, and a
+ * hand-written one silently does — the flagship was repaired once by hand and had drifted back to 8
+ * globs against 28 resolving packages.
+ *
+ * If family-package styling ever looks stripped, check the plugin is still in `vite.config.ts` before
+ * suspecting anything here, and verify by diffing emitted class counts — never by loading a page.
+ */
+
 @custom-variant dark (&:is(.dark *));
 
 @theme {
@@ -51,6 +67,9 @@
     --color-chart-4: var(--chart-4);
     --color-chart-5: var(--chart-5);
 
+    --color-sidebar-deep: var(--sidebar-deep);
+    --color-sidebar-active-foreground: var(--sidebar-active-foreground);
+    --color-sidebar-avatar: var(--sidebar-avatar);
     --color-sidebar: var(--sidebar);
     --color-sidebar-foreground: var(--sidebar-foreground);
     --color-sidebar-primary: var(--sidebar-primary);
@@ -95,6 +114,10 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.87 0 0);
+    --sidebar-deep: var(--sidebar);
+    --sidebar-active-foreground: var(--sidebar-foreground);
+    --sidebar-avatar: var(--sidebar-accent);
+    --dotted-dot: var(--border);
 }
 
 .dark {
@@ -140,4 +163,9 @@
     body {
         @apply bg-background text-foreground;
     }
+}
+
+@utility dotted-bg {
+    background-image: radial-gradient(var(--dotted-dot) 1px, transparent 1px);
+    background-size: 16px 16px;
 }

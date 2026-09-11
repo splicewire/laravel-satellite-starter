@@ -3,11 +3,17 @@ includes:
     - vendor/nesbot/carbon/extension.neon
 
 parameters:
+    # Published migrations are copied verbatim; analyse their package source too.
+    fileExtensions:
+        - php
+        - php.stub
+
     paths:
         - app/
         - bootstrap/app.php
         - config/
         - database/
         - routes/
+        - vendor/splicewire/laravel-beam-accounts/database/migrations/
 
     level: 7

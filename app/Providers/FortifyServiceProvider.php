@@ -19,6 +19,8 @@ use Inertia\Inertia;
 use Laravel\Fortify\Features;
 use Laravel\Fortify\Fortify;
 use Splicewire\Beam\Accounts\Actions\DemoLoginLinks;
+use Splicewire\Beam\Accounts\Data\Pages\AuthEntryPageData;
+use Splicewire\Beam\Accounts\Data\Pages\ResetPasswordPageData;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -64,7 +66,7 @@ class FortifyServiceProvider extends ServiceProvider
      */
     private function configureViews(EntryBody $entryBody): void
     {
-        Fortify::loginView(fn (Request $request) => Inertia::render('auth/entry', [
+        Fortify::loginView(fn (Request $request) => Inertia::render('auth/entry', AuthEntryPageData::from([
             'slug' => 'login',
             'entry' => PageEntryRef::for('login'),
             'body' => $entryBody->forSlug('login'),
@@ -74,56 +76,56 @@ class FortifyServiceProvider extends ServiceProvider
             // (`DemoLoginLinks::all()`: expiring signed `users/{id}/op/login-as` links, gated on demo
             // mode). Empty unless `ACCOUNT_DEMO_LOGIN_LINKS=true`, so the demo block simply doesn't render.
             'demoAccounts' => $this->demoAccounts(),
-        ]));
+        ])));
 
-        Fortify::resetPasswordView(fn (Request $request) => Inertia::render('auth/entry', [
+        Fortify::resetPasswordView(fn (Request $request) => Inertia::render('auth/entry', ResetPasswordPageData::from([
             'slug' => 'reset-password',
             'entry' => PageEntryRef::for('reset-password'),
             'body' => $entryBody->forSlug('reset-password'),
             'email' => $request->email,
             'token' => $request->route('token'),
             'passwordRules' => Password::defaults()->toPasswordRulesString(),
-        ]));
+        ])));
 
-        Fortify::requestPasswordResetLinkView(fn (Request $request) => Inertia::render('auth/entry', [
+        Fortify::requestPasswordResetLinkView(fn (Request $request) => Inertia::render('auth/entry', AuthEntryPageData::from([
             'slug' => 'forgot-password',
             'entry' => PageEntryRef::for('forgot-password'),
             'body' => $entryBody->forSlug('forgot-password'),
             'status' => $request->session()->get('status'),
-        ]));
+        ])));
 
         /* @chisel-email-verification */
-        Fortify::verifyEmailView(fn (Request $request) => Inertia::render('auth/entry', [
+        Fortify::verifyEmailView(fn (Request $request) => Inertia::render('auth/entry', AuthEntryPageData::from([
             'slug' => 'verify-email',
             'entry' => PageEntryRef::for('verify-email'),
             'body' => $entryBody->forSlug('verify-email'),
             'status' => $request->session()->get('status'),
-        ]));
+        ])));
         /* @end-chisel-email-verification */
 
         /* @chisel-registration */
-        Fortify::registerView(fn () => Inertia::render('auth/entry', [
+        Fortify::registerView(fn () => Inertia::render('auth/entry', AuthEntryPageData::from([
             'slug' => 'register',
             'entry' => PageEntryRef::for('register'),
             'body' => $entryBody->forSlug('register'),
             'passwordRules' => Password::defaults()->toPasswordRulesString(),
-        ]));
+        ])));
         /* @end-chisel-registration */
 
         /* @chisel-2fa */
-        Fortify::twoFactorChallengeView(fn () => Inertia::render('auth/entry', [
+        Fortify::twoFactorChallengeView(fn () => Inertia::render('auth/entry', AuthEntryPageData::from([
             'slug' => 'two-factor-challenge',
             'entry' => PageEntryRef::for('two-factor-challenge'),
             'body' => $entryBody->forSlug('two-factor-challenge'),
-        ]));
+        ])));
         /* @end-chisel-2fa */
 
         /* @chisel-password-confirmation */
-        Fortify::confirmPasswordView(fn () => Inertia::render('auth/entry', [
+        Fortify::confirmPasswordView(fn () => Inertia::render('auth/entry', AuthEntryPageData::from([
             'slug' => 'confirm-password',
             'entry' => PageEntryRef::for('confirm-password'),
             'body' => $entryBody->forSlug('confirm-password'),
-        ]));
+        ])));
         /* @end-chisel-password-confirmation */
     }
 

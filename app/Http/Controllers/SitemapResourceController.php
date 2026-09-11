@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Data\Pages\SitemapResourcePageData;
 use Inertia\Inertia;
 use Inertia\Response;
 use Splicewire\Beam\Particle\ParticleResourceRegistry;
@@ -21,8 +22,8 @@ class SitemapResourceController extends Controller
 {
     public function __invoke(ParticleResourceRegistry $registry): Response
     {
-        return Inertia::render('frame/resource', [
+        return Inertia::render('frame/resource', SitemapResourcePageData::from([
             'resource' => $registry->definition('sitemap'),
-        ]);
+        ]));
     }
 }

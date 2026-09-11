@@ -1,0 +1,39 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "EntryPageData",
+    "properties": {
+        "entry": {
+            "anyOf": [
+                {
+                    "$ref": "#/$defs/PageEntryData"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        }
+    },
+    "required": [
+        "entry"
+    ],
+    "$id": "EntryPageData",
+    "$defs": {
+        "PageEntryData": {
+            "type": "object",
+            "title": "PageEntryData",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "slug"
+            ]
+        }
+    }
+}

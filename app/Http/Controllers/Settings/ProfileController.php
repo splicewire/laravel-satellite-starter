@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Inertia\Response;
+use Splicewire\Beam\Accounts\Data\Pages\ProfilePageData;
 
 class ProfileController extends Controller
 {
@@ -20,7 +21,7 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
-        return Inertia::render('settings/profile', [
+        return Inertia::render('settings/profile', ProfilePageData::from([
             // The page's beam-ux row, by ID (ADR-0214 §2). Its slug is `settings-profile`, which
             // happens to equal the slash-swapped component name — that coincidence used to be the
             // whole binding, via `componentSlugFallback`. It is written down now (beam-docs-satellite
@@ -28,7 +29,7 @@ class ProfileController extends Controller
             'entry' => PageEntryRef::for('settings-profile'),
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => $request->session()->get('status'),
-        ]);
+        ]));
     }
 
     /**

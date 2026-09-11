@@ -52,4 +52,68 @@ class SitemapData extends Data
         #[NotInList]
         public ?string $externalUrl = null,
     ) {}
+
+    /**
+     * Fold the authored fields INTO the record's `payload` json before the write.
+     *
+     * The write-side twin of {@see self::project()}, and needed for the same reason: this DTO
+     * describes what lives INSIDE `schema_records.payload`, while {@see SitemapRecord} only accepts
+     * `schema_ref`/`payload`/`meta` as attributes. Without this the generic writer maps `label` and
+     * `href` onto columns that do not exist, they are dropped, and a `create` answers **200 with an
+     * empty row** — the worst available failure, since it reports success and loses the content.
+     *
+     * Measured 2026-09-05, once the policy opened the gate: `POST` with a flat body returned 200 and
+     * persisted `payload = null`. That is a silent data-loss bug the closed gate had been hiding.
+     *
+     * `prepare` is beam's before-write hook ({@see \Splicewire\Beam\Particle\ParticleResource::$prepare}),
+     * the same seam `Splicewire\Beam\Accounts\Data\InvitationData` uses to mint an invite token.
+     *
+     * ⚠️ `$input` is typed **array**, not `self`. The hook is handed whatever the write was given, and
+     * this resource declares no `input:` class on its `#[ParticleResource]`, so what arrives is the
+     * raw validated array — a `self` type hint here is a TypeError on every create, not a nicer
+     * signature. `self::from()` recovers the typed object, and the DTO's own defaults with it.
+     *
+     * @param  array<string, mixed>  $input
+     */
+    public static function prepare(SitemapRecord $record, array $input): void
+    {
+        $data = self::from($input);
+
+        $record->payload = [
+            'label' => $data->label,
+            'href' => $data->href,
+            'order' => $data->order,
+            'externalUrl' => $data->externalUrl,
+        ];
+    }
+
+    /**
+     * Project a stored record back out into this shape.
+     *
+     * ⚠️ Without this, every read of a `sitemap` row is a 500, and the reason is the whole point of
+     * the kind-A pattern: {@see SitemapRecord} is a plain `schema_records` row whose authored fields
+     * live inside a `payload` json column, so `label` and `href` are NOT model attributes and the
+     * default `SitemapData::from($model)` finds nothing to fill them with — spatie throws
+     * `CannotCreateData: … Parameters missing: label, href`.
+     *
+     * Measured 2026-09-05: the very first `POST /frame/resources/sitemap` this host ever served
+     * WROTE its row correctly and then 500'd projecting the response. It had never surfaced because
+     * the resource had no policy, so `Schemastud\Frame\Authorization\ResourceAuthorizer` refused every
+     * write before it reached a handler, and the table was empty — a closed gate upstream of a broken
+     * projection reads exactly like a working resource nobody has used.
+     *
+     * `project` is a convention method beam's `ParticleFrameResourceHandler::projectRead()` prefers
+     * over `from()` — the same seam `Splicewire\Beam\Accounts\Data\TokenData` and `InvitationData` use.
+     */
+    public static function project(SitemapRecord $record): self
+    {
+        $payload = $record->payload ?? [];
+
+        return new self(
+            label: (string) ($payload['label'] ?? ''),
+            href: (string) ($payload['href'] ?? ''),
+            order: (int) ($payload['order'] ?? 0),
+            externalUrl: $payload['externalUrl'] ?? null,
+        );
+    }
 }

@@ -34,6 +34,14 @@ class ThemeSharedPropTest extends TestCase
     {
         $this->seed(ThemeSeeder::class);
 
+        $entry = BeamUxEntry::query()->where('namespace', ThemeResolver::NAMESPACE)->where('slug', ThemeResolver::SLUG)->sole();
+        $particle = BeamParticle::findOrFail($entry->particle_id);
+        $this->assertSame('#0f172a', $particle->payload['canvas']['accent']);
+        $resolver = app(ThemeResolver::class);
+        $resolved = $resolver->resolve();
+        $this->assertNull($resolver->lastFailure());
+        $this->assertSame('#0f172a', $resolved['canvas']['accent']);
+
         $response = $this->get(route('home'));
 
         $response->assertInertia(fn (Assert $page) => $page

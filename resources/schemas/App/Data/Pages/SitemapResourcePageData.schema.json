@@ -1,0 +1,151 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "SitemapResourcePageData",
+    "properties": {
+        "resource": {
+            "$ref": "#/$defs/ResourceDefinition"
+        }
+    },
+    "required": [
+        "resource"
+    ],
+    "$id": "SitemapResourcePageData",
+    "$defs": {
+        "NavMetadata": {
+            "type": "object",
+            "title": "NavMetadata",
+            "properties": {
+                "label": {
+                    "type": "string"
+                },
+                "group": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "icon": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "section": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "navOrder": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "routeName": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "label",
+                "group",
+                "icon",
+                "section",
+                "navOrder",
+                "routeName"
+            ]
+        },
+        "ResourceDefinition": {
+            "type": "object",
+            "title": "ResourceDefinition",
+            "properties": {
+                "key": {
+                    "type": "string"
+                },
+                "model": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "data": {
+                    "type": "string"
+                },
+                "creatable": {
+                    "type": "boolean"
+                },
+                "query": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "editData": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "policy": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "form": {
+                    "type": "string"
+                },
+                "nav": {
+                    "$ref": "#/$defs/NavMetadata"
+                },
+                "layout": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "deletable": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "editable": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "showable": {
+                    "type": "boolean",
+                    "default": true
+                },
+                "createAffordance": {
+                    "type": "string",
+                    "default": "frame"
+                },
+                "singularLabel": {
+                    "type": "string",
+                    "default": ""
+                }
+            },
+            "required": [
+                "key",
+                "model",
+                "data",
+                "creatable",
+                "query",
+                "editData",
+                "policy",
+                "form",
+                "nav",
+                "layout",
+                "deletable",
+                "editable",
+                "showable",
+                "createAffordance",
+                "singularLabel"
+            ]
+        }
+    }
+}

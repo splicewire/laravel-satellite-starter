@@ -55,23 +55,38 @@ and it re-generates at install and deploy (never on request). The pages are `Bea
 site owns: edit them, move them, or re-root the whole subtree by changing the `/docs` row's `segment`.
 Nothing re-asserts them, and deleting them is a supported way to opt out.
 
-Two files own the host half, and both are yours to theme: `routes/web.php`'s `Route::beamUxSite()`
-mount (registered **last**, because it is a catch-all) and `resources/js/pages/site/entry.tsx`, which
-supplies the chrome and the component map a page body may reach for. An installed beam package
-contributes a docs page by seeding a row and mounting a JSON endpoint — it ships no frontend, so that
-component map is what makes its page resolve.
+The host mounts `Route::beamUxSite()` last in `routes/web.php`, because it is a catch-all.
+`resources/js/app.tsx` configures the packaged entry page from `@splicewire/beam-ux/pages` with
+the site's link component and `SiteLayout` wrapper. Its resolver checks host pages first, then the
+package's page map; add `resources/js/pages/site/entry.tsx` only when you want to replace that page.
+An installed Beam package contributes a docs page by seeding a row and, where needed, mounting the
+JSON endpoint its body renders.
 
 `composer setup` runs `splicewire:beam:ux:compile` after `pnpm install`, because entry bodies compile
 with **the host's** toolchain (`@mdx-js/mdx`) and there is deliberately no in-browser compile fallback.
 Run it again after editing a body outside the app; `splicewire:beam:doctor` reports anything stale.
 
 **Prototyping ships in the bare install.** The starter requires
-`splicewire/laravel-beam-ux-prototype`, so `splicewire:beam:install` also stamps the rushing-prototype
-scaffold (`ui/src/_prototype/**` starter + `_chrome/nav.ts`) and the host-bound
-`docs/agents/rushing-prototype.convention.template.md` — the package self-registers its step into
-`BeamInstallManifest`. Confirm the wiring landed with `splicewire:beam:doctor` (the prototype audit
-reports advisory), or drive the prototype tooling directly via
-`php artisan splicewire:beam:ux:prototype:{install,doctor}`.
+`splicewire/laravel-beam-ux-prototype` and uses its existing Inertia integration. With
+`APP_ENV=local` and `npm run dev` running, open `/_prototype` for the gallery or
+`/_prototype/starter` for the starter example. The package registers the local-only Laravel route;
+`resources/js/pages/_prototype.tsx` hosts its prototype router without the application layouts.
+
+Author throwaway prototypes in `resources/js/_prototype/**`, importing shipped components read-only
+over colocated fixtures. `_chrome/nav.ts` contains host-owned navigation data. The package installer
+publishes the scaffold and binds its convention to the host; `config/beam/ux-prototype.php` points it
+at this starter's source tree, stylesheet, package manifest, and brand component.
+
+The Inertia resolver excludes the prototype host page from its production glob and imports it only
+under `import.meta.env.DEV`. The page also guards the discovery glob. Run the packaged build check:
+
+```bash
+npm run beam:verify-prototype-boundary
+```
+
+This builds the application and scans `public/build` (the `prototype.outDir` in `package.json`) for
+prototype module and route tokens. The package's static wiring audit is available through
+`php artisan splicewire:beam:ux:prototype:doctor`; add `--boundary` to run the build check too.
 
 ### Local-package run loop
 
@@ -132,6 +147,28 @@ class SitemapData extends Data { /* … Column-annotated fields … */ }
 
 See `app/Data/SitemapData.php` for the worked example (the editable sitemap resource). Adding your own
 resource is the same one-file move: annotate a Data class, drop it in `app/Data/`, done.
+
+## Checks
+
+`composer types:generate` derives TypeScript modules from the app's Data classes/enums and
+referenced Frame registry types. Edit the PHP declarations, then regenerate. The DTO modules
+are gitignored under `resources/js/generated/App/` and `resources/js/generated/Schemastud/`.
+The committed `routes.ts` and `aliases.ts` in the same parent directory belong to the Beam
+client generator and are not replaced by this command.
+
+The `dev`, `build`, `build:ssr`, and `types:check` scripts regenerate before consuming these
+modules, so `composer setup` covers generation too. After changing Data during a running dev
+session, rerun `composer types:generate`.
+
+`pnpm types:check` checks the application and generated contracts, including negative type
+cases with library checking enabled. Production builds run this check before Vite. Profile,
+security, and auth consumers import their page types from the generated modules.
+
+`composer test` runs **the PHP suite and nothing else** — it no longer chains pint and phpstan, which
+stay reachable as `composer lint:check` and `composer types:check`. The composite is
+`composer ci:check`, which delegates to `bin/ci-check` and runs **every** gate (suite first, then
+pint, phpstan, eslint, prettier, tsc) so no gate can mask another. It exits `0` all-passed, `1` a
+real failure, and `2` when a gate could not be measured at all — test `!= 0`, never `== 1`.
 
 ## Package-topology stop-gap
 

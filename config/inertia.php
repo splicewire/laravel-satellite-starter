@@ -37,6 +37,8 @@ return [
 
         'paths' => [
             resource_path('js/pages'),
+            base_path('node_modules/@splicewire/beam-inertia/src/pages'),
+            base_path('node_modules/@splicewire/beam-ux/src/pages'),
         ],
 
         'extensions' => [

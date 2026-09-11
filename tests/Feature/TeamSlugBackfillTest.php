@@ -52,7 +52,7 @@ class TeamSlugBackfillTest extends TestCase
      */
     private function source(object $team): string
     {
-        $migration = require database_path('migrations/2026_08_27_120000_add_slug_to_teams_table.php');
+        $migration = require database_path('migrations/shared/2026_08_27_120000_add_slug_to_teams_table.php');
 
         $method = new ReflectionMethod($migration, 'source');
         $method->setAccessible(true);

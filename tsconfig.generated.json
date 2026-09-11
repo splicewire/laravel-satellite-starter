@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "strict": true,
+        "noEmit": true,
+        "skipLibCheck": false,
+        "types": []
+    },
+    "include": ["resources/js/generated/**/*.ts", "tests/Types/**/*.ts"]
+}

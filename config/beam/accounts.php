@@ -5,29 +5,25 @@
 | beam-accounts host overrides (merged over the package defaults)
 |--------------------------------------------------------------------------
 |
-| OOTB-wiring note (frontend-surfaces): this starter is a `laravel new`
-| derivative that already ships its OWN bigint-keyed `users` /
-| `password_reset_tokens` / `sessions` migrations. `laravel-beam-accounts`
-| ALSO registers a full auth-migration estate that includes a *uuid-keyed*
-| `create_users_table` (the "C2 auth estate"), which collides with the
-| host's own users table on migrate.
+| This starter owns its committed auth schema: UUID users, password resets,
+| sessions, passkeys, permissions and personal access tokens. App\Models\User
+| uses HasRoles, and DatabaseSeeder provisions demo team roles and realm grants.
 |
-| Until the host adopts the package's uuid-user identity wholesale, we keep
-| the host's own auth tables and OPT OUT of the package's auth-migration
-| estate. The front-end realm surfaces (site / account chrome) do not depend
-| on the uuid-user estate; they need the beam-ux entry/sitemap substrate and
-| a bound AccountShellProvider, both of which stand on their own.
+| The package's full auth migration estate also includes tenant userables,
+| guest tokens and sign-offs. This starter does not adopt those tenant tables.
+| Keep the host-owned schema without publishing the package's full estate.
 */
 
 return [
-    // Auth estate OFF — this laravel-starter-kit app owns its OWN auth schema (bigint users, its own
-    // passkeys table, no spatie roles). The beam-accounts auth estate (uuid users + its passkeys + a
-    // uuid-keyed spatie roles table) conflicts with it, so adopting it is a deeper migration than a
-    // starter warrants. Consequence: the OOTB DemoTeamSeeder seeds its demo USERS (enough for the
-    // login-as buttons) but its team-ROLE assignment is skipped (see DatabaseSeeder).
-    'register_auth_migrations' => false,
-    // Teams estate ON — the engine's teams/memberships/invitations tables, needed by the OOTB
-    // beam-accounts demo team (login-as subjects) the login page's quick-login buttons enter.
+    // 'absent' excludes the full package estate; false would claim EVERY member is committed here.
+    // BeamAccountsServiceProvider::estateDeclaredAbsent() honours this explicit host choice.
+    // PublishGateCoverageAudit still reports overlapping stems with our committed auth tables as
+    // advisory evidence. It does not require the unadopted tenant tables to silence that warning.
+    'publish_auth_migrations' => 'absent',
+    // Teams publishing stays enabled for the package's teams/memberships/invitations estate,
+    // which the demo subjects and their team roles use.
+    // Committed members live in migrations/shared/, matching the publisher destination;
+    // a copy at the migration root would be missed and published a second time.
     'register_migrations' => true,
 
     // Entitlement bundles (Frame OS ADR-0013 §3). The DefaultEntitlementResolver grants a STAFF principal

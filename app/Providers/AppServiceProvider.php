@@ -6,6 +6,7 @@ use App\Account\StarterAccountShell;
 use App\Beam\RealmRegistry;
 use App\Data\SitemapData;
 use App\Doctor\OrphanedNavItemAudit;
+use App\Models\SitemapRecord;
 use App\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 use Rushing\PermissionCascade\Contracts\EntitlementResolver;
+use Rushing\PermissionCascade\Support\CascadePolicyRegistrar;
 use Splicewire\Beam\Accounts\Contracts\AccountShellProvider;
 use Splicewire\Beam\Doctor\BeamDoctorManifest;
 
@@ -46,7 +48,24 @@ class AppServiceProvider extends ServiceProvider
         $this->configureDefaults();
         $this->registerSharedMigrations();
         $this->registerAuthoringGates();
+        $this->registerResourcePolicies();
         $this->registerDoctorAudits();
+    }
+
+    /**
+     * Bind this HOST's own models onto the Gate — the registration half `#[UseCascadePolicy]` cannot
+     * do for itself, exactly as beam-core does for `Hook`/`BeamSchema` and beam-accounts for
+     * `Invitation`. Packages bind the models they own; a host binds its own, and
+     * {@see SitemapRecord} is the starter's only one.
+     *
+     * This is load-bearing, not decorative. `Schemastud\Frame\Authorization\ResourceAuthorizer`
+     * refuses a write against a model with no policy — for every actor, the team owner included — so
+     * without this line the `frame/resources/sitemap` editor is a 403 for everyone and the starter
+     * ships a resource nobody can use.
+     */
+    protected function registerResourcePolicies(): void
+    {
+        CascadePolicyRegistrar::register(SitemapRecord::class);
     }
 
     /**

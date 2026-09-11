@@ -1,0 +1,85 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "OperatorDashboardPageData",
+    "properties": {
+        "entry": {
+            "anyOf": [
+                {
+                    "$ref": "#/$defs/PageEntryData"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "staff": {
+            "$ref": "#/$defs/OperatorStaffData",
+            "readOnly": true,
+            "x-lazy": true
+        },
+        "stats": {
+            "$ref": "#/$defs/OperatorStatsData",
+            "readOnly": true,
+            "x-lazy": true
+        }
+    },
+    "required": [
+        "entry"
+    ],
+    "$id": "OperatorDashboardPageData",
+    "$defs": {
+        "PageEntryData": {
+            "type": "object",
+            "title": "PageEntryData",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "id",
+                "slug"
+            ]
+        },
+        "OperatorStaffData": {
+            "type": "object",
+            "title": "OperatorStaffData",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "email"
+            ]
+        },
+        "OperatorStatsData": {
+            "type": "object",
+            "title": "OperatorStatsData",
+            "properties": {
+                "users": {
+                    "type": "integer"
+                },
+                "sitemaps": {
+                    "type": "integer"
+                },
+                "entries": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "users",
+                "sitemaps",
+                "entries"
+            ]
+        }
+    }
+}

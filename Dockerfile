@@ -3,13 +3,8 @@
 # Proven live against beam-pilot-gcp-cloud-run (gcp-cloud-run-provisioning map, tickets 10 + the CI
 # follow-on); baked into laravel-beam-starter and laravel-satellite-starter identically.
 #
-# Single builder stage, not split PHP/Node stages. The ORIGINAL reason is now HISTORY:
-# @laravel/vite-plugin-wayfinder's `vite build` shelled out to `php artisan wayfinder:generate`, so
-# the frontend build needed a booted (vendor-installed) Laravel app and not just Node — found live,
-# not assumed. Wayfinder is retired fleet-wide as of beam-runbook ADR-0004 (2026-08-27) and `vite
-# build` no longer touches php, so splitting into separate PHP and Node stages is now POSSIBLE.
-# It has deliberately NOT been done here: this file's job today is to keep building the image it
-# already builds, and whether the split is worth its cost is the deploy owner's call.
+# The builder needs PHP and Node: pnpm build generates TypeScript from the Laravel Data
+# declarations, checks the generated contracts and frontend, then runs Vite.
 
 FROM php:8.4-cli-bookworm AS builder
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -35,17 +30,9 @@ RUN --mount=type=secret,id=gh_app_token,required=false \
 COPY . .
 RUN composer dump-autoload --optimize --no-dev --classmap-authoritative
 
-# A throwaway .env for the frontend build. `php artisan key:generate` used to run here too, solely
-# so `artisan wayfinder:generate` could boot the framework during `vite build`. Wayfinder is retired
-# fleet-wide (beam-runbook ADR-0004, 2026-08-27), nothing in the build below boots artisan any more,
-# and the APP_KEY it wrote was never read by the build — vite only exposes VITE_-prefixed keys, and
-# laravel-vite-plugin reads ASSET_URL/APP_URL. So that step is gone.
-#
-# The `cp` is NOT dead weight and deliberately stays: vite loads this .env, and `.env.example`'s
-# `VITE_APP_NAME="${APP_NAME}"` is compiled into the bundle (resources/js/app.tsx reads
-# `import.meta.env.VITE_APP_NAME`). Verified by probe — a sentinel VITE_APP_NAME lands in app-*.js.
-# The .env is still never copied into the runtime stage below; real values are injected via Cloud
-# Run env vars at deploy time.
+# Generation boots Laravel without requiring an APP_KEY or a database connection. Vite
+# reads this throwaway .env so VITE_APP_NAME is compiled into the bundle. Remove it after
+# building; runtime values are injected by the deployment environment.
 RUN cp .env.example .env \
     && pnpm install --no-frozen-lockfile --ignore-scripts \
     && pnpm run build \

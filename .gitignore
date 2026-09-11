@@ -11,6 +11,15 @@
 /resources/js/actions
 /resources/js/routes
 /resources/js/wayfinder
+/resources/js/generated/App/
+/resources/js/generated/Schemastud/
+/resources/js/generated/Illuminate/
+/resources/js/generated/Spatie/
+/resources/js/generated/Splicewire/
+# The transformer's own hash manifest of what it just emitted — a build cache, not a registry.
+# aliases.ts and routes.ts above it ARE committed (ADR 0218 names routes.ts a committed registry);
+# these per-vendor type directories are not, and were the only ones left neither tracked nor ignored.
+/resources/js/generated/typescript-transformer-manifest.json
 /vendor
 .DS_Store
 .env
