@@ -60,8 +60,10 @@ it('declares the complete profile props while preserving the rendered payload', 
 
     $response = (new ProfileController)->edit($request)->toResponse($request);
 
+    // `entry` carries `format` and `artifact` beside `{id, slug}` (G2-BEAM-AUTHOR-ENTRY); both null for
+    // this fixture row, and null is the honest answer for each.
     expect($response->getData(true)['props'])->toBe([
-        'entry' => $entry,
+        'entry' => $entry === null ? null : $entry + ['format' => null, 'artifact' => null],
         'mustVerifyEmail' => $verifiesEmail,
         'status' => $status,
     ]);

@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
+        // The token-authenticated door (`/api/user`) — see routes/api.php. A host whose account realm
+        // can mint personal access tokens needs at least one route that accepts one.
+        api: __DIR__.'/../routes/api.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )

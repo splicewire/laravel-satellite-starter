@@ -77,7 +77,11 @@ it('declares each route page and preserves initial populated and missing entry p
     });
     $response = Route::getRoutes()->getByName($route)->bind($request)->run();
     expect($staffEvaluations)->toBe(0)->and($counts)->toBe(0);
-    $expected = ['entry' => $entry];
+    // The entry ref carries `format` and `artifact` beside `{id, slug}` (G2-BEAM-AUTHOR-ENTRY): a save
+    // address alone left `/` unreadable and let the canvas open an mdx entry. Both are null for these
+    // rows — the fixture inserts no format and compiles no artifact — and null is the honest answer
+    // ("the host did not say" / "never authored"), which is exactly what the client must receive.
+    $expected = ['entry' => $entry === null ? null : $entry + ['format' => null, 'artifact' => null]];
     if ($route === 'operator.home') {
         $expected += ['staff' => ['name' => 'Operator', 'email' => 'operator@example.test'], 'stats' => ['users' => 3, 'sitemaps' => 2, 'entries' => $seeded ? 3 : 2]];
     }

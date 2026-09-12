@@ -31,6 +31,23 @@ settings-profile:
   type: page
   realm: account
 
+# The account-realm settings surfaces. These rows ARE the navigation for them — the packaged
+# SettingsLayout's sub-nav is a hardcoded Profile/Security/Appearance list inside
+# @splicewire/beam-inertia, and the tenant frame console's nav projects only the sections a package
+# seats (`authoring`, `ops`), so before these two lines every route reaching the token and team
+# surfaces was URL-only. Adding a row here is the whole of seating one.
+account-tokens:
+  segment: /account/tokens
+  title: API tokens
+  type: page
+  realm: account
+
+account-team:
+  segment: /account/team
+  title: Team
+  type: page
+  realm: account
+
 operator-dashboard:
   segment: /operator
   title: Operator

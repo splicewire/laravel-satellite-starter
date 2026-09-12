@@ -54,7 +54,11 @@ const sitemap: SitemapResourcePageData = {
     },
 };
 const operator: OperatorDashboardPageData = {
-    entry: { id: 'entry-id', slug: 'operator-dashboard' },
+    // `format` and `artifact` are REQUIRED members of the generated `PageEntryData`, nullable in value
+    // — which editor may open this entry, and where to read its compiled body (G2-BEAM-AUTHOR-ENTRY).
+    // Required-but-nullable is deliberate: a host that forgets them fails to compile rather than
+    // shipping a page whose editor guesses.
+    entry: { id: 'entry-id', slug: 'operator-dashboard', format: null, artifact: null },
     staff: { name: 'Operator', email: 'operator@example.test' },
     stats: { users: 3, sitemaps: 2, entries: 4 },
 };

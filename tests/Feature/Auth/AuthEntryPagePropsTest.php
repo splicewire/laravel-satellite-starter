@@ -106,7 +106,11 @@ it('declares each Fortify view as whole props with unchanged JSON', function (st
     });
 
     $props = app($contract)->toResponse($request)->getData(true)['props'];
-    $expected = ['slug' => $slug, 'entry' => $entry, 'body' => $body];
+    // `entry` carries `format` and `artifact` beside `{id, slug}` (G2-BEAM-AUTHOR-ENTRY). Both null for
+    // these fixture rows: no format column value and no compiled artifact, and null is the honest
+    // answer for each ("the host did not say" / "never authored").
+    $expectedEntry = $entry === null ? null : $entry + ['format' => null, 'artifact' => null];
+    $expected = ['slug' => $slug, 'entry' => $expectedEntry, 'body' => $body];
     if ($slug === 'login') {
         $expected += ['canResetPassword' => $seeded, 'status' => $seeded ? 'sent' : null, 'demoAccounts' => $demo];
     } elseif ($slug === 'reset-password') {

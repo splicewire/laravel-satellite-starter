@@ -59,6 +59,41 @@ Route::middleware(['auth', 'verified'])->group(function () {
         'entry' => PageEntryRef::for('dashboard'),
     ])))->name('dashboard');
 
+    // ── The ACCOUNT-REALM settings surfaces: API tokens and Team ─────────────────────────────────
+    //
+    // Two more `account/*` pages, so app.tsx's layout resolution frames them in the same
+    // <AccountShell> `/dashboard` gets, and their nav seats come from the SAME place its does —
+    // `resources/beam-ux/nav.yml`'s `account` realm, seeded into the account sitemap. That is the
+    // whole reason these are account-realm pages rather than `settings/*` ones: the packaged
+    // SettingsLayout's sub-nav (Profile / Security / Appearance) is a hardcoded list inside
+    // `@splicewire/beam-inertia`, so a `settings/tokens` page would have been reachable only by URL,
+    // which is the defect this change exists to fix.
+    //
+    // The page bodies are `@splicewire/beam-accounts`' own <TokensRoster> and <TeamPage>, wired to
+    // the transport below. Nothing about either surface is re-implemented here — see
+    // `resources/js/pages/account/{tokens,team}.tsx`, which are transport adapters and nothing else.
+    //
+    // ⚠️ These are NOT the tenant frame console's `tokens` / `members` / `invitations` leaves, and
+    // those three have been removed from `config('frame.realms')['tenant']` in the same change. Read
+    // that file's realm comment for why one capability may not have two surfaces here.
+    Route::get('account/tokens', fn () => Inertia::render('account/tokens'))->name('account.tokens');
+    Route::get('account/team', fn () => Inertia::render('account/team'))->name('account.team');
+
+    // The account-tier REST survivors the two pages above talk to — tokens (reveal-once mint +
+    // archive/rotate/renew), members (role change + remove) and invitations (send/resend/revoke),
+    // all shipped by `splicewire/laravel-beam-accounts`.
+    //
+    // ⚠️ **A macro the HOST calls; the package mounts nothing.** api-surface-coherence 141 ruled that
+    // middleware is part of an exposure and "the route file owns it", and these verbs mint bearer
+    // credentials and change who can reach a team. It is also what keeps the package from deciding,
+    // by provider order, which `beam.accounts.tokens.index` a host that already mounts its own
+    // (`~/Herd/splicewire-app`) actually serves.
+    //
+    // Called INSIDE this group, so the surface inherits `auth` + `verified` from it; the macro's own
+    // middleware default is dropped by passing an explicit empty list rather than being applied
+    // twice.
+    Route::splicewireAccountApiRoutes(middleware: []);
+
     // The host-owned Frame resource edit page for the editable sitemap (kind A).
     // Frame ships only frame/manifest; the host binds each resource's edit route.
     Route::get('frame/resources/sitemap', SitemapResourceController::class)

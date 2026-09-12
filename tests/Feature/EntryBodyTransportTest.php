@@ -125,13 +125,47 @@ class EntryBodyTransportTest extends TestCase
         $entry = $this->pageEntry('home');
 
         $this->assertSame(
-            ['id' => (string) $entry->getKey(), 'slug' => 'home'],
+            [
+                'id' => (string) $entry->getKey(),
+                'slug' => 'home',
+                // The entry's BODY LANGUAGE: which editor may open it. Missing this is how the operator
+                // dock opened the JsonDoc canvas on an mdx entry and one Save blanked the public page.
+                'format' => 'tsx',
+                // Null until something is compiled — "never authored", not "the artifact failed".
+                'artifact' => null,
+            ],
             PageEntryRef::for('home'),
         );
 
         $this->get('/')
             ->assertSuccessful()
             ->assertInertia(fn ($page) => $page->where('entry.id', (string) $entry->getKey()));
+    }
+
+    /**
+     * G2-BEAM-AUTHOR-ENTRY, measured on beam.test 2026-09-11: the owner authored `/`, Save reported
+     * "Saved" truthfully — the body reached the particle and the artifact compiled — and no reader ever
+     * saw the change. `site/home` rendered its packaged default tree because the props carried a SAVE
+     * address and nothing to read. This is the address that fixes it, and the version must be pinned
+     * INTO the url: the browser caches by URL, and an unpinned one is how a body edit never reaches a
+     * returning reader (ADR-0209 §7).
+     */
+    public function test_the_home_ref_carries_the_compiled_artifact_address_once_there_is_one(): void
+    {
+        $entry = $this->pageEntry('home');
+        $artifacts = app(\Splicewire\Beam\Ux\Compile\EntryArtifactStore::class);
+        $artifacts->put($entry, 'export default () => null');
+
+        $ref = PageEntryRef::for('home');
+        $version = $artifacts->version($entry);
+
+        $this->assertSame($version, $ref['artifact']['version']);
+        $this->assertStringContainsString((string) $entry->getKey(), $ref['artifact']['url']);
+        $this->assertStringContainsString($version, $ref['artifact']['url']);
+
+        $this->get('/')
+            ->assertSuccessful()
+            ->assertInertia(fn ($page) => $page->where('entry.artifact.version', $version));
     }
 
     public function test_a_page_entry_ref_is_null_when_the_row_was_never_seeded(): void

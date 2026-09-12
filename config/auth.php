@@ -42,6 +42,18 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        // The token door. Present because this host's account realm mints personal access tokens
+        // (`/account/tokens`); `routes/api.php` is what spends them.
+        //
+        // ⚠️ Sanctum's guard checks `config('sanctum.guard')` — the session `web` guard by default —
+        // BEFORE the Authorization header, so a signed-in browser reaches an `auth:sanctum` route
+        // with no token at all. That is the SPA-cookie design, not a misconfiguration; it only means
+        // a probe that wants to measure a TOKEN must carry no session cookie.
+        'sanctum' => [
+            'driver' => 'sanctum',
+            'provider' => 'users',
+        ],
     ],
 
     /*

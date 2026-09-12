@@ -110,10 +110,38 @@ class FrameManifestRouterTest extends TestCase
         $this->assertSame('edit', $byName['beam-ux-entry.edit']->mounts);
         // `showable && ! editable` ⇒ a read-only detail, never an edit shell whose save the server 405s.
         $this->assertSame('detail', $byName['git-repo.edit']->mounts);
-        // Neither ⇒ a list leaf and nothing else. `tokens` and `invitations` are the live cases here.
+    }
+
+    public function test_a_resource_that_is_neither_showable_nor_editable_gets_a_list_leaf_and_nothing_else(): void
+    {
+        // ⚠️ **The realm list is overridden HERE rather than read from `config/frame.php`, and that is
+        // the correction rather than a convenience.** This case used to be asserted against whatever
+        // the host happened to have in its tenant realm, naming `tokens` and `invitations` as "the
+        // live cases here" — so when this host moved both to the ACCOUNT realm (they are served by
+        // `/account/tokens` and `/account/team` now; see config/frame.php's realm comment) the
+        // assertion went red over a composition change rather than over the rule it guards.
+        //
+        // The rule is the PROJECTOR's, not this host's IA: a resource declaring neither `showable`
+        // nor `editable` must get a list leaf and no per-record twin, because a twin would be an edit
+        // shell whose save the server 405s. Naming the realm membership this test needs makes the
+        // premise explicit and makes the test survive the host rearranging its own navigation —
+        // which is exactly what a host is free to do.
+        // ADDITIVE, through the registry's own idempotent seam rather than by rewriting
+        // `config('frame.realms')` — that config is read once, when `BeamServiceProvider` binds the
+        // registry, so a runtime `config()` set would be silently too late and this test would go
+        // green over a premise it never established.
+        app(\Splicewire\Beam\Particle\ParticleResourceRegistry::class)
+            ->loadRealmMap(['tenant' => ['tokens', 'invitations']]);
+
+        $byName = $this->byName('tenant');
+
+        // Measuring something: the editable control in the same list still gets its twin.
+        $this->assertSame('edit', $byName['beam-ux-entry.edit']->mounts);
+
+        $this->assertArrayHasKey('tokens.index', $byName);
+        $this->assertArrayHasKey('invitations.index', $byName);
         $this->assertArrayNotHasKey('tokens.edit', $byName);
         $this->assertArrayNotHasKey('invitations.edit', $byName);
-        $this->assertArrayHasKey('tokens.index', $byName);
     }
 
     public function test_an_unregistered_navigation_is_an_empty_tree_not_a_failure(): void
