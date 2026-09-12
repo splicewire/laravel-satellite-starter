@@ -19,6 +19,25 @@
     ],
     "$id": "EntryPageData",
     "$defs": {
+        "PageEntryArtifactData": {
+            "type": "object",
+            "title": "PageEntryArtifactData",
+            "properties": {
+                "url": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "url",
+                "version"
+            ]
+        },
         "PageEntryData": {
             "type": "object",
             "title": "PageEntryData",
@@ -28,11 +47,29 @@
                 },
                 "slug": {
                     "type": "string"
+                },
+                "format": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "artifact": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/PageEntryArtifactData"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 }
             },
             "required": [
                 "id",
-                "slug"
+                "slug",
+                "format",
+                "artifact"
             ]
         }
     }
