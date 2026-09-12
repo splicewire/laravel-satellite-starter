@@ -25,6 +25,14 @@ return [
     // Committed members live in migrations/shared/, matching the publisher destination;
     // a copy at the migration root would be missed and published a second time.
     'register_migrations' => true,
+    // The package mounts routes/account.php (profile edit/update/destroy, security edit, password update)
+    // by default. This host registers the same method+URI pairs from routes/settings.php with its own
+    // controllers, because its settings pages bind a PageEntryRef entry the package page DTOs expose no
+    // slot for — so with the default on, both register and the host's silently win in the route table
+    // (ux-demo-convergence inventory §1.5). One capability, one surface: the package default is disabled
+    // here until the package can take the host's entry binding. The account API macro is unaffected;
+    // routes/web.php mounts it explicitly.
+    'register_routes' => false,
 
     // Entitlement bundles (Frame OS ADR-0013 §3). The DefaultEntitlementResolver grants a STAFF principal
     // the `staff` bundle below — the operator/OS/authoring capabilities — so /operator + /os resolve OOTB
