@@ -1,0 +1,25 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "OperatorSurfaceData",
+    "properties": {
+        "title": {
+            "type": "string"
+        },
+        "href": {
+            "type": "string"
+        },
+        "blurb": {
+            "type": [
+                "string",
+                "null"
+            ]
+        }
+    },
+    "required": [
+        "title",
+        "href",
+        "blurb"
+    ],
+    "$id": "OperatorSurfaceData"
+}

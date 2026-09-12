@@ -22,10 +22,15 @@
             "$ref": "#/$defs/OperatorStatsData",
             "readOnly": true,
             "x-lazy": true
+        },
+        "surfaces": {
+            "type": "array",
+            "default": []
         }
     },
     "required": [
-        "entry"
+        "entry",
+        "surfaces"
     ],
     "$id": "OperatorDashboardPageData",
     "$defs": {

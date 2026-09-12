@@ -1,0 +1,217 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "PlatformConnectionPageData",
+    "properties": {
+        "connection": {
+            "$ref": "#/$defs/PlatformConnectionData"
+        },
+        "endpoints": {
+            "$ref": "#/$defs/PlatformConnectionEndpointsData"
+        }
+    },
+    "required": [
+        "connection",
+        "endpoints"
+    ],
+    "$id": "PlatformConnectionPageData",
+    "$defs": {
+        "PlatformConnectionState": {
+            "type": "string",
+            "title": "PlatformConnectionState",
+            "enum": [
+                "unpaired",
+                "pending",
+                "paired",
+                "denied",
+                "expired",
+                "revoked"
+            ]
+        },
+        "PlatformIdentityData": {
+            "type": "object",
+            "title": "PlatformIdentityData",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "email": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "id",
+                "name",
+                "email"
+            ]
+        },
+        "PlatformCapabilityReadData": {
+            "type": "object",
+            "title": "PlatformCapabilityReadData",
+            "properties": {
+                "surface": {
+                    "type": "string"
+                },
+                "ok": {
+                    "type": "boolean"
+                },
+                "capabilities": {
+                    "type": "array"
+                },
+                "status": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "error": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "invokedAt": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "surface",
+                "ok",
+                "capabilities",
+                "status",
+                "error",
+                "invokedAt"
+            ]
+        },
+        "PlatformConnectionData": {
+            "type": "object",
+            "title": "PlatformConnectionData",
+            "properties": {
+                "state": {
+                    "$ref": "#/$defs/PlatformConnectionState"
+                },
+                "tokenPresent": {
+                    "type": "boolean"
+                },
+                "platformUrl": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "centralUrl": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "label": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "userCode": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "verificationUri": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "verificationUriComplete": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "expiresAt": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "identity": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/PlatformIdentityData"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "identityError": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "lastCapabilityRead": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/PlatformCapabilityReadData"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                }
+            },
+            "required": [
+                "state",
+                "tokenPresent",
+                "platformUrl",
+                "centralUrl",
+                "label",
+                "userCode",
+                "verificationUri",
+                "verificationUriComplete",
+                "expiresAt",
+                "identity",
+                "identityError",
+                "lastCapabilityRead"
+            ]
+        },
+        "PlatformConnectionEndpointsData": {
+            "type": "object",
+            "title": "PlatformConnectionEndpointsData",
+            "properties": {
+                "connect": {
+                    "type": "string"
+                },
+                "poll": {
+                    "type": "string"
+                },
+                "invokeCapability": {
+                    "type": "string"
+                },
+                "disconnect": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "connect",
+                "poll",
+                "invokeCapability",
+                "disconnect"
+            ]
+        }
+    }
+}
