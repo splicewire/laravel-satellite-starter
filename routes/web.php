@@ -4,6 +4,9 @@ use App\Data\Pages\EntryPageData;
 use App\Data\Pages\OperatorDashboardPageData;
 use App\Data\Pages\OperatorStaffData;
 use App\Data\Pages\OperatorStatsData;
+use App\Data\Pages\OperatorSurfaceData;
+use App\Data\Pages\PlatformConnectionEndpointsData;
+use App\Data\Pages\PlatformConnectionPageData;
 use App\Http\Controllers\SitemapResourceController;
 use App\Models\User;
 use App\Support\PageEntryRef;
@@ -12,6 +15,7 @@ use Inertia\Inertia;
 use Spatie\LaravelData\Lazy;
 use Splicewire\Beam\Facades\Particle;
 use Splicewire\Beam\Ux\Models\BeamUxEntry;
+use Splicewire\Satellite\Pairing\PlatformConnection;
 
 // The FRONT DOOR is the OOTB site realm: `/` renders the promoted <SiteLayout> chrome (public) AND —
 // behind the ux.author seam — mounts the in-place visual editor (@/editor). (frontend-surfaces wiring.)
@@ -116,7 +120,46 @@ Route::middleware(['auth', 'verified'])->group(function () {
             sitemaps: BeamUxEntry::where('namespace', 'realms')->count(),
             entries: rescue(fn () => BeamUxEntry::count(), 0, false),
         )),
+        // The realm's door list. The operator realm has no nav rail at this host (nothing projects
+        // the operator sitemap — the signed-in chrome is the ACCOUNT shell), so without this every
+        // operator surface past this landing is URL-only.
+        'surfaces' => OperatorSurfaceData::forThisHost(),
     ])))->middleware('can:entitlement:os.operate')->name('operator.home');
+
+    // The PLATFORM CONNECTION surface — the satellite half of the RFC 8628 pairing with a tower, as
+    // an operator-realm screen rather than only `php artisan splicewire:connect`.
+    //
+    // The page component is `@splicewire/beam-inertia`'s `operator/platform-connection` (resolved
+    // from the package map, not published here — see `beam-inertia/src/pages.ts`), and every moving
+    // part of the pairing lives in `splicewire/laravel-satellite`'s `Pairing\` namespace. This mount
+    // supplies the two things only a host can: WHERE the page lives, and where the four operations
+    // it drives were mounted (below).
+    //
+    // ⚠️ `snapshot(probeIdentity: true)` costs one round trip to the tower on page load, and it is
+    // the round trip that makes this screen honest: a stored credential that has been archived at
+    // the tower is byte-identical here, so "paired" without a probe is a claim the satellite cannot
+    // support. The probe is what turns it into `revoked` when it is.
+    Route::get('operator/platform-connection', fn () => Inertia::render(
+        'operator/platform-connection',
+        PlatformConnectionPageData::from([
+            'connection' => app(PlatformConnection::class)->snapshot(probeIdentity: true),
+            'endpoints' => PlatformConnectionEndpointsData::fromRoutes(),
+        ]),
+    ))->middleware('can:entitlement:os.operate')->name('operator.platform-connection');
+
+    // The four declared #[ParticleOp]s the screen above drives, from
+    // `splicewire/laravel-satellite`'s own route file.
+    //
+    // ⚠️ **A macro the HOST calls; the package mounts nothing** — the same rule
+    // `Route::splicewireAccountApiRoutes()` follows one surface up, and for a stronger reason: these
+    // verbs WRITE a bearer credential into this host's `.env`. A package that mounted them would be
+    // deciding, for every satellite that installs it, that an operator-realm pairing surface exists.
+    //
+    // Called INSIDE this group, so `web` + `auth` + `verified` are already applied; the explicit
+    // middleware list adds only the entitlement, which is the same one each operation declares
+    // (`ability: 'entitlement:os.operate'`, `abilityModel: false`). Door and operation agree, so a
+    // direct POST from a member is refused by the operation itself and not merely hidden from the rail.
+    Route::splicewirePlatformConnectionRoutes('operator', ['can:entitlement:os.operate']);
 
     // The OS-SHELL desktop (frontend-surfaces.md). The windowed realm composer. Route-gated on the
     // projected `os.enter` entitlement (`can:entitlement:os.enter`); the shell itself does the fusion pivot

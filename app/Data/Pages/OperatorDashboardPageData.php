@@ -16,5 +16,12 @@ final class OperatorDashboardPageData extends Data
         public ?PageEntryData $entry,
         public Lazy|OperatorStaffData $staff,
         public Lazy|OperatorStatsData $stats,
+        /**
+         * The operator realm's own door list. Not `Lazy`: it is the page's navigation, so deferring
+         * it would render a landing with no way out until a second round trip completed.
+         *
+         * @var list<OperatorSurfaceData>
+         */
+        public array $surfaces = [],
     ) {}
 }

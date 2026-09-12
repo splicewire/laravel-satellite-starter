@@ -13,7 +13,10 @@ const profile: ProfilePageData = {
     mustVerifyEmail: false,
     status: null,
 };
-const partialOperator: OperatorDashboardPageData = { entry: null };
+// `surfaces` is REQUIRED, unlike `staff`/`stats`: it is the operator realm's only navigation at this
+// host, so a caller that forgets it must fail to compile rather than render a landing with no way
+// out. A partial reload may omit the lazy pair; it may not omit the doors.
+const partialOperator: OperatorDashboardPageData = { entry: null, surfaces: [] };
 const auth: AuthEntryPageData = {
     slug: 'confirm-password',
     entry: null,
@@ -61,6 +64,13 @@ const operator: OperatorDashboardPageData = {
     entry: { id: 'entry-id', slug: 'operator-dashboard', format: null, artifact: null },
     staff: { name: 'Operator', email: 'operator@example.test' },
     stats: { users: 3, sitemaps: 2, entries: 4 },
+    surfaces: [
+        {
+            title: 'Platform connection',
+            href: '/operator/platform-connection',
+            blurb: 'Pair this site with its Splicewire tower.',
+        },
+    ],
 };
 
 // These must fail even if a generator starts emitting any or loses a nested reference.

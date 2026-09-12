@@ -103,6 +103,34 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Platform connection (the pairing surface)
+    |--------------------------------------------------------------------------
+    |
+    | Where `Route::splicewirePlatformConnectionRoutes()` mounts the four pairing
+    | operations, and what stands in front of them. Both are facts about an
+    | exposure that mints and stores a bearer credential, so a host may override
+    | them — but the defaults are not "open": `can:entitlement:os.operate` is the
+    | same entitlement the operations themselves declare, so the door and the
+    | operation agree and a direct POST from a member is refused rather than
+    | merely hidden from the navigation rail.
+    |
+    | ⚠️ Narrowing this middleware is safe; emptying it is not. The ops keep
+    | their own `ability:` check, but `web` is what gives them a session to read
+    | an actor from at all.
+    |
+    | WHERE it pairs TO is not configured here — that is the connector's
+    | `splicewire.connector.device_flow.central_url` / `.base_url` pair, read
+    | through `Pairing\PlatformEndpoints`, so the screen and
+    | `php artisan splicewire:connect` resolve one platform from one place.
+    |
+    */
+    'platform_connection' => [
+        'prefix' => 'operator',
+        'middleware' => ['web', 'auth', 'verified', 'can:entitlement:os.operate'],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Marquee site-mode gate (rushing/laravel-marquee)
     |--------------------------------------------------------------------------
     |

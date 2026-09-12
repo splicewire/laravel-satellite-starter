@@ -53,3 +53,13 @@ operator-dashboard:
   title: Operator
   type: page
   realm: operator
+
+# The satellite half of the RFC 8628 pairing with a tower, as an operator-realm screen rather than
+# only `php artisan splicewire:connect`. Operator realm because pairing writes a platform credential
+# into this site's `.env` — the route and every one of its four operations are gated on the same
+# `os.operate` entitlement this realm is.
+operator-platform-connection:
+  segment: /operator/platform-connection
+  title: Platform connection
+  type: page
+  realm: operator
