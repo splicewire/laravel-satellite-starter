@@ -46,7 +46,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
-        $this->registerSharedMigrations();
         $this->registerAuthoringGates();
         $this->registerResourcePolicies();
         $this->registerDoctorAudits();
@@ -120,26 +119,6 @@ class AppServiceProvider extends ServiceProvider
                     true,
                 ),
             );
-        }
-    }
-
-    /**
-     * Register the beam "shared" migrations directory with the default migrator.
-     *
-     * OOTB-wiring note (frontend-surfaces): beam-ux (and the wider beam estate) publish their
-     * `beam_ux_entries` / `sitemaps` / particle migrations as PUBLISH-ONLY stubs into
-     * `database/migrations/shared/` — a subdirectory the stock Laravel migrator does NOT scan.
-     * In a tenant host, `splicewire/laravel-beam-tenancy` registers this path in both the central
-     * and per-tenant passes. This starter is single-tenant (no beam-tenancy), so nothing registers
-     * it and `php artisan migrate` silently skips the beam substrate. Registering it here makes the
-     * published beam tables migrate on a plain `migrate`.
-     */
-    protected function registerSharedMigrations(): void
-    {
-        $shared = database_path('migrations/shared');
-
-        if (is_dir($shared)) {
-            $this->loadMigrationsFrom($shared);
         }
     }
 
