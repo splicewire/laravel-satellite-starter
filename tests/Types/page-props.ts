@@ -33,8 +33,7 @@ const reset: ResetPasswordPageData = {
 const sitemap: SitemapResourcePageData = {
     resource: {
         key: 'sitemap',
-        model: null,
-        data: 'App\\Data\\SitemapData',
+        data: 'App.Data.SitemapData',
         creatable: true,
         query: null,
         editData: null,
