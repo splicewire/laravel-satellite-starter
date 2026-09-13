@@ -19,6 +19,13 @@ export default defineConfig({
             '@inertiajs/core',
             '@inertiajs/react',
             '@tanstack/react-query',
+            // `sonner` for the same reason, and it is not hypothetical: measured 2026-09-12, this host
+            // and the JS workspace each install their own copy (both 2.0.8), so a host page's
+            // `toast.success(...)` wrote into one module's store while the `<Toaster/>` that
+            // `@splicewire/beam-inertia` mounts at the Inertia root read the OTHER — every toast this
+            // host raises (account/tokens, account/team, account/theme) went nowhere, silently. A
+            // missing toast looks exactly like a mutation that did not run.
+            'sonner',
         ],
     },
     plugins: [
