@@ -5,6 +5,7 @@ namespace App\Beam;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Str;
 use Schemastud\Frame\Contracts\ResourceRegistry;
+use Splicewire\Beam\Dashboard\RealmDashboard;
 use Splicewire\Beam\Nav\NavSection;
 use Splicewire\Beam\Nav\NavSectionRegistry;
 use Splicewire\Beam\Particle\ParticleResourceRegistry;
@@ -114,6 +115,13 @@ final class OperatorRailSeat
         $resources = $app->make(ResourceRegistry::class);
 
         foreach ($app->make(ParticleResourceRegistry::class)->keysForRealm(self::REALM) as $key) {
+            // The realm's own dashboard resource (`operator-dashboard`, realm-dashboards ticket 04) is
+            // section-less by design and beam-ux already projects it as the realm-level leaf ahead of
+            // every seat; a row here would list Dashboard twice, the second time under Platform.
+            if (RealmDashboard::isKey($key, self::REALM)) {
+                continue;
+            }
+
             $definition = $resources->find($key);
 
             // Unknown here, or it seats itself under its own section (see the class docblock).

@@ -115,8 +115,10 @@ class OperatorFrameManifestTest extends TestCase
             // Bespoke tier pages may need a tier's own fixture to render (the satellite's platform
             // connection probes its tower); this file proves the frame-backed rows and the header open,
             // and each tier proves its own pages beside the page's own test.
+            // `/operator` is the realm's front door and lands on its dashboard leaf by redirect
+            // (realm-dashboards ticket 05); the leaf itself is the console, so it is opened by following it.
             if (str_starts_with($route->getName() ?? '', 'operator.frame.') || $href === '/operator') {
-                $this->actingAs($operator)->get($href)->assertOk();
+                $this->actingAs($operator)->followingRedirects()->get($href)->assertOk();
             }
         }
     }

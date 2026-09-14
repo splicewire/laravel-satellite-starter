@@ -2,21 +2,15 @@
 
 use App\Data\Pages\EntryPageData;
 use App\Data\Pages\FrameConsolePageData;
-use App\Data\Pages\OperatorDashboardPageData;
-use App\Data\Pages\OperatorStaffData;
-use App\Data\Pages\OperatorStatsData;
-use App\Data\Pages\OperatorSurfaceData;
 use App\Data\Pages\PlatformConnectionEndpointsData;
 use App\Data\Pages\PlatformConnectionPageData;
 use App\Http\Controllers\SitemapResourceController;
-use App\Models\User;
 use App\Support\PageEntryRef;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Schemastud\Frame\Http\Controllers\FrameManifestController;
-use Spatie\LaravelData\Lazy;
+use Splicewire\Beam\Dashboard\RealmDashboard;
 use Splicewire\Beam\Facades\Particle;
-use Splicewire\Beam\Ux\Models\BeamUxEntry;
 use Splicewire\Satellite\Pairing\PlatformConnection;
 
 // The FRONT DOOR is the OOTB site realm: `/` renders the promoted <SiteLayout> chrome (public) AND —
@@ -89,12 +83,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Particle::ops('beam-ux-entries', 'beam-ux-entry', 'versions');
     Particle::ops('beam-ux-entries', 'beam-ux-entry', 'restore');
 
-    // The authed home IS the OOTB account realm: <AccountShell> (@splicewire/beam-ux/account). Fortify
-    // redirects login here (`config/fortify.php` home => /dashboard). Shares `entry` for the same
-    // reason `/` does — the seeded row is `dashboard`, not the slash-swapped component name.
-    Route::get('dashboard', fn () => Inertia::render('account/home', EntryPageData::from([
-        'entry' => PageEntryRef::for('dashboard'),
-    ])))->name('dashboard');
+    // The authed home IS the OOTB account realm, and it is the TENANT realm's dashboard leaf. Fortify
+    // redirects login here (`config/fortify.php` home => /dashboard).
+    //
+    // `splicewire/laravel-beam-ux` registers one read-only `{realm}-dashboard` resource per realm and
+    // mounts its list leaf at `/{realmBase}/dashboard` (realm-dashboards ticket 04) — for the tenant
+    // realm, whose base is `/`, that is this path. The page is the same packaged frame console the
+    // `{frameRoute}` catch-all below serves for every other tenant leaf, rendered with the same
+    // (absent) props so the client reads one realm context and one manifest cache entry for the whole
+    // realm; the console's client router matches `dashboard` and mounts the list shell, whose rows are
+    // the realm's summary cards and jump-to tiles (`GET /frame/resources/tenant-dashboard`). Declared
+    // here rather than left to the catch-all so the route keeps its name: Fortify, the tests and the
+    // seeded account rail all address it as `dashboard`.
+    //
+    // This replaces the packaged `account/home` placeholder, and with it the `entry` share that page
+    // carried: a frame list is not an authored page, so there is no chrome for the visual editor to
+    // address. The `/` and `/account/theme` routes keep theirs.
+    Route::get('dashboard', fn () => Inertia::render('frame/console'))->name('dashboard');
 
     // ── The ACCOUNT-REALM settings surfaces: API tokens and Team ─────────────────────────────────
     //
@@ -164,29 +169,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('frame/resources/sitemap', SitemapResourceController::class)
         ->name('frame.resources.sitemap');
 
-    // The OPERATOR front-end realm (frontend-surfaces.md). A thin stats roll-up landing framed by the
-    // promoted @splicewire/beam-mainframe host; resource lists ride Frame's generic particle CRUD socket.
-    // Gated on the `os.operate` entitlement: the DefaultEntitlementResolver (laravel-beam-accounts) grants
-    // it to a staff principal, so the seeded staff user reaches it and a non-staff user is 403'd.
-    Route::get('operator', fn () => Inertia::render('operator/dashboard', OperatorDashboardPageData::from([
-        'entry' => PageEntryRef::for('operator-dashboard'),
-        'staff' => Lazy::closure(fn () => new OperatorStaffData(
-            name: request()->user()->name,
-            email: request()->user()->email,
-        )),
-        'stats' => Lazy::closure(fn () => new OperatorStatsData(
-            users: User::count(),
-            // Sitemap was retired (theme-entries-and-authoring BUX-03) - BeamUxEntry's own namespace='realms'
-            // rows are the realm-root replacement; "entries" is every entry (root or not) in that stack.
-            sitemaps: BeamUxEntry::where('namespace', 'realms')->count(),
-            entries: rescue(fn () => BeamUxEntry::count(), 0, false),
-        )),
-        // The realm's door list on its landing, with a blurb per surface. The operator RAIL beside it
-        // is `App\Beam\OperatorRailSeat`, which reads the same screen's `realm: operator` row in
-        // `resources/beam-ux/nav.yml` — so a new operator page is added there for the rail, and here
-        // only if it also earns a landing card.
-        'surfaces' => OperatorSurfaceData::forThisHost(),
-    ])))->middleware('can:entitlement:os.operate')->name('operator.home');
+    // The OPERATOR realm's front door (frontend-surfaces.md). It lands on the realm's DASHBOARD LEAF —
+    // `/operator/dashboard`, the `operator-dashboard` read-only resource `splicewire/laravel-beam-ux`
+    // registers for every realm (realm-dashboards ticket 04) and the operator frame console below
+    // serves: a frame list whose rows are the realm's summary cards (live, actor-scoped counts of the
+    // resources the rail seats) and its jump-to tiles (the rail itself, drawn as tiles).
+    //
+    // This replaces the hand-rolled landing: three counts computed inline here (`OperatorStatsData`),
+    // a host-listed door list (`OperatorSurfaceData`) and the packaged `operator/dashboard` page. The
+    // doors are now the dashboard's jump-to tiles, drawn from the rail `App\Beam\OperatorRailSeat`
+    // seats (so a surface has ONE listing, in nav.yml); the figures come from each
+    // resource's summary provider through `GET /frame/resources/operator-dashboard`, gated per resource
+    // by the same reach the rail is, so this host writes no count and no page. The path is derived from
+    // the same constant the leaf is mounted from, not spelled twice.
+    //
+    // Gated on the `os.operate` entitlement — the same gate as the console it redirects into, so the
+    // door is never softer than the room. A non-staff user is 403'd HERE, before the redirect.
+    Route::get('operator', fn () => redirect()->to('/operator/'.RealmDashboard::PATH))
+        ->middleware('can:entitlement:os.operate')
+        ->name('operator.home');
 
     // The PLATFORM CONNECTION surface — the satellite half of the RFC 8628 pairing with a tower, as
     // an operator-realm screen rather than only `php artisan splicewire:connect`.

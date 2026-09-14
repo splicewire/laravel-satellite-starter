@@ -134,16 +134,21 @@ class PlatformConnectionSurfaceTest extends TestCase
         $this->post('/operator/platform-connection/connect', [])->assertRedirect('/login');
     }
 
-    public function test_the_operator_landing_carries_a_door_to_the_screen(): void
+    /**
+     * The operator landing is the realm's DASHBOARD leaf (realm-dashboards ticket 05), and its jump-to
+     * tiles are the rail drawn as tiles — so the door to this screen is a tile, read from the same
+     * `nav.yml` row the rail reads, and listed nowhere else (the host-listed `surfaces` door list is gone).
+     */
+    public function test_the_operator_dashboard_carries_a_door_to_the_screen(): void
     {
-        $this->actingAs($this->operator())
-            ->get('/operator')
-            ->assertOk()
-            ->assertInertia(fn ($page) => $page
-                ->component('operator/dashboard')
-                ->where('surfaces.0.title', 'Platform connection')
-                ->where('surfaces.0.href', '/operator/platform-connection')
-            );
+        $this->actingAs($this->operator())->get('/operator')->assertRedirect('/operator/dashboard');
+
+        $tiles = collect($this->actingAs($this->operator())->getJson('/frame/resources/operator-dashboard?per_page=100')->assertOk()->json('data'))
+            ->where('context', 'nav');
+
+        $tile = $tiles->firstWhere('href', '/operator/platform-connection');
+        $this->assertNotNull($tile, 'The operator dashboard offers no tile for the platform connection screen.');
+        $this->assertSame('Platform connection', $tile['label']);
     }
 
     public function test_the_operator_rail_carries_a_door_to_the_screen_and_it_opens(): void

@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 use App\Data\Pages\EntryPageData;
-use App\Data\Pages\OperatorDashboardPageData;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
@@ -82,66 +81,13 @@ it('declares each route page and preserves initial populated and missing entry p
     // rows — the fixture inserts no format and compiles no artifact — and null is the honest answer
     // ("the host did not say" / "never authored"), which is exactly what the client must receive.
     $expected = ['entry' => $entry === null ? null : $entry + ['format' => null, 'artifact' => null]];
-    if ($route === 'operator.home') {
-        $expected += ['staff' => ['name' => 'Operator', 'email' => 'operator@example.test'], 'stats' => ['users' => 3, 'sitemaps' => 2, 'entries' => $seeded ? 3 : 2]];
-        // The operator realm's door list, and NOT lazy — it is this landing's own navigation, and a
-        // partial reload that omitted it would render the landing without its cards (the rail beside
-        // it is a separate fetch). Asserted eagerly here for exactly that reason.
-        $expected += ['surfaces' => [[
-            'title' => 'Platform connection',
-            'href' => '/operator/platform-connection',
-            'blurb' => 'Pair this site with its Splicewire tower, and spend the pairing on a real capability read.',
-        ]]];
-    }
     expect($response->toResponse($request)->getData(true)['props'])->toBe($expected);
-    expect($staffEvaluations)->toBe($route === 'operator.home' ? 2 : 0);
-    expect($counts)->toBe($route === 'operator.home' ? 3 : 0);
+    // No page carries a lazy prop or a count any more: `/dashboard` and `/operator` are the realm
+    // dashboards' frame-console leaves (realm-dashboards ticket 05) and share no entry, and the counts
+    // the operator landing once computed inline now come from each resource's summary provider over
+    // `GET /frame/resources/{realm}-dashboard` — see RealmDashboardTest.
+    expect($staffEvaluations)->toBe(0);
+    expect($counts)->toBe(0);
 })->with([
     'site' => ['home', 'site/home', 'home', EntryPageData::class],
-    'account' => ['dashboard', 'account/home', 'dashboard', EntryPageData::class],
-    'operator' => ['operator.home', 'operator/dashboard', 'operator-dashboard', OperatorDashboardPageData::class],
 ])->with(['unseeded' => false, 'seeded' => true]);
-
-it('evaluates only the selected operator closure on partial reloads', function (string $only, array $expected, int $expectedStaff, int $expectedCounts) {
-    $staffEvaluations = 0;
-    $request = routePropsRequest('operator/dashboard', $only, $staffEvaluations);
-    Inertia::swap(new ResponseFactory);
-    $counts = 0;
-    DB::listen(function ($query) use (&$counts) {
-        if (str_contains($query->sql, 'count(*)')) {
-            $counts++;
-        }
-    });
-    $response = Route::getRoutes()->getByName('operator.home')->bind($request)->run();
-    expect($staffEvaluations)->toBe(0)->and($counts)->toBe(0);
-    expect($response->toResponse($request)->getData(true)['props'])->toBe($expected);
-    expect($staffEvaluations)->toBe($expectedStaff)->and($counts)->toBe($expectedCounts);
-})->with([
-    'entry only skips both' => ['entry', ['entry' => null], 0, 0],
-    'staff only skips stats' => ['staff', ['staff' => ['name' => 'Operator', 'email' => 'operator@example.test']], 2, 0],
-    'stats only skips staff' => ['stats', ['stats' => ['users' => 3, 'sitemaps' => 2, 'entries' => 2]], 0, 3],
-]);
-
-it('projects nested operator props as optional objects rather than scalar lazy implementations', function () {
-    $schema = app(Schemastud\DataSchemas\Generators\Generator::class)->generate(new ReflectionClass(OperatorDashboardPageData::class));
-    expect($schema['required'])->not->toContain('staff', 'stats');
-    expect($schema['properties']['staff']['readOnly'])->toBeTrue();
-    expect($schema['properties']['stats']['readOnly'])->toBeTrue();
-    // Resolve the generator's relative id under a retrieval base without changing its document.
-    $document = json_decode(json_encode([
-        '$schema' => 'https://json-schema.org/draft/2020-12/schema',
-        '$id' => 'https://route-props.test/operator.schema.json',
-        'allOf' => [$schema],
-    ], JSON_THROW_ON_ERROR));
-    $validator = new Opis\JsonSchema\Validator;
-    $valid = ['entry' => null, 'staff' => ['name' => 'Operator', 'email' => 'operator@example.test'], 'stats' => ['users' => 3, 'sitemaps' => 2, 'entries' => 2]];
-    expect($validator->validate(json_decode(json_encode($valid)), $document)->isValid())->toBeTrue();
-    expect($validator->validate((object) ['entry' => null], $document)->isValid())->toBeTrue();
-    foreach (['staff', 'stats'] as $property) {
-        foreach (['scalar', 42, null] as $invalid) {
-            $payload = $valid;
-            $payload[$property] = $invalid;
-            expect($validator->validate(json_decode(json_encode($payload)), $document)->isValid())->toBeFalse();
-        }
-    }
-});
