@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Beam\OperatorRailSeat;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Request;
 use Rushing\PermissionCascade\Contracts\AccessGrant;
 use Schemastud\Frame\Http\Controllers\FrameManifestController;
 use Splicewire\Beam\Accounts\Enums\Role;
@@ -66,6 +68,54 @@ class OperatorFrameManifestTest extends TestCase
         $this->assertContains('users.index', $routeNames);
         $this->assertContains('teams.index', $routeNames);
         $this->assertNotContains('beam-ux-entry.index', $routeNames);
+    }
+
+    /**
+     * The rail lists what an operator can actually reach — measured EMPTY before
+     * {@see OperatorRailSeat}: users and teams seat no section, so every seat that reached the
+     * realm was dropped as empty and the rail showed Dashboard alone.
+     *
+     * Asserted on the REAL projection (the mounted route, the registered seat, `keepBound()`'s pruning),
+     * and each href is then REQUESTED as that operator: a row that projects but 404s is the defect this
+     * rail would otherwise ship silently.
+     */
+    public function test_an_operators_rail_lists_the_operator_surfaces_and_each_one_opens(): void
+    {
+        $operator = $this->operator();
+
+        $nav = $this->actingAs($operator)->getJson('/operator/frame/manifest')->assertOk()->json('nav.items');
+
+        $this->assertNotEmpty($nav, 'The operator rail projected no section at all.');
+
+        $hrefs = [];
+        foreach ($nav as $section) {
+            $hrefs[] = $section['href'];
+            foreach ($section['children'] as $child) {
+                $hrefs[] = $child['href'];
+            }
+        }
+
+        $this->assertContains('/operator/users', $hrefs);
+        $this->assertContains('/operator/teams', $hrefs);
+
+        // Every realm-operator nav.yml page is a row too — the list the seat reads, asserted from the
+        // same file, so a tier that authors one more operator page is held to it without editing this.
+        foreach (OperatorRailSeat::rows(app()) as $row) {
+            $this->assertContains($row['href'], $hrefs);
+        }
+
+        foreach (array_unique($hrefs) as $href) {
+            // A matching GET route first: it names the missing mount, where a bare 404 would not.
+            $route = rescue(fn () => app('router')->getRoutes()->match(Request::create($href)), null, false);
+            $this->assertNotNull($route, "The operator rail links [{$href}], which no route mounts.");
+
+            // Bespoke tier pages may need a tier's own fixture to render (the satellite's platform
+            // connection probes its tower); this file proves the frame-backed rows and the header open,
+            // and each tier proves its own pages beside the page's own test.
+            if (str_starts_with($route->getName() ?? '', 'operator.frame.') || $href === '/operator') {
+                $this->actingAs($operator)->get($href)->assertOk();
+            }
+        }
     }
 
     public function test_an_ordinary_member_is_refused_the_operator_manifest(): void

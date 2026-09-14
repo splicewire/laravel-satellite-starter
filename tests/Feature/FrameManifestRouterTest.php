@@ -45,8 +45,10 @@ class FrameManifestRouterTest extends TestCase
      * route table"*). So the mount is asserted here, once, against the real request pipeline —
      * including that the route this host serves is frame's OWN controller and not a host copy.
      *
-     * The per-realm tests below cannot use HTTP: this host mounts the manifest once, unscoped, so
-     * the `operator` realm is unreachable over the wire and only a direct call can ask for it.
+     * The per-realm tests below call the controller directly so each realm is asked the same way.
+     * The unscoped `/frame/manifest` mount answers the default (tenant) realm only; the operator realm
+     * has its own mount, `/operator/frame/manifest`, whose route, gate and projected rail are proved
+     * over HTTP in {@see OperatorFrameManifestTest}.
      */
     public function test_the_mounted_route_serves_frames_controller_and_emits_the_new_keys(): void
     {

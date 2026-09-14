@@ -84,9 +84,9 @@ it('declares each route page and preserves initial populated and missing entry p
     $expected = ['entry' => $entry === null ? null : $entry + ['format' => null, 'artifact' => null]];
     if ($route === 'operator.home') {
         $expected += ['staff' => ['name' => 'Operator', 'email' => 'operator@example.test'], 'stats' => ['users' => 3, 'sitemaps' => 2, 'entries' => $seeded ? 3 : 2]];
-        // The operator realm's door list, and NOT lazy — it is this landing's only navigation (nothing
-        // projects the operator sitemap at this host), so a partial reload that omitted it would
-        // render a page with no way out. Asserted eagerly here for exactly that reason.
+        // The operator realm's door list, and NOT lazy — it is this landing's own navigation, and a
+        // partial reload that omitted it would render the landing without its cards (the rail beside
+        // it is a separate fetch). Asserted eagerly here for exactly that reason.
         $expected += ['surfaces' => [[
             'title' => 'Platform connection',
             'href' => '/operator/platform-connection',

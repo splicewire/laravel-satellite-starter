@@ -29,8 +29,10 @@ use Tests\TestCase;
  * - the GATE agrees with the declaration — the route carries `can:entitlement:os.operate` and each
  *   operation declares the same entitlement, so a member must be refused at the endpoint and not
  *   merely be missing a link;
- * - the DOOR exists — the operator realm has no navigation rail here, so a surface not linked from
- *   `/operator` is reachable by typing its URL and by nothing else.
+ * - the DOORS exist — the operator landing's surface list, and the operator rail that
+ *   `/operator/frame/manifest` projects ({@see \App\Beam\OperatorRailSeat}, which reads this screen's
+ *   `realm: operator` row in `resources/beam-ux/nav.yml`). A surface on neither is reachable by typing
+ *   its URL and by nothing else.
  */
 class PlatformConnectionSurfaceTest extends TestCase
 {
@@ -142,6 +144,23 @@ class PlatformConnectionSurfaceTest extends TestCase
                 ->where('surfaces.0.title', 'Platform connection')
                 ->where('surfaces.0.href', '/operator/platform-connection')
             );
+    }
+
+    public function test_the_operator_rail_carries_a_door_to_the_screen_and_it_opens(): void
+    {
+        $this->stubConnection();
+        $operator = $this->operator();
+
+        $children = collect($this->actingAs($operator)->getJson('/operator/frame/manifest')->assertOk()->json('nav.items'))
+            ->flatMap(fn (array $section): array => $section['children']);
+
+        // No `routeName` on purpose: this is a host page, not a frame leaf, and a name the operator
+        // routeContext cannot bind would be pruned from the rail.
+        $row = $children->firstWhere('href', '/operator/platform-connection');
+        $this->assertNotNull($row, 'The operator rail does not link the platform connection screen.');
+        $this->assertSame('Platform connection', $row['title']);
+
+        $this->actingAs($operator)->get($row['href'])->assertOk();
     }
 
     public function test_the_capability_operation_refuses_an_unknown_surface(): void

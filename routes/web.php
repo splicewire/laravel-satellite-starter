@@ -121,9 +121,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
             sitemaps: BeamUxEntry::where('namespace', 'realms')->count(),
             entries: rescue(fn () => BeamUxEntry::count(), 0, false),
         )),
-        // The realm's door list. The operator realm has no nav rail at this host (nothing projects
-        // the operator sitemap — the signed-in chrome is the ACCOUNT shell), so without this every
-        // operator surface past this landing is URL-only.
+        // The realm's door list on its landing, with a blurb per surface. The operator RAIL beside it
+        // is `App\Beam\OperatorRailSeat`, which reads the same screen's `realm: operator` row in
+        // `resources/beam-ux/nav.yml` — so a new operator page is added there for the rail, and here
+        // only if it also earns a landing card.
         'surfaces' => OperatorSurfaceData::forThisHost(),
     ])))->middleware('can:entitlement:os.operate')->name('operator.home');
 

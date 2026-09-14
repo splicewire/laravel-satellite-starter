@@ -11,13 +11,14 @@ use Spatie\TypeScriptTransformer\Attributes\TypeScript;
 /**
  * One operator-realm surface, listed on the operator landing so it has a door.
  *
- * ⚠️ The operator realm has no navigation rail. `resources/beam-ux/nav.yml` declares its seats and
- * `splicewire:beam:ux:seed-nav` writes them into the operator sitemap, but the signed-in chrome is
- * the ACCOUNT realm's shell and nothing projects the operator sitemap — so an operator surface that
- * is not linked from `/operator` is reachable by typing its URL and by nothing else.
+ * Written when the operator realm had no navigation rail. It has one now: `operator/*` pages render
+ * a rail from `/operator/frame/manifest`, seated by {@see \App\Beam\OperatorRailSeat} from the
+ * `realm: operator` rows of `resources/beam-ux/nav.yml`. This list is the LANDING's cards — title,
+ * href and a blurb — and its title for a surface repeats that nav.yml row's; the href does not, it is
+ * read from the route.
  *
- * This is the narrow fix rather than the rail: the host names its own operator surfaces (it is the
- * party that mounted them) and the packaged landing renders them. `mounted()` is what keeps it
+ * The host names its own operator surfaces (it is the party that mounted them) and the packaged
+ * landing renders them. `mounted()` is what keeps it
  * honest — a surface whose route is not registered is omitted rather than offered as a link that
  * 404s, which is the failure this list exists to prevent for a package-owned screen a host might not
  * have mounted.

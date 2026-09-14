@@ -13,9 +13,9 @@ const profile: ProfilePageData = {
     mustVerifyEmail: false,
     status: null,
 };
-// `surfaces` is REQUIRED, unlike `staff`/`stats`: it is the operator realm's only navigation at this
-// host, so a caller that forgets it must fail to compile rather than render a landing with no way
-// out. A partial reload may omit the lazy pair; it may not omit the doors.
+// `surfaces` is REQUIRED, unlike `staff`/`stats`: it is the operator landing's own navigation, so a
+// caller that forgets it must fail to compile rather than render a landing without its doors. A
+// partial reload may omit the lazy pair; it may not omit the doors.
 const partialOperator: OperatorDashboardPageData = { entry: null, surfaces: [] };
 const auth: AuthEntryPageData = {
     slug: 'confirm-password',
