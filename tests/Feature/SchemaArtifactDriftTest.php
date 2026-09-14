@@ -68,6 +68,10 @@ class SchemaArtifactDriftTest extends TestCase
      * a class with no committed projection (missing), a projection whose class is gone (orphaned), a
      * stale projection and an empty/corrupt one (both: same path, different bytes).
      *
+     * Gate ownership: in CI, `composer setup` regenerates resources/schemas before this test runs, so the
+     * `stale` and `missing` buckets cannot fail there; the tests.yml clean-tree step owns staleness in CI.
+     * This test owns `orphaned` everywhere, and `stale`/`missing` in a local `composer ci:check` run without setup.
+     *
      * It drives the REAL command through its `--output` override rather than re-deriving a schema, and
      * writes only to a throwaway directory, never to the tracked tree.
      *
@@ -76,10 +80,6 @@ class SchemaArtifactDriftTest extends TestCase
      * directory against itself. The `finally` restores both.
      *
      * Environment note: committed projections are generated with SCHEMA_BASE_URI unset.
-     *
-     * Gate ownership: in CI, `composer setup` regenerates resources/schemas before this test runs, so the
-     * `stale` and `missing` buckets cannot fail there; the tests.yml clean-tree step owns staleness in CI.
-     * This test owns `orphaned` everywhere, and `stale`/`missing` in a local `composer ci:check` run without setup.
      */
     public function test_regenerates_to_exactly_the_committed_schema_projections(): void
     {
