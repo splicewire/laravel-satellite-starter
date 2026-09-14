@@ -68,6 +68,7 @@ use Splicewire\Beam\Scribe\Strategies\GroupStrategy;
 use Splicewire\Beam\Scribe\Strategies\ParticleRequestStrategy;
 use Splicewire\Beam\Scribe\Strategies\ParticleResponseStrategy;
 use Splicewire\Beam\Scribe\Strategies\ParticleTitleStrategy;
+use Splicewire\Beam\Scribe\Strategies\ParticleUrlParameterStrategy;
 use Splicewire\Beam\Scribe\Strategies\ReturnsResponseStrategy;
 use Splicewire\Beam\Scribe\Strategies\RouteTitleStrategy;
 use Splicewire\Beam\Scribe\Strategies\UrlParametersWithoutRowReads;
@@ -291,6 +292,7 @@ return [
         // (api-surface-coherence ticket 62.)
         'urlParameters' => [
             UrlParametersWithoutRowReads::class,
+            ParticleUrlParameterStrategy::class,
             Strategies\UrlParameters\GetFromUrlParamAttribute::class,
             Strategies\UrlParameters\GetFromUrlParamTag::class,
         ],

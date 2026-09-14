@@ -14,7 +14,8 @@
             "@schemastud/nav": "0.1.0",
             "@schemastud/seam": "0.2.1",
             "@splicewire/beam-inertia": "0.1.1",
-            "@splicewire/beam-resources": "0.1.1"
+            "@splicewire/beam-resources": "0.1.1",
+            "@splicewire/beam-ux": "0.2.1"
         }
     },
     "scripts": {
