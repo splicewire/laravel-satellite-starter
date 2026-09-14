@@ -5,6 +5,7 @@ namespace App\Support;
 use Illuminate\Support\Facades\Route;
 use Splicewire\Beam\Ux\Compile\EntryArtifactStore;
 use Splicewire\Beam\Ux\Models\BeamUxEntry;
+use Splicewire\Beam\Ux\Theme\ThemeResolver;
 use Splicewire\Beam\Ux\Type\UxType;
 
 /**
@@ -70,6 +71,46 @@ class PageEntryRef
             'slug' => $slug,
             'format' => self::formatValue($entry),
             'artifact' => self::artifactFor($entry),
+        ];
+    }
+
+    /**
+     * The ref for this host's CENTRAL THEME entry — the `namespace = theme, slug = default` row
+     * `Splicewire\Beam\Ux\Theme\ThemeResolver` cascades and `ThemeSeeder` seeds — or null when the
+     * database has never been seeded.
+     *
+     * Same job as {@see self::for()} and the same reason it exists: `/account/theme` mounts
+     * `@splicewire/beam-ux`'s `<ThemeEditor entryId>`, which loads and saves over the id-addressed
+     * entry-body operations, and the id of that row is a per-database uuid no frontend map can carry.
+     * The theme row is identified by (namespace, slug) and NEVER by `type` — `ThemeResolver`'s own
+     * docblock: "`type` here is metadata, never the identity key".
+     *
+     * `format` comes back as the row's real one (`css` — the codec that mirrors a saved theme to
+     * `resources/beam-ux/theme/theme/default.css`), and `artifact` is null: a theme is not a compiled
+     * page, it is read out of the database by the resolver on every request.
+     *
+     * @return array{id: string, slug: string, format: string|null, artifact: array{url: string, version: string|null}|null}|null
+     */
+    public static function theme(): ?array
+    {
+        $entry = BeamUxEntry::query()
+            ->where('namespace', ThemeResolver::NAMESPACE)
+            ->where('slug', ThemeResolver::SLUG)
+            ->first();
+
+        if ($entry === null) {
+            return null;
+        }
+
+        return [
+            'id' => (string) $entry->getKey(),
+            // `getAttribute`, not `->slug`: `BeamUxEntry` declares no property for the column, so the
+            // arrow form is an undefined-property access static analysis rejects — the same reason
+            // {@see self::formatValue()} reads its column that way. `for()` above can use the literal
+            // it was passed; this method looked the row up and has to ask the model.
+            'slug' => (string) $entry->getAttribute('slug'),
+            'format' => self::formatValue($entry),
+            'artifact' => null,
         ];
     }
 

@@ -4,12 +4,15 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Middleware;
 use Rushing\DataNav\NavTree;
+use Schemastud\Frame\Realm\RealmDefinition;
 use Splicewire\Beam\Accounts\Contracts\AccountShellProvider;
 use Splicewire\Beam\Accounts\Data\AccountShellData;
 use Splicewire\Beam\Entitlements\CanMapBuilder;
 use Splicewire\Beam\Realm\RealmManifestProjector;
+use Splicewire\Beam\Realm\RealmRegistry;
 use Splicewire\Beam\Ux\Containment\NavProjector;
 use Splicewire\Beam\Ux\Theme\ThemeResolver;
 use Throwable;
@@ -143,10 +146,91 @@ class HandleInertiaRequests extends Middleware
         }
 
         try {
-            return app(NavProjector::class)->project('account');
+            return $this->withoutUnentitledRealmSeats(app(NavProjector::class)->project('account'));
         } catch (Throwable) {
             return NavTree::make([]);
         }
+    }
+
+    /**
+     * Drop any account-rail seat that leads into a realm this principal is not entitled to.
+     *
+     * ## Why the account rail has to answer this at all
+     *
+     * The signed-in chrome is `<AccountShell>`, and `AppSidebarBeam` renders exactly one thing: the
+     * `accountNav` prop, i.e. `NavProjector::project('account')`. Measured on fresh-tower.test
+     * 2026-09-11 as `demo-admin`, who holds `entitlement:os.operate`: the only links the shell offered
+     * were Dashboard, Profile, API tokens and Team. `resources/beam-ux/nav.yml` DID declare the
+     * operator seat (`operator-dashboard`, `/operator`, `realm: operator`) and `ux:seed-nav` DID seed
+     * it — into the OPERATOR sitemap, which nothing at this host projects. So the operator realm was
+     * reachable only by typing its URL: it had no door.
+     *
+     * The seat therefore lives in the ACCOUNT realm (the `tenant-console` precedent), which means the
+     * rail would otherwise offer it to every signed-in user — including the member the route 403s.
+     *
+     * ## The gate is the realm's own declaration, not a second list
+     *
+     * `beam.core.realm_gates` already names each realm's entitlement, and the `RealmRegistry` already
+     * names each realm's `routeBase`. This joins the two: a seat whose href enters a gated realm's
+     * base is dropped when the principal lacks that realm's entitlement. So the seat and the route it
+     * leads to are gated by ONE declaration and cannot disagree — the same key
+     * `Splicewire\Beam\Realm\RealmEntitlementResourceGate` reads at the frame socket and
+     * `RealmManifestProjector` reads for the realm manifest.
+     *
+     * Hiding is not the boundary and is not treated as one: `can:entitlement:os.operate` on the route
+     * and the socket gate are what refuse; this only stops offering a door the reader cannot open.
+     */
+    protected function withoutUnentitledRealmSeats(NavTree $tree): NavTree
+    {
+        $blocked = [];
+
+        foreach ((array) config('beam.core.realm_gates', []) as $realm => $gate) {
+            $entitlement = is_array($gate) ? ($gate['entitlement'] ?? null) : null;
+
+            if (! is_string($entitlement) || $entitlement === '') {
+                continue;
+            }
+
+            if (Gate::allows('entitlement:'.$entitlement)) {
+                continue;
+            }
+
+            $definition = app(RealmRegistry::class)->tryResolve($realm);
+
+            if (! $definition instanceof RealmDefinition) {
+                // A gate naming a realm nothing registers is inert config, not a seat to hide.
+                continue;
+            }
+
+            $base = rtrim($definition->routeBase, '/');
+
+            if ($base !== '') {
+                $blocked[] = $base;
+            }
+        }
+
+        if ($blocked === []) {
+            return $tree;
+        }
+
+        return NavTree::make(array_values(array_filter(
+            $tree->items,
+            function (object $node) use ($blocked): bool {
+                $href = is_string($node->href ?? null) ? rtrim($node->href, '/') : null;
+
+                if ($href === null) {
+                    return true;
+                }
+
+                foreach ($blocked as $base) {
+                    if ($href === $base || str_starts_with($href, $base.'/')) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        )));
     }
 
     /**

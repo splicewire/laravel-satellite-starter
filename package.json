@@ -14,7 +14,8 @@
             "@schemastud/nav": "0.1.0",
             "@schemastud/seam": "0.2.1",
             "@splicewire/beam-resources": "link:../../../js/packages/beam/beam-resources",
-            "@splicewire/beam-inertia": "link:../../../js/packages/beam/beam-inertia"
+            "@splicewire/beam-inertia": "link:../../../js/packages/beam/beam-inertia",
+            "@splicewire/beam-ux": "link:../../../js/packages/beam/beam-ux"
         }
     },
     "scripts": {
@@ -72,7 +73,7 @@
         "@schemastud/seam": "0.2.1",
         "@schemastud/ui": "0.1.0",
         "@splicewire/beam-mainframe": "0.1.0",
-        "@splicewire/beam-ux": "0.1.0",
+        "@splicewire/beam-ux": "link:../../../js/packages/beam/beam-ux",
         "@splicewire/beam-ux-prototype": "0.1.0",
         "@tailwindcss/vite": "^4.1.11",
         "@tanstack/react-query": "^5.0.0",

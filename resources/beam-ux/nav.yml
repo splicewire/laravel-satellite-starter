@@ -48,6 +48,17 @@ account-team:
   type: page
   realm: account
 
+# The THEME editor's door (G2-BEAM-THEME-NAV). The page it leads to is gated on `can:ux.author` and
+# its two operations declare `ability: 'ux.author'`, so a member who follows this seat is refused at
+# the door — the same shape `tenant-console` below already has, and hiding a seat per ABILITY (as
+# opposed to per realm ENTITLEMENT, which HandleInertiaRequests::withoutUnentitledRealmSeats() already
+# does) is machinery this host does not have yet.
+account-theme:
+  segment: /account/theme
+  title: Theme
+  type: page
+  realm: account
+
 operator-dashboard:
   segment: /operator
   title: Operator
@@ -67,3 +78,29 @@ operator-platform-connection:
   type: page
   realm: operator
   icon: link
+
+# The tenant frame console (the `{frameRoute}` catch-all in routes/web.php) projects every tenant
+# resource the packages register, but no realm row ever pointed at it, so it was reachable only by
+# URL (ux-demo-convergence inventory anomaly 6, G3-BEAM-FRAME-CONSOLE). Its entries list is the
+# console's front door; the console's own rail takes over from there.
+tenant-console:
+  segment: /beam-ux-entry
+  title: Console
+  type: page
+  realm: account
+
+
+# The operator realm's DOOR. `operator-dashboard` above declares the seat in `realm: operator`, and
+# `ux:seed-nav` seeds it into the operator sitemap — which nothing at this host projects. Measured on
+# fresh-tower.test 2026-09-11 as an os.operate holder, the signed-in shell offered exactly Dashboard,
+# Profile, API tokens and Team, so the realm was reachable only by typing its URL.
+#
+# The signed-in chrome is <AccountShell>, which renders the ACCOUNT realm's rail, so this is the realm
+# a door has to be seated in. HandleInertiaRequests::withoutUnentitledRealmSeats() drops it again for a
+# principal without the realm's declared entitlement, so the seat and `can:entitlement:os.operate` on
+# the route read one declaration (`beam.core.realm_gates`) and cannot disagree.
+operator-seat:
+  segment: /operator
+  title: Operator
+  type: page
+  realm: account

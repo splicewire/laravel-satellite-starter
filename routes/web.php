@@ -57,6 +57,37 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Particle::ops('beam-ux-entries', 'beam-ux-entry', 'body');
     Particle::ops('beam-ux-entries', 'beam-ux-entry', 'save-body');
 
+    // The DRAFT/PUBLISH half of the same transport (G2-BEAM-DRAFT-PUBLISH). `save-body` above is the
+    // immediate-publish write and keeps that contract; these four let an author work before anyone
+    // reads it, and let them put a page back:
+    //
+    //   save-draft  record an edited body as a version WITHOUT publishing it — a guest keeps reading
+    //               the published body, because the artifact they are served is addressed by the
+    //               entry's publication pin and a draft does not move it;
+    //   publish     move that pin to the working copy, mirror it to disk and compile the artifact
+    //               through the real request path — the same CompileEntryBody a save runs;
+    //   versions    the recorded history plus both pins, which is everything the dock's panel renders;
+    //   restore     roll forward to a recorded version and publish the result.
+    //
+    // Mounted with EXACTLY the same gates as `save-body`: this group's `auth` + `verified`, plus each
+    // op's own declared `ability: 'ux.author'` with `abilityModel: false` (§3), which is the real gate
+    // and the one that travels. A guest reaches none of them.
+    //
+    // ⚠️ **Not `Route::recordVersions()`**, which `splicewire/laravel-beam-versioning` ships and
+    // `BeamUxEntry::versionable()` was annotated for. Its list is right; its `store` and `restore` are
+    // record-agnostic and therefore blind to the publication pin, the placed disk mirror and the
+    // compiled artifact — mounted here, a restore would move the particle and leave the page serving a
+    // module compiled from a body no longer in the record. beam-ux composes the same underlying
+    // `rushing/laravel-versioning` store and declares these next to the compile pipeline that has to
+    // run with them; see `EntryVersionsShowOp`'s docblock for the full reasoning.
+    //
+    // `versions` mounts GET for the same reason `body` does (§4): the panel refetches it on every open,
+    // it takes no input, and it is idempotent.
+    Particle::ops('beam-ux-entries', 'beam-ux-entry', 'save-draft');
+    Particle::ops('beam-ux-entries', 'beam-ux-entry', 'publish');
+    Particle::ops('beam-ux-entries', 'beam-ux-entry', 'versions');
+    Particle::ops('beam-ux-entries', 'beam-ux-entry', 'restore');
+
     // The authed home IS the OOTB account realm: <AccountShell> (@splicewire/beam-ux/account). Fortify
     // redirects login here (`config/fortify.php` home => /dashboard). Shares `entry` for the same
     // reason `/` does — the seeded row is `dashboard`, not the slash-swapped component name.
@@ -83,6 +114,34 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // that file's realm comment for why one capability may not have two surfaces here.
     Route::get('account/tokens', fn () => Inertia::render('account/tokens'))->name('account.tokens');
     Route::get('account/team', fn () => Inertia::render('account/team'))->name('account.team');
+
+    // ── The THEME entry's editor seat (G2-BEAM-THEME-NAV) ────────────────────────────────────────
+    //
+    // A third account-realm page, for the same reason the two above are account-realm pages: its nav
+    // seat comes from `resources/beam-ux/nav.yml`'s `account` realm and `<AccountShell>` renders that
+    // rail. Before this row, changing a theme token meant hand-editing `ThemeSeeder` and reseeding —
+    // the theme entry is `type = theme`, and `UxType`'s own doctrine keeps a theme body out of the
+    // visual canvas (its body is TOKENS, not a composable tree), so the editor dock had no page to
+    // attach to and no surface anywhere mounted the row.
+    //
+    // ⚠️ **Not a bespoke theme UI, deliberately.** `theme-entries-and-authoring`'s PRD closed Part A §5
+    // with the ruling that the theme editor is Frame's form on the `ParticleResource` — so the page
+    // body is `@splicewire/beam-ux`'s own `<ThemeEditor>`, which is `useEntryBody` →
+    // `RegionInspector`'s `form` body (the REAL `@schemastud/seam` SchemaForm) → `useSaveEntryBody`
+    // over the SAME `body` / `save-body` operations mounted above. The fields are generated from the
+    // server's schema (`EntryBodyEnvelope::schemaFor()` answers a theme entry with `ThemeSchemas`'
+    // `{canvas, site}`), so adding a token in PHP adds a field here with no frontend change.
+    //
+    // It shares `entry` for the same reason `/` and `/dashboard` do, and it is the ONLY way this page
+    // can work: the theme row's id is a per-database uuid, so only the server can say which row the
+    // page means (`PageEntryRef::theme()`).
+    //
+    // **Gated on `can:ux.author`.** The `body`/`save-body` operations declare `ability: 'ux.author'`
+    // and refuse a guest or a member on their own — that is the lock. This is the door: a screen whose
+    // every read and write a principal would be refused should not be offered to them as a page.
+    Route::get('account/theme', fn () => Inertia::render('account/theme', EntryPageData::from([
+        'entry' => PageEntryRef::theme(),
+    ])))->middleware('can:ux.author')->name('account.theme');
 
     // The account-tier REST survivors the two pages above talk to — tokens (reveal-once mint +
     // archive/rotate/renew), members (role change + remove) and invitations (send/resend/revoke),
