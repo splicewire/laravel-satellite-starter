@@ -1,6 +1,7 @@
 <?php
 
 use App\Data\Pages\EntryPageData;
+use App\Data\Pages\FrameConsolePageData;
 use App\Data\Pages\OperatorDashboardPageData;
 use App\Data\Pages\OperatorStaffData;
 use App\Data\Pages\OperatorStatsData;
@@ -279,11 +280,11 @@ Route::middleware(['auth', 'verified', 'can:entitlement:os.operate'])
         ))));
 
         if ($segments !== []) {
-            Route::get('{frameRoute}', fn () => Inertia::render('frame/console', [
+            Route::get('{frameRoute}', fn () => Inertia::render('frame/console', FrameConsolePageData::from([
                 'realm' => 'operator',
                 'basename' => '/operator',
                 'manifestUrl' => '/operator/frame/manifest',
-            ]))
+            ])))
                 ->where('frameRoute', '('.implode('|', array_map(fn (string $s): string => preg_quote($s, '/'), $segments)).')(\/[^\/]+)?')
                 ->name('console');
         }

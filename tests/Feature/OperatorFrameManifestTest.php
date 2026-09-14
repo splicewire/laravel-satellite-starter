@@ -3,9 +3,12 @@
 namespace Tests\Feature;
 
 use App\Beam\OperatorRailSeat;
+use App\Data\Pages\FrameConsolePageData;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Testing\AssertableInertia;
 use Rushing\PermissionCascade\Contracts\AccessGrant;
 use Schemastud\Frame\Http\Controllers\FrameManifestController;
 use Splicewire\Beam\Accounts\Enums\Role;
@@ -155,5 +158,47 @@ class OperatorFrameManifestTest extends TestCase
     public function test_a_guest_is_refused_the_operator_manifest(): void
     {
         $this->getJson('/operator/frame/manifest')->assertUnauthorized();
+    }
+
+    /**
+     * The console catch-all is the OTHER door in this group, and until this test only its rail rows were
+     * requested — as an operator, so nothing proved it refuses anyone. A leaf is asked for rather than
+     * the manifest because the console mount is a separate route that could lose the group's gate alone.
+     */
+    public function test_an_ordinary_member_is_refused_the_operator_console(): void
+    {
+        $member = User::factory()->create(); // no realm grant ⇒ os.operate false
+
+        $this->actingAs($member)->get('/operator/users')->assertForbidden();
+    }
+
+    public function test_a_guest_is_refused_the_operator_console(): void
+    {
+        $this->get('/operator/users')->assertRedirect(route('login'));
+    }
+
+    /**
+     * The console's props are a declared {@see FrameConsolePageData}, and the page's own props are
+     * EXACTLY `FrameRealmContext`'s three keys — shared props aside. A key renamed or added on either
+     * side then fails here instead of rendering "No surface here" in the browser.
+     */
+    public function test_an_operator_opens_the_console_with_exactly_the_realm_context_props(): void
+    {
+        $response = $this->actingAs($this->operator())->get('/operator/users');
+
+        $response->assertOk()->assertInertia(fn (AssertableInertia $page) => $page
+            ->component('frame/console', false)
+            ->where('realm', 'operator')
+            ->where('basename', '/operator')
+            ->where('manifestUrl', '/operator/frame/manifest'));
+
+        $props = $response->inertiaProps();
+        $ownProps = array_diff_key($props, Inertia::getShared());
+
+        $this->assertSame(
+            ['realm' => 'operator', 'basename' => '/operator', 'manifestUrl' => '/operator/frame/manifest'],
+            $ownProps,
+        );
+        $this->assertSame(array_keys($ownProps), array_keys(FrameConsolePageData::empty()));
     }
 }

@@ -4,6 +4,7 @@ import type {
     ResetPasswordPageData,
 } from '../../resources/js/generated/Splicewire/Beam/Accounts/Data/Pages';
 import type {
+    FrameConsolePageData,
     OperatorDashboardPageData,
     SitemapResourcePageData,
 } from '../../resources/js/generated/App/Data/Pages';
@@ -17,6 +18,12 @@ const profile: ProfilePageData = {
 // caller that forgets it must fail to compile rather than render a landing without its doors. A
 // partial reload may omit the lazy pair; it may not omit the doors.
 const partialOperator: OperatorDashboardPageData = { entry: null, surfaces: [] };
+// `realm` is nullable to match beam-inertia's `FrameRealmContext` — an unscoped console passes null.
+const frameConsole: FrameConsolePageData = {
+    realm: null,
+    basename: '/operator',
+    manifestUrl: '/operator/frame/manifest',
+};
 const auth: AuthEntryPageData = {
     slug: 'confirm-password',
     entry: null,
@@ -83,6 +90,8 @@ const badStats: OperatorDashboardPageData['stats'] = {
     sitemaps: 2,
     entries: 4,
 };
+// @ts-expect-error the console's manifest address is a required string, not optional
+const badConsole: FrameConsolePageData = { realm: 'operator', basename: '/operator' };
 // @ts-expect-error the package-owned resource reference must not decay to any
 const badResource: SitemapResourcePageData['resource'] = 'sitemap';
 // @ts-expect-error nested package navigation metadata is also typed
@@ -95,6 +104,7 @@ const badDemo: AuthEntryPageData['demoAccounts'] = [
 void [
     profile,
     partialOperator,
+    frameConsole,
     operator,
     auth,
     reset,
@@ -102,6 +112,7 @@ void [
     badStatus,
     badStaff,
     badStats,
+    badConsole,
     badResource,
     badNav,
     badDemo,
