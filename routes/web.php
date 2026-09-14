@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Support\PageEntryRef;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Schemastud\Frame\Http\Controllers\FrameManifestController;
 use Spatie\LaravelData\Lazy;
 use Splicewire\Beam\Facades\Particle;
 use Splicewire\Beam\Ux\Models\BeamUxEntry;
@@ -212,6 +213,80 @@ Route::middleware(['auth', 'verified'])->group(function () {
             ->name('frame.console');
     }
 });
+
+// ── The OPERATOR FRAME CONSOLE mount ────────────────────────────────────────────────────────────────
+//
+// The same packaged page as the tenant console above, mounted a second time for a second realm — which
+// is the shape the foundation already documented and nothing had ever built:
+// `Schemastud\Frame\Registry\NavManifest::realmFor()` reads the matched route's `defaults['realm']`
+// and its docblock says outright that "a host mounts the same controller once per realm".
+//
+// ⚠️ Measured on fresh-tower.test 2026-09-11, and this mount was TRIED AND REVERTED then, on purpose.
+// `RouteContextProjector::hrefs('operator')` projects `/operator/users`, `/operator/users/:id`,
+// `/operator/teams`, `/operator/teams/:id`, and all four 404'd because the console above is built from
+// `hrefs('tenant')` alone. Adding the mount made them serve — and the console rendered "No surface
+// here", because `@splicewire/beam-inertia`'s `pages/frame/console.tsx` fetched a hardcoded
+// `/frame/manifest` and mounted `<BrowserRouter>` with no basename, while this realm's `routeContext`
+// paths are realm-RELATIVE (`users`) and its nav hrefs realm-PREFIXED (`/operator/users`). One packaged
+// console, one manifest URL, one root basename ⇒ exactly one servable realm per host. The client half
+// now takes the three props below, so this is a mount again rather than a half-landed experiment.
+//
+// THREE THINGS, spelled out because they are facts about an EXPOSURE and the route file owns those
+// (api-surface-coherence 141):
+//   · `realm`       — the manifest cache key, so a second realm's console cannot be served the first's
+//                     manifest out of react-query's cache.
+//   · `basename`    — `<BrowserRouter basename>`, so realm-relative leaves match under `/operator`.
+//   · `manifestUrl` — this realm's own manifest mount, below.
+//
+// Gated on the SAME entitlement as `/operator` itself, so the console cannot be a softer door than the
+// dashboard it sits beside. The frame socket behind it is gated independently and per resource by
+// `Splicewire\Beam\Realm\RealmEntitlementResourceGate` — this middleware is the door, not the lock.
+Route::middleware(['auth', 'verified', 'can:entitlement:os.operate'])
+    ->prefix('operator')
+    ->name('operator.frame.')
+    ->group(function (): void {
+        // This realm's manifest. `->defaults('realm', 'operator')` is the whole mechanism:
+        // `NavManifest::realmFor()` reads it off the matched route and `FrameNavContribution` projects
+        // the operator realm's nav and routeContext instead of the `beam.ux.frame_nav.default_realm`
+        // fallback the root mount rides.
+        Route::get('frame/manifest', FrameManifestController::class)
+            ->defaults('realm', 'operator')
+            ->name('manifest');
+
+        // DERIVED, never written down — the same rule as the tenant mount. `hrefs('operator')` returns
+        // realm-PREFIXED hrefs (`/operator/users`), so the base is stripped back off to get the
+        // route-relative segment this prefixed group needs.
+        $hrefs = rescue(function (): array {
+            $paths = array_values(app(Splicewire\Beam\Ux\Frame\RouteContextProjector::class)->hrefs('operator'));
+
+            $nav = app(Splicewire\Beam\Ux\Frame\FrameNavContribution::class)->contributeNav('operator');
+            $sections = array_map(
+                fn (array $item): ?string => $item['href'] ?? null,
+                $nav['nav']['items'] ?? []
+            );
+
+            return array_filter([...$paths, ...$sections]);
+        }, [], false);
+
+        $segments = array_values(array_filter(array_unique(array_map(
+            function (string $href): string {
+                $relative = ltrim(Illuminate\Support\Str::after($href, '/operator'), '/');
+
+                return explode('/', $relative)[0];
+            },
+            $hrefs
+        ))));
+
+        if ($segments !== []) {
+            Route::get('{frameRoute}', fn () => Inertia::render('frame/console', [
+                'realm' => 'operator',
+                'basename' => '/operator',
+                'manifestUrl' => '/operator/frame/manifest',
+            ]))
+                ->where('frameRoute', '('.implode('|', array_map(fn (string $s): string => preg_quote($s, '/'), $segments)).')(\/[^\/]+)?')
+                ->name('console');
+        }
+    });
 
 // The PUBLIC ENTRY RENDERER (ADR-0209 §2) — resolves any unclaimed URL against the `site` realm's
 // containment tree and renders the entry through `resources/js/pages/site/entry.tsx`. This is what
