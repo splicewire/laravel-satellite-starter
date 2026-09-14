@@ -45,7 +45,10 @@ export default function AccountTheme({ entry }: EntryPageData) {
                 ) : (
                     <p className="text-sm text-muted-foreground">
                         This site has no theme entry yet — seed one with{' '}
-                        <code className="font-mono">php artisan db:seed --class=ThemeSeeder</code>.
+                        <code className="font-mono">
+                            php artisan db:seed --class=ThemeSeeder
+                        </code>
+                        .
                     </p>
                 )}
             </div>

@@ -48,7 +48,7 @@ it('declares the whole sitemap page without changing the Inertia response', func
         ->and($response->getData(true))->toBe($legacy->getData(true));
     $resource = $response->getData(true)['props']['resource'];
     if ($variant !== 'registered') {
-        expect($resource['model'])->toBeNull()
+        expect($resource)->not->toHaveKey('model')
             ->and($resource['layout'])->toBeNull()
             ->and($resource['nav']['routeName'])->toBeNull()
             ->and($resource['creatable'])->toBeFalse();

@@ -69,10 +69,12 @@ async function call<T>(
 
     if (!res.ok) {
         const error = new Error(
-            payload?.message || `${method} ${ROOT}${path} failed (${res.status})`,
+            payload?.message ||
+                `${method} ${ROOT}${path} failed (${res.status})`,
         ) as Error & { status?: number; errors?: Record<string, string[]> };
         error.status = res.status;
         error.errors = payload?.errors;
+
         throw error;
     }
 
@@ -80,14 +82,21 @@ async function call<T>(
 }
 
 export const tokensClient: TokensClient = {
-    list: () => call<ApiTokenData[]>('GET', '/tokens').then((rows) => rows ?? []),
+    list: () =>
+        call<ApiTokenData[]>('GET', '/tokens').then((rows) => rows ?? []),
     create: ({ name, abilities, expiresInDays }) => {
         const body: Record<string, unknown> = { name };
+
         // Omitted, not null: an absent `abilities` is the unscoped default and an absent
         // `expires_in_days` is a token that never expires — both declared `Optional` server-side, so
         // sending an explicit null would be a different (still legal, but noisier) request.
-        if (abilities && abilities.length > 0) body.abilities = abilities;
-        if (expiresInDays) body.expires_in_days = expiresInDays;
+        if (abilities && abilities.length > 0) {
+            body.abilities = abilities;
+        }
+
+        if (expiresInDays) {
+            body.expires_in_days = expiresInDays;
+        }
 
         return call<CreatedTokenData>('POST', '/tokens', body);
     },
@@ -122,7 +131,9 @@ export const tokensClient: TokensClient = {
             data: { revoked: number };
         };
 
-        if (!res.ok) throw new Error(payload?.message ?? 'Sweep failed');
+        if (!res.ok) {
+            throw new Error(payload?.message ?? 'Sweep failed');
+        }
 
         return { message: payload.message, revoked: payload.data.revoked };
     },

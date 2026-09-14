@@ -21,15 +21,27 @@ stop-gap.
 ## Co-dev overlay
 
 Local package development is driven by a parked overlay. To work against your local checkouts in
-`~/Workspaces/laravel/packages/**` (symlinked into `vendor/`):
+`~/Workspaces/php/packages/**` (symlinked into `vendor/`):
 
 ```bash
-cp composer.local.json.off composer.local.json
+cp composer.local.json.dist composer.local.json
 composer update
 ```
 
 The overlay's `type: path` repositories win over the git `repositories` in `composer.json`
 (via `wikimedia/composer-merge-plugin`). Delete `composer.local.json` to go back to git-resolved.
+
+Never commit a `composer.lock` resolved through the overlay. Family packages are required at
+`dev-main`, so the committed lock must be regenerated with no `composer.local.json` present, after the
+package commits it depends on are pushed: `grep -c '"type": "path"' composer.lock` must print `0`.
+
+The JS side has no overlay file. Family packages (`@splicewire/*`, `@schemastud/*`) resolve from npm at
+exact versions, in `dependencies` and, where a transitive range must be pinned, `pnpm.overrides`. A
+`link:` specifier into `~/Workspaces/js/packages/**` is local co-dev only: never commit it or the
+`pnpm-lock.yaml` it writes, because a runner has no `~/Workspaces/js` and `pnpm install` fails there.
+`vite.config.ts` dedupes React and friends for that linked case. To ship a JS package change, publish
+the package, bump the exact version here, and regenerate the lock: `grep -c 'link:' pnpm-lock.yaml`
+must print `0`.
 
 ## Install (satellite tier — cascades to beam)
 
@@ -91,7 +103,7 @@ prototype module and route tokens. The package's static wiring audit is availabl
 ### Local-package run loop
 
 ```bash
-cp composer.local.json.off composer.local.json   # engage the overlay (gitignored active copy)
+cp composer.local.json.dist composer.local.json  # engage the overlay (gitignored active copy)
 composer update                                   # resolve to local checkouts
 php artisan splicewire:satellite:install --no-interaction   # cascades satellite → beam
 
@@ -169,6 +181,14 @@ stay reachable as `composer lint:check` and `composer types:check`. The composit
 `composer ci:check`, which delegates to `bin/ci-check` and runs **every** gate (suite first, then
 pint, phpstan, eslint, prettier, tsc) so no gate can mask another. It exits `0` all-passed, `1` a
 real failure, and `2` when a gate could not be measured at all — test `!= 0`, never `== 1`.
+
+PHPStan runs as two processes. `phpstan.neon` (`composer types:check`, the `php:types` gate) analyses
+the application only. `phpstan.migration-stubs.neon` analyses the beam-accounts migration stubs before
+they are published; `tests/Feature/MigrationStubAnalysisTest.php` runs it with a private cache, so a
+defect in a stub fails `php:test`, not `php:types`. Do not put the stubs back in `phpstan.neon`: a stub
+and its byte-identical published copy analysed in one process share one AST, and PHPStan then reports
+correct PHPDocs as missing. To run the stub analysis by hand, give it a fresh cache:
+`TMPDIR="$(mktemp -d)" vendor/bin/phpstan analyse -c phpstan.migration-stubs.neon`.
 
 ## Package-topology stop-gap
 

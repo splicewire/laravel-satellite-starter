@@ -30,5 +30,5 @@ strands it, because beam can never merge it back.
 A catch-up merge **takes everything**, including files for packages this tier doesn't require —
 packages gate behaviour, so an inert file is not a wrong file. Rejecting content to keep the tier
 "clean" is what makes every later merge re-propose the same files. The genuine tier deltas are
-`composer.json`, `composer.local.json.off`, `AGENTS.md`, `README.md`, the satellite-tier deploy
+`composer.json`, `composer.local.json.dist`, `AGENTS.md`, `README.md`, the satellite-tier deploy
 workflow, and the satellite tier code itself.
