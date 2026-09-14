@@ -13,7 +13,7 @@ overrides:
   '@schemastud/mainframe': 0.1.0
   '@schemastud/nav': 0.1.0
   '@schemastud/seam': 0.2.1
-  '@splicewire/beam-inertia': 0.1.0
+  '@splicewire/beam-inertia': 0.1.1
   '@splicewire/beam-resources': 0.1.1
 
 importers:
@@ -99,14 +99,14 @@ importers:
         specifier: 0.1.1
         version: 0.1.1(3fx6ppjeztuq4gsxeminsebeie)
       '@splicewire/beam-inertia':
-        specifier: 0.1.0
-        version: 0.1.0(4lieomehf57bbzv7n7ez2ypba4)
+        specifier: 0.1.1
+        version: 0.1.1(2szv4zncrfvnxdvueetynqvm74)
       '@splicewire/beam-mainframe':
         specifier: 0.1.1
         version: 0.1.1(@preact/signals-core@1.14.4)(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(ajv@8.20.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0))
       '@splicewire/beam-ux':
-        specifier: 0.2.0
-        version: 0.2.0(ztqbjqp5yh5xrfyue3px7iwxbe)
+        specifier: 0.2.1
+        version: 0.2.1(ztqbjqp5yh5xrfyue3px7iwxbe)
       '@splicewire/beam-ux-prototype':
         specifier: 0.1.0
         version: 0.1.0(lucide-react@0.475.0(react@19.2.8))(react-router@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
@@ -1405,8 +1405,8 @@ packages:
       lucide-react: '>=0.400.0'
       react: '>=18'
 
-  '@splicewire/beam-inertia@0.1.0':
-    resolution: {integrity: sha512-iV/IhsTtAzPgy9E67Qcx9Ns09xykCRcxmrB+EZ04VawnUfy1hwqKWcCY+NpA0Rjslpf3GiW+RCd3yw2QNqaZPg==}
+  '@splicewire/beam-inertia@0.1.1':
+    resolution: {integrity: sha512-WGKsqieu25B2yV7oc5DPYntah4TCkJYvll3fREnmcV8ioGYeVGn5Z/B5imHHcsVxYrDNDW4dBwgq2wsg/aS+iQ==}
     peerDependencies:
       '@inertiajs/core': ^3.0.0
       '@inertiajs/react': ^3.0.0
@@ -1428,7 +1428,7 @@ packages:
       '@schemastud/mainframe': 0.1.0
       '@schemastud/seam': 0.2.1
       '@splicewire/beam-mainframe': 0.1.1
-      '@splicewire/beam-ux': ^0.2.0
+      '@splicewire/beam-ux': ^0.2.1
       '@tanstack/react-query': ^5.0.0
       class-variance-authority: ^0.7.1
       clsx: ^2.1.1
@@ -1455,8 +1455,8 @@ packages:
       react: '>=18'
       react-router: '>=7'
 
-  '@splicewire/beam-ux@0.2.0':
-    resolution: {integrity: sha512-diZw0R6uLR+amqaWY34rIiYObLS7pH/sLiTMTRmmWNV+O/54K3sNPC1onXS8rLeHI/9QhHQ2R0fQfCdWCSl3VA==}
+  '@splicewire/beam-ux@0.2.1':
+    resolution: {integrity: sha512-JfygdQXTnECcNpqPv9o8cSH7luzxkAgjRkkSjxfJts7WI9v2XqWzDJMyWWRnRot6rHoAgW+tGV7MSohrX5FHqw==}
     hasBin: true
     peerDependencies:
       '@inertiajs/react': '>=2'
@@ -5060,7 +5060,7 @@ snapshots:
       lucide-react: 0.475.0(react@19.2.8)
       react: 19.2.8
 
-  '@splicewire/beam-inertia@0.1.0(4lieomehf57bbzv7n7ez2ypba4)':
+  '@splicewire/beam-inertia@0.1.1(2szv4zncrfvnxdvueetynqvm74)':
     dependencies:
       '@inertiajs/core': 3.6.1
       '@inertiajs/react': 3.6.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -5083,7 +5083,7 @@ snapshots:
       '@schemastud/seam': 0.2.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(ajv@8.20.0)(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0))
       '@splicewire/beam-mainframe': 0.1.1(@preact/signals-core@1.14.4)(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(ajv@8.20.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0))
       '@splicewire/beam-resources': 0.1.1
-      '@splicewire/beam-ux': 0.2.0(ztqbjqp5yh5xrfyue3px7iwxbe)
+      '@splicewire/beam-ux': 0.2.1(ztqbjqp5yh5xrfyue3px7iwxbe)
       '@tanstack/react-query': 5.101.4(react@19.2.8)
       class-variance-authority: 0.7.1
       clsx: 2.1.1
@@ -5117,7 +5117,7 @@ snapshots:
       react: 19.2.8
       react-router: 7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
 
-  '@splicewire/beam-ux@0.2.0(ztqbjqp5yh5xrfyue3px7iwxbe)':
+  '@splicewire/beam-ux@0.2.1(ztqbjqp5yh5xrfyue3px7iwxbe)':
     dependencies:
       '@babel/parser': 7.29.8
       '@babel/types': 7.29.8
