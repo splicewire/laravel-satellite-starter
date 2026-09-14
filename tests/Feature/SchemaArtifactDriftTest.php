@@ -60,43 +60,72 @@ class SchemaArtifactDriftTest extends TestCase
     }
 
     /**
-     * The audit above only sees DECLARED particle classes — at this starter that is one
-     * (`SitemapData`), while `schemas:generate` emits one file per class under the discovery paths.
-     * So any other committed projection is covered by nothing above, and deleting one would be
-     * silent. This is the cheap structural half: every committed artifact is real, parseable, and
-     * still has a class behind it. It writes nothing.
+     * Regenerate into a throwaway directory and compare it, byte for byte, against the committed tree.
+     *
+     * Ported from laravel-beam-starter's recovery patch (5cd7667), where it replaced the structural
+     * existence check. The audit above sees only DECLARED particle classes, so on its own it left every
+     * other projection unguarded against STALENESS. Comparing a real regeneration closes four holes:
+     * a class with no committed projection (missing), a projection whose class is gone (orphaned), a
+     * stale projection and an empty/corrupt one (both: same path, different bytes).
+     *
+     * It drives the REAL command through its `--output` override rather than re-deriving a schema, and
+     * writes only to a throwaway directory, never to the tracked tree.
+     *
+     * ⚠️ `--output` re-points `filesystems.disks.<schema disk>.root` and forgets the resolved disk. The
+     * audit reads through that SAME disk, so a leaked redirect would make it compare the throwaway
+     * directory against itself. The `finally` restores both.
+     *
+     * Environment note: committed projections are generated with SCHEMA_BASE_URI unset.
      */
-    public function test_no_committed_schema_artifact_is_corrupt_or_orphaned(): void
+    public function test_regenerates_to_exactly_the_committed_schema_projections(): void
     {
-        $root = resource_path('schemas/App');
-
-        $files = [];
-        foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($root)) as $file) {
-            if (str_ends_with((string) $file, '.schema.json')) {
-                $files[] = (string) $file;
+        $snapshot = function (string $root): array {
+            if (! is_dir($root)) {
+                return [];
             }
-        }
-        sort($files);
 
-        $this->assertNotEmpty($files, 'no committed schema artifacts were found under '.$root);
+            $files = [];
+            foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($root, \FilesystemIterator::SKIP_DOTS)) as $file) {
+                if (str_ends_with($file->getPathname(), '.schema.json')) {
+                    $files[substr($file->getPathname(), strlen($root) + 1)] = (string) file_get_contents($file->getPathname());
+                }
+            }
+            ksort($files);
 
-        foreach ($files as $file) {
-            $relative = str_replace(resource_path('schemas').'/', '', $file);
+            return $files;
+        };
 
-            $raw = (string) file_get_contents($file);
-            $this->assertNotSame('', trim($raw), $relative.' is empty — run `php artisan schemas:generate`.');
+        $config = config('data-schemas');
+        $disk = \Schemastud\DataSchemas\Support\SchemaDisk::name($config);
+        $originalRoot = config("filesystems.disks.{$disk}.root");
+        $tmp = sys_get_temp_dir().'/schema-regen-'.bin2hex(random_bytes(6));
 
-            $decoded = json_decode($raw, true);
-            $this->assertIsArray($decoded, $relative.' is not valid JSON — run `php artisan schemas:generate`.');
-            $this->assertArrayHasKey('$schema', $decoded, $relative.' has no $schema key.');
+        try {
+            $exit = \Illuminate\Support\Facades\Artisan::call('schemas:generate', ['--output' => $tmp]);
+            $this->assertSame(0, $exit, \Illuminate\Support\Facades\Artisan::output());
 
-            // Orphan check: the path IS the class name, so a Data class deleted without its
-            // projection leaves a file here no regeneration would ever rewrite or remove.
-            $class = str_replace('/', '\\', substr($relative, 0, -strlen('.schema.json')));
-            $this->assertTrue(
-                class_exists($class),
-                $relative.' has no class '.$class.' behind it — delete the artifact, or restore the class.'
+            $generated = $snapshot($tmp.'/App');
+            $committed = $snapshot(resource_path('schemas/App'));
+
+            // Guard the instrument: an empty regeneration would make every comparison below vacuous.
+            $this->assertNotEmpty($generated, 'regeneration emitted nothing, so the comparison did not run');
+
+            $missing = array_values(array_diff(array_keys($generated), array_keys($committed)));
+            $orphaned = array_values(array_diff(array_keys($committed), array_keys($generated)));
+            $stale = array_values(array_filter(
+                array_keys(array_intersect_key($generated, $committed)),
+                fn (string $path): bool => $generated[$path] !== $committed[$path],
+            ));
+
+            $this->assertSame(
+                ['missing' => [], 'orphaned' => [], 'stale' => []],
+                ['missing' => $missing, 'orphaned' => $orphaned, 'stale' => $stale],
+                'committed schema projections do not match a fresh regeneration — run `php artisan schemas:generate`',
             );
+        } finally {
+            config(['data-schemas' => $config, "filesystems.disks.{$disk}.root" => $originalRoot]);
+            \Illuminate\Support\Facades\Storage::forgetDisk($disk);
+            \Illuminate\Support\Facades\File::deleteDirectory($tmp);
         }
     }
 }

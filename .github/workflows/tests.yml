@@ -66,5 +66,27 @@ jobs:
       - name: Setup Application
         run: composer setup
 
+      # A starter's promise is that `composer setup` from a fresh clone leaves a CLEAN tree: everything
+      # it publishes or generates is either tracked or ignored, so anything left over is real signal.
+      # That was proven by hand once, and within days new untracked output reappeared unnoticed — a
+      # promise nobody checks is not being kept. This records the tree instead of failing on the spot,
+      # so a stray file cannot also cost the test suite's signal; the job fails at the end.
+      - name: Record what setup left behind
+        id: setup-tree
+        run: git status --porcelain --untracked-files=all > "$RUNNER_TEMP/setup-tree.txt"
+
       - name: Run CI Checks
         run: composer ci:check
+
+      # `always()` so a failing ci:check still reports a dirty tree too; the outcome guard so a setup
+      # that never finished cannot produce a misleading "dirty tree" failure on top of its real one.
+      - name: Setup must leave a clean tree
+        if: always() && steps.setup-tree.outcome == 'success'
+        run: |
+          if [ -s "$RUNNER_TEMP/setup-tree.txt" ]; then
+            echo "::error::composer setup left files that are neither tracked nor ignored, or modified tracked files."
+            echo "Commit what setup legitimately produces, ignore what it should not, or fix the step that wrote it:"
+            cat "$RUNNER_TEMP/setup-tree.txt"
+            exit 1
+          fi
+          echo "setup left a clean tree"
