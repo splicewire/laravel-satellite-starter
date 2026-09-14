@@ -80,6 +80,8 @@ jobs:
 
       # `always()` so a failing ci:check still reports a dirty tree too; the outcome guard so a setup
       # that never finished cannot produce a misleading "dirty tree" failure on top of its real one.
+      # This step, not SchemaArtifactDriftTest, fails CI on stale or missing committed schema projections:
+      # setup regenerates resources/schemas before ci:check, so the test sees a freshly generated tree here.
       - name: Setup must leave a clean tree
         if: always() && steps.setup-tree.outcome == 'success'
         run: |

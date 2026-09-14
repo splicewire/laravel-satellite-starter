@@ -76,6 +76,10 @@ class SchemaArtifactDriftTest extends TestCase
      * directory against itself. The `finally` restores both.
      *
      * Environment note: committed projections are generated with SCHEMA_BASE_URI unset.
+     *
+     * Gate ownership: in CI, `composer setup` regenerates resources/schemas before this test runs, so the
+     * `stale` and `missing` buckets cannot fail there; the tests.yml clean-tree step owns staleness in CI.
+     * This test owns `orphaned` everywhere, and `stale`/`missing` in a local `composer ci:check` run without setup.
      */
     public function test_regenerates_to_exactly_the_committed_schema_projections(): void
     {
