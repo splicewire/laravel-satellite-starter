@@ -113,6 +113,7 @@ class AppServiceProvider extends ServiceProvider
     protected function registerAuthoringGates(): void
     {
         Gate::define('ux.author', fn (User $user): bool => $user->can('entitlement:ux.author'));
+        Gate::define('beam-docs.publish', fn (User $user): bool => $user->can('ux.operator.author'));
 
         foreach (RealmRegistry::realms() as $realm) {
             Gate::define(

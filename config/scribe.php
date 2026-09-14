@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| Scribe — published by splicewire/laravel-beam (`vendor:publish --tag=beam-scribe`)
+| Scribe — published by splicewire/laravel-beam-docs (`vendor:publish --tag=beam-scribe`)
 |--------------------------------------------------------------------------
 |
 | Beam's out-of-the-box Scribe configuration (ADR-0211 §7). It is a STUB, not a merged package config:
@@ -74,6 +74,11 @@ use Splicewire\Beam\Scribe\Strategies\RouteTitleStrategy;
 use Splicewire\Beam\Scribe\Strategies\UrlParametersWithoutRowReads;
 
 use function Knuckles\Scribe\Config\removeStrategies;
+
+// Published configuration remains loadable after optional documentation is removed.
+if (! class_exists(Defaults::class)) {
+    return [];
+}
 
 return [
     // The HTML <title> for the generated documentation.

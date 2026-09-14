@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1ff6ef4d9d2514d66e3d547c09c8e6a7",
+    "content-hash": "25a9c363e9a5b1d7d0f32d9332713187",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -5469,13 +5469,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stephenr85/laravel-data-schemas-scribe.git",
-                "reference": "8890cfc340ed6e1eb30327683a86994604e9c1f5"
+                "reference": "80e0bd3863af4924ecac7cc56f6f6040709b4adb"
             },
             "require": {
                 "illuminate/support": "^11.0|^12.0|^13.0",
                 "knuckleswtf/scribe": "^4.0|^5.0",
                 "php": "^8.2",
-                "schemastud/laravel-data-schemas": "^1.0"
+                "schemastud/laravel-data-schemas": "dev-main"
             },
             "require-dev": {
                 "laravel/pint": "^1.0",
@@ -5525,7 +5525,7 @@
                 "scribe",
                 "spatie"
             ],
-            "time": "2026-09-13T02:21:29+00:00"
+            "time": "2026-09-14T21:14:41+00:00"
         },
         {
             "name": "rushing/laravel-doctor",
@@ -6485,7 +6485,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/schemastud/laravel-data-schemas.git",
-                "reference": "ee10f57b3f5d6ce7787af3e8aa8da7cd402f0f0a"
+                "reference": "ba23ca5ed55c9f3824f94d4b8f77fc22b18fcdaf"
             },
             "require": {
                 "galbar/jsonpath": "^3.0",
@@ -6527,7 +6527,8 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Schemastud\\DataSchemas\\": "src/"
+                    "Schemastud\\DataSchemas\\": "src/",
+                    "Rushing\\LaravelDataSchemasScribe\\Attributes\\": "src/Http/Attributes/"
                 }
             },
             "autoload-dev": {
@@ -6558,7 +6559,7 @@
                 "spatie",
                 "validation"
             ],
-            "time": "2026-09-13T02:21:20+00:00"
+            "time": "2026-09-14T21:14:41+00:00"
         },
         {
             "name": "schemastud/laravel-frame",
@@ -6566,7 +6567,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/schemastud/laravel-frame.git",
-                "reference": "328cde24c4f0be091ec51ddc9fe1055b79bb64f7"
+                "reference": "2198894d1e223698294cd1e5a6aca680ab6a53da"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -6626,7 +6627,7 @@
                 "MIT"
             ],
             "description": "The batteries-UX backend rung for schema-driven admin editors: the resource-definition registry (ResourceDefinition), the #[Widget] -> x-stud-widget projector, #[ReadOnlyField], and a served GET /frame/manifest. Sits one level above a filter-schema controller; resolves a resource key to its whole editor wiring. Pairs with @schemastud/frame on the JS side.",
-            "time": "2026-09-13T02:21:03+00:00"
+            "time": "2026-09-14T21:14:42+00:00"
         },
         {
             "name": "schemastud/laravel-json-ns",
@@ -8034,7 +8035,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam.git",
-                "reference": "b4232c43fae92909d0db4e55f8aee8e2d7d1d556"
+                "reference": "159299df063d040e31b797028446ab04732c92fa"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8044,14 +8045,13 @@
                 "rushing/codegen": "dev-main",
                 "rushing/laravel-data-filters": "*",
                 "rushing/laravel-data-nav": "*",
-                "rushing/laravel-data-schemas-scribe": "*",
                 "rushing/laravel-doctor": "*",
                 "rushing/laravel-permission-cascade": "*",
                 "rushing/laravel-popcorn": "dev-main",
                 "rushing/laravel-schema-convergence": "*",
                 "rushing/laravel-versioning": "dev-main",
                 "rushing/php-popcorn": "dev-main",
-                "schemastud/laravel-data-schemas": "^1.0",
+                "schemastud/laravel-data-schemas": "dev-main",
                 "schemastud/laravel-frame": "dev-main",
                 "schemastud/laravel-json-ns": "dev-main",
                 "spatie/laravel-activitylog": "^4.0|^5.0",
@@ -8061,8 +8061,7 @@
                 "spatie/laravel-package-tools": "^1.16",
                 "spatie/laravel-schemaless-attributes": "*",
                 "spatie/laravel-sluggable": "^3.5|^4.0",
-                "spatie/typescript-transformer": "^3.0",
-                "symfony/yaml": "^6.0|^7.0|^8.0"
+                "spatie/typescript-transformer": "^3.0"
             },
             "require-dev": {
                 "laravel/pint": "^1.0",
@@ -8144,7 +8143,7 @@
                 "MIT"
             ],
             "description": "The schema-driven-CMS core: composes the open schema foundation (schemastud/laravel-data-schemas + schemastud/laravel-frame) and the open versioning foundation (rushing/laravel-versioning) into a schema-typed, snapshot-versioned, migrate-on-read BeamParticle. Depends DOWN on the open foundations (the ADR-0092 direction, paid→open); per ADR-0156 that now includes schemastud/laravel-frame — the agnostic resource-scaffolding rung — so beam natively implements Frame's FrameResourceHandler port (chain: splicewire/beam → schemastud/frame → schemastud/data-schemas, monotonic, no cycle). Also the runtime home of the host-hook registries (webhook / sitemap / doctor), the realm registry, and the particle resource declarations. The media arm (medialibrary + the media model traits + media table) was extracted DOWN into splicewire/laravel-beam-media (HTTP-03 / ADR-0178); base beam no longer requires medialibrary and does NOT require beam-media (no cycle). Headless = no editor SURFACE running; Frame's scaffolding may be present-but-inert. No Beam model is minted; beam is a substrate, not an instance.",
-            "time": "2026-09-13T02:54:27+00:00"
+            "time": "2026-09-14T21:27:12+00:00"
         },
         {
             "name": "splicewire/laravel-beam-accounts",
@@ -8152,7 +8151,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-accounts.git",
-                "reference": "1b7c942654e59cd19e30df9c05711d50614df06d"
+                "reference": "d2b8b6b4fc0fc1449d9c02d5185bc1012a8bbc15"
             },
             "require": {
                 "firebase/php-jwt": "^6.0|^7.0",
@@ -8165,10 +8164,9 @@
                 "laravel/sanctum": "^4.0",
                 "php": "^8.2",
                 "rushing/laravel-data-filters": "*",
-                "rushing/laravel-data-schemas-scribe": "*",
                 "rushing/laravel-permission-cascade": "*",
                 "rushing/laravel-schema-convergence": "*",
-                "schemastud/laravel-data-schemas": "*",
+                "schemastud/laravel-data-schemas": "dev-main",
                 "spatie/laravel-package-tools": "^1.16",
                 "spatie/laravel-permission": "^6.0",
                 "spatie/laravel-sluggable": "^3.5|^4.0",
@@ -8256,7 +8254,83 @@
                 "schemastud",
                 "teams"
             ],
-            "time": "2026-09-12T05:47:11+00:00"
+            "time": "2026-09-14T21:14:42+00:00"
+        },
+        {
+            "name": "splicewire/laravel-beam-docs",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/splicewire/laravel-beam-docs.git",
+                "reference": "3975c2a06e1ea0a1aa2b6f2f5c11c09b34f132ef"
+            },
+            "require": {
+                "illuminate/queue": "^11.0|^12.0|^13.0",
+                "illuminate/support": "^11.0|^12.0|^13.0",
+                "php": "^8.3",
+                "rushing/laravel-data-schemas-scribe": "dev-main",
+                "schemastud/laravel-data-schemas": "dev-main",
+                "spatie/laravel-package-tools": "^1.16",
+                "spatie/typescript-transformer": "^3.0",
+                "splicewire/laravel-beam": "dev-main",
+                "splicewire/laravel-beam-ux": "dev-main",
+                "symfony/process": "^6.0|^7.0|^8.0",
+                "symfony/yaml": "^6.0|^7.0|^8.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^9.0|^10.0|^11.0",
+                "pestphp/pest": "^4.0",
+                "phpunit/phpunit": "^11.0|^12.0",
+                "rushing/laravel-surgeon": "*",
+                "rushing/php-package-topology": "dev-main",
+                "wikimedia/composer-merge-plugin": "^2.1"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Splicewire\\Beam\\Docs\\BeamDocsServiceProvider"
+                    ]
+                },
+                "merge-plugin": {
+                    "include": [
+                        "composer.local.json"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Splicewire\\Beam\\Docs\\": "src/",
+                    "Splicewire\\Beam\\Scribe\\": "legacy/Scribe/",
+                    "Splicewire\\Beam\\OpenApi\\": "legacy/OpenApi/"
+                },
+                "classmap": [
+                    "legacy/Http/",
+                    "legacy/Doctor/",
+                    "legacy/Surgeon/",
+                    "legacy/Surface/"
+                ]
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Splicewire\\Beam\\Docs\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "@php vendor/bin/pest"
+                ],
+                "pint": [
+                    "@php -d memory_limit=512M vendor/bin/pint"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Optional Beam OpenAPI documentation and Scalar publication.",
+            "time": "2026-09-14T22:03:36+00:00"
         },
         {
             "name": "splicewire/laravel-beam-mcp",
@@ -8430,7 +8504,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-sitemap.git",
-                "reference": "e8027fabbb6ecf9897da040483c57e55aa260dcf"
+                "reference": "a5b04c7085d01e4e71597ffbb65d1f05cfcc0164"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8505,7 +8579,7 @@
                 "seo",
                 "sitemap"
             ],
-            "time": "2026-09-08T14:13:39+00:00"
+            "time": "2026-09-14T21:33:47+00:00"
         },
         {
             "name": "splicewire/laravel-beam-sync",
@@ -8703,7 +8777,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-ux.git",
-                "reference": "ab3eb97cfcb22a1720067bd9a598ddb9394f883f"
+                "reference": "9e4b11f010654577aa2df42c949f2203f2f2354b"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8721,7 +8795,7 @@
                 "splicewire/laravel-beam": "*",
                 "splicewire/laravel-beam-accounts": "*",
                 "splicewire/laravel-beam-mdx": "*",
-                "splicewire/laravel-beam-sitemap": "*",
+                "splicewire/laravel-beam-sitemap": "dev-main",
                 "splicewire/laravel-beam-taxonomy": "*",
                 "splicewire/laravel-beam-workflows": "*",
                 "symfony/process": "^6.4|^7.0"
@@ -8795,7 +8869,7 @@
                 "splicewire",
                 "ux"
             ],
-            "time": "2026-09-14T16:05:49+00:00"
+            "time": "2026-09-14T21:36:22+00:00"
         },
         {
             "name": "splicewire/laravel-beam-ux-prototype",
@@ -8885,7 +8959,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-workflows.git",
-                "reference": "f12f82d23cb22b7b9ef44d2332bba8c7b7e3fa9b"
+                "reference": "8b10b962b1780e86dd84b72999db3f54acde97f9"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8965,7 +9039,7 @@
                 "symfony-workflow",
                 "workflows"
             ],
-            "time": "2026-09-13T02:51:35+00:00"
+            "time": "2026-09-14T15:52:40+00:00"
         },
         {
             "name": "splicewire/laravel-composition-music-spine",
@@ -17039,6 +17113,7 @@
         "schemastud/laravel-data-schemas": 20,
         "splicewire/laravel-beam": 20,
         "splicewire/laravel-beam-dev": 20,
+        "splicewire/laravel-beam-docs": 20,
         "splicewire/laravel-beam-mcp": 20,
         "splicewire/laravel-beam-provision": 20
     },

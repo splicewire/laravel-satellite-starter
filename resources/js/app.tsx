@@ -1,6 +1,8 @@
 import { createInertiaApp } from '@inertiajs/react';
 import { beamInertiaOptions } from '@splicewire/beam-inertia';
 import type { PageModule } from '@splicewire/beam-inertia';
+import { configureDocs } from '@splicewire/beam-docs';
+import { beamDocsPages } from '@splicewire/beam-docs/pages';
 import AppLogoIcon from './components/app-logo-icon';
 import { authFeatures } from './beam';
 
@@ -14,12 +16,13 @@ if (import.meta.env.DEV) {
         import('./pages/_prototype') as Promise<PageModule>;
 }
 
-createInertiaApp({
-    ...beamInertiaOptions({
-        name: import.meta.env.VITE_APP_NAME || 'Laravel',
-        logo: AppLogoIcon,
-        development: import.meta.env.DEV,
-        features: authFeatures,
-        pages,
-    }),
+const options = beamInertiaOptions({
+    name: import.meta.env.VITE_APP_NAME || 'Laravel',
+    logo: AppLogoIcon,
+    development: import.meta.env.DEV,
+    features: authFeatures,
+    pages: { ...beamDocsPages, ...pages },
 });
+configureDocs();
+
+createInertiaApp(options);
