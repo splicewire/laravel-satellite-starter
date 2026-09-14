@@ -159,6 +159,8 @@ class PlatformConnectionSurfaceTest extends TestCase
         $row = $children->firstWhere('href', '/operator/platform-connection');
         $this->assertNotNull($row, 'The operator rail does not link the platform connection screen.');
         $this->assertSame('Platform connection', $row['title']);
+        // nav.yml's `icon: link`, which beam-inertia maps; a row without one renders a neutral dot.
+        $this->assertSame('link', $row['icon'] ?? null);
 
         $this->actingAs($operator)->get($row['href'])->assertOk();
     }

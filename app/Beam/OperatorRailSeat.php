@@ -10,6 +10,7 @@ use Splicewire\Beam\Nav\NavSectionRegistry;
 use Splicewire\Beam\Particle\ParticleResourceRegistry;
 use Splicewire\Beam\Realm\RealmRegistry as Realms;
 use Splicewire\Beam\Ux\Nav\NavSource;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * The OPERATOR realm's rail seat — the one section `/operator/frame/manifest` projects at this host.
@@ -34,12 +35,18 @@ use Splicewire\Beam\Ux\Nav\NavSource;
  *     its console route AND its rail row with no second edit. Each row carries the resource's list
  *     `routeName`, which `FrameResourcesInvocable` joins back to the leaf href at request time and
  *     `FrameNavContribution::keepBound()` keeps because the realm's routeContext provides it.
+ *     A resource that declares a `section:` gets NO row here. It already attaches itself under that
+ *     section's seat, `viewAny`-gated, and when the section is this seat's own key a second, ungated
+ *     row would list it twice (measured at the tower starter: `tenants` declares `platform`).
  *  2. **The realm's bespoke pages** — the `realm: operator` rows of `resources/beam-ux/nav.yml`, the
  *     file whose header already declares *"operator STAFF — its own sitemap, staff-gated"*. A row at the
  *     realm's own base (`/operator`) is skipped: that is the rail's Dashboard item and this seat's own
  *     header. These rows carry no `routeName`, because they are not frame leaves and a name the
  *     routeContext cannot bind would be pruned; a nav.yml row is the host's statement that the page is
- *     mounted, and the manifest feature test holds each href to a matching route.
+ *     mounted, and the manifest feature test holds each href to a matching route. A row's `nav_order`
+ *     becomes its `navOrder`, and its `icon` rides through. `NavSource`'s normalized row has no `icon`
+ *     (the sitemap it seeds has no column for one), so {@see authoredIcons()} reads that one key from
+ *     the same authored source.
  *
  * ⚠️ This is NOT the account rail's `operator-seat` row in nav.yml — that is the door INTO the realm
  * from `<AccountShell>`. This is the navigation once inside it.
@@ -93,10 +100,11 @@ final class OperatorRailSeat
     }
 
     /**
-     * The seat's child rows: the realm's resources first, then its bespoke nav.yml pages, each in the
-     * order its own list gives.
+     * The seat's child rows: the realm's section-less resources first, then its bespoke nav.yml pages,
+     * each in the order its own list gives. A declared `navOrder` then places a row among the
+     * section's auto-attached resources (`FrameResourcesInvocable` sorts both kinds in one pass).
      *
-     * @return list<array{title: string, href: string, icon?: string, routeName?: string}>
+     * @return list<array{title: string, href: string, icon?: string, routeName?: string, navOrder?: int}>
      */
     public static function rows(Application $app): array
     {
@@ -108,7 +116,8 @@ final class OperatorRailSeat
         foreach ($app->make(ParticleResourceRegistry::class)->keysForRealm(self::REALM) as $key) {
             $definition = $resources->find($key);
 
-            if ($definition === null) {
+            // Unknown here, or it seats itself under its own section (see the class docblock).
+            if ($definition === null || ($definition->nav->section ?? '') !== '') {
                 continue;
             }
 
@@ -123,6 +132,10 @@ final class OperatorRailSeat
                 $row['icon'] = $definition->nav->icon;
             }
 
+            if ($definition->nav->navOrder !== null) {
+                $row['navOrder'] = $definition->nav->navOrder;
+            }
+
             $rows[] = $row;
         }
 
@@ -131,6 +144,8 @@ final class OperatorRailSeat
         // Only an AUTHORED nav (config or file). The derived fallback queries the entries table, which
         // is neither a boot-time read nor a list this host wrote.
         if (! $source->isDerived('pages')) {
+            $icons = self::authoredIcons();
+
             foreach ($source->resolve('pages') as $row) {
                 if ($row['realm'] !== self::REALM || $row['segment'] === null) {
                     continue;
@@ -142,14 +157,65 @@ final class OperatorRailSeat
                     continue;
                 }
 
-                $rows[] = [
+                $page = [
                     'title' => $row['title'] ?? Str::headline($row['slug']),
                     'href' => $href,
                 ];
+
+                if (isset($icons[$row['slug']])) {
+                    $page['icon'] = $icons[$row['slug']];
+                }
+
+                if ($row['nav_order'] !== null) {
+                    $page['navOrder'] = $row['nav_order'];
+                }
+
+                $rows[] = $page;
             }
         }
 
         return $rows;
+    }
+
+    /**
+     * Each authored nav row's `icon`, keyed by slug, read from the source `NavSource` resolves first:
+     * `config('beam.ux.nav')`, else `nav.{yml,yaml,json}` under the mirror disk's root (else
+     * `resources/beam-ux`). Only called when `NavSource` reports an authored source, so the lookup
+     * order is the one it uses. A row without an icon is absent from the map and renders without one.
+     *
+     * @return array<string, string>
+     */
+    private static function authoredIcons(): array
+    {
+        $raw = config('beam.ux.nav');
+
+        if (! is_array($raw)) {
+            $disk = config('beam.ux.storage.mirror_disk');
+            $root = is_string($disk) && $disk !== '' ? config("filesystems.disks.{$disk}.root") : null;
+            $root = rtrim(is_string($root) && $root !== '' ? $root : resource_path('beam-ux'), '/');
+
+            foreach (['yml', 'yaml', 'json'] as $ext) {
+                if (is_file($file = $root.'/nav.'.$ext)) {
+                    $contents = (string) file_get_contents($file);
+                    $raw = $ext === 'json' ? json_decode($contents, true) : Yaml::parse($contents);
+
+                    break;
+                }
+            }
+        }
+
+        $icons = [];
+
+        foreach (is_array($raw) ? $raw : [] as $key => $value) {
+            // Both authoring shapes NavSource accepts: slug => row, or a list of rows carrying `slug`.
+            $slug = is_string($key) ? $key : (is_array($value) ? (string) ($value['slug'] ?? '') : '');
+
+            if ($slug !== '' && is_array($value) && is_string($value['icon'] ?? null) && $value['icon'] !== '') {
+                $icons[$slug] = $value['icon'];
+            }
+        }
+
+        return $icons;
     }
 
     private static function base(Application $app): string

@@ -118,6 +118,33 @@ class OperatorFrameManifestTest extends TestCase
         }
     }
 
+    /**
+     * A nav.yml page row's `icon` and `nav_order` reach the seat. `NavSource` normalizes `icon` away, so
+     * without the seat's own read every bespoke page renders beam-inertia's neutral dot, and without
+     * `navOrder` no page can lead the resources that attach to the section by themselves.
+     *
+     * The authored nav is overridden through `beam.ux.nav`, the first source `NavSource` reads, in both
+     * shapes it accepts, so this tier holds the seat to rows it does not author itself.
+     */
+    public function test_the_seat_carries_an_authored_pages_icon_and_order(): void
+    {
+        config(['beam.ux.nav' => [
+            'operator-dashboard' => ['segment' => '/operator', 'title' => 'Operator', 'realm' => 'operator'],
+            'operator-probe' => ['segment' => '/operator/probe', 'title' => 'Probe', 'realm' => 'operator', 'icon' => 'link', 'nav_order' => 0],
+            ['slug' => 'operator-listed', 'segment' => '/operator/listed', 'title' => 'Listed', 'realm' => 'operator', 'icon' => 'Server'],
+            'operator-plain' => ['segment' => '/operator/plain', 'title' => 'Plain', 'realm' => 'operator'],
+            'account-other' => ['segment' => '/elsewhere', 'title' => 'Elsewhere', 'realm' => 'account', 'icon' => 'Bot'],
+        ]]);
+
+        $pages = collect(OperatorRailSeat::rows(app()))->reject(fn (array $row): bool => isset($row['routeName']))->values()->all();
+
+        $this->assertSame([
+            ['title' => 'Probe', 'href' => '/operator/probe', 'icon' => 'link', 'navOrder' => 0],
+            ['title' => 'Listed', 'href' => '/operator/listed', 'icon' => 'Server'],
+            ['title' => 'Plain', 'href' => '/operator/plain'],
+        ], $pages);
+    }
+
     public function test_an_ordinary_member_is_refused_the_operator_manifest(): void
     {
         $member = User::factory()->create(); // no realm grant ⇒ os.operate false
