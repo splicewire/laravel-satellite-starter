@@ -35,6 +35,14 @@ Never commit a `composer.lock` resolved through the overlay. Family packages are
 `dev-main`, so the committed lock must be regenerated with no `composer.local.json` present, after the
 package commits it depends on are pushed: `grep -c '"type": "path"' composer.lock` must print `0`.
 
+The JS side has no overlay file. Family packages (`@splicewire/*`, `@schemastud/*`) resolve from npm at
+exact versions, in `dependencies` and, where a transitive range must be pinned, `pnpm.overrides`. A
+`link:` specifier into `~/Workspaces/js/packages/**` is local co-dev only: never commit it or the
+`pnpm-lock.yaml` it writes, because a runner has no `~/Workspaces/js` and `pnpm install` fails there.
+`vite.config.ts` dedupes React and friends for that linked case. To ship a JS package change, publish
+the package, bump the exact version here, and regenerate the lock: `grep -c 'link:' pnpm-lock.yaml`
+must print `0`.
+
 ## Install (satellite tier — cascades to beam)
 
 `composer setup` runs the satellite tier installer — **`splicewire:satellite:install`** — instead of a
