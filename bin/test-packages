@@ -40,7 +40,7 @@ foreach (glob($vendor . '/*/*', GLOB_ONLYDIR) as $pkgDir) {
 
 if ($targets === []) {
     fwrite(STDERR, "No co-dev symlinked packages with a `test` script found. Is the overlay active?\n");
-    fwrite(STDERR, "Activate it: cp composer.local.json.off composer.local.json && composer update\n");
+    fwrite(STDERR, "Activate it: cp composer.local.json.dist composer.local.json && composer update\n");
     exit(0);
 }
 
