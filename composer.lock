@@ -8778,7 +8778,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-ux.git",
-                "reference": "9332c82538ed16b21bc8eb55104e006cc4036c78"
+                "reference": "cf3bd2b4fe46af5c39096d0618f273cc36edee97"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8870,7 +8870,7 @@
                 "splicewire",
                 "ux"
             ],
-            "time": "2026-09-14T22:54:56+00:00"
+            "time": "2026-09-15T21:50:33+00:00"
         },
         {
             "name": "splicewire/laravel-beam-ux-prototype",
