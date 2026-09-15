@@ -31,16 +31,16 @@ jobs:
         with:
           node-version: '22'
 
-      # Three of the 38 git-resolved packages in composer.lock are PRIVATE —
-      # splicewire/laravel-satellite, laravel-connector and laravel-grounding-spine, the satellite
-      # tier proper. The other 35 clone anonymously, which is why this workflow got as far as
-      # "Syncing splicewire/laravel-grounding-spine into cache" before dying on
-      # "Password authentication is not supported". Same App and same two steps deploy.yml already
-      # uses in this repo; beam's starter needs neither, its family being public by choice.
+      # The satellite tier proper — splicewire/laravel-satellite, laravel-connector and
+      # laravel-grounding-spine — is PRIVATE, and so is splicewire/laravel-beam-docs, which the beam
+      # starter installs too (so it mints the same token). The rest clone anonymously, which is why
+      # this workflow got as far as "Syncing splicewire/laravel-grounding-spine into cache" before
+      # dying on "Password authentication is not supported". Same App and same two steps deploy.yml
+      # already uses in this repo.
       #
       # ⚠️ Fork pull requests get no org secret, so the mint fails there and the run stays red —
       # it was already red at `composer install` for the same reason, one step later.
-      - name: Mint a GitHub App installation token (satellite-family private repos)
+      - name: Mint a GitHub App installation token (private family repos)
         id: gh-app
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
