@@ -11,14 +11,14 @@
  * family package's built `dist` is never generated — correct markup, absent classes, HTTP 200.
  *
  * That list used to be maintained by hand (9 literal globs, added in `e587049`). It is now DERIVED at
- * build time by `vite-plugin-family-sources.ts`, which resolves every family-scoped package carrying a
- * `dist` and injects one `@source` each. Same output, verified: 1,011 classes / 102,014 bytes either
- * way, down to the asset hash. The difference is that a derived list cannot go stale, and a
- * hand-written one silently does — the flagship was repaired once by hand and had drifted back to 8
- * globs against 28 resolving packages.
+ * build time by `familySources()` from `@schemastud/seam/vite`, wired in `vite.config.ts`, which
+ * resolves every family-scoped package carrying a `dist` and injects one `@source` each. Same output,
+ * verified: 1,011 classes / 102,014 bytes either way, down to the asset hash. The difference is that a
+ * derived list cannot go stale, and a hand-written one silently does — the flagship was repaired once
+ * by hand and had drifted back to 8 globs against 28 resolving packages.
  *
- * If family-package styling ever looks stripped, check the plugin is still in `vite.config.ts` before
- * suspecting anything here, and verify by diffing emitted class counts — never by loading a page.
+ * If family-package styling ever looks stripped, check `familySources()` is still in `vite.config.ts`
+ * before suspecting anything here, and verify by diffing emitted class counts — never by loading a page.
  */
 
 @custom-variant dark (&:is(.dark *));
