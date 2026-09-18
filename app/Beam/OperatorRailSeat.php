@@ -8,6 +8,7 @@ use Schemastud\Frame\Contracts\ResourceRegistry;
 use Splicewire\Beam\Dashboard\RealmDashboard;
 use Splicewire\Beam\Nav\NavSection;
 use Splicewire\Beam\Nav\NavSectionRegistry;
+use Splicewire\Beam\Particle\ListRouteName;
 use Splicewire\Beam\Particle\ParticleResourceRegistry;
 use Splicewire\Beam\Realm\RealmRegistry as Realms;
 use Splicewire\Beam\Ux\Nav\NavSource;
@@ -133,7 +134,7 @@ final class OperatorRailSeat
                 'title' => $definition->nav->label,
                 // The fallback only: `FrameResourcesInvocable` re-joins it to the leaf `routeName` names.
                 'href' => $base.'/'.$key,
-                'routeName' => $definition->nav->routeName ?? $key.'.index',
+                'routeName' => ListRouteName::of($definition),
             ];
 
             if ($definition->nav->icon !== null && $definition->nav->icon !== '') {

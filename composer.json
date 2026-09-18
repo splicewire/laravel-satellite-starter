@@ -414,7 +414,7 @@
         ],
         "test": [
             "@php artisan config:clear --ansi",
-            "@php artisan test"
+            "@php -d memory_limit=1G artisan test"
         ],
         "test:packages": [
             "@php bin/test-packages"
