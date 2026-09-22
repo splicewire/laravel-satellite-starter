@@ -4,9 +4,11 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Inertia\Testing\AssertableInertia;
 use PHPUnit\Framework\Attributes\WithEnvironmentVariable;
+use Schemastud\DataSchemas\Contracts\ServedSchemaRegistry;
+use Schemastud\DataSchemas\Lifecycle\FilesystemSchemaRegistry;
 use Splicewire\Beam\Ux\Frame\FrameNavContribution;
 use Splicewire\Beam\Ux\Frame\RouteContextProjector;
 use Tests\TestCase;
@@ -30,26 +32,11 @@ class FrameConsoleRoutesTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * `/schemas/{id}` is NOT asserted, and the omission is a measured finding rather than a gap in the
-     * test: `schemas/{path}` is already mounted by `rushing/laravel-data-schemas`
-     * (`data-schemas.document`) and claims that URL. The manifest declares a `schemas.edit` client route
-     * at `/schemas/:id` and this host cannot serve it without shadowing a package route — so the
-     * manifest and the host genuinely disagree about that one path, and pretending otherwise here would
-     * hide it.
-     *
-     * @var list<string>
-     */
-    private const SHADOWED_BY_A_PACKAGE_ROUTE = ['/schemas/:id'];
-
     public function test_every_projected_tenant_href_serves_the_frame_console(): void
     {
         $this->actingAs(User::factory()->create());
 
-        $hrefs = array_diff(
-            app(RouteContextProjector::class)->hrefs('tenant'),
-            self::SHADOWED_BY_A_PACKAGE_ROUTE
-        );
+        $hrefs = app(RouteContextProjector::class)->hrefs('tenant');
 
         $this->assertNotEmpty($hrefs, 'The tenant realm must project hrefs, or this suite proves nothing.');
 
@@ -88,29 +75,53 @@ class FrameConsoleRoutesTest extends TestCase
         }
     }
 
-    /**
-     * The measured half of {@see SHADOWED_BY_A_PACKAGE_ROUTE}: the console mount must NOT steal
-     * `/schemas/{path}` from `schemastud/laravel-data-schemas`. Excluding the path from the suite above
-     * says "we do not serve it"; this says "and we did not break the route that does" — which is the
-     * assertion that would actually fail if route ordering moved.
-     */
     // The starter deliberately has no default authority. Declare this test's serving prerequisite
     // before providers boot; relying on a developer's .env leaves canonical installs with no door.
     #[WithEnvironmentVariable('SCHEMA_BASE_URI', 'https://starter.test/schemas')]
-    public function test_the_console_mount_does_not_shadow_the_data_schemas_document_route(): void
+    public function test_the_schema_catalog_and_public_schema_document_both_serve_their_declared_content(): void
     {
-        $this->actingAs(User::factory()->create());
+        $directory = sys_get_temp_dir().'/beam-starter-schema-door-'.bin2hex(random_bytes(8));
+        $document = [
+            '$id' => 'https://starter.test/schemas/example/1',
+            'type' => 'object',
+            'properties' => ['title' => ['type' => 'string']],
+        ];
 
-        $route = app('router')->getRoutes()->match(
-            Request::create('/schemas/some-document', 'GET')
-        );
+        try {
+            (new FilesystemSchemaRegistry($directory))->register($document);
+            config(['data-schemas.served_directories' => [$directory]]);
+            app()->forgetInstance(ServedSchemaRegistry::class);
 
-        $this->assertSame('data-schemas.document', $route->getName());
+            $this->get($document['$id'])
+                ->assertOk()
+                ->assertHeader('Content-Type', 'application/schema+json')
+                ->assertExactJson($document);
+
+            $this->actingAs(User::factory()->create());
+            $hrefs = app(RouteContextProjector::class)->hrefs('tenant');
+            $this->assertSame('/schema-catalog', $hrefs['schemas.index']);
+            $this->assertSame('/schema-catalog/new', $hrefs['schemas.create']);
+            $this->assertSame('/schema-catalog/:id', $hrefs['schemas.edit']);
+
+            foreach (['schemas.index', 'schemas.create', 'schemas.edit'] as $routeName) {
+                $this->get(str_replace(':id', '1', $hrefs[$routeName]))
+                    ->assertOk()
+                    ->assertInertia(fn (AssertableInertia $page) => $page->component('frame/console'));
+            }
+
+            $this->get('https://starter.test/schemas/missing/1')->assertNotFound();
+        } finally {
+            File::deleteDirectory($directory);
+        }
     }
 
     public function test_a_guest_is_sent_to_login_rather_than_to_the_console(): void
     {
         $this->get('/beam-ux-entry')->assertRedirect(route('login'));
+
+        foreach (['/schema-catalog', '/schema-catalog/new', '/schema-catalog/1'] as $path) {
+            $this->get($path)->assertRedirect(route('login'));
+        }
     }
 
     public function test_an_unclaimed_path_still_falls_through_to_the_public_entry_renderer(): void

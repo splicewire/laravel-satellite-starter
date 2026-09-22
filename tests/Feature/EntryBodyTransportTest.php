@@ -76,8 +76,8 @@ class EntryBodyTransportTest extends TestCase
 
     public function test_the_two_id_addressed_operations_are_mounted(): void
     {
-        $show = Route::getRoutes()->getByName('beam-ux-entry.op.body');
-        $save = Route::getRoutes()->getByName('beam-ux-entry.op.save-body');
+        $show = Route::getRoutes()->getByName('beam-ux-entry.body');
+        $save = Route::getRoutes()->getByName('beam-ux-entry.save-body');
 
         $this->assertNotNull($show);
         $this->assertNotNull($save);
@@ -92,11 +92,11 @@ class EntryBodyTransportTest extends TestCase
         $doc = [['kind' => 'block', 'name' => 'p', 'isComponent' => false, 'dynamic' => false, 'props' => [], 'children' => []]];
 
         $this->actingAs($this->author())
-            ->postJson(route('beam-ux-entry.op.save-body', ['id' => $entry->getKey()]), ['body' => $doc])
+            ->postJson(route('beam-ux-entry.save-body', ['id' => $entry->getKey()]), ['body' => $doc])
             ->assertSuccessful();
 
         $this->actingAs($this->author())
-            ->getJson(route('beam-ux-entry.op.body', ['id' => $entry->getKey()]))
+            ->getJson(route('beam-ux-entry.body', ['id' => $entry->getKey()]))
             ->assertSuccessful()
             ->assertJsonPath('data.body.0.name', 'p');
     }
@@ -111,7 +111,7 @@ class EntryBodyTransportTest extends TestCase
         $entry = $this->pageEntry('no-query');
 
         $this->actingAs($this->author())
-            ->getJson(route('beam-ux-entry.op.body', ['id' => $entry->getKey()]).'?namespace=starter')
+            ->getJson(route('beam-ux-entry.body', ['id' => $entry->getKey()]).'?namespace=starter')
             ->assertStatus(422);
     }
 

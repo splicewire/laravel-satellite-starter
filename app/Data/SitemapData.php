@@ -23,7 +23,7 @@ use Splicewire\Beam\Particle\Attributes\ParticleResource;
  * projection prefers `externalUrl` when present (see {@see SitemapRecord::toNavItem()}).
  *
  * A non-empty `label` marks the resource FRAMED — it lights up the `@schemastud/frame` editor
- * and surfaces the `frame/resources/sitemap` editor route so an owner can edit the nav.
+ * and lets the realm's Frame console project its list and editor routes.
  */
 #[ParticleResource(
     key: 'sitemap',
@@ -33,7 +33,6 @@ use Splicewire\Beam\Particle\Attributes\ParticleResource;
     icon: 'map',
     section: 'links',
     navOrder: 99,
-    routeName: 'frame.resources.sitemap',
 )]
 class SitemapData extends Data
 {
@@ -56,7 +55,7 @@ class SitemapData extends Data
     /**
      * Fold the authored fields INTO the record's `payload` json before the write.
      *
-     * The write-side twin of {@see self::project()}, and needed for the same reason: this DTO
+     * The write-side twin of {@see self::fromModel()}, and needed for the same reason: this DTO
      * describes what lives INSIDE `schema_records.payload`, while {@see SitemapRecord} only accepts
      * `schema_ref`/`payload`/`meta` as attributes. Without this the generic writer maps `label` and
      * `href` onto columns that do not exist, they are dropped, and a `create` answers **200 with an
@@ -88,24 +87,10 @@ class SitemapData extends Data
     }
 
     /**
-     * Project a stored record back out into this shape.
-     *
-     * ⚠️ Without this, every read of a `sitemap` row is a 500, and the reason is the whole point of
-     * the kind-A pattern: {@see SitemapRecord} is a plain `schema_records` row whose authored fields
-     * live inside a `payload` json column, so `label` and `href` are NOT model attributes and the
-     * default `SitemapData::from($model)` finds nothing to fill them with — spatie throws
-     * `CannotCreateData: … Parameters missing: label, href`.
-     *
-     * Measured 2026-09-05: the very first `POST /frame/resources/sitemap` this host ever served
-     * WROTE its row correctly and then 500'd projecting the response. It had never surfaced because
-     * the resource had no policy, so `Schemastud\Frame\Authorization\ResourceAuthorizer` refused every
-     * write before it reached a handler, and the table was empty — a closed gate upstream of a broken
-     * projection reads exactly like a working resource nobody has used.
-     *
-     * `project` is a convention method beam's `ParticleFrameResourceHandler::projectRead()` prefers
-     * over `from()` — the same seam `Splicewire\Beam\Accounts\Data\TokenData` and `InvitationData` use.
+     * Hydrate the payload for both the list projection and the edit representation.
+     * Spatie's model creation method keeps these paths on the same declared Data shape.
      */
-    public static function project(SitemapRecord $record): self
+    public static function fromModel(SitemapRecord $record): self
     {
         $payload = $record->payload ?? [];
 

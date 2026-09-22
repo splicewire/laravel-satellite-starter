@@ -5,13 +5,16 @@ namespace Tests\Feature;
 use App\Data\SitemapData;
 use App\Doctor\OrphanedNavItemAudit;
 use App\Models\SitemapRecord;
+use App\Models\User;
 use App\Sitemap\ContentGlobLeaf;
 use App\Sitemap\NavItem;
 use App\Sitemap\RecordLeaf;
 use App\Sitemap\RootSitemap;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Cache;
+use Inertia\Testing\AssertableInertia;
 use Rushing\Doctor\DoctorStatus;
 use Splicewire\Beam\Particle\Backing\EloquentBacking;
 use Splicewire\Beam\Particle\ParticleResourceRegistry;
@@ -129,17 +132,25 @@ class SitemapRecordFrameTest extends TestCase
         $this->assertSame(SitemapData::class, $definition->data);
         $this->assertSame('Sitemap', $definition->nav->label);
         $this->assertSame('links', $definition->nav->section);
-        $this->assertSame('frame.resources.sitemap', $definition->nav->routeName);
+        $this->assertNull($definition->nav->routeName);
     }
 
-    // ── The frame/resources/sitemap route exists ─────────────────────────────────────────
-
-    public function test_the_frame_resource_route_is_registered(): void
+    public function test_the_sitemap_console_and_resource_api_use_the_shared_mounts(): void
     {
-        $route = app(Router::class)->getRoutes()->getByName('frame.resources.sitemap');
+        $routes = app(Router::class)->getRoutes();
+        $this->assertSame('frame.resources.index', $routes->match(Request::create('/frame/resources/sitemap'))->getName());
+        $this->assertNull($routes->getByName('frame.resources.sitemap'));
 
-        $this->assertNotNull($route);
-        $this->assertSame('frame/resources/sitemap', $route->uri());
+        $this->actingAs(User::factory()->create())
+            ->get('/sitemap')
+            ->assertOk()
+            ->assertInertia(fn (AssertableInertia $page) => $page->component('frame/console', false));
+
+        $manifest = $this->getJson('/frame/manifest')->assertOk()->json('routeContext');
+        $list = collect($manifest)->firstWhere('routeName', 'sitemap.index');
+        $this->assertNotNull($list);
+        $this->assertSame('sitemap', $list['path']);
+        $this->assertSame('list', $list['mounts']);
     }
 
     // ── The orphaned-nav doctor check ────────────────────────────────────────────────────

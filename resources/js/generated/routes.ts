@@ -7,7 +7,20 @@
 export type RouteMap = Record<string, string>;
 
 /** AUTO-GENERATED — the tenant route-name map. */
-export const defaults: RouteMap = {};
+export const defaults: RouteMap = {
+    'beam-ux-entry.body': 'beam-ux-entries/{id}/body',
+    'beam-ux-entry.publish': 'beam-ux-entries/{id}/publish',
+    'beam-ux-entry.restore': 'beam-ux-entries/{id}/restore',
+    'beam-ux-entry.save-body': 'beam-ux-entries/{id}/save-body',
+    'beam-ux-entry.save-draft': 'beam-ux-entries/{id}/save-draft',
+    'beam-ux-entry.versions': 'beam-ux-entries/{id}/versions',
+    'platform-connection.connect': 'operator/platform-connection/connect',
+    'platform-connection.disconnect': 'operator/platform-connection/disconnect',
+    'platform-connection.invoke-capability': 'operator/platform-connection/invoke-capability',
+    'platform-connection.poll': 'operator/platform-connection/poll',
+    'users.login-as': 'users/{id}/login-as',
+};
 
 /** AUTO-GENERATED — the operator route-name map (empty when the host has no operator tier). */
-export const operatorDefaults: RouteMap = {};
+export const operatorDefaults: RouteMap = {
+};

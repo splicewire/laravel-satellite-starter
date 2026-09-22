@@ -19,6 +19,7 @@ use Rushing\PermissionCascade\Contracts\EntitlementResolver;
 use Rushing\PermissionCascade\Support\CascadePolicyRegistrar;
 use Splicewire\Beam\Accounts\Contracts\AccountShellProvider;
 use Splicewire\Beam\Doctor\BeamDoctorManifest;
+use Splicewire\Beam\Ux\Frame\RouteContextPlan;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        // The public /schemas door serves schema documents at their identities. The catalog UI
+        // gets its own path through the same plan that projects console routes and navigation.
+        $this->app->bind(RouteContextPlan::class, fn (): RouteContextPlan => new RouteContextPlan(
+            resourcePaths: ['schemas' => 'schema-catalog'],
+        ));
+
         // Bind the host account-shell provider over beam-accounts' NullAccountShellProvider default,
         // so the packaged <AccountShell> renders real (neutral demo) plan/profile data OOTB.
         $this->app->bind(

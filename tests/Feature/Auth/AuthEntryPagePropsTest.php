@@ -81,7 +81,7 @@ it('declares each Fortify view as whole props with unchanged JSON', function (st
     } else {
         $drivers->shouldNotReceive('resolve');
     }
-    $demo = $seeded ? [['key' => 'owner', 'label' => 'Demo owner', 'url' => '/users/abc/op/login-as?expires=1800000000&signature=fixture']] : [];
+    $demo = $seeded ? [['key' => 'owner', 'label' => 'Demo owner', 'url' => '/users/abc/login-as?expires=1800000000&signature=fixture']] : [];
     $links = Mockery::mock(DemoLoginLinks::class);
     if ($slug === 'login') {
         // Nonsequential keys exercise the provider's existing array_values normalization.

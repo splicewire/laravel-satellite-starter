@@ -26,7 +26,7 @@ use Tests\TestCase;
  *
  * The round-trip assertions are not decoration. The very first write this host ever served exposed a
  * second, independent defect the closed gate had been hiding: `SitemapData` had no `prepare()`/
- * `project()` pair, so a create answered 200 while persisting `payload = null`, then 500'd on the
+ * `fromModel()` pair, so a create answered 200 while persisting `payload = null`, then 500'd on the
  * read back. A test that only asserted the status code would have called that a pass.
  */
 class SitemapWriteAuthorizationTest extends TestCase
@@ -85,6 +85,13 @@ class SitemapWriteAuthorizationTest extends TestCase
         $this->assertSame('Guides', SitemapRecord::findOrFail($id)->payload['label']);
 
         $this->actingAs($owner)
+            ->getJson("/frame/resources/sitemap/records/{$id}")
+            ->assertOk()
+            ->assertJsonPath('data.id', $id)
+            ->assertJsonPath('data.label', 'Guides')
+            ->assertJsonPath('data.href', '/docs/build');
+
+        $this->actingAs($owner)
             ->putJson("/frame/resources/sitemap/records/{$id}", [
                 'label' => 'Guides & Recipes',
                 'href' => '/docs/build',
@@ -92,6 +99,12 @@ class SitemapWriteAuthorizationTest extends TestCase
             ])
             ->assertOk()
             ->assertJsonPath('data.label', 'Guides & Recipes');
+
+        $this->actingAs($owner)
+            ->getJson("/frame/resources/sitemap/records/{$id}")
+            ->assertOk()
+            ->assertJsonPath('data.label', 'Guides & Recipes')
+            ->assertJsonPath('data.order', 4);
 
         $this->actingAs($owner)
             ->deleteJson("/frame/resources/sitemap/records/{$id}")

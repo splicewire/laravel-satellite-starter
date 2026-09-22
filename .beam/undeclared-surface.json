@@ -1,6 +1,6 @@
 {
     "check": "particle.undeclared-surface",
-    "count": 70,
+    "count": 69,
     "baseline": {
         "environment": "local",
         "php": "8.4",
@@ -9,12 +9,12 @@
     },
     "counts": {
         "by_tier": {
-            "guided": 56,
+            "guided": 55,
             "manual": 14
         },
         "by_origin": {
             "laravel/fortify": 24,
-            "app": 20,
+            "app": 19,
             "schemastud/laravel-frame": 8,
             "laravel/passkeys": 7,
             "inertiajs/inertia-laravel": 4,
@@ -235,17 +235,6 @@
             "tier": "guided",
             "origin": "schemastud/laravel-frame",
             "location": "schemastud/laravel-frame/src/Http/Controllers/FrameManifestController.php:38"
-        },
-        {
-            "uri": "frame/resources/sitemap",
-            "methods": [
-                "GET"
-            ],
-            "name": "frame.resources.sitemap",
-            "action": "App\\Http\\Controllers\\SitemapResourceController",
-            "tier": "guided",
-            "origin": "app",
-            "location": "app/Http/Controllers/SitemapResourceController.php:23"
         },
         {
             "uri": "frame/resources/{resource}",

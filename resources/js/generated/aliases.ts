@@ -4,3 +4,9 @@
 // Source of truth: the in-process route manifest (a RouteManifestSource).
 
 // Friendly, non-namespaced re-exports of each return DTO (the `type X = App.Data.Y` bridges).
+
+export type AuthUserData = import("./Splicewire/Beam/Accounts/Data").AuthUserData;
+export type BeamUxEntryBodyData = import("./Splicewire/Beam/Ux/Data").BeamUxEntryBodyData;
+export type EntryPublicationData = import("./Splicewire/Beam/Ux/Data").EntryPublicationData;
+export type PlatformCapabilityReadData = import("./Splicewire/Satellite/Pairing/Data").PlatformCapabilityReadData;
+export type PlatformConnectionData = import("./Splicewire/Satellite/Pairing/Data").PlatformConnectionData;

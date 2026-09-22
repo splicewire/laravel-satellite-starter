@@ -73,7 +73,7 @@ class FortifyServiceProvider extends ServiceProvider
             'canResetPassword' => Features::enabled(Features::resetPasswords()),
             'status' => $request->session()->get('status'),
             // Quick demo sign-in — the OOTB beam-accounts login-as affordance, minted by the package
-            // (`DemoLoginLinks::all()`: expiring signed `users/{id}/op/login-as` links, gated on demo
+            // (`DemoLoginLinks::all()`: expiring signed `users/{id}/login-as` links, gated on demo
             // mode). Empty unless `ACCOUNT_DEMO_LOGIN_LINKS=true`, so the demo block simply doesn't render.
             'demoAccounts' => $this->demoAccounts(),
         ])));
