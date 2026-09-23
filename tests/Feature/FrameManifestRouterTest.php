@@ -9,7 +9,13 @@ use Rushing\DataNav\Contracts\NavExpander;
 use Rushing\DataNav\Contracts\NavMatcher;
 use Rushing\DataNav\NavGate;
 use Rushing\DataNav\NavRegistry;
+use Rushing\PermissionCascade\Contracts\AccessGrant;
 use Schemastud\Frame\Http\Controllers\FrameManifestController;
+use Splicewire\Beam\Accounts\Enums\Role;
+use Splicewire\Beam\Accounts\Models\Membership;
+use Splicewire\Beam\Accounts\Models\Team;
+use Splicewire\Beam\Accounts\Sharing\AccessGrants;
+use Splicewire\Beam\Ux\Models\BeamUxEntry;
 use Tests\TestCase;
 
 /**
@@ -21,23 +27,18 @@ use Tests\TestCase;
  * frame's `FrameNavContributor` plug; what this host supplies is `config('frame.realms')`, a list it
  * spells out (`api-surface-coherence` 141/142).
  *
- * ⚠️ **Every assertion below is made on BOTH realms, and the two lists are genuinely disjoint.** A
+ * The realm comparison checks both realms and requires disjoint route lists. A
  * test that only ever asked for `tenant` would pass against a projector that ignored the realm and
  * returned every resource to everyone — which is precisely the defect these assertions exist to
  * catch, and it is invisible to a single-realm fixture.
  */
 class FrameManifestRouterTest extends TestCase
 {
-    /**
-     * ⚠️ Added 2026-09-05 with the `frame.middleware` gate. Only ONE of these five tests needs a
-     * database, and it needs it for a real reason rather than an incidental one: authenticating a
-     * principal makes the nav collector ask `viewAny`, which routes through permission-cascade and
-     * reads the `permissions` table. An unpersisted actor cannot avoid it — the gate is the point.
-     */
+    /** Real realm grants and resource visibility use persisted principals. */
     use \Illuminate\Foundation\Testing\RefreshDatabase;
 
     /**
-     * ⚠️ This one goes over HTTP, and the other three do not — deliberately, and the split matters.
+     * This test goes over HTTP; the projection tests below call the controller directly.
      *
      * `app->call()` on a controller cannot tell a MOUNTED route from an absent one, and skips
      * `config('frame.middleware')` entirely; a suite built only that way would stay green if the
@@ -57,17 +58,7 @@ class FrameManifestRouterTest extends TestCase
         $this->assertNotNull($route, 'The manifest route must be MOUNTED, not merely callable.');
         $this->assertSame(FrameManifestController::class, $route->getActionName());
 
-        // ⚠️ `actingAs` since 2026-09-05. This host now sets `frame.middleware` to
-        // `['web','auth']` (config/frame.php), because the package default `['web']` left the
-        // manifest — and Frame's whole generic CRUD socket — answering anonymous callers: a bare
-        // GET returned 200 with every nav seat and 12 resource definitions. Authenticating here is
-        // not a workaround; it is this test finally traversing the pipeline its own docblock says
-        // it exists to traverse, now that the pipeline has a gate in it.
-        //
-        // An UNPERSISTED `new User` on purpose: `auth` only asks whether a principal is present, and
-        // this test asserts the MOUNT, not what any particular actor may see. A factory would drag a
-        // database in and couple a routing assertion to a schema.
-        $response = $this->actingAs(new User)->getJson('/frame/manifest');
+        $response = $this->actingAs($this->operator())->getJson('/frame/manifest');
 
         $response->assertOk();
         $this->assertSame(
@@ -82,14 +73,15 @@ class FrameManifestRouterTest extends TestCase
     {
         $this->assertSame(
             ['resources', 'contexts', 'nav', 'routeContext'],
-            array_keys($this->manifestFor('tenant'))
+            array_keys($this->manifestFor('tenant', $this->operator()))
         );
     }
 
     public function test_it_scopes_the_router_table_to_the_realm_the_host_placed_each_resource_in(): void
     {
-        $tenant = $this->routeNames('tenant');
-        $operator = $this->routeNames('operator');
+        $actor = $this->operator();
+        $tenant = $this->routeNames('tenant', $actor);
+        $operator = $this->routeNames('operator', $actor);
 
         $this->assertContains('beam-ux-entry.index', $tenant);
         $this->assertContains('hooks.index', $tenant);
@@ -106,7 +98,7 @@ class FrameManifestRouterTest extends TestCase
 
     public function test_it_gives_a_resource_the_per_record_twin_its_own_declaration_allows(): void
     {
-        $byName = $this->byName('tenant');
+        $byName = $this->byName('tenant', $this->operator());
 
         // `editable` ⇒ an edit form.
         $this->assertSame('edit', $byName['beam-ux-entry.edit']->mounts);
@@ -135,7 +127,7 @@ class FrameManifestRouterTest extends TestCase
         app(\Splicewire\Beam\Particle\ParticleResourceRegistry::class)
             ->loadRealmMap(['tenant' => ['tokens', 'invitations']]);
 
-        $byName = $this->byName('tenant');
+        $byName = $this->byName('tenant', $this->operator());
 
         // Measuring something: the editable control in the same list still gets its twin.
         $this->assertSame('edit', $byName['beam-ux-entry.edit']->mounts);
@@ -170,20 +162,55 @@ class FrameManifestRouterTest extends TestCase
             $this->app->make(NavMatcher::class),
         ));
 
-        $manifest = $this->manifestFor('tenant');
+        $manifest = $this->manifestFor('tenant', $this->operator());
 
         $this->assertSame([], $manifest['nav']['items']);
         $this->assertNotEmpty($manifest['routeContext']);
     }
 
+    public function test_operator_resource_metadata_follows_the_current_principals_realm_grant(): void
+    {
+        $allowed = $this->manifestFor('operator', $this->operator());
+        $keys = array_map(fn ($resource): string => $resource->key, $allowed['resources']);
+
+        $this->assertContains('users', $keys);
+        $this->assertContains('teams', $keys);
+        $this->assertArrayHasKey('users', $allowed['contexts']);
+        $this->assertArrayHasKey('teams', $allowed['contexts']);
+
+        foreach ([null, User::factory()->create()] as $actor) {
+            $denied = $this->manifestFor('operator', $actor);
+
+            $this->assertSame([], $denied['resources']);
+            $this->assertSame([], $denied['contexts']);
+        }
+    }
+
+    private function operator(): User
+    {
+        $user = User::factory()->create();
+        $team = Team::create(['user_id' => $user->id, 'name' => 'Operators', 'personal_team' => false]);
+        Membership::create(['team_id' => $team->id, 'user_id' => $user->id, 'role' => Role::Owner->value]);
+        app(AccessGrants::class)->share(BeamUxEntry::rootFor('operator'), $team, AccessGrant::ABILITY_MANAGE);
+
+        return $user->fresh();
+    }
+
     /**
      * @return array<string, mixed>
      */
-    private function manifestFor(string $realm): array
+    private function manifestFor(string $realm, ?User $actor): array
     {
+        $this->app['auth']->forgetGuards();
+        if ($actor !== null) {
+            $this->actingAs($actor);
+        }
+
         $request = Request::create('/frame/manifest', 'GET');
+        $request->setUserResolver(fn () => $actor);
         $route = new RoutingRoute(['GET'], 'frame/manifest', []);
         $route->defaults('realm', $realm);
+        $route->bind($request);
         $request->setRouteResolver(fn () => $route);
         $this->app->instance('request', $request);
 
@@ -193,22 +220,22 @@ class FrameManifestRouterTest extends TestCase
     /**
      * @return array<int, string>
      */
-    private function routeNames(string $realm): array
+    private function routeNames(string $realm, User $actor): array
     {
         return array_map(
             fn ($entry): string => $entry->routeName,
-            $this->manifestFor($realm)['routeContext']
+            $this->manifestFor($realm, $actor)['routeContext']
         );
     }
 
     /**
      * @return array<string, \Schemastud\Frame\Registry\RouteContextEntry>
      */
-    private function byName(string $realm): array
+    private function byName(string $realm, User $actor): array
     {
         $byName = [];
 
-        foreach ($this->manifestFor($realm)['routeContext'] as $entry) {
+        foreach ($this->manifestFor($realm, $actor)['routeContext'] as $entry) {
             $byName[$entry->routeName] = $entry;
         }
 
