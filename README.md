@@ -53,6 +53,9 @@ scripts/js-overlay status
 scripts/js-overlay off               # restore both as committed, pnpm install --frozen-lockfile
 ```
 
+`js.local.json.dist` links the family packages the replay links today. To link another, add a `dep:` line (a
+direct dependency) or an `override:` line (a `pnpm.overrides` pin) to your `js.local.json`.
+
 Run `off` before a pull, checkout or rebase that touches `package.json` or `pnpm-lock.yaml`, then `on` again.
 While it is on, a real dependency change is hidden too, so `off` (and a repeat `on`) refuses when either file
 differs from what `on` left beyond its own `link:` entries, and names what differs: redo that change after
