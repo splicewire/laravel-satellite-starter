@@ -35,13 +35,30 @@ Never commit a `composer.lock` resolved through the overlay. Family packages are
 `dev-main`, so the committed lock must be regenerated with no `composer.local.json` present, after the
 package commits it depends on are pushed: `grep -c '"type": "path"' composer.lock` must print `0`.
 
-The JS side has no overlay file. Family packages (`@splicewire/*`, `@schemastud/*`) resolve from npm at
+Family packages (`@splicewire/*`, `@schemastud/*`) resolve from npm at
 exact versions, in `dependencies` and, where a transitive range must be pinned, `pnpm.overrides`. A
 `link:` specifier into `~/Workspaces/js/packages/**` is local co-dev only: never commit it or the
 `pnpm-lock.yaml` it writes, because a runner has no `~/Workspaces/js` and `pnpm install` fails there.
 `vite.config.ts` dedupes React and friends for that linked case. To ship a JS package change, publish
 the package, bump the exact version here, and regenerate the lock: `grep -c 'link:' pnpm-lock.yaml`
 must print `0`.
+
+The JS twin is `scripts/js-overlay`. It links your local family checkouts through `package.json` itself,
+because pnpm 9 reads `pnpm.overrides` only from there:
+
+```bash
+cp js.local.json.dist js.local.json  # gitignored active copy; edit the paths for this machine
+scripts/js-overlay on                # link:, pnpm install, hide package.json and the lock from git
+scripts/js-overlay status
+scripts/js-overlay off               # restore both as committed, pnpm install --frozen-lockfile
+```
+
+Run `off` before a pull, checkout or rebase that touches `package.json` or `pnpm-lock.yaml`, then `on` again.
+While it is on, a real dependency change is hidden too, so `off` (and a repeat `on`) refuses when either file
+differs from what `on` left beyond its own `link:` entries, and names what differs: redo that change after
+`off`. If only the lock moved because a linked package's own dependencies changed, choose explicitly:
+`on --accept-lock` or `off --discard-lock`. The hiding is `git update-index --skip-worktree`, which git's FAQ
+says is not meant for this; that caveat is accepted knowingly, with the guard.
 
 ## Install (satellite tier — cascades to beam)
 

@@ -1,0 +1,14 @@
+{
+    "links": [
+        "dep:@splicewire/beam-inertia=~/Workspaces/js/packages/beam/beam-inertia",
+        "override:@splicewire/beam-inertia=~/Workspaces/js/packages/beam/beam-inertia",
+        "dep:@splicewire/beam-ux=~/Workspaces/js/packages/beam/beam-ux",
+        "override:@splicewire/beam-ux=~/Workspaces/js/packages/beam/beam-ux",
+        "dep:@splicewire/beam-accounts=~/Workspaces/js/packages/beam/beam-accounts",
+        "dep:@schemastud/seam=~/Workspaces/js/packages/schemastud/seam",
+        "override:@schemastud/seam=~/Workspaces/js/packages/schemastud/seam",
+        "dep:@schemastud/frame=~/Workspaces/js/packages/schemastud/frame",
+        "override:@schemastud/frame=~/Workspaces/js/packages/schemastud/frame",
+        "override:@splicewire/beam-resources=~/Workspaces/js/packages/beam/beam-resources"
+    ]
+}
