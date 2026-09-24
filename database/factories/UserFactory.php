@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Splicewire\Beam\Accounts\Enums\Role;
 use Splicewire\Beam\Accounts\Teams\TeamProvisioner;
 use Splicewire\Beam\Ux\Models\BeamUxEntry;
 
@@ -57,6 +58,23 @@ class UserFactory extends Factory
         return $this->afterCreating(function (User $user): void {
             BeamUxEntry::rootFor('operator');
             app(TeamProvisioner::class)->personalTeamWithFullReachFor($user);
+        });
+    }
+
+    /**
+     * Indicate that the user is an ordinary team MEMBER, as an accepted invitation makes one:
+     * `Role::Member` on another user's team, with that team current. beam-accounts' `RolePermissions`
+     * gives the member role `view` on every cascade-policed model, so this is the least-privileged
+     * principal the tenant realm is written for. A bare `create()` belongs to no team and holds no
+     * role, so it is refused every cascade-policed read; that is the posture of a user nobody has
+     * admitted, not of a member.
+     */
+    public function teamMember(): static
+    {
+        return $this->afterCreating(function (User $user): void {
+            $team = app(TeamProvisioner::class)->personalTeamFor(User::factory()->create());
+            app(TeamProvisioner::class)->addMember($user, $team, Role::Member);
+            $user->switchTeam($team);
         });
     }
 

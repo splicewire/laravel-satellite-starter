@@ -247,10 +247,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     $hrefs = rescue(function (): array {
         $paths = array_values(app(Splicewire\Beam\Ux\Frame\RouteContextProjector::class)->hrefs('tenant'));
 
-        $nav = app(Splicewire\Beam\Ux\Frame\FrameNavContribution::class)->contributeNav('tenant');
+        // Every seat DECLARED for the realm, not the seats some viewer is shown. Routes are registered
+        // once, with no actor, so the gated nav projection here was a GUEST's nav: its section hrefs
+        // mounted only while a resource with no read boundary kept a seat populated for everyone.
+        // Mounting a seat's path serves the console shell; what it lists is the read boundary's call.
         $sections = array_map(
-            fn (array $item): ?string => $item['href'] ?? null,
-            $nav['nav']['items'] ?? []
+            fn (Splicewire\Beam\Nav\NavSection $seat): string => $seat->href,
+            app(Splicewire\Beam\Nav\NavSectionRegistry::class)->for('tenant')
         );
 
         return array_filter([...$paths, ...$sections]);
@@ -316,10 +319,13 @@ Route::middleware(['auth', 'verified', 'can:entitlement:os.operate'])
         $hrefs = rescue(function (): array {
             $paths = array_values(app(Splicewire\Beam\Ux\Frame\RouteContextProjector::class)->hrefs('operator'));
 
-            $nav = app(Splicewire\Beam\Ux\Frame\FrameNavContribution::class)->contributeNav('operator');
+            // Every seat DECLARED for the realm, not the seats some viewer is shown. Routes are registered
+            // once, with no actor, so the gated nav projection here was a GUEST's nav: its section hrefs
+            // mounted only while a resource with no read boundary kept a seat populated for everyone.
+            // Mounting a seat's path serves the console shell; what it lists is the read boundary's call.
             $sections = array_map(
-                fn (array $item): ?string => $item['href'] ?? null,
-                $nav['nav']['items'] ?? []
+                fn (Splicewire\Beam\Nav\NavSection $seat): string => $seat->href,
+                app(Splicewire\Beam\Nav\NavSectionRegistry::class)->for('operator')
             );
 
             return array_filter([...$paths, ...$sections]);

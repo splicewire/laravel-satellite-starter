@@ -253,7 +253,9 @@ class RealmDashboardTest extends TestCase
      */
     public function test_the_account_home_is_the_tenant_realms_dashboard_leaf(): void
     {
-        $member = User::factory()->create();
+        // A team member: the rail and the cards offer only what the viewer can read, and a user in no
+        // team holds no role to read with.
+        $member = User::factory()->teamMember()->create();
 
         $this->actingAs($member)->get('/dashboard')
             ->assertOk()
