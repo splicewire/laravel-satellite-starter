@@ -2,6 +2,16 @@
 
 @import 'tw-animate-css';
 
+/*
+ * The beam tier's token layer (`@splicewire/beam-ux/theme.css`, beam ADR 0002): every `--beam-*` colour
+ * the beam chrome reads, the status semantics shadcn lacks (`--signal`, `--warning`,
+ * `--warning-foreground`, `--info`) and their Tailwind colours, light and `.dark`. Without it the beam
+ * chrome here rendered with unset variables and `text-warning-foreground` was never generated. To
+ * rebrand a key, re-declare it AFTER this import: `:root { --beam-green: … }` for light, `.dark { … }`
+ * for dark.
+ */
+@import '@splicewire/beam-ux/theme.css';
+
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
