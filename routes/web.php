@@ -102,9 +102,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // ── The ACCOUNT-REALM settings surfaces: API tokens and Team ─────────────────────────────────
     //
-    // Two more `account/*` pages, so app.tsx's layout resolution frames them in the same
-    // <AccountShell> `/dashboard` gets, and their nav seats come from the SAME place its does —
-    // `resources/beam-ux/nav.yml`'s `account` realm, seeded into the account sitemap. That is the
+    // Two more `account/*` pages, so app.tsx's layout resolution frames them in <AccountShell>, and
+    // their nav seats come from `resources/beam-ux/nav.yml`'s `account` realm, seeded into the account
+    // sitemap. (`/dashboard` no longer shares that shell: since de4f17b it renders `frame/console`
+    // under AppLayout, whose sidebar lists the same account seats.) That is the
     // whole reason these are account-realm pages rather than `settings/*` ones: the packaged
     // SettingsLayout's sub-nav (Profile / Security / Appearance) is a hardcoded list inside
     // `@splicewire/beam-inertia`, so a `settings/tokens` page would have been reachable only by URL,
