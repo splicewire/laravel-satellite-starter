@@ -34,3 +34,8 @@ export default function PrototypeHost() {
 
     return <RouterProvider router={router} />;
 }
+
+// The gallery is self-chromed. An empty layout takes precedence over the host's default layout
+// callback, so the host's layout code never has to name this dev-only page (a name that would ship in
+// every production bundle and fail beam-verify-prototype-boundary).
+PrototypeHost.layout = [] as const;
