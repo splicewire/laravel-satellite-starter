@@ -226,6 +226,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('os', 'os')->middleware('can:entitlement:os.enter')->name('os.shell');
 });
 
+// ── Getting onto a team: `teams.create` and the emailed `invitations.accept` link ───────────────────
+//
+// `splicewire/laravel-beam-accounts`' self-service team creation (the `teams.create` page + the
+// `CreateTeam` op at `teams.store`) and invitation acceptance (the signed `invitations.accept` page every
+// sent invitation now emails + the `RedeemInvitation` op at `invitations.redeem`). A fresh registration
+// here provisions NO team, so these are how a new user gets onto one; `DashboardWelcome` offers
+// "Create a team" and mentions invitation links only because these two names exist.
+//
+// OUTSIDE the `auth` group above on purpose: the accept page must open for a guest, who registers or
+// logs in from it and is returned to the link (it is stored as the intended URL). The three signed-in
+// routes carry the same `auth` + `verified` as the group; the guest page adds nothing to `web`.
+// Mounted here, ahead of the frame console's `{frameRoute}` and the entry renderer's catch-alls.
+Route::splicewireTeamRoutes(middleware: ['auth', 'verified'], guestMiddleware: []);
+
 require __DIR__.'/settings.php';
 
 // ── The TENANT FRAME CONSOLE mount ──────────────────────────────────────────────────────────────────

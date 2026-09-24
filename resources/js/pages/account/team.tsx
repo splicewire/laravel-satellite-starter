@@ -50,7 +50,11 @@ export default function AccountTeam() {
             <Head title="Team" />
             <div className="p-6">
                 <TeamProvider services={services}>
-                    <TeamPage currentUserId={currentUserId} />
+                    {/* `teams.create` (splicewire/laravel-beam-accounts `routes/teams.php`). */}
+                    <TeamPage
+                        currentUserId={currentUserId}
+                        createTeamHref="/teams/create"
+                    />
                 </TeamProvider>
             </div>
         </>
