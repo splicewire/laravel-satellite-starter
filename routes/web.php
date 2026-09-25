@@ -82,6 +82,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Particle::ops('beam-ux-entries', 'beam-ux-entry', 'versions');
     Particle::ops('beam-ux-entries', 'beam-ux-entry', 'restore');
 
+    // `clear-body` removes a page's content: it unbinds the entry's particle (its history is kept and
+    // gains a `cleared` version), deletes the placed mirror file and the compiled artifact, and the page
+    // reads as unauthored again. Saving an empty body is NOT this — that is an authored, published empty
+    // document. Same gates as the four above: this group plus the op's own `ux.author` (the publish gate).
+    Particle::ops('beam-ux-entries', 'beam-ux-entry', 'clear-body');
+
     // The authed home IS the OOTB account realm, and it is the TENANT realm's dashboard leaf. Fortify
     // redirects login here (`config/fortify.php` home => /dashboard).
     //

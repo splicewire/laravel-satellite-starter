@@ -22,6 +22,16 @@ export function useBeamUxEntryBody(params: Record<string, string | number>, opti
     });
 }
 
+export function useBeamUxEntryClearBody(options?: MutationOpts<import("../Splicewire/Beam/Ux/Data").EntryPublicationData>) {
+    return useMutation({
+        mutationFn: async (vars: MutationVars) => {
+            const res = await api.post(route('beam-ux-entry.clear-body', vars.params ?? {}), vars.body);
+            return res.data.data as import("../Splicewire/Beam/Ux/Data").EntryPublicationData;
+        },
+        ...options,
+    });
+}
+
 export function useBeamUxEntryPublish(options?: MutationOpts<import("../Splicewire/Beam/Ux/Data").EntryPublicationData>) {
     return useMutation({
         mutationFn: async (vars: MutationVars) => {

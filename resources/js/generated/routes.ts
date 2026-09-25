@@ -9,6 +9,7 @@ export type RouteMap = Record<string, string>;
 /** AUTO-GENERATED — the tenant route-name map. */
 export const defaults: RouteMap = {
     'beam-ux-entry.body': 'beam-ux-entries/{id}/body',
+    'beam-ux-entry.clear-body': 'beam-ux-entries/{id}/clear-body',
     'beam-ux-entry.publish': 'beam-ux-entries/{id}/publish',
     'beam-ux-entry.restore': 'beam-ux-entries/{id}/restore',
     'beam-ux-entry.save-body': 'beam-ux-entries/{id}/save-body',
