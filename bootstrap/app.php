@@ -7,6 +7,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
 use Illuminate\Http\Request;
+use Splicewire\Beam\Accounts\Http\ErrorPages;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -45,4 +46,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
+
+        // A browser's 403/404/419/500/503 renders the packaged `error` page (@splicewire/beam-inertia)
+        // in the account shell (signed in) or the site shell (guest), with the original status. Every
+        // JSON response above is left exactly as it is, and a 500 keeps the debug page while
+        // APP_DEBUG is on. See splicewire/laravel-beam-accounts `Http/ErrorPages.php`.
+        ErrorPages::register($exceptions);
     })->create();
