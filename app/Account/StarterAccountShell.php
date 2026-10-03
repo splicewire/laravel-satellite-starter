@@ -3,6 +3,7 @@
 namespace App\Account;
 
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Str;
 use Splicewire\Beam\Accounts\Contracts\AccountShellProvider;
 use Splicewire\Beam\Accounts\Data\AccountData;
 use Splicewire\Beam\Accounts\Data\AccountShellData;
@@ -42,10 +43,7 @@ class StarterAccountShell implements AccountShellProvider
             profile: new ProfileData(
                 handle: $handle,
                 avatar: $this->initials($name),
-                metrics: [
-                    new MetricData(label: 'PROJECTS', value: '0'),
-                    new MetricData(label: 'MEMBERS', value: '1'),
-                ],
+                metrics: self::metrics(),
             ),
             account: new AccountData(
                 email: $email,
@@ -53,6 +51,23 @@ class StarterAccountShell implements AccountShellProvider
             ),
             upsells: [],
         );
+    }
+
+    /**
+     * The profile's headline metrics: demo values (a fresh account is a team of one with no projects). Each label is
+     * pluralised by its own count, so the shell never reads "1 MEMBERS" (launch ticket 05 item 6).
+     *
+     * @return list<MetricData>
+     */
+    public static function metrics(): array
+    {
+        $projects = 0;
+        $members = 1;
+
+        return [
+            new MetricData(label: Str::plural('PROJECT', $projects), value: (string) $projects),
+            new MetricData(label: Str::plural('MEMBER', $members), value: (string) $members),
+        ];
     }
 
     private function initials(string $name): string
