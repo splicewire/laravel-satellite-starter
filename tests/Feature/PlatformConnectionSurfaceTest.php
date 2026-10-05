@@ -11,6 +11,7 @@ use Splicewire\Beam\Accounts\Models\Team;
 use Splicewire\Beam\Accounts\Sharing\AccessGrants;
 use Splicewire\Beam\Ux\Models\BeamUxEntry;
 use Splicewire\Satellite\Pairing\Data\PlatformConnectionData;
+use Splicewire\Satellite\Pairing\Data\PlatformConnectionHealthData;
 use Splicewire\Satellite\Pairing\PlatformConnection;
 use Splicewire\Satellite\Pairing\PlatformConnectionState;
 use Tests\TestCase;
@@ -68,12 +69,17 @@ class PlatformConnectionSurfaceTest extends TestCase
                     centralUrl: 'https://tower.test',
                 );
             }
+
+            public function check(): PlatformConnectionHealthData
+            {
+                return new PlatformConnectionHealthData(ok: true, status: 200, checkedAt: '2026-10-05T04:00:00+00:00');
+            }
         });
     }
 
     public function test_every_operation_the_screen_drives_is_actually_mounted(): void
     {
-        foreach (['connect', 'poll', 'invoke-capability', 'disconnect'] as $op) {
+        foreach (['connect', 'poll', 'check', 'disconnect'] as $op) {
             $this->assertTrue(
                 \Illuminate\Support\Facades\Route::has("platform-connection.{$op}"),
                 "platform-connection.{$op} is not mounted; the screen's [{$op}] control would 404."
@@ -104,7 +110,7 @@ class PlatformConnectionSurfaceTest extends TestCase
                 // Read from the route table, so the screen's buttons address the real mount.
                 ->where('endpoints.connect', '/operator/platform-connection/connect')
                 ->where('endpoints.poll', '/operator/platform-connection/poll')
-                ->where('endpoints.invokeCapability', '/operator/platform-connection/invoke-capability')
+                ->where('endpoints.check', '/operator/platform-connection/check')
                 ->where('endpoints.disconnect', '/operator/platform-connection/disconnect')
             );
     }
@@ -122,7 +128,7 @@ class PlatformConnectionSurfaceTest extends TestCase
     {
         $member = User::factory()->create();
 
-        foreach (['connect', 'poll', 'invoke-capability', 'disconnect'] as $op) {
+        foreach (['connect', 'poll', 'check', 'disconnect'] as $op) {
             $this->actingAs($member)
                 ->postJson("/operator/platform-connection/{$op}", [])
                 ->assertForbidden();
@@ -148,7 +154,7 @@ class PlatformConnectionSurfaceTest extends TestCase
 
         $tile = $tiles->firstWhere('href', '/operator/platform-connection');
         $this->assertNotNull($tile, 'The operator dashboard offers no tile for the platform connection screen.');
-        $this->assertSame('Platform connection', $tile['label']);
+        $this->assertSame('Splicewire connection', $tile['label']);
     }
 
     public function test_the_operator_rail_carries_a_door_to_the_screen_and_it_opens(): void
@@ -163,18 +169,32 @@ class PlatformConnectionSurfaceTest extends TestCase
         // routeContext cannot bind would be pruned from the rail.
         $row = $children->firstWhere('href', '/operator/platform-connection');
         $this->assertNotNull($row, 'The operator rail does not link the platform connection screen.');
-        $this->assertSame('Platform connection', $row['title']);
+        $this->assertSame('Splicewire connection', $row['title']);
         // nav.yml's `icon: link`, which beam-inertia maps; a row without one renders a neutral dot.
         $this->assertSame('link', $row['icon'] ?? null);
 
         $this->actingAs($operator)->get($row['href'])->assertOk();
     }
 
-    public function test_the_capability_operation_refuses_an_unknown_surface(): void
+    public function test_an_operator_checks_the_connection_and_gets_one_health_line(): void
     {
+        // ux-walkthrough UX-04: no surface to choose and no capability list in product. The facet listing is the
+        // developer command `splicewire:connect --check`.
+        $this->stubConnection(PlatformConnectionState::Paired);
+
         $this->actingAs($this->operator())
-            ->postJson('/operator/platform-connection/invoke-capability', ['surface' => 'not-a-surface'])
-            ->assertStatus(422);
+            ->postJson('/operator/platform-connection/check')
+            ->assertOk()
+            ->assertJsonPath('data', ['ok' => true, 'status' => 200, 'checkedAt' => '2026-10-05T04:00:00+00:00', 'error' => null]);
+    }
+
+    public function test_the_capability_probe_is_gone_from_the_product_path(): void
+    {
+        $response = $this->actingAs($this->operator())
+            ->postJson('/operator/platform-connection/invoke-capability', ['surface' => 'circuit-node']);
+
+        // 405, not 404: the frame console's GET catch-all `operator/{frameRoute}` matches the path. No POST op is mounted.
+        $this->assertContains($response->status(), [404, 405]);
     }
 
     public function test_the_pairing_label_is_constrained_before_it_reaches_the_tower(): void

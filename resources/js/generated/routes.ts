@@ -15,9 +15,9 @@ export const defaults: RouteMap = {
     'beam-ux-entry.save-body': 'beam-ux-entries/{id}/save-body',
     'beam-ux-entry.save-draft': 'beam-ux-entries/{id}/save-draft',
     'beam-ux-entry.versions': 'beam-ux-entries/{id}/versions',
+    'platform-connection.check': 'operator/platform-connection/check',
     'platform-connection.connect': 'operator/platform-connection/connect',
     'platform-connection.disconnect': 'operator/platform-connection/disconnect',
-    'platform-connection.invoke-capability': 'operator/platform-connection/invoke-capability',
     'platform-connection.poll': 'operator/platform-connection/poll',
     'users.login-as': 'users/{id}/login-as',
 };

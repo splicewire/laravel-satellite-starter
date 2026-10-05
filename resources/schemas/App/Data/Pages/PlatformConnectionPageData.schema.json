@@ -199,7 +199,7 @@
                 "poll": {
                     "type": "string"
                 },
-                "invokeCapability": {
+                "check": {
                     "type": "string"
                 },
                 "disconnect": {
@@ -209,7 +209,7 @@
             "required": [
                 "connect",
                 "poll",
-                "invokeCapability",
+                "check",
                 "disconnect"
             ]
         }

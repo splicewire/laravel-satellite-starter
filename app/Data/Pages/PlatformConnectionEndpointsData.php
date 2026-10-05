@@ -26,7 +26,7 @@ final class PlatformConnectionEndpointsData extends Data
     public function __construct(
         public string $connect,
         public string $poll,
-        public string $invokeCapability,
+        public string $check,
         public string $disconnect,
     ) {}
 
@@ -35,7 +35,7 @@ final class PlatformConnectionEndpointsData extends Data
         return new self(
             connect: route('platform-connection.connect', absolute: false),
             poll: route('platform-connection.poll', absolute: false),
-            invokeCapability: route('platform-connection.invoke-capability', absolute: false),
+            check: route('platform-connection.check', absolute: false),
             disconnect: route('platform-connection.disconnect', absolute: false),
         );
     }
@@ -43,7 +43,7 @@ final class PlatformConnectionEndpointsData extends Data
     /** Whether every operation this screen drives is actually mounted at this host. */
     public static function mounted(): bool
     {
-        foreach (['connect', 'poll', 'invoke-capability', 'disconnect'] as $op) {
+        foreach (['connect', 'poll', 'check', 'disconnect'] as $op) {
             if (! Route::has("platform-connection.{$op}")) {
                 return false;
             }

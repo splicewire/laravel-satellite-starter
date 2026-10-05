@@ -8,5 +8,5 @@
 export type AuthUserData = import("./Splicewire/Beam/Accounts/Data").AuthUserData;
 export type BeamUxEntryBodyData = import("./Splicewire/Beam/Ux/Data").BeamUxEntryBodyData;
 export type EntryPublicationData = import("./Splicewire/Beam/Ux/Data").EntryPublicationData;
-export type PlatformCapabilityReadData = import("./Splicewire/Satellite/Pairing/Data").PlatformCapabilityReadData;
 export type PlatformConnectionData = import("./Splicewire/Satellite/Pairing/Data").PlatformConnectionData;
+export type PlatformConnectionHealthData = import("./Splicewire/Satellite/Pairing/Data").PlatformConnectionHealthData;

@@ -10,6 +10,16 @@ import { route } from '@/lib/routes';
 type MutationVars = { params?: Record<string, string | number>; body?: unknown };
 type MutationOpts<T> = Omit<Partial<UseMutationOptions<T, Error, MutationVars>>, 'mutationFn'>;
 
+export function usePlatformConnectionCheck(options?: MutationOpts<import("../Splicewire/Satellite/Pairing/Data").PlatformConnectionHealthData>) {
+    return useMutation({
+        mutationFn: async (vars: MutationVars) => {
+            const res = await api.post(route('platform-connection.check'), vars.body);
+            return res.data.data as import("../Splicewire/Satellite/Pairing/Data").PlatformConnectionHealthData;
+        },
+        ...options,
+    });
+}
+
 export function usePlatformConnectionConnect(options?: MutationOpts<import("../Splicewire/Satellite/Pairing/Data").PlatformConnectionData>) {
     return useMutation({
         mutationFn: async (vars: MutationVars) => {
@@ -25,16 +35,6 @@ export function usePlatformConnectionDisconnect(options?: MutationOpts<import(".
         mutationFn: async (vars: MutationVars) => {
             const res = await api.post(route('platform-connection.disconnect'), vars.body);
             return res.data.data as import("../Splicewire/Satellite/Pairing/Data").PlatformConnectionData;
-        },
-        ...options,
-    });
-}
-
-export function usePlatformConnectionInvokeCapability(options?: MutationOpts<import("../Splicewire/Satellite/Pairing/Data").PlatformCapabilityReadData>) {
-    return useMutation({
-        mutationFn: async (vars: MutationVars) => {
-            const res = await api.post(route('platform-connection.invoke-capability'), vars.body);
-            return res.data.data as import("../Splicewire/Satellite/Pairing/Data").PlatformCapabilityReadData;
         },
         ...options,
     });

@@ -99,7 +99,7 @@ operator-seat:
 # @splicewire/beam-inertia's icon map; without it the row renders a neutral dot. ux:seed-nav ignores it.
 operator-platform-connection:
   segment: /operator/platform-connection
-  title: Platform connection
+  title: Splicewire connection
   type: page
   realm: operator
   icon: link
