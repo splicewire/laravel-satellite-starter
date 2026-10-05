@@ -38,8 +38,6 @@ class HostIaSeamTest extends TestCase
             'T5 nav.yml:operator-seat realm=account' => 'UX-12b: account rows move under the user realm at /settings/*',
             'T5 nav.yml:settings-profile realm=account' => 'UX-12b: account rows move under the user realm at /settings/*',
             'T5 nav.yml:tenant-console realm=account' => 'UX-12b: account rows move under the user realm at /settings/*',
-            'T6 built public/build Beam Starter' => 'UX-03: BrandData and the starter-template residue',
-            'T6 built public/build react-starter-kit' => 'UX-03: BrandData and the starter-template residue',
             'T6 source node_modules/@splicewire/beam-inertia/src/layouts/site-layout.tsx href="/operator"' => 'UX-12a: the site-header realm links become RealmSwitcher',
         ];
     }
