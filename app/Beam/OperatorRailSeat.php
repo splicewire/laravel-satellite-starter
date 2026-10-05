@@ -6,6 +6,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Str;
 use Schemastud\Frame\Contracts\ResourceRegistry;
 use Splicewire\Beam\Dashboard\RealmDashboard;
+use Splicewire\Beam\Nav\NavAudience;
 use Splicewire\Beam\Nav\NavSection;
 use Splicewire\Beam\Nav\NavSectionRegistry;
 use Splicewire\Beam\Particle\ListRouteName;
@@ -95,6 +96,7 @@ final class OperatorRailSeat
                 order: 10,
                 entitlement: ['os.operate'],
                 permission: null,
+                audience: NavAudience::Product,
                 static: $rows,
             ),
             by: 'app',
