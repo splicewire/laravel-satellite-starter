@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Middleware;
 use Rushing\DataNav\NavTree;
+use Rushing\Popcorn\Registries\Exceptions\RegistryMiss;
 use Schemastud\Frame\Realm\RealmDefinition;
 use Splicewire\Beam\Accounts\Contracts\AccountShellProvider;
 use Splicewire\Beam\Accounts\Data\AccountShellData;
@@ -16,6 +17,7 @@ use Splicewire\Beam\Realm\RealmManifestProjector;
 use Splicewire\Beam\Ia\HostIa;
 use Splicewire\Beam\Realm\RealmRegistry;
 use Splicewire\Beam\Ux\Containment\NavProjector;
+use Splicewire\Beam\Ux\Ia\IaInvariants;
 use Splicewire\Beam\Ux\Theme\ThemeResolver;
 use Throwable;
 
@@ -152,10 +154,22 @@ class HandleInertiaRequests extends Middleware
         }
 
         try {
-            return $this->withoutUnentitledRealmSeats(app(NavProjector::class)->project('account'));
-        } catch (Throwable) {
+            $tree = $this->withoutUnentitledRealmSeats(app(NavProjector::class)->project('account'));
+        } catch (RegistryMiss) {
+            // A realm or navigation this host has not registered: an absence, not a fatal. Anything else surfaces.
             return NavTree::make([]);
         }
+
+        // UX-06 (M5): the account rail runs the IA invariants, read as the tenant-side rail it renders. Its edges into the
+        // operator and user realms are UX-12b's listed exception (ratchet `T2 I1 nav.yml:operator-seat`): until the realm
+        // switcher (UX-12a) lands, the operator-seat row is the operator realm's only door. Remove the crossings when
+        // UX-12a/12b land. Every other breach throws, I4 included, outside production; in production it is reported at
+        // error level, because route mounting there can differ from where it was built. The pruned array enforce() returns
+        // is deliberately NOT used here: this rail is a NavTree, and in production it renders as it always has, breaking
+        // row included (lead 19:49Z), while the frame rails, which are arrays, are pruned by the decorator.
+        app(IaInvariants::class)->enforce('tenant', $tree->toArray(), crossings: ['operator', 'user']);
+
+        return $tree;
     }
 
     /**
