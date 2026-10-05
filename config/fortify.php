@@ -167,9 +167,8 @@ return [
     */
 
     'features' => [
-        /* @chisel-registration */
-        Features::registration(),
-        /* @end-chisel-registration */
+        // Registration is not listed here: beam-accounts adds it from the declared door (config/beam/accounts.php
+        // `doors.registration`, ACCOUNT_REGISTRATION), so a closed door mounts no route.
         Features::resetPasswords(),
         /* @chisel-email-verification */
         Features::emailVerification(),

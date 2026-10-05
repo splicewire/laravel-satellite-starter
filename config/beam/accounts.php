@@ -34,6 +34,19 @@ return [
     // routes/web.php mounts it explicitly.
     'register_routes' => false,
 
+    // Who may become a user (purchase-walkthrough M10, BUY-05; owner ruling 2026-10-05, option (a)): registration is
+    // CLOSED unless ACCOUNT_REGISTRATION=open. A closed door mounts no route, so POST /register 404s. Invitation claims
+    // are their own door. Declared in full because mergeConfigFrom is shallow at this level.
+    'doors' => [
+        'registration' => env('ACCOUNT_REGISTRATION', 'closed'),
+        'oauth' => [
+            'providers' => [],
+            'create' => 'never',
+            'domains' => [],
+        ],
+        'operator' => true,
+    ],
+
     // Entitlement bundles (Frame OS ADR-0013 §3). The DefaultEntitlementResolver grants a STAFF principal
     // the `staff` bundle below — the operator/OS/authoring capabilities — so /operator + /os resolve OOTB
     // for the seeded staff user. Staff is NOT a flag: there is no `is_staff` column any more (retired,

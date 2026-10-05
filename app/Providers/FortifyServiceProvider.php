@@ -4,7 +4,6 @@ namespace App\Providers;
 
 /* @chisel-registration */
 
-use App\Actions\Fortify\CreateNewUser;
 /* @end-chisel-registration */
 use App\Actions\Fortify\ResetUserPassword;
 use App\Beam\EntryBody;
@@ -48,9 +47,7 @@ class FortifyServiceProvider extends ServiceProvider
     private function configureActions(): void
     {
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
-        /* @chisel-registration */
-        Fortify::createUsersUsing(CreateNewUser::class);
-        /* @end-chisel-registration */
+        // Registration uses beam-accounts' door-checked CreateNewUser (BUY-05); a host extends it, never copies it.
     }
 
     /**

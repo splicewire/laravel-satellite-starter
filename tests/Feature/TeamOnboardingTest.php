@@ -24,6 +24,9 @@ class TeamOnboardingTest extends TestCase
 {
     use RefreshDatabase;
 
+    /** Registration is closed by default (BUY-05); a new invitee signs up through the registration door until the claim door (BUY-11) lets them in without it. */
+    protected ?string $accountRegistration = 'open';
+
     public function test_the_four_onboarding_routes_are_mounted_by_name()
     {
         foreach (['teams.create', 'teams.store', 'invitations.accept', 'invitations.redeem'] as $name) {

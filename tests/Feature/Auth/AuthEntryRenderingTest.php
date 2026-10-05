@@ -22,6 +22,9 @@ class AuthEntryRenderingTest extends TestCase
 {
     use RefreshDatabase;
 
+    /** Registration is closed by default (BUY-05); the register page renders only behind an open door. */
+    protected ?string $accountRegistration = 'open';
+
     public function test_login_renders_the_auth_entry_page_with_the_login_slug(): void
     {
         $this->get(route('login'))
