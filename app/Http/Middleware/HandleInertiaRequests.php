@@ -13,6 +13,7 @@ use Splicewire\Beam\Accounts\Data\AccountShellData;
 use Splicewire\Beam\Brand\Brand;
 use Splicewire\Beam\Entitlements\CanMapBuilder;
 use Splicewire\Beam\Realm\RealmManifestProjector;
+use Splicewire\Beam\Ia\HostIa;
 use Splicewire\Beam\Realm\RealmRegistry;
 use Splicewire\Beam\Ux\Containment\NavProjector;
 use Splicewire\Beam\Ux\Theme\ThemeResolver;
@@ -53,6 +54,8 @@ class HandleInertiaRequests extends Middleware
             'name' => config('app.name'),
             // The install's brand (ux-walkthrough M8, IA-14), through the resolver: the shell renders it and spells none.
             'brand' => Brand::for($request),
+            // The host's IA (ux-walkthrough M2): realm labels, homes, the current realm and Back, from one projection.
+            'realms' => fn () => app(HostIa::class)->realms($request->user(), '/'.ltrim($request->path(), '/')),
             'auth' => [
                 'user' => $request->user(),
                 // Drives the in-place authoring chrome gate (only a site admin sees the edit UI).
