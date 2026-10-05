@@ -99,14 +99,25 @@ class FrameSocketRealmAuthorizationTest extends TestCase
      * The other half, and the one a too-broad gate would break: the tenant realm declares no gate,
      * so an ordinary member keeps reading its resources exactly as before — scoped by their own
      * row-level scope, which is what `G1-BEAM-SCOPE-ISOLATION` proves separately.
+     *
+     * A member is `teamMember()`, not a bare `create()`: a bare user belongs to no team, and since the
+     * list read asks the bound policy's viewAny (launch security row 51a71469) it is refused the list
+     * the way it was always refused a single row.
      */
     public function test_a_tenant_realm_resource_is_unchanged_for_an_ordinary_member(): void
     {
-        $member = User::factory()->create();
+        $member = User::factory()->teamMember()->create();
 
         $this->actingAs($member)
             ->getJson('/frame/resources/beam-ux-entry')
             ->assertOk();
+    }
+
+    public function test_a_user_no_team_admitted_is_refused_the_tenant_realm_list(): void
+    {
+        $this->actingAs(User::factory()->create())
+            ->getJson('/frame/resources/beam-ux-entry')
+            ->assertForbidden();
     }
 
     /** An anonymous caller is still refused by `frame.middleware`, which this does not replace. */
