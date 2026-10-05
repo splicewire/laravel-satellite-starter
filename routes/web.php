@@ -1,5 +1,7 @@
 <?php
 
+use Splicewire\Beam\Ia\Side;
+use Splicewire\Beam\Ia\Sides;
 use App\Data\Pages\EntryPageData;
 use App\Data\Pages\FrameConsolePageData;
 use App\Data\Pages\PlatformConnectionEndpointsData;
@@ -203,13 +205,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // the round trip that makes this screen honest: a stored credential that has been archived at
     // the tower is byte-identical here, so "paired" without a probe is a claim the satellite cannot
     // support. The probe is what turns it into `revoked` when it is.
-    Route::get('operator/platform-connection', fn () => Inertia::render(
-        'operator/platform-connection',
-        PlatformConnectionPageData::from([
-            'connection' => app(PlatformConnection::class)->snapshot(probeIdentity: true),
-            'endpoints' => PlatformConnectionEndpointsData::fromRoutes(),
-        ]),
-    ))->middleware('can:entitlement:os.operate')->name('operator.platform-connection');
+    // The CLIENT side of pairing (ux-walkthrough UX-07, IA-6), like the operations the macro below mounts.
+    Sides::serve(Side::Client, 'Splicewire connection screen', function () {
+        Route::get('operator/platform-connection', fn () => Inertia::render(
+            'operator/platform-connection',
+            PlatformConnectionPageData::from([
+                'connection' => app(PlatformConnection::class)->snapshot(probeIdentity: true),
+                'endpoints' => PlatformConnectionEndpointsData::fromRoutes(),
+            ]),
+        ))->middleware('can:entitlement:os.operate')->name('operator.platform-connection');
+    });
 
     // The four declared #[ParticleOp]s the screen above drives, from
     // `splicewire/laravel-satellite`'s own route file.
