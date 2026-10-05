@@ -21,8 +21,6 @@ class HostIaSeamTest extends TestCase
             'T1 dashboard-backing-concrete' => 'UX-13: DashboardBacking resolves the FrameNavContributor port',
             'T1 nav-port Splicewire\\Beam\\Ux\\Frame\\FrameNavContribution' => 'UX-06: bind IaCheckedNavContributor over the host contributor',
             'T2 I1 nav.yml:operator-seat' => 'UX-12b: the account pipeline retires (structural until UX-06)',
-            'T3 fortify-home-literal' => 'UX-11: Landing::for() replaces the literal doors (structural until UX-11)',
-            'T3 landing-resolver-missing' => 'UX-11: Landing::for() replaces the literal doors (structural until UX-11)',
             'T5 class App\\Beam\\OperatorRailSeat' => 'UX-09: operator task sections replace OperatorRailSeat',
             'T5 class App\\Beam\\RealmRegistry' => 'UX-12b: App\\Beam\\RealmRegistry is deleted',
             'T5 nav.yml:account-team realm=account' => 'UX-12b: account rows move under the user realm at /settings/*',
