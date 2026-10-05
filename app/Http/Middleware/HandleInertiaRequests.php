@@ -10,6 +10,7 @@ use Rushing\DataNav\NavTree;
 use Schemastud\Frame\Realm\RealmDefinition;
 use Splicewire\Beam\Accounts\Contracts\AccountShellProvider;
 use Splicewire\Beam\Accounts\Data\AccountShellData;
+use Splicewire\Beam\Brand\Brand;
 use Splicewire\Beam\Entitlements\CanMapBuilder;
 use Splicewire\Beam\Realm\RealmManifestProjector;
 use Splicewire\Beam\Realm\RealmRegistry;
@@ -50,6 +51,8 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'name' => config('app.name'),
+            // The install's brand (ux-walkthrough M8, IA-14), through the resolver: the shell renders it and spells none.
+            'brand' => Brand::for($request),
             'auth' => [
                 'user' => $request->user(),
                 // Drives the in-place authoring chrome gate (only a site admin sees the edit UI).

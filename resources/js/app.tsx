@@ -17,7 +17,7 @@ if (import.meta.env.DEV) {
 }
 
 const options = beamInertiaOptions({
-    name: import.meta.env.VITE_APP_NAME || 'Laravel',
+    name: import.meta.env.VITE_APP_NAME,
     logo: AppLogoIcon,
     development: import.meta.env.DEV,
     features: authFeatures,
