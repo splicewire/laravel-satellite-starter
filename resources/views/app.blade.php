@@ -49,7 +49,7 @@
         --}}
         @vite(['resources/css/app.css', 'resources/js/app.tsx'])
         <x-inertia::head>
-            <title>{{ config('app.name', 'Satellite') }}</title>
+            <title>{{ \Splicewire\Beam\Brand\Brand::for(request())->name }}</title>
         </x-inertia::head>
     </head>
     <body class="font-sans antialiased">

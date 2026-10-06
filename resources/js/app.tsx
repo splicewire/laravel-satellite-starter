@@ -3,7 +3,6 @@ import { beamInertiaOptions } from '@splicewire/beam-inertia';
 import type { PageModule } from '@splicewire/beam-inertia';
 import { configureDocs } from '@splicewire/beam-docs';
 import { beamDocsPages } from '@splicewire/beam-docs/pages';
-import AppLogoIcon from './components/app-logo-icon';
 import { authFeatures } from './beam';
 
 const pages = import.meta.glob<PageModule>([
@@ -17,8 +16,6 @@ if (import.meta.env.DEV) {
 }
 
 const options = beamInertiaOptions({
-    name: import.meta.env.VITE_APP_NAME,
-    logo: AppLogoIcon,
     development: import.meta.env.DEV,
     features: authFeatures,
     pages: { ...beamDocsPages, ...pages },
