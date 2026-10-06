@@ -18,7 +18,6 @@ class HostIaSeamTest extends TestCase
     protected function hostIaRatchet(): array
     {
         return [
-            'T1 dashboard-backing-concrete' => 'UX-13: DashboardBacking resolves the FrameNavContributor port',
             'T5 class App\\Beam\\OperatorRailSeat' => 'UX-09: operator task sections replace OperatorRailSeat',
             'T5 class App\\Beam\\RealmRegistry' => 'UX-12b: App\\Beam\\RealmRegistry is deleted',
             'T5 nav.yml:account-team realm=account' => 'UX-12b: account rows move under the user realm at /settings/*',
