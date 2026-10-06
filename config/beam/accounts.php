@@ -14,6 +14,10 @@
 | Keep the host-owned schema without publishing the package's full estate.
 */
 
+use Splicewire\Beam\Accounts\Authorization\RolePermissions;
+use Splicewire\Beam\Models\BeamSchema;
+use Splicewire\Beam\Models\GitRepo;
+
 return [
     // 'absent' excludes the full package estate; false would claim EVERY member is committed here.
     // BeamAccountsServiceProvider::estateDeclaredAbsent() honours this explicit host choice.
@@ -60,5 +64,22 @@ return [
         ],
         'default_staff_bundle' => 'staff',
         'staff_roles' => ['staff', 'operator'],
+    ],
+    // UX-08c: `GitRepo` and `BeamSchema` reserve their tokens (GrantedExplicitly): a team member read a host's repo
+    // roots, dirty paths and schemas through the uniform tiering. This host grants them to its team owner and admin, by
+    // name, with the exact abilities the tiering gave them before; a member holds neither. Existing role rows move
+    // through the targeted `reserve_git_repo_and_beam_schema_tokens` migration.
+    'roles' => [
+        'abilities' => RolePermissions::DEFAULT_ABILITIES,
+        'grants' => [
+            'owner' => [
+                GitRepo::class => RolePermissions::DEFAULT_ABILITIES['owner'],
+                BeamSchema::class => RolePermissions::DEFAULT_ABILITIES['owner'],
+            ],
+            'admin' => [
+                GitRepo::class => RolePermissions::DEFAULT_ABILITIES['admin'],
+                BeamSchema::class => RolePermissions::DEFAULT_ABILITIES['admin'],
+            ],
+        ],
     ],
 ];
