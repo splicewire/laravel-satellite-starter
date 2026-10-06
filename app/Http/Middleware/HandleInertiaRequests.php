@@ -160,14 +160,13 @@ class HandleInertiaRequests extends Middleware
             return NavTree::make([]);
         }
 
-        // UX-06 (M5): the account rail runs the IA invariants, read as the tenant-side rail it renders. Its edges into the
-        // operator and user realms are UX-12b's listed exception (ratchet `T2 I1 nav.yml:operator-seat`): until the realm
-        // switcher (UX-12a) lands, the operator-seat row is the operator realm's only door. Remove the crossings when
-        // UX-12a/12b land. Every other breach throws, I4 included, outside production; in production it is reported at
+        // UX-06 (M5): the account rail runs the IA invariants, read as the tenant-side rail it renders. The realm switcher
+        // (UX-12a) is the operator realm's door, so the rail no longer seats Operator (or Console) and crosses no operator
+        // edge; its edges into the user realm stay UX-12b's listed exception until the account rows move there. Every other breach throws, I4 included, outside production; in production it is reported at
         // error level, because route mounting there can differ from where it was built. The pruned array enforce() returns
         // is deliberately NOT used here: this rail is a NavTree, and in production it renders as it always has, breaking
         // row included (lead 19:49Z), while the frame rails, which are arrays, are pruned by the decorator.
-        app(IaInvariants::class)->enforce('tenant', $tree->toArray(), crossings: ['operator', 'user']);
+        app(IaInvariants::class)->enforce('tenant', $tree->toArray(), crossings: ['user']);
 
         return $tree;
     }
@@ -185,8 +184,10 @@ class HandleInertiaRequests extends Middleware
      * it — into the OPERATOR sitemap, which nothing at this host projects. So the operator realm was
      * reachable only by typing its URL: it had no door.
      *
-     * The seat therefore lives in the ACCOUNT realm (the `tenant-console` precedent), which means the
-     * rail would otherwise offer it to every signed-in user — including the member the route 403s.
+     * The seat therefore lived in the ACCOUNT realm, which meant the rail would otherwise offer it to
+     * every signed-in user — including the member the route 403s. Since the realm switcher (UX-12a) the
+     * account rail seats no operator door at all (IA-3); this filter still guards any seat a host adds
+     * that enters a gated realm.
      *
      * ## The gate is the realm's own declaration, not a second list
      *

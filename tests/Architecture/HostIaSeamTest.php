@@ -19,7 +19,6 @@ class HostIaSeamTest extends TestCase
     {
         return [
             'T1 dashboard-backing-concrete' => 'UX-13: DashboardBacking resolves the FrameNavContributor port',
-            'T2 I1 nav.yml:operator-seat' => 'UX-12b: the account pipeline retires (the listed crossing in HandleInertiaRequests::accountNav())',
             'T5 class App\\Beam\\OperatorRailSeat' => 'UX-09: operator task sections replace OperatorRailSeat',
             'T5 class App\\Beam\\RealmRegistry' => 'UX-12b: App\\Beam\\RealmRegistry is deleted',
             'T5 nav.yml:account-team realm=account' => 'UX-12b: account rows move under the user realm at /settings/*',
@@ -28,9 +27,7 @@ class HostIaSeamTest extends TestCase
             'T5 nav.yml:dashboard realm=account' => 'UX-12b: account rows move under the user realm at /settings/*',
             'T5 nav.yml:operator-dashboard realm=operator' => 'UX-09: operator rows move to resource section / host NavSections (IA-13)',
             'T5 nav.yml:operator-platform-connection realm=operator' => 'UX-09: the client-side row moves to a host NavSection (IA-13)',
-            'T5 nav.yml:operator-seat realm=account' => 'UX-12b: account rows move under the user realm at /settings/*',
             'T5 nav.yml:settings-profile realm=account' => 'UX-12b: account rows move under the user realm at /settings/*',
-            'T5 nav.yml:tenant-console realm=account' => 'UX-12b: account rows move under the user realm at /settings/*',
         ];
     }
 

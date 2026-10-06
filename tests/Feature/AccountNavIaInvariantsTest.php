@@ -61,11 +61,16 @@ class AccountNavIaInvariantsTest extends TestCase
         return $hrefs;
     }
 
-    public function test_a_signed_in_page_renders_with_the_operator_seat_door_for_staff(): void
+    /*
+     * ux-walkthrough IA-2/IA-3, after UX-12a (integrator 07:45Z, finding 4): the realm switcher is the operator realm's
+     * one door, so the account rail offers no Operator seat and no Console, even to staff, and crosses no realm.
+     */
+    public function test_the_account_rail_offers_no_operator_seat_or_console_even_to_staff(): void
     {
         $hrefs = $this->accountHrefs($this->staff());
 
-        $this->assertContains('/operator', $hrefs, 'the operator-seat door is the listed exception, not a breach');
+        $this->assertNotContains('/operator', $hrefs, 'Operator is reached through the realm switcher only (IA-3)');
+        $this->assertNotContains('/beam-ux-entry', $hrefs, 'the Console seat is gone (IA-2)');
         $this->assertContains('/dashboard', $hrefs);
     }
 
