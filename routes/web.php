@@ -180,8 +180,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     //
     // This replaces the hand-rolled landing: three counts computed inline here (`OperatorStatsData`),
     // a host-listed door list (`OperatorSurfaceData`) and the packaged `operator/dashboard` page. The
-    // doors are now the dashboard's jump-to tiles, drawn from the rail `App\Beam\OperatorRailSeat`
-    // seats (so a surface has ONE listing, in nav.yml); the figures come from each
+    // doors are now the dashboard's jump-to tiles, drawn from the rail the operator task sections
+    // seat (so a surface has ONE listing, `App\Beam\OperatorPages`); the figures come from each
     // resource's summary provider through `GET /frame/resources/operator-dashboard`, gated per resource
     // by the same reach the rail is, so this host writes no count and no page. The path is derived from
     // the same constant the leaf is mounted from, not spelled twice.

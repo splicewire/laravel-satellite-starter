@@ -104,9 +104,8 @@ class RealmDashboardTest extends TestCase
         $this->assertSame('Dashboard', $first['title']);
         $this->assertSame([], $first['children']);
 
-        // ...and ONCE. `App\Beam\OperatorRailSeat` lists the realm's section-less resources under its
-        // Platform seat, and the dashboard resource is section-less — measured 2026-09-14 as a second
-        // "Dashboard" row under Platform before the seat learned to skip it.
+        // ...and ONCE: the dashboard resource is section-less, and a seat listing the realm's section-less
+        // resources (this host's retired `OperatorRailSeat`) once drew it a second time — measured 2026-09-14.
         $dashboardLeaves = array_filter(
             self::leaves($manifest['nav']['items']),
             fn (array $leaf): bool => ($leaf['routeName'] ?? null) === 'operator-dashboard.index',
@@ -123,8 +122,8 @@ class RealmDashboardTest extends TestCase
     // ---------------------------------------------------------------- the operator rows
 
     /**
-     * A card per resource the rail seats (this host seats `users` and `teams` through
-     * {@see \App\Beam\OperatorRailSeat}), each carrying the LIVE count the summary provider reads through
+     * A card per resource the rail seats (`users` and `teams`, in beam-accounts'
+     * People task section), each carrying the LIVE count the summary provider reads through
      * the resource's own scoped query — asserted against that resource's index for the same actor, after
      * a fixture that moves it, so a stale, global or invented figure fails — then the rail's leaves as
      * tiles, after every card.

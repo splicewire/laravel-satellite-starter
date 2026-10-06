@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Beam\OperatorRailSeat;
+use App\Beam\OperatorPages;
 use App\Data\Pages\FrameConsolePageData;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -74,9 +74,9 @@ class OperatorFrameManifestTest extends TestCase
     }
 
     /**
-     * The rail lists what an operator can actually reach — measured EMPTY before
-     * {@see OperatorRailSeat}: users and teams seat no section, so every seat that reached the
-     * realm was dropped as empty and the rail showed Dashboard alone.
+     * The rail lists what an operator can actually reach — measured EMPTY on 2026-09-14, when users and teams
+     * seated no section. They sit in beam-accounts' People task section now, and this host's own page in
+     * System through {@see OperatorPages} (ux-walkthrough UX-09 C), which replaced `OperatorRailSeat`.
      *
      * Asserted on the REAL projection (the mounted route, the registered seat, `keepBound()`'s pruning),
      * and each href is then REQUESTED as that operator: a row that projects but 404s is the defect this
@@ -90,21 +90,24 @@ class OperatorFrameManifestTest extends TestCase
 
         $this->assertNotEmpty($nav, 'The operator rail projected no section at all.');
 
+        // Every href at any depth: the Developer zone holds its seats one level down (UX-08).
         $hrefs = [];
-        foreach ($nav as $section) {
-            $hrefs[] = $section['href'];
-            foreach ($section['children'] as $child) {
-                $hrefs[] = $child['href'];
+        $walk = function (array $nodes) use (&$walk, &$hrefs): void {
+            foreach ($nodes as $node) {
+                if (isset($node['href'])) {
+                    $hrefs[] = $node['href'];
+                }
+                $walk($node['children'] ?? []);
             }
-        }
+        };
+        $walk($nav);
 
         $this->assertContains('/operator/users', $hrefs);
         $this->assertContains('/operator/teams', $hrefs);
 
-        // Every realm-operator nav.yml page is a row too — the list the seat reads, asserted from the
-        // same file, so a tier that authors one more operator page is held to it without editing this.
-        foreach (OperatorRailSeat::rows(app()) as $row) {
-            $this->assertContains($row['href'], $hrefs);
+        // Every page this host seats is a row too, so a page added to OperatorPages is held to opening here.
+        foreach (OperatorPages::hrefs() as $href) {
+            $this->assertContains($href, $hrefs);
         }
 
         foreach (array_unique($hrefs) as $href) {
@@ -121,33 +124,6 @@ class OperatorFrameManifestTest extends TestCase
                 $this->actingAs($operator)->followingRedirects()->get($href)->assertOk();
             }
         }
-    }
-
-    /**
-     * A nav.yml page row's `icon` and `nav_order` reach the seat. `NavSource` normalizes `icon` away, so
-     * without the seat's own read every bespoke page renders beam-inertia's neutral dot, and without
-     * `navOrder` no page can lead the resources that attach to the section by themselves.
-     *
-     * The authored nav is overridden through `beam.ux.nav`, the first source `NavSource` reads, in both
-     * shapes it accepts, so this tier holds the seat to rows it does not author itself.
-     */
-    public function test_the_seat_carries_an_authored_pages_icon_and_order(): void
-    {
-        config(['beam.ux.nav' => [
-            'operator-dashboard' => ['segment' => '/operator', 'title' => 'Operator', 'realm' => 'operator'],
-            'operator-probe' => ['segment' => '/operator/probe', 'title' => 'Probe', 'realm' => 'operator', 'icon' => 'link', 'nav_order' => 0],
-            ['slug' => 'operator-listed', 'segment' => '/operator/listed', 'title' => 'Listed', 'realm' => 'operator', 'icon' => 'Server'],
-            'operator-plain' => ['segment' => '/operator/plain', 'title' => 'Plain', 'realm' => 'operator'],
-            'account-other' => ['segment' => '/elsewhere', 'title' => 'Elsewhere', 'realm' => 'account', 'icon' => 'Bot'],
-        ]]);
-
-        $pages = collect(OperatorRailSeat::rows(app()))->reject(fn (array $row): bool => isset($row['routeName']))->values()->all();
-
-        $this->assertSame([
-            ['title' => 'Probe', 'href' => '/operator/probe', 'icon' => 'link', 'navOrder' => 0],
-            ['title' => 'Listed', 'href' => '/operator/listed', 'icon' => 'Server'],
-            ['title' => 'Plain', 'href' => '/operator/plain'],
-        ], $pages);
     }
 
     public function test_an_ordinary_member_is_refused_the_operator_manifest(): void

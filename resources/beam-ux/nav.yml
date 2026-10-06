@@ -65,16 +65,5 @@ operator-dashboard:
   type: page
   realm: operator
 
-# The satellite half of the RFC 8628 pairing with a tower, as an operator-realm screen rather than
-# only `php artisan splicewire:connect`. Operator realm because pairing writes a platform credential
-# into this site's `.env` — the route and every one of its four operations are gated on the same
-# `os.operate` entitlement this realm is.
-#
-# `icon` is read by the operator rail seat (App\Beam\OperatorRailSeat) and resolved by
-# @splicewire/beam-inertia's icon map; without it the row renders a neutral dot. ux:seed-nav ignores it.
-operator-platform-connection:
-  segment: /operator/platform-connection
-  title: Splicewire connection
-  type: page
-  realm: operator
-  icon: link
+# Splicewire connection (`/operator/platform-connection`) is seated by App\Beam\OperatorPages in the operator System
+# task section (ux-walkthrough UX-09 C), not read from here.

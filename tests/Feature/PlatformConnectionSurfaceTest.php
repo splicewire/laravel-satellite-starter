@@ -31,9 +31,9 @@ use Tests\TestCase;
  *   operation declares the same entitlement, so a member must be refused at the endpoint and not
  *   merely be missing a link;
  * - the DOORS exist — the operator landing's surface list, and the operator rail that
- *   `/operator/frame/manifest` projects ({@see \App\Beam\OperatorRailSeat}, which reads this screen's
- *   `realm: operator` row in `resources/beam-ux/nav.yml`). A surface on neither is reachable by typing
- *   its URL and by nothing else.
+ *   `/operator/frame/manifest` projects ({@see \App\Beam\OperatorPages}, which seats this screen in the
+ *   System task section, ux-walkthrough UX-09 C). A surface on neither is reachable by typing its URL and
+ *   by nothing else.
  */
 class PlatformConnectionSurfaceTest extends TestCase
 {
@@ -162,8 +162,14 @@ class PlatformConnectionSurfaceTest extends TestCase
         $this->stubConnection();
         $operator = $this->operator();
 
-        $children = collect($this->actingAs($operator)->getJson('/operator/frame/manifest')->assertOk()->json('nav.items'))
-            ->flatMap(fn (array $section): array => $section['children']);
+        $sections = collect($this->actingAs($operator)->getJson('/operator/frame/manifest')->assertOk()->json('nav.items'));
+
+        // In the System task section (IA-10; lead 13:28Z, option a), not a host 'platform' seat.
+        $system = $sections->firstWhere('routeName', 'operator-system.section');
+        $this->assertNotNull($system, 'The operator rail has no System task section.');
+        $this->assertSame('System', $system['title']);
+        $this->assertNull($sections->firstWhere('routeName', 'platform.section'), 'The retired platform seat is still drawn.');
+        $children = collect($system['children']);
 
         // No `routeName` on purpose: this is a host page, not a frame leaf, and a name the operator
         // routeContext cannot bind would be pruned from the rail.

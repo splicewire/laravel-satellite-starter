@@ -18,14 +18,12 @@ class HostIaSeamTest extends TestCase
     protected function hostIaRatchet(): array
     {
         return [
-            'T5 class App\\Beam\\OperatorRailSeat' => 'UX-09: operator task sections replace OperatorRailSeat',
             'T5 class App\\Beam\\RealmRegistry' => 'UX-12b: App\\Beam\\RealmRegistry is deleted',
             'T5 nav.yml:account-team realm=account' => 'UX-12b: account rows move under the user realm at /settings/*',
             'T5 nav.yml:account-theme realm=account' => 'UX-12b: account rows move under the user realm at /settings/*',
             'T5 nav.yml:account-tokens realm=account' => 'UX-12b: account rows move under the user realm at /settings/*',
             'T5 nav.yml:dashboard realm=account' => 'UX-12b: account rows move under the user realm at /settings/*',
             'T5 nav.yml:operator-dashboard realm=operator' => 'UX-09: operator rows move to resource section / host NavSections (IA-13)',
-            'T5 nav.yml:operator-platform-connection realm=operator' => 'UX-09: the client-side row moves to a host NavSection (IA-13)',
             'T5 nav.yml:settings-profile realm=account' => 'UX-12b: account rows move under the user realm at /settings/*',
         ];
     }
