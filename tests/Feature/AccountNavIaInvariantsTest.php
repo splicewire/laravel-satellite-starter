@@ -97,7 +97,7 @@ class AccountNavIaInvariantsTest extends TestCase
     public function test_staff_keep_the_operator_door_in_the_realm_switcher_and_a_member_has_none(): void
     {
         $this->assertContains('operator', $this->switcherRealms($this->staff()));
-        $this->assertNotContains('operator', $this->switcherRealms(User::factory()->create()));
+        $this->assertNotContains('operator', $this->switcherRealms(User::factory()->teamMember()->create()));
     }
 
     public function test_a_plain_member_gets_the_rail_without_the_door(): void
