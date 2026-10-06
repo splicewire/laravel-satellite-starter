@@ -74,6 +74,32 @@ class AccountNavIaInvariantsTest extends TestCase
         $this->assertContains('/dashboard', $hrefs);
     }
 
+    /** The realm keys the shared HostIa payload offers this principal (the realm switcher's source), unlocked only. */
+    private function switcherRealms(User $user): array
+    {
+        $keys = [];
+        $this->actingAs($user)->get(route('dashboard'))->assertOk()
+            ->assertInertia(function (Assert $page) use (&$keys) {
+                foreach ($page->toArray()['props']['realms']['realms'] ?? [] as $realm) {
+                    if (! ($realm['locked'] ?? false)) {
+                        $keys[] = $realm['key'];
+                    }
+                }
+            });
+
+        return $keys;
+    }
+
+    /*
+     * review-r1: the rail losing its Operator seat must not leave staff without a door. The realm switcher reads the shared
+     * HostIa payload, which offers operator (unlocked) to staff and not to a plain member.
+     */
+    public function test_staff_keep_the_operator_door_in_the_realm_switcher_and_a_member_has_none(): void
+    {
+        $this->assertContains('operator', $this->switcherRealms($this->staff()));
+        $this->assertNotContains('operator', $this->switcherRealms(User::factory()->create()));
+    }
+
     public function test_a_plain_member_gets_the_rail_without_the_door(): void
     {
         $hrefs = $this->accountHrefs(User::factory()->create());
