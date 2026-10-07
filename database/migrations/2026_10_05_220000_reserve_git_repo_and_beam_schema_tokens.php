@@ -38,9 +38,10 @@ return new class extends Migration
         ]);
     }
 
-    /** @param  Closure(string): list<string>  $target  the tokens a role should hold, by role name */
+    /** @param  Closure(string): array<string>  $target  the tokens a role should hold, by role name */
     private function move(Closure $target): void
     {
+        /** @var class-string<\Spatie\Permission\Models\Role> $roleModel */
         $roleModel = config('permission.models.role');
         $permissionModel = config('permission.models.permission');
 

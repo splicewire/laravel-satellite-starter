@@ -122,25 +122,12 @@ class RealmDashboardTest extends TestCase
     // ---------------------------------------------------------------- the operator rows
 
     /**
-     * A card per resource the rail seats (`users` and `teams`, in beam-accounts'
-     * People task section), each carrying the LIVE count the summary provider reads through
-     * the resource's own scoped query — asserted against that resource's index for the same actor, after
-     * a fixture that moves it, so a stale, global or invented figure fails — then the rail's leaves as
-     * tiles, after every card.
+     * Declared/custom cards keep their providers; rail-only Users and Teams are tiles.
+     * Every destination appears once (card XOR tile), and Developer leaves stay off the dashboard.
      */
-    public function test_the_operator_dashboard_streams_a_card_per_seated_resource_with_live_counts_then_the_rail_as_tiles(): void
+    public function test_the_operator_dashboard_streams_declared_cards_then_remaining_product_tiles(): void
     {
         $operator = $this->operator();
-
-        // Rows the operator's OWN reach admits: `users` is scoped to shared teams and `teams` to
-        // membership, so the extra rows join the operator's team — a fixture outside that reach would
-        // move the model count and not the figure, and prove nothing about either.
-        $team = Team::query()->where('user_id', $operator->id)->firstOrFail();
-        foreach (User::factory()->count(2)->create() as $peer) {
-            Membership::create(['team_id' => $team->id, 'user_id' => $peer->id, 'role' => Role::Member->value]);
-        }
-        $second = Team::create(['user_id' => $operator->id, 'name' => 'Second', 'personal_team' => false]);
-        Membership::create(['team_id' => $second->id, 'user_id' => $operator->id, 'role' => Role::Owner->value]);
 
         $rows = $this->rows($operator, 'operator-dashboard');
         $cards = array_values(array_filter($rows, fn (array $row): bool => $row['context'] !== 'nav'));
@@ -158,35 +145,28 @@ class RealmDashboardTest extends TestCase
         );
 
         $byResource = array_column($cards, null, 'resource');
-        $this->assertArrayHasKey('users', $byResource);
-        $this->assertArrayHasKey('teams', $byResource);
+        $this->assertArrayNotHasKey('users', $byResource);
+        $this->assertArrayNotHasKey('teams', $byResource);
+        $this->assertSame([], $byResource, 'this host declares no custom operator dashboard cards');
 
-        // The live count is what the resource's OWN index answers this actor (PRD story 8: figures are
-        // scoped to what the operator may see, never a global total) — the same scoped query the
-        // default provider counts through, read over the wire rather than re-derived here.
-        foreach (['users', 'teams'] as $resource) {
-            $card = $byResource[$resource];
-            $total = $this->actingAs($operator)->getJson("/frame/resources/{$resource}?per_page=100")->assertOk()->json('total');
-
-            $this->assertSame('summary', $card['context']);
-            $this->assertSame("/operator/{$resource}", $card['href']);
-            $this->assertNotEmpty($card['summary']['figures']);
-            $this->assertSame($total, $card['summary']['figures'][0]['value'], "the {$resource} card must carry the live, actor-scoped count");
-            $this->assertGreaterThan(1, $total, 'the fixture must add rows in reach, or a hardcoded 1 would pass');
-        }
-
-        // Jump-to equals the rail: the tiles ARE the realm's nav leaves for this actor (minus the
-        // dashboard's own leaf), in the same order the rail draws them.
+        // The remaining product rail, in rail order: no Developer zone or duplicate card destination.
         $manifest = $this->actingAs($operator)->getJson('/operator/frame/manifest')->assertOk()->json();
+        $productNav = array_filter($manifest['nav']['items'], fn (array $node): bool => ($node['zone'] ?? null) !== 'meta');
+        $cardHrefs = array_column($cards, 'href');
         $rail = array_values(array_filter(
-            self::leaves($manifest['nav']['items']),
-            fn (array $leaf): bool => ($leaf['routeName'] ?? null) !== 'operator-dashboard.index',
+            self::leaves($productNav),
+            fn (array $leaf): bool => ($leaf['routeName'] ?? null) !== 'operator-dashboard.index'
+                && ! in_array($leaf['href'], $cardHrefs, true),
         ));
+        $tileHrefs = array_column($tiles, 'href');
 
-        $this->assertNotEmpty($tiles);
-        $this->assertSame(array_column($rail, 'href'), array_column($tiles, 'href'));
+        $this->assertContains('/operator/users', $tileHrefs);
+        $this->assertContains('/operator/teams', $tileHrefs);
+        $this->assertSame(array_column($rail, 'href'), $tileHrefs);
         $this->assertSame(array_column($rail, 'title'), array_column($tiles, 'label'));
-        $this->assertNotContains('/operator/dashboard', array_column($tiles, 'href'));
+        $this->assertNotContains('/operator/dashboard', $tileHrefs);
+        $this->assertSame([], array_values(array_intersect($cardHrefs, $tileHrefs)));
+        $this->assertCount(count(array_unique([...$cardHrefs, ...$tileHrefs])), $rows);
 
         foreach ($tiles as $tile) {
             $this->assertNull($tile['summary']);
