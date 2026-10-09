@@ -88,14 +88,14 @@ export const tokensClient: TokensClient = {
         const body: Record<string, unknown> = { name };
 
         // Omitted, not null: an absent `abilities` is the unscoped default and an absent
-        // `expires_in_days` is a token that never expires — both declared `Optional` server-side, so
+        // `expiresInDays` is a token that never expires — both declared `Optional` server-side, so
         // sending an explicit null would be a different (still legal, but noisier) request.
         if (abilities && abilities.length > 0) {
             body.abilities = abilities;
         }
 
         if (expiresInDays) {
-            body.expires_in_days = expiresInDays;
+            body.expiresInDays = expiresInDays;
         }
 
         return call<CreatedTokenData>('POST', '/tokens', body);
@@ -104,13 +104,13 @@ export const tokensClient: TokensClient = {
         call<ApiTokenData>(
             'POST',
             `/tokens/${id}/renew`,
-            expiresInDays ? { expires_in_days: expiresInDays } : {},
+            expiresInDays ? { expiresInDays } : {},
         ),
     rotate: ({ id, expiresInDays }) =>
         call<CreatedTokenData>(
             'POST',
             `/tokens/${id}/rotate`,
-            expiresInDays ? { expires_in_days: expiresInDays } : {},
+            expiresInDays ? { expiresInDays } : {},
         ),
     // Archive is the soft-revoke (row retained for audit); remove is the hard delete, which the
     // server admits only for an already-archived token.
