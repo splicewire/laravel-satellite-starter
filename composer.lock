@@ -6559,7 +6559,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/schemastud/laravel-data-schemas.git",
-                "reference": "41e1e6149bf20932f154a6dda5db670daeee9259"
+                "reference": "f03d8fe04acefefb56daa738f5f1c593493b033b"
             },
             "require": {
                 "galbar/jsonpath": "^3.0",
@@ -6636,7 +6636,7 @@
                 "spatie",
                 "validation"
             ],
-            "time": "2026-10-05T23:32:29+00:00"
+            "time": "2026-10-09T12:47:54+00:00"
         },
         {
             "name": "schemastud/laravel-frame",
