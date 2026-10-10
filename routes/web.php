@@ -1,7 +1,5 @@
 <?php
 
-use Splicewire\Beam\Ia\Side;
-use Splicewire\Beam\Ia\Sides;
 use App\Data\Pages\EntryPageData;
 use App\Data\Pages\FrameConsolePageData;
 use App\Data\Pages\PlatformConnectionEndpointsData;
@@ -10,8 +8,11 @@ use App\Support\PageEntryRef;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Schemastud\Frame\Http\Controllers\FrameManifestController;
+use Splicewire\Beam\Authorization\SeatGate;
 use Splicewire\Beam\Dashboard\RealmDashboard;
 use Splicewire\Beam\Facades\Particle;
+use Splicewire\Beam\Ia\Side;
+use Splicewire\Beam\Ia\Sides;
 use Splicewire\Satellite\Pairing\PlatformConnection;
 
 // The FRONT DOOR is the OOTB site realm: `/` renders the promoted <SiteLayout> chrome (public) AND —
@@ -106,7 +107,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // This replaces the packaged `account/home` placeholder, and with it the `entry` share that page
     // carried: a frame list is not an authored page, so there is no chrome for the visual editor to
     // address. The `/` and `/account/theme` routes keep theirs.
-    Route::get('dashboard', fn () => Inertia::render('frame/console'))->name('dashboard');
+    Route::get('dashboard', fn () => Inertia::render('frame/console'))->name('dashboard')->defaults(SeatGate::OPEN_TO_MEMBERS, true);
 
     // ── The ACCOUNT-REALM settings surfaces: API tokens and Team ─────────────────────────────────
     //
@@ -126,8 +127,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ⚠️ These are NOT the tenant frame console's `tokens` / `members` / `invitations` leaves, and
     // those three have been removed from `config('frame.realms')['tenant']` in the same change. Read
     // that file's realm comment for why one capability may not have two surfaces here.
-    Route::get('account/tokens', fn () => Inertia::render('account/tokens'))->name('account.tokens');
-    Route::get('account/team', fn () => Inertia::render('account/team'))->name('account.team');
+    Route::get('account/tokens', fn () => Inertia::render('account/tokens'))->name('account.tokens')->defaults(SeatGate::OPEN_TO_MEMBERS, true);
+    Route::get('account/team', fn () => Inertia::render('account/team'))->name('account.team')->defaults(SeatGate::OPEN_TO_MEMBERS, true);
 
     // ── The THEME entry's editor seat (G2-BEAM-THEME-NAV) ────────────────────────────────────────
     //
