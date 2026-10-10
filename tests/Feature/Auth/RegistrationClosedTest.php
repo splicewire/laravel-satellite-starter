@@ -22,7 +22,7 @@ class RegistrationClosedTest extends TestCase
             'name' => 'Test User',
             'email' => 'test@example.com',
             'password' => 'password',
-            'password_confirmation' => 'password',
+            'passwordConfirmation' => 'password',
         ]);
         // 405, not 404, where a GET-only catch-all ({path}) shares the path: either way no POST is routed (as the
         // flagship's RegistrationClosedTest).

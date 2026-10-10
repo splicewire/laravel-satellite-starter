@@ -5,7 +5,6 @@ namespace App\Providers;
 /* @chisel-registration */
 
 /* @end-chisel-registration */
-use App\Actions\Fortify\ResetUserPassword;
 use App\Beam\EntryBody;
 use App\Support\PageEntryRef;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -20,6 +19,7 @@ use Laravel\Fortify\Fortify;
 use Splicewire\Beam\Accounts\Actions\DemoLoginLinks;
 use Splicewire\Beam\Accounts\Data\Pages\AuthEntryPageData;
 use Splicewire\Beam\Accounts\Data\Pages\ResetPasswordPageData;
+use Splicewire\Beam\Accounts\Fortify\ResetUserPassword;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -46,6 +46,7 @@ class FortifyServiceProvider extends ServiceProvider
      */
     private function configureActions(): void
     {
+        // Password reset and registration both use beam-accounts' actions and its camel `passwordConfirmation` wire.
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
         // Registration uses beam-accounts' door-checked CreateNewUser (BUY-05); a host extends it, never copies it.
     }
