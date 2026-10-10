@@ -68,7 +68,7 @@ class PasswordResetTest extends TestCase
                 'token' => $notification->token,
                 'email' => $user->email,
                 'password' => 'password',
-                'password_confirmation' => 'password',
+                'passwordConfirmation' => 'password',
             ]);
 
             $response
@@ -87,7 +87,7 @@ class PasswordResetTest extends TestCase
             'token' => 'invalid-token',
             'email' => $user->email,
             'password' => 'newpassword123',
-            'password_confirmation' => 'newpassword123',
+            'passwordConfirmation' => 'newpassword123',
         ]);
 
         $response->assertSessionHasErrors('email');

@@ -87,7 +87,7 @@ class TeamOnboardingTest extends TestCase
             'name' => 'New Bie',
             'email' => 'newbie@example.test',
             'password' => 'password',
-            'password_confirmation' => 'password',
+            'passwordConfirmation' => 'password',
         ])->assertRedirect($link);
 
         $invitation = Invitation::query()->where('email', 'newbie@example.test')->sole();
