@@ -63,8 +63,8 @@ it('declares the whole security body and preserves feature flags and passkey row
         'canManageTwoFactor' => $twoFactor,
         'canManagePasskeys' => $passkeys,
         'passkeys' => $passkeys ? [
-            ['id' => 9, 'name' => 'Newer', 'authenticator' => '1Password', 'created_at_diff' => '1 day ago', 'last_used_at_diff' => '1 hour ago'],
-            ['id' => 7, 'name' => 'Older', 'authenticator' => null, 'created_at_diff' => '2 days ago', 'last_used_at_diff' => null],
+            ['id' => 9, 'name' => 'Newer', 'authenticator' => '1Password', 'createdAtDiff' => '1 day ago', 'lastUsedAtDiff' => '1 hour ago'],
+            ['id' => 7, 'name' => 'Older', 'authenticator' => null, 'createdAtDiff' => '2 days ago', 'lastUsedAtDiff' => null],
         ] : [],
         'passwordRules' => Password::defaults()->toPasswordRulesString(),
     ];
@@ -89,7 +89,7 @@ it('projects passkeys as declared rows and rejects malformed items', function ()
     $validator = new Validator;
     $props = ['canManageTwoFactor' => false, 'canManagePasskeys' => true, 'passwordRules' => 'minlength: 8;', 'passkeys' => []];
     expect($validator->validate((object) $props, $document)->isValid())->toBeTrue();
-    $row = (object) ['id' => 9, 'name' => 'Key', 'authenticator' => null, 'created_at_diff' => '1 day ago', 'last_used_at_diff' => null];
+    $row = (object) ['id' => 9, 'name' => 'Key', 'authenticator' => null, 'createdAtDiff' => '1 day ago', 'lastUsedAtDiff' => null];
     $props['passkeys'] = [$row];
     expect($validator->validate((object) $props, $document)->isValid())->toBeTrue();
     $props['passkeys'] = ['bad'];
