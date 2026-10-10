@@ -188,9 +188,13 @@ class FrameManifestRouterTest extends TestCase
 
     private function operator(): User
     {
+        // The router table is per-actor read-gated (beam `declare resource read boundaries`, integrator
+        // read-check ruling 2026-10-10 15:13Z): a route lists only for an actor the read guard admits. This
+        // actor must be authorized for BOTH realms it is asserted against - a PROVISIONED tenant owner (so the
+        // tenant realm's beam-ux-entry/hooks list) WITH operator realm reach (so the operator realm's
+        // users/teams list).
         $user = User::factory()->create();
-        $team = Team::create(['user_id' => $user->id, 'name' => 'Operators', 'personal_team' => false]);
-        Membership::create(['team_id' => $team->id, 'user_id' => $user->id, 'role' => Role::Owner->value]);
+        $team = app(\Splicewire\Beam\Accounts\Teams\TeamProvisioner::class)->personalTeamFor($user);
         app(AccessGrants::class)->share(BeamUxEntry::rootFor('operator'), $team, AccessGrant::ABILITY_MANAGE);
 
         return $user->fresh();
@@ -204,6 +208,16 @@ class FrameManifestRouterTest extends TestCase
         $this->app['auth']->forgetGuards();
         if ($actor !== null) {
             $this->actingAs($actor);
+
+            // A controller-direct call skips config('frame.middleware'), so the live splicewire.team
+            // middleware never points the team-scoped role registrar at the actor's tenant - without it the
+            // actor resolves zero roles and the per-actor read gate empties the realm's router table for the
+            // wrong reason (the seam SitemapWriteAuthorizationTest documents). Point it at the actor's team.
+            if ($actor->currentTeam !== null) {
+                app(\Spatie\Permission\PermissionRegistrar::class)->setPermissionsTeamId($actor->currentTeam->getKey());
+                app(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+                $actor->unsetRelation('roles')->unsetRelation('permissions');
+            }
         }
 
         $request = Request::create('/frame/manifest', 'GET');
