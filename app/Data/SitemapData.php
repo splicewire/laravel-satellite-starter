@@ -33,6 +33,13 @@ use Splicewire\Beam\Particle\Attributes\ParticleResource;
     icon: 'map',
     section: 'links',
     navOrder: 99,
+    // Site-wide configuration: ONE global nav shared by every member of the host, not per-tenant rows
+    // (SitemapRecord is on the central connection; this host never initialises stancl tenancy, so there is
+    // no per-tenant partition and no owner column). Declare the GLOBAL read boundary explicitly (integrator
+    // read-check ruling 2026-10-10 15:13Z); its AUTHORITY is SitemapRecord's #[UseCascadePolicy] viewAny
+    // (owner/admin author, a member reads it), and GlobalReadBoundaryAudit enumerates it. This is the real
+    // boundary - it replaces any row/scope predicate: the population is global, gated only by the authority.
+    readBoundary: \Splicewire\Beam\Particle\ParticleResource::READ_BOUNDARY_GLOBAL,
 )]
 class SitemapData extends Data
 {

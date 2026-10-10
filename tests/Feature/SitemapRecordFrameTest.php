@@ -141,7 +141,9 @@ class SitemapRecordFrameTest extends TestCase
         $this->assertSame('frame.resources.index', $routes->match(Request::create('/frame/resources/sitemap'))->getName());
         $this->assertNull($routes->getByName('frame.resources.sitemap'));
 
-        $this->actingAs(User::factory()->create())
+        // Site-wide sitemap is member-read (global boundary gated by viewAny), and the manifest router table
+        // is per-actor read-gated, so observe the mount as a member who may read it (ruling 2026-10-10 15:13Z).
+        $this->actingAs(User::factory()->teamMember()->create())
             ->get('/sitemap')
             ->assertOk()
             ->assertInertia(fn (AssertableInertia $page) => $page->component('frame/console', false));
