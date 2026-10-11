@@ -8263,7 +8263,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-docs.git",
-                "reference": "3975c2a06e1ea0a1aa2b6f2f5c11c09b34f132ef"
+                "reference": "39372b59e08d26467b7a7145ae58711d3af0d96a"
             },
             "require": {
                 "illuminate/queue": "^11.0|^12.0|^13.0",
@@ -8331,7 +8331,7 @@
                 "MIT"
             ],
             "description": "Optional Beam OpenAPI documentation and Scalar publication.",
-            "time": "2026-09-14T22:03:36+00:00"
+            "time": "2026-10-10T10:21:31+00:00"
         },
         {
             "name": "splicewire/laravel-beam-mcp",
@@ -8778,7 +8778,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-ux.git",
-                "reference": "9332c82538ed16b21bc8eb55104e006cc4036c78"
+                "reference": "89ddc8e1e5a84020e426b654df65e815fe92806d"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8848,6 +8848,10 @@
                 "test": [
                     "@php vendor/bin/phpunit"
                 ],
+                "test:toolchain": [
+                    "@putenv BEAM_UX_NODE_MODULES=../../../../laravel/starters/laravel-beam-starter/node_modules",
+                    "@test"
+                ],
                 "pint": [
                     "@php -d memory_limit=512M vendor/bin/pint"
                 ]
@@ -8870,7 +8874,7 @@
                 "splicewire",
                 "ux"
             ],
-            "time": "2026-09-14T22:54:56+00:00"
+            "time": "2026-10-07T10:58:48+00:00"
         },
         {
             "name": "splicewire/laravel-beam-ux-prototype",
@@ -17116,7 +17120,8 @@
         "splicewire/laravel-beam-dev": 20,
         "splicewire/laravel-beam-docs": 20,
         "splicewire/laravel-beam-mcp": 20,
-        "splicewire/laravel-beam-provision": 20
+        "splicewire/laravel-beam-provision": 20,
+        "splicewire/laravel-beam-ux": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

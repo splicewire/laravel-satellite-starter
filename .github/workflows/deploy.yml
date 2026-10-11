@@ -40,14 +40,14 @@ jobs:
         with:
           persist-credentials: false
 
-      # satellite-tier packages stay private (deliberately, unlike beam's public-by-choice
-      # first-party repos) — this mints a short-lived token from the "Splicewire Market" GitHub
-      # App (github.com/apps/splicewire-market), the same App splicewire-marketplace's own
-      # release-mirroring will eventually authenticate as (docs/adr/0198 in
+      # satellite-tier packages stay private (deliberately), and so does splicewire/laravel-beam-docs,
+      # which every tier from beam up installs — this mints a short-lived token from the "Splicewire
+      # Market" GitHub App (github.com/apps/splicewire-market), the same App splicewire-marketplace's
+      # own release-mirroring will eventually authenticate as (docs/adr/0198 in
       # laravel-beam-market-packages). Reused here for our own internal CI, not routed through
       # that package's license-gated Composer registry — this App's identity doesn't care who
-      # installs it, and it's already installed on the satellite-family repos this needs.
-      - name: Mint a GitHub App installation token (satellite-family private repos)
+      # installs it, and it's already installed on the private family repos this needs.
+      - name: Mint a GitHub App installation token (private family repos)
         id: gh-app
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:

@@ -19,9 +19,10 @@ RUN corepack enable
 WORKDIR /app
 COPY composer.json composer.lock ./
 # `gh_app_token` is a build secret (never baked into an image layer), passed only when a host has
-# private packages to resolve — satellite-tier's own family, splicewire-market's App reused for our
-# internal CI (see .github/workflows/deploy.yml). `required=false` + the `-s` check make this a
-# no-op for beam-tier hosts, which never pass it: all-public deps, ordinary `composer install`.
+# private packages to resolve — splicewire/laravel-beam-docs at every tier, plus satellite-tier's
+# own family — using splicewire-market's App reused for our internal CI (see
+# .github/workflows/deploy.yml). `required=false` + the `-s` check make this a no-op for a build
+# that does not pass it, which then runs an ordinary anonymous `composer install`.
 RUN --mount=type=secret,id=gh_app_token,required=false \
     if [ -s /run/secrets/gh_app_token ]; then \
         git config --global url."https://x-access-token:$(cat /run/secrets/gh_app_token)@github.com/".insteadOf "https://github.com/"; \
