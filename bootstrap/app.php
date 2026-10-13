@@ -19,6 +19,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // beam-accounts' camel wire carries the same secrets as the framework's snake defaults (kept while any caller
+        // sends them): leave them byte-exact. Their flash twin is in withExceptions below.
+        $middleware->trimStrings(except: ['currentPassword', 'passwordConfirmation']);
+
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
 
         $middleware->web(append: [
@@ -43,6 +47,9 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+        // Never flash the camel secrets back into old input on a validation failure (the snake ones are framework defaults).
+        $exceptions->dontFlash(['currentPassword', 'passwordConfirmation']);
+
         $exceptions->shouldRenderJsonWhen(
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
