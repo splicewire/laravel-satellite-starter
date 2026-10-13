@@ -8225,7 +8225,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-accounts.git",
-                "reference": "7900c6c468d653bd053d522a6110ab8dd40bd847"
+                "reference": "ddb11179fb46d5e2b6aef2207c449450f91c6c2c"
             },
             "require": {
                 "firebase/php-jwt": "^6.0|^7.0",
