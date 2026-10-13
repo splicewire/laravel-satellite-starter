@@ -8109,7 +8109,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam.git",
-                "reference": "86197d666ba3dc3c4cfd7563530336020d5ef9e9"
+                "reference": "01abf9355d0b28bbebc36d0e613af92fe54248ff"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8225,7 +8225,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-accounts.git",
-                "reference": "7900c6c468d653bd053d522a6110ab8dd40bd847"
+                "reference": "69431aa7db52871d45280b6893d364b3de191cd4"
             },
             "require": {
                 "firebase/php-jwt": "^6.0|^7.0",
