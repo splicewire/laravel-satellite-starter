@@ -98,9 +98,9 @@ class SecurityTest extends TestCase
             ->actingAs($user)
             ->from(route('security.edit'))
             ->put(route('user-password.update'), [
-                'current_password' => 'password',
+                'currentPassword' => 'password',
                 'password' => 'new-password',
-                'password_confirmation' => 'new-password',
+                'passwordConfirmation' => 'new-password',
             ]);
 
         $response
@@ -118,13 +118,46 @@ class SecurityTest extends TestCase
             ->actingAs($user)
             ->from(route('security.edit'))
             ->put(route('user-password.update'), [
-                'current_password' => 'wrong-password',
+                'currentPassword' => 'wrong-password',
                 'password' => 'new-password',
-                'password_confirmation' => 'new-password',
+                'passwordConfirmation' => 'new-password',
             ]);
 
         $response
-            ->assertSessionHasErrors('current_password')
+            ->assertSessionHasErrors('currentPassword')
             ->assertRedirect(route('security.edit'));
+    }
+
+    public function test_password_confirmation_must_match()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->from(route('security.edit'))
+            ->put(route('user-password.update'), [
+                'currentPassword' => 'password',
+                'password' => 'new-password',
+                'passwordConfirmation' => 'different-password',
+            ])
+            ->assertSessionHasErrors('password');
+
+        $this->assertTrue(Hash::check('password', $user->refresh()->password));
+    }
+
+    // The settings wire is camel-only (beam-inertia's security form): the legacy snake keys are refused, not read.
+    public function test_the_legacy_snake_keys_are_refused()
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->from(route('security.edit'))
+            ->put(route('user-password.update'), [
+                'current_password' => 'password',
+                'password' => 'new-password',
+                'password_confirmation' => 'new-password',
+            ])
+            ->assertSessionHasErrors(['current_password', 'password_confirmation', 'currentPassword']);
+
+        $this->assertTrue(Hash::check('password', $user->refresh()->password));
     }
 }
