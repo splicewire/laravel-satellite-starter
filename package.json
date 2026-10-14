@@ -73,7 +73,7 @@
         "@schemastud/nav": "0.1.0",
         "@schemastud/seam": "0.2.2",
         "@schemastud/ui": "0.1.2",
-        "@splicewire/beam-accounts": "0.2.0",
+        "@splicewire/beam-accounts": "0.2.1",
         "@splicewire/beam-inertia": "0.2.0",
         "@splicewire/beam-mainframe": "0.1.1",
         "@splicewire/beam-ux": "0.4.0",
