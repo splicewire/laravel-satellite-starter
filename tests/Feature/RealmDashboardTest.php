@@ -122,10 +122,13 @@ class RealmDashboardTest extends TestCase
     // ---------------------------------------------------------------- the operator rows
 
     /**
-     * Declared/custom cards keep their providers; rail-only Users and Teams are tiles.
-     * Every destination appears once (card XOR tile), and Developer leaves stay off the dashboard.
+     * Declared cards keep their live provider figures; rail-only Users and Teams are TILES, not cards
+     * (ADR-0224: a default-provider resource with no declared context is a nav tile, not a derived card).
+     * Every destination appears once - card XOR tile - and the tiles are the realm's remaining nav leaves,
+     * after every card. This host seats no card-declaring resource in the operator realm, so its dashboard
+     * is all tiles (Users, Teams); a host that adds a card resource asserts it the same way.
      */
-    public function test_the_operator_dashboard_streams_declared_cards_then_remaining_product_tiles(): void
+    public function test_the_operator_dashboard_streams_declared_cards_with_live_counts_then_remaining_product_tiles(): void
     {
         $operator = $this->operator();
 
@@ -144,15 +147,17 @@ class RealmDashboardTest extends TestCase
             'every card lands in one page regardless of per_page',
         );
 
-        $byResource = array_column($cards, null, 'resource');
-        $this->assertArrayNotHasKey('users', $byResource);
-        $this->assertArrayNotHasKey('teams', $byResource);
-        $this->assertSame([], $byResource, 'this host declares no custom operator dashboard cards');
+        // ADR-0224: Users and Teams are default-provider resources with no declared dashboard context, so
+        // they are rail TILES, never cards. Any declared card keeps its own live provider figures.
+        // This host seats no card-declaring operator resource, so the card set is EMPTY. Assert the FULL
+        // set (not merely that Users/Teams are absent) so an invented third card cannot slip through.
+        $this->assertSame([], $cards, 'the operator dashboard declares no cards on this host');
 
-        // The remaining product rail, in rail order: no Developer zone or duplicate card destination.
+        // Jump-to equals the remaining PRODUCT rail: exclude the Developer zone (zone=meta, ADR-0224),
+        // the dashboard's own leaf, and any card destination, in the order the rail draws them.
         $manifest = $this->actingAs($operator)->getJson('/operator/frame/manifest')->assertOk()->json();
-        $productNav = array_filter($manifest['nav']['items'], fn (array $node): bool => ($node['zone'] ?? null) !== 'meta');
         $cardHrefs = array_column($cards, 'href');
+        $productNav = array_filter($manifest['nav']['items'], fn (array $node): bool => ($node['zone'] ?? null) !== 'meta');
         $rail = array_values(array_filter(
             self::leaves($productNav),
             fn (array $leaf): bool => ($leaf['routeName'] ?? null) !== 'operator-dashboard.index'
@@ -160,11 +165,16 @@ class RealmDashboardTest extends TestCase
         ));
         $tileHrefs = array_column($tiles, 'href');
 
-        $this->assertContains('/operator/users', $tileHrefs);
-        $this->assertContains('/operator/teams', $tileHrefs);
+        $tileHrefs = array_column($tiles, 'href');
+
+        $this->assertNotEmpty($tiles);
         $this->assertSame(array_column($rail, 'href'), $tileHrefs);
         $this->assertSame(array_column($rail, 'title'), array_column($tiles, 'label'));
         $this->assertNotContains('/operator/dashboard', $tileHrefs);
+
+        // ADR-0224: Users and Teams are tiles, not cards; every destination appears once (card XOR tile).
+        $this->assertContains('/operator/users', $tileHrefs);
+        $this->assertContains('/operator/teams', $tileHrefs);
         $this->assertSame([], array_values(array_intersect($cardHrefs, $tileHrefs)));
         $this->assertCount(count(array_unique([...$cardHrefs, ...$tileHrefs])), $rows);
 

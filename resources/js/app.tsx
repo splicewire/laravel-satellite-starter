@@ -3,6 +3,7 @@ import { beamInertiaOptions } from '@splicewire/beam-inertia';
 import type { PageModule } from '@splicewire/beam-inertia';
 import { configureDocs } from '@splicewire/beam-docs';
 import { beamDocsPages } from '@splicewire/beam-docs/pages';
+import '@splicewire/beam-ux/tokens-docs.css';
 import { authFeatures } from './beam';
 
 const pages = import.meta.glob<PageModule>([

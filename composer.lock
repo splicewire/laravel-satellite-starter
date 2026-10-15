@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "25a9c363e9a5b1d7d0f32d9332713187",
+    "content-hash": "ca7a1a679da75dc605e4f7712ce9d2cc",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -6632,7 +6632,7 @@
                 "spatie",
                 "validation"
             ],
-            "time": "2026-10-09T12:47:54+00:00"
+            "time": "2026-10-11T03:43:21+00:00"
         },
         {
             "name": "schemastud/laravel-frame",
@@ -8225,7 +8225,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-accounts.git",
-                "reference": "a18b2fefe67f6694bf2e69012a1deff47cf6b6a9"
+                "reference": "5fcaaa409a87b0fe107074d9c2431c45d02bf3d7"
             },
             "require": {
                 "firebase/php-jwt": "^6.0|^7.0",
@@ -8329,7 +8329,7 @@
                 "schemastud",
                 "teams"
             ],
-            "time": "2026-10-14T20:39:27+00:00"
+            "time": "2026-10-15T16:47:17+00:00"
         },
         {
             "name": "splicewire/laravel-beam-docs",
@@ -8852,7 +8852,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-ux.git",
-                "reference": "96d798ac7d5b6c99991c6b049343d4d84fb7aaaf"
+                "reference": "9f19c64f34f7fa009468c853ce091a0b00908581"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8948,7 +8948,7 @@
                 "splicewire",
                 "ux"
             ],
-            "time": "2026-10-15T03:48:36+00:00"
+            "time": "2026-10-15T12:19:17+00:00"
         },
         {
             "name": "splicewire/laravel-beam-ux-prototype",

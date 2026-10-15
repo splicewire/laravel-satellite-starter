@@ -44,11 +44,7 @@ export default function AccountTheme({ entry }: EntryPageData) {
                     </UxBuilderProvider>
                 ) : (
                     <p className="text-sm text-muted-foreground">
-                        This site has no theme entry yet — seed one with{' '}
-                        <code className="font-mono">
-                            php artisan db:seed --class=ThemeSeeder
-                        </code>
-                        .
+                        This site is using the default theme — there is no custom theme to edit yet.
                     </p>
                 )}
             </div>

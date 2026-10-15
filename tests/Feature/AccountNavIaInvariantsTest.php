@@ -18,9 +18,9 @@ use Splicewire\Beam\Ux\Models\BeamUxEntry;
 use Tests\TestCase;
 
 /**
- * ux-walkthrough UX-06: the account rail (`accountNav`) runs the IA invariants. Its edges into the operator and user
- * realms are UX-12b's listed exception, because until the realm switcher (UX-12a) the operator-seat row is the
- * operator realm's only door; every other breach throws, and the old catch-all no longer hides it.
+ * ux-walkthrough UX-06: the account rail (`accountNav`) runs the IA invariants. Since the realm switcher (UX-12a) is the
+ * operator realm's door, the rail carries no Operator seat and no Console; every breach throws, and the old catch-all no
+ * longer hides it.
  */
 class AccountNavIaInvariantsTest extends TestCase
 {

@@ -441,6 +441,12 @@
         "docs": "@php artisan splicewire:beam:docs:generate"
     },
     "extra": {
+        "splicewire": {
+            "starter": {
+                "repository": "https://github.com/splicewire/laravel-satellite-starter",
+                "published": false
+            }
+        },
         "merge-plugin": {
             "include": [
                 "composer.local.json"

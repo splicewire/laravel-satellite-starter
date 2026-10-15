@@ -154,7 +154,15 @@ function pnpm(args, hint = '') {
 
 const setHidden = (on) => git('update-index', on ? '--skip-worktree' : '--no-skip-worktree', ...HIDDEN);
 
+function refuseGitReleaseOverlay() {
+    const state = resolve(ROOT, git('rev-parse', '--git-path', 'pnpm-local-overlay').trim());
+    if (existsSync(state) || existsSync(join(ROOT, '.pnpmfile.cjs'))) {
+        fail('pnpm-overlay or another pnpmfile hook is present; disable it before using legacy js-overlay. Nothing was changed.');
+    }
+}
+
 function on() {
+    refuseGitReleaseOverlay();
     const links = readLinks();
     if (isOn()) {
         // A second `on` re-applies cleanly, but never over a change. It checks the lock too: re-recording drift silently would
@@ -181,6 +189,7 @@ function on() {
 }
 
 function off() {
+    refuseGitReleaseOverlay();
     if (!isOn()) {
         say('off already.');
         return;
