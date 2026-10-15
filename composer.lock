@@ -5397,7 +5397,7 @@
                 "MIT"
             ],
             "description": "Host-agnostic filtering spine for Laravel. Declare a resource's filterable surface once on a Spatie Data class; derive a spatie/laravel-query-builder query, an x-filter JSON-Schema keyword for UI parity (via laravel-data-schemas), and persisted saved filters from that single declaration.",
-            "time": "2026-09-25T04:42:30+00:00"
+            "time": "2026-10-09T22:00:40+00:00"
         },
         {
             "name": "rushing/laravel-data-nav",
@@ -8109,7 +8109,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam.git",
-                "reference": "01abf9355d0b28bbebc36d0e613af92fe54248ff"
+                "reference": "bf197e95e413c794aa5a8d01947049f922bb9c4a"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8217,7 +8217,7 @@
                 "MIT"
             ],
             "description": "The schema-driven-CMS core: composes the open schema foundation (schemastud/laravel-data-schemas + schemastud/laravel-frame) and the open versioning foundation (rushing/laravel-versioning) into a schema-typed, snapshot-versioned, migrate-on-read BeamParticle. Depends DOWN on the open foundations (the ADR-0092 direction, paid→open); per ADR-0156 that now includes schemastud/laravel-frame — the agnostic resource-scaffolding rung — so beam natively implements Frame's FrameResourceHandler port (chain: splicewire/beam → schemastud/frame → schemastud/data-schemas, monotonic, no cycle). Also the runtime home of the host-hook registries (webhook / sitemap / doctor), the realm registry, and the particle resource declarations. The media arm (medialibrary + the media model traits + media table) was extracted DOWN into splicewire/laravel-beam-media (HTTP-03 / ADR-0178); base beam no longer requires medialibrary and does NOT require beam-media (no cycle). Headless = no editor SURFACE running; Frame's scaffolding may be present-but-inert. No Beam model is minted; beam is a substrate, not an instance.",
-            "time": "2026-10-07T12:08:21+00:00"
+            "time": "2026-10-15T04:57:54+00:00"
         },
         {
             "name": "splicewire/laravel-beam-accounts",
@@ -8225,7 +8225,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-accounts.git",
-                "reference": "69431aa7db52871d45280b6893d364b3de191cd4"
+                "reference": "a18b2fefe67f6694bf2e69012a1deff47cf6b6a9"
             },
             "require": {
                 "firebase/php-jwt": "^6.0|^7.0",
@@ -8329,7 +8329,7 @@
                 "schemastud",
                 "teams"
             ],
-            "time": "2026-10-08T19:50:58+00:00"
+            "time": "2026-10-14T20:39:27+00:00"
         },
         {
             "name": "splicewire/laravel-beam-docs",
@@ -8748,7 +8748,7 @@
                 }
             ],
             "description": "Generic sync foundation: the Syncable contract, the byte-stable SyncData transit base, a tenancy-blind dependency resolver (scope-expand + Kahn topo-sort), and the SyncSource/SyncTarget ports. Copies a dependency cone BY VALUE across shared-nothing boundaries — usable off a local tenant context AND from remote sources. NOT built on stancl/tenancy's resource-syncing (a different, single-row-mirror mechanism); requires no beam, tenancy, or tower.",
-            "time": "2026-09-08T14:13:40+00:00"
+            "time": "2026-10-09T22:15:08+00:00"
         },
         {
             "name": "splicewire/laravel-beam-taxonomy",
@@ -8756,7 +8756,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-taxonomy.git",
-                "reference": "646f22c0956500797ff46457a8a6102e8b9221e3"
+                "reference": "fc34a6a45ed1bf797da99ddcd871fc18b576f38c"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8844,7 +8844,7 @@
                 }
             ],
             "description": "Beam taxonomy — the reusable Tag/Silo (BeamTag/BeamSilo) surface for beam sites. Ships the tag/silo ParticleResource declarations over host-bound models, so a beam site gets a schema-typed taxonomy CRUD surface with no controller code.",
-            "time": "2026-09-23T00:10:18+00:00"
+            "time": "2026-10-15T01:17:09+00:00"
         },
         {
             "name": "splicewire/laravel-beam-ux",
@@ -8852,7 +8852,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-ux.git",
-                "reference": "c1d1112580b41e84061a3a63e070cadd904ed43c"
+                "reference": "96d798ac7d5b6c99991c6b049343d4d84fb7aaaf"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8948,7 +8948,7 @@
                 "splicewire",
                 "ux"
             ],
-            "time": "2026-10-07T10:58:48+00:00"
+            "time": "2026-10-15T03:48:36+00:00"
         },
         {
             "name": "splicewire/laravel-beam-ux-prototype",
@@ -9260,7 +9260,7 @@
                 "proprietary"
             ],
             "description": "The composition spine's shared Data/DTO + schema authoring vocabulary: generation attributes, the data-schemas projection strategy, the angle layer, the BeatGrammar projector, and the structured-export I/O DTOs with 1:1 hydration. The heavy composition engine stays private; this is the surface satellites and the client share without it.",
-            "time": "2026-09-08T12:45:33+00:00"
+            "time": "2026-10-09T19:17:00+00:00"
         },
         {
             "name": "splicewire/laravel-connector",
@@ -9327,7 +9327,7 @@
                 }
             ],
             "description": "API Client for Splicewire",
-            "time": "2026-10-07T08:08:16+00:00"
+            "time": "2026-10-09T21:30:26+00:00"
         },
         {
             "name": "splicewire/laravel-grounding-spine",
@@ -16878,7 +16878,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-dev.git",
-                "reference": "37a8d901e6a1a34e5f7840457e79f155a8ac1558"
+                "reference": "2b45ada988a06a361a097e4984974525f13a9f29"
             },
             "require": {
                 "illuminate/console": "^11.0|^12.0|^13.0",
@@ -16952,7 +16952,7 @@
                 "sqlite",
                 "testing"
             ],
-            "time": "2026-10-07T10:58:48+00:00"
+            "time": "2026-10-14T21:47:21+00:00"
         },
         {
             "name": "splicewire/laravel-beam-provision",
@@ -17189,45 +17189,13 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "rushing/codegen": 20,
-        "rushing/laravel-data-filters": 20,
-        "rushing/laravel-data-nav": 20,
-        "rushing/laravel-data-schemas-scribe": 20,
-        "rushing/laravel-doctor": 20,
-        "rushing/laravel-graphine": 20,
-        "rushing/laravel-marquee": 20,
-        "rushing/laravel-mcp-registry": 20,
-        "rushing/laravel-permission-cascade": 20,
-        "rushing/laravel-pipeline-registry": 20,
-        "rushing/laravel-popcorn": 20,
-        "rushing/laravel-schema-convergence": 20,
         "rushing/laravel-surgeon": 20,
-        "rushing/laravel-versioning": 20,
-        "rushing/php-graphine": 20,
-        "rushing/php-package-topology": 20,
-        "rushing/php-popcorn": 20,
         "schemastud/laravel-data-schemas": 20,
-        "schemastud/laravel-frame": 20,
-        "schemastud/laravel-json-ns": 20,
-        "schemastud/php-json-ns": 20,
         "splicewire/laravel-beam": 20,
-        "splicewire/laravel-beam-accounts": 20,
         "splicewire/laravel-beam-dev": 20,
         "splicewire/laravel-beam-docs": 20,
         "splicewire/laravel-beam-mcp": 20,
-        "splicewire/laravel-beam-mdx": 20,
-        "splicewire/laravel-beam-provision": 20,
-        "splicewire/laravel-beam-sitemap": 20,
-        "splicewire/laravel-beam-sync": 20,
-        "splicewire/laravel-beam-taxonomy": 20,
-        "splicewire/laravel-beam-ux": 20,
-        "splicewire/laravel-beam-ux-prototype": 20,
-        "splicewire/laravel-beam-workflows": 20,
-        "splicewire/laravel-composition-music-spine": 20,
-        "splicewire/laravel-composition-spine": 20,
-        "splicewire/laravel-connector": 20,
-        "splicewire/laravel-grounding-spine": 20,
-        "splicewire/laravel-satellite": 20
+        "splicewire/laravel-beam-provision": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
