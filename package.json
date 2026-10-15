@@ -13,9 +13,9 @@
             "@schemastud/mainframe": "0.1.0",
             "@schemastud/nav": "0.1.0",
             "@schemastud/seam": "0.2.2",
-            "@splicewire/beam-inertia": "0.2.0",
+            "@splicewire/beam-inertia": "0.3.0",
             "@splicewire/beam-resources": "0.1.1",
-            "@splicewire/beam-ux": "0.4.0",
+            "@splicewire/beam-ux": "0.5.0",
             "@schemastud/ui": "0.1.2"
         }
     },
@@ -74,9 +74,9 @@
         "@schemastud/seam": "0.2.2",
         "@schemastud/ui": "0.1.2",
         "@splicewire/beam-accounts": "0.2.1",
-        "@splicewire/beam-inertia": "0.2.0",
+        "@splicewire/beam-inertia": "0.3.0",
         "@splicewire/beam-mainframe": "0.1.1",
-        "@splicewire/beam-ux": "0.4.0",
+        "@splicewire/beam-ux": "0.5.0",
         "@splicewire/beam-ux-prototype": "0.1.0",
         "@tailwindcss/vite": "^4.1.11",
         "@tanstack/react-query": "^5.0.0",
@@ -102,7 +102,8 @@
         "tw-animate-css": "^1.4.0",
         "typescript": "^5.7.2",
         "vite": "^8.0.0",
-        "@splicewire/beam-docs": "0.1.1",
+        "@splicewire/beam-docs": "0.2.0",
+        "@splicewire/beam-mdx": "0.1.0",
         "@scalar/cli": "2.1.0"
     },
     "optionalDependencies": {

@@ -13,9 +13,9 @@ overrides:
   '@schemastud/mainframe': 0.1.0
   '@schemastud/nav': 0.1.0
   '@schemastud/seam': 0.2.2
-  '@splicewire/beam-inertia': 0.2.0
+  '@splicewire/beam-inertia': 0.3.0
   '@splicewire/beam-resources': 0.1.1
-  '@splicewire/beam-ux': 0.4.0
+  '@splicewire/beam-ux': 0.5.0
   '@schemastud/ui': 0.1.2
 
 importers:
@@ -104,17 +104,20 @@ importers:
         specifier: 0.2.1
         version: 0.2.1(v6skejfxki4ybvlsvckj7vojv4)
       '@splicewire/beam-docs':
-        specifier: 0.1.1
-        version: 0.1.1(@inertiajs/react@3.6.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@rjsf/utils@6.7.1(react@19.2.8))(@schemastud/nav@0.1.0(react@19.2.8))(@schemastud/seam@0.2.2(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(ajv@8.20.0)(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)))(@splicewire/beam-ux@0.4.0(dmg5vqgafyl7j47ujmrcfc7ism))(react@19.2.8)
-      '@splicewire/beam-inertia':
         specifier: 0.2.0
-        version: 0.2.0(wzlxs5encl4nokovjlua56m5su)
+        version: 0.2.0(mnmd3ticgbpylamthmx6jyhc2m)
+      '@splicewire/beam-inertia':
+        specifier: 0.3.0
+        version: 0.3.0(s3t76xw5i57foppdf74gd3a5iq)
       '@splicewire/beam-mainframe':
         specifier: 0.1.1
         version: 0.1.1(@preact/signals-core@1.14.4)(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(ajv@8.20.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
+      '@splicewire/beam-mdx':
+        specifier: 0.1.0
+        version: 0.1.0(@inertiajs/react@3.6.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@mdx-js/mdx@3.1.1)(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
       '@splicewire/beam-ux':
-        specifier: 0.4.0
-        version: 0.4.0(dmg5vqgafyl7j47ujmrcfc7ism)
+        specifier: 0.5.0
+        version: 0.5.0(dmg5vqgafyl7j47ujmrcfc7ism)
       '@splicewire/beam-ux-prototype':
         specifier: 0.1.0
         version: 0.1.0(lucide-react@0.475.0(react@19.2.8))(react-router@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
@@ -1889,21 +1892,22 @@ packages:
       lucide-react: '>=0.400.0'
       react: '>=18'
 
-  '@splicewire/beam-docs@0.1.1':
-    resolution: {integrity: sha512-4SwqJLL+EujDaqsDbZSBnTE86QUttOhJkU2k8Z7Bza/GMHvYdB38bLo3zc14Ta83g5cjAcke7RHDK1Y1e+/68g==}
+  '@splicewire/beam-docs@0.2.0':
+    resolution: {integrity: sha512-GKFpTkjNAun9bCKHqRNZ0bQyN/F410IreIRK5oAawn+ccaNRShAcmNVKYlKfxfitZFTAbfcEyrsYe/5yLUuODQ==}
     peerDependencies:
       '@inertiajs/react': '>=2'
       '@rjsf/utils': '>=6'
       '@schemastud/nav': 0.1.0
       '@schemastud/seam': 0.2.2
-      '@splicewire/beam-ux': 0.4.0
+      '@splicewire/beam-mdx': '*'
+      '@splicewire/beam-ux': 0.5.0
       react: '>=18'
     peerDependenciesMeta:
       '@inertiajs/react':
         optional: true
 
-  '@splicewire/beam-inertia@0.2.0':
-    resolution: {integrity: sha512-PhkjtI3Tu8eRHBGqT7x/IFX/l84nkEFg/L1IQhaylfcuVZESfRPACthQaJBvpXuug/hZwIKEWVJZxATjPrrN6w==}
+  '@splicewire/beam-inertia@0.3.0':
+    resolution: {integrity: sha512-3tezpm47zPtCil3xgCUfYOhPvGMSgFo/KU9Q9eY9qyjp9ZxPNsjT8N5s3QipTep4AAhe22SM90kN/q0OOoXDWg==}
     peerDependencies:
       '@inertiajs/core': ^3.0.0
       '@inertiajs/react': ^3.0.0
@@ -1927,7 +1931,7 @@ packages:
       '@schemastud/ui': 0.1.2
       '@splicewire/beam-accounts': ^0.2.0
       '@splicewire/beam-mainframe': 0.1.1
-      '@splicewire/beam-ux': 0.4.0
+      '@splicewire/beam-ux': 0.5.0
       '@tanstack/react-query': ^5.0.0
       class-variance-authority: ^0.7.1
       clsx: ^2.1.1
@@ -1943,6 +1947,43 @@ packages:
     peerDependencies:
       react: '>=18'
 
+  '@splicewire/beam-mdx@0.1.0':
+    resolution: {integrity: sha512-yrQiARnuj9v52cCDIeU4iB+vdnA/0+UCXrZTBDt6sWOXkKKPKm+CYaSd/MkSkWGnNs9WoTPtURI6AViL/SBHNw==}
+    peerDependencies:
+      '@inertiajs/react': '>=2'
+      '@mdx-js/mdx': ^3
+      '@mdx-js/rollup': ^3
+      '@mdxeditor/editor': ^4
+      '@rjsf/core': ^6
+      '@rjsf/shadcn': ^6
+      '@rjsf/utils': ^6
+      '@rjsf/validator-ajv8': ^6
+      react: '>=18'
+      remark-frontmatter: ^5
+      remark-mdx-frontmatter: ^5
+      vite: '>=5'
+    peerDependenciesMeta:
+      '@mdx-js/mdx':
+        optional: true
+      '@mdx-js/rollup':
+        optional: true
+      '@mdxeditor/editor':
+        optional: true
+      '@rjsf/core':
+        optional: true
+      '@rjsf/shadcn':
+        optional: true
+      '@rjsf/utils':
+        optional: true
+      '@rjsf/validator-ajv8':
+        optional: true
+      remark-frontmatter:
+        optional: true
+      remark-mdx-frontmatter:
+        optional: true
+      vite:
+        optional: true
+
   '@splicewire/beam-resources@0.1.1':
     resolution: {integrity: sha512-SLwf8CgFXlKok2q770gik4cFepu3mm0dLpepMd7QuHGQXI5HCr0oO7l1+ky8zQjFFuWj3h7TlQVzrRZuEFlsfA==}
 
@@ -1954,8 +1995,8 @@ packages:
       react: '>=18'
       react-router: '>=7'
 
-  '@splicewire/beam-ux@0.4.0':
-    resolution: {integrity: sha512-5qhWnnL9LWYujsis/mLaMgWGrRJm1yFkQvumhAPJAY5tyZvZTner+7r01IX2W/Ara4JXVx7YbSdnWI2UTaWnLA==}
+  '@splicewire/beam-ux@0.5.0':
+    resolution: {integrity: sha512-Lf5+KRC0k3BXsmQYdDp5lqNDXpN2cG+GPE/u7LhGKoyyYnjfzEO78+YcBWZYC0MokZLqqx8ze+ws3mnzFKgGrg==}
     hasBin: true
     peerDependencies:
       '@inertiajs/react': '>=2'
@@ -7206,17 +7247,18 @@ snapshots:
       lucide-react: 0.475.0(react@19.2.8)
       react: 19.2.8
 
-  '@splicewire/beam-docs@0.1.1(@inertiajs/react@3.6.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@rjsf/utils@6.7.1(react@19.2.8))(@schemastud/nav@0.1.0(react@19.2.8))(@schemastud/seam@0.2.2(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(ajv@8.20.0)(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)))(@splicewire/beam-ux@0.4.0(dmg5vqgafyl7j47ujmrcfc7ism))(react@19.2.8)':
+  '@splicewire/beam-docs@0.2.0(mnmd3ticgbpylamthmx6jyhc2m)':
     dependencies:
       '@rjsf/utils': 6.7.1(react@19.2.8)
       '@schemastud/nav': 0.1.0(react@19.2.8)
       '@schemastud/seam': 0.2.2(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(ajv@8.20.0)(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
-      '@splicewire/beam-ux': 0.4.0(dmg5vqgafyl7j47ujmrcfc7ism)
+      '@splicewire/beam-mdx': 0.1.0(@inertiajs/react@3.6.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@mdx-js/mdx@3.1.1)(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
+      '@splicewire/beam-ux': 0.5.0(dmg5vqgafyl7j47ujmrcfc7ism)
       react: 19.2.8
     optionalDependencies:
       '@inertiajs/react': 3.6.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
 
-  '@splicewire/beam-inertia@0.2.0(wzlxs5encl4nokovjlua56m5su)':
+  '@splicewire/beam-inertia@0.3.0(s3t76xw5i57foppdf74gd3a5iq)':
     dependencies:
       '@inertiajs/core': 3.6.1
       '@inertiajs/react': 3.6.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -7241,7 +7283,7 @@ snapshots:
       '@splicewire/beam-accounts': 0.2.1(v6skejfxki4ybvlsvckj7vojv4)
       '@splicewire/beam-mainframe': 0.1.1(@preact/signals-core@1.14.4)(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(ajv@8.20.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
       '@splicewire/beam-resources': 0.1.1
-      '@splicewire/beam-ux': 0.4.0(dmg5vqgafyl7j47ujmrcfc7ism)
+      '@splicewire/beam-ux': 0.5.0(dmg5vqgafyl7j47ujmrcfc7ism)
       '@tanstack/react-query': 5.101.4(react@19.2.8)
       class-variance-authority: 0.7.1
       clsx: 2.1.1
@@ -7267,6 +7309,18 @@ snapshots:
       - react-dom
       - vite
 
+  '@splicewire/beam-mdx@0.1.0(@inertiajs/react@3.6.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@mdx-js/mdx@3.1.1)(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))':
+    dependencies:
+      '@inertiajs/react': 3.6.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+      react: 19.2.8
+    optionalDependencies:
+      '@mdx-js/mdx': 3.1.1
+      '@rjsf/core': 6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3))
+      '@rjsf/shadcn': 6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3)
+      '@rjsf/utils': 6.7.1(react@19.2.8)
+      '@rjsf/validator-ajv8': 6.7.1(@rjsf/utils@6.7.1(react@19.2.8))
+      vite: 8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)
+
   '@splicewire/beam-resources@0.1.1': {}
 
   '@splicewire/beam-ux-prototype@0.1.0(lucide-react@0.475.0(react@19.2.8))(react-router@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)':
@@ -7275,7 +7329,7 @@ snapshots:
       react: 19.2.8
       react-router: 7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
 
-  '@splicewire/beam-ux@0.4.0(dmg5vqgafyl7j47ujmrcfc7ism)':
+  '@splicewire/beam-ux@0.5.0(dmg5vqgafyl7j47ujmrcfc7ism)':
     dependencies:
       '@babel/parser': 7.29.8
       '@babel/types': 7.29.8
