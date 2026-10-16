@@ -48,11 +48,15 @@
             hint. Same fix already landed in rushing/audiostud's identical scaffold-inherited line.
         --}}
         @vite(['resources/css/app.css', 'resources/js/app.tsx'])
+        {{-- ADR-0237: the Analytics Tag's head slot - OUTSIDE Inertia's head so it loads once per document and survives client navigation. Renders nothing until a provider has an id. --}}
+        @beamAnalyticsHead
         <x-inertia::head>
             <title>{{ \Splicewire\Beam\Brand\Brand::for(request())->name }}</title>
         </x-inertia::head>
     </head>
     <body class="font-sans antialiased">
+        {{-- ADR-0237: the Analytics Tag's body slot (the <noscript> fallback), immediately after <body>. --}}
+        @beamAnalyticsBody
         <x-inertia::app />
     </body>
 </html>
