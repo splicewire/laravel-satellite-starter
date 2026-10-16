@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Data\Pages\EntryPageData;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
@@ -13,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Inertia\Inertia;
 use Inertia\ResponseFactory;
+use Splicewire\Beam\Ux\Data\Pages\EntryPageData;
 
 uses(Tests\TestCase::class);
 

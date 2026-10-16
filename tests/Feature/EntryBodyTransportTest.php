@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\User;
-use App\Support\PageEntryRef;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -13,6 +12,7 @@ use Splicewire\Beam\Accounts\Models\Membership;
 use Splicewire\Beam\Accounts\Models\Team;
 use Splicewire\Beam\Accounts\Sharing\AccessGrants;
 use Splicewire\Beam\Ux\Models\BeamUxEntry;
+use Splicewire\Beam\Ux\Support\PageEntryRef;
 use Splicewire\Beam\Ux\Type\UxType;
 use Tests\TestCase;
 

@@ -10,7 +10,7 @@ use Splicewire\Beam\Ux\Type\UxType;
 
 /**
  * Seeds the 7 auth-page `beam_ux_entries` rows (theme-entries-and-authoring STR-03) —
- * `FortifyServiceProvider` resolves a body for each of these via `App\Beam\EntryBody`. Each entry's
+ * `FortifyServiceProvider` resolves a body for each of these via `Splicewire\Beam\Ux\Support\EntryBody`. Each entry's
  * body is an ordinary composable JsonDoc: a heading + description (today's static copy, as PLAIN
  * editable blocks — an author can retext/delete/reorder them) followed by the sealed island node
  * referencing the real Fortify-bound form (`resources/js/editor/registry.tsx`) — never decomposed.

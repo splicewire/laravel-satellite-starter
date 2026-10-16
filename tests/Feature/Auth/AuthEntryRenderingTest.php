@@ -2,20 +2,20 @@
 
 namespace Tests\Feature\Auth;
 
-use App\Beam\EntryBody;
 use App\Models\User;
 use Database\Seeders\AuthPagesSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
 use Splicewire\Beam\Models\BeamParticle;
 use Splicewire\Beam\Ux\Models\BeamUxEntry;
+use Splicewire\Beam\Ux\Support\EntryBody;
 use Tests\TestCase;
 
 /**
  * theme-entries-and-authoring STR-03: every promoted auth route renders the SAME beam-ux
  * entry-resolution page (`auth/entry`), differentiated by `slug` — pins that contract for every route
  * beyond the 2 already covered inline in {@see PasswordConfirmationTest}/{@see TwoFactorChallengeTest},
- * plus the two new pieces this ticket added: `App\Beam\EntryBody`'s degrade path and
+ * plus the two new pieces this ticket added: `Splicewire\Beam\Ux\Support\EntryBody`'s degrade path and
  * `AuthPagesSeeder`'s idempotency.
  */
 class AuthEntryRenderingTest extends TestCase

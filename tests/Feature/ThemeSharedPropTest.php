@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use Database\Seeders\ThemeSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
 use Splicewire\Beam\Models\BeamParticle;
 use Splicewire\Beam\Ux\Models\BeamUxEntry;
+use Splicewire\Beam\Ux\Seeders\ThemeSeeder;
 use Splicewire\Beam\Ux\Theme\ThemeResolver;
 use Tests\TestCase;
 

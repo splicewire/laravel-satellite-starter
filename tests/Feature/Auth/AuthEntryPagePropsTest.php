@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Beam\EntryBody;
 use App\Providers\FortifyServiceProvider;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
@@ -31,6 +30,7 @@ use Splicewire\Beam\Accounts\Data\Pages\ResetPasswordPageData;
 use Splicewire\Beam\Storage\StorageDriver;
 use Splicewire\Beam\Storage\StorageItem;
 use Splicewire\Beam\Ux\Storage\StorageDriverResolver;
+use Splicewire\Beam\Ux\Support\EntryBody;
 
 uses(Tests\TestCase::class);
 
