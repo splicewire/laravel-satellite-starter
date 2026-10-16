@@ -124,4 +124,36 @@ class AuthEntryRenderingTest extends TestCase
         // 7 pages seeded, one particle each — re-running must refresh in place, never mint an 8th.
         $this->assertSame(7, BeamParticle::query()->count());
     }
+
+    public function test_fresh_auth_seed_publishes_every_page_and_rerun_preserves_identity(): void
+    {
+        $seeder = new AuthPagesSeeder;
+        $seeder->run();
+        $pages = BeamUxEntry::query()->where('realm', 'auth')->whereNotNull('particle_id')->orderBy('slug')->get();
+        $this->assertCount(7, $pages);
+        $publication = app(\Splicewire\Beam\Ux\Publish\EntryPublication::class);
+        foreach ($pages as $entry) {
+            $this->assertNotNull($publication->publishedVersionId($entry), $entry->slug);
+        }
+        $identities = $pages->mapWithKeys(fn ($entry) => [$entry->slug => [$entry->id, $entry->particle_id]])->all();
+        $seeder->run();
+        $again = BeamUxEntry::query()->where('realm', 'auth')->whereNotNull('particle_id')->orderBy('slug')->get();
+        $this->assertSame($identities, $again->mapWithKeys(fn ($entry) => [$entry->slug => [$entry->id, $entry->particle_id]])->all());
+        $this->assertSame(7, BeamParticle::query()->count());
+        foreach ($again as $entry) {
+            $this->assertNotNull($publication->publishedVersionId($entry), $entry->slug);
+        }
+
+        $themeSeeder = new \Splicewire\Beam\Ux\Seeders\ThemeSeeder;
+        $themeSeeder->run();
+        $theme = BeamUxEntry::query()->where('namespace', 'theme')->where('slug', 'default')->firstOrFail();
+        $this->assertNotNull($publication->publishedVersionId($theme), 'theme/default');
+        $themeIdentity = [$theme->id, $theme->particle_id];
+        $themeSeeder->run();
+        $theme->refresh();
+        $this->assertSame($themeIdentity, [$theme->id, $theme->particle_id]);
+        $this->assertNotNull($publication->publishedVersionId($theme), 'theme/default rerun');
+        // EP-01 owns these eight bodies; the three docs/MCP entries are a separate nomination.
+        $this->assertSame(8, BeamParticle::query()->count());
+    }
 }

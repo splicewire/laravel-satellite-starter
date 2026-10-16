@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use App\Beam\RealmRegistry;
 use Illuminate\Database\Seeder;
-use Splicewire\Beam\Models\BeamParticle;
 use Splicewire\Beam\Ux\Models\BeamUxEntry;
+use Splicewire\Beam\Ux\Publish\EntryPublication;
 use Splicewire\Beam\Ux\Type\UxType;
 
 /**
@@ -62,6 +62,8 @@ class AuthPagesSeeder extends Seeder
 
     public function run(): void
     {
+        app(EntryPublication::class)->requireVersionStore();
+
         // The `auth` realm's canonical root — nothing else in this host provisions it (it has no
         // nav.yml entry, unlike site/account/operator): without this, `author-ux-auth` (and the
         // realm-grant cascade generally) can never resolve TRUE for anyone, no matter how broad their
@@ -79,29 +81,20 @@ class AuthPagesSeeder extends Seeder
         $namespace = config('beam.ux.namespace', 'starter');
         $body = $this->body($island, $heading, $description);
 
-        $entry = BeamUxEntry::query()
-            ->where('namespace', $namespace)
-            ->where('slug', $slug)
-            ->first();
-
-        if ($entry && $entry->particle_id) {
-            BeamParticle::where('id', $entry->particle_id)->update(['payload' => $body]);
-
-            return;
-        }
-
-        $particle = BeamParticle::create(['payload' => $body]);
-
-        BeamUxEntry::updateOrCreate(
+        $publication = app(EntryPublication::class);
+        $entry = BeamUxEntry::firstOrCreate(
             ['namespace' => $namespace, 'slug' => $slug],
             [
                 'type' => UxType::Page,
                 'title' => $title,
                 'realm' => RealmRegistry::REALM_AUTH,
                 'realms' => [RealmRegistry::REALM_AUTH],
-                'particle_id' => $particle->id,
             ],
         );
+        $publication->assertStorable($entry, $body);
+        $publication->baseline($entry);
+        $publication->write($entry, $body);
+        $publication->publishWritten($entry->refresh());
     }
 
     /**
