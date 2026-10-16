@@ -8332,6 +8332,67 @@
             "time": "2026-10-15T16:47:17+00:00"
         },
         {
+            "name": "splicewire/laravel-beam-analytics",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/splicewire/laravel-beam-analytics.git",
+                "reference": "4423cfc68fadda35ec5f9914c3d80dac77151b2a"
+            },
+            "require": {
+                "illuminate/console": "^11.0|^12.0|^13.0",
+                "illuminate/contracts": "^11.0|^12.0|^13.0",
+                "illuminate/support": "^11.0|^12.0|^13.0",
+                "illuminate/view": "^11.0|^12.0|^13.0",
+                "php": "^8.2",
+                "rushing/laravel-doctor": "*",
+                "spatie/laravel-package-tools": "^1.16"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^9.0|^10.0|^11.0",
+                "phpunit/phpunit": "^11.0|^12.0",
+                "wikimedia/composer-merge-plugin": "^2.1"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Splicewire\\Beam\\Analytics\\BeamAnalyticsServiceProvider"
+                    ]
+                },
+                "merge-plugin": {
+                    "include": [
+                        "composer.local.json"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Splicewire\\Beam\\Analytics\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Splicewire\\Beam\\Analytics\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "pint": [
+                    "@php -d memory_limit=512M vendor/bin/pint"
+                ],
+                "test": [
+                    "@php vendor/bin/phpunit"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Provider-agnostic, opt-in, fail-closed frontend analytics for beam satellites. Two Blade directives (@beamAnalyticsHead / @beamAnalyticsBody) render the analytics markup for every configured-and-keyed provider at once and nothing when a provider is keyless, the env is disallowed, or a provider name is unknown. GTM ships as the first adapter; a `splicewire:beam:analytics:doctor` command verifies directive placement and env/config coherence. Never reads a service-account key.",
+            "time": "2026-10-16T19:59:06+00:00"
+        },
+        {
             "name": "splicewire/laravel-beam-docs",
             "version": "dev-main",
             "source": {
@@ -8852,7 +8913,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-ux.git",
-                "reference": "9f19c64f34f7fa009468c853ce091a0b00908581"
+                "reference": "adb0c5ee6bb2efc51977acd7030247cab7220d9f"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8869,6 +8930,7 @@
                 "schemastud/laravel-frame": "*",
                 "splicewire/laravel-beam": "*",
                 "splicewire/laravel-beam-accounts": "*",
+                "splicewire/laravel-beam-analytics": "*",
                 "splicewire/laravel-beam-mdx": "*",
                 "splicewire/laravel-beam-sitemap": "dev-main",
                 "splicewire/laravel-beam-taxonomy": "*",
@@ -8948,7 +9010,7 @@
                 "splicewire",
                 "ux"
             ],
-            "time": "2026-10-15T12:19:17+00:00"
+            "time": "2026-10-16T21:14:55+00:00"
         },
         {
             "name": "splicewire/laravel-beam-ux-prototype",
