@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Beam\RealmRegistry;
 use Illuminate\Database\Seeder;
+use Splicewire\Beam\Write\AsSystemWriter;
+use Splicewire\Beam\Ux\Provenance\Reasserter;
 use Splicewire\Beam\Ux\Models\BeamUxEntry;
 use Splicewire\Beam\Ux\Publish\EntryPublication;
 use Splicewire\Beam\Ux\Type\UxType;
@@ -31,6 +33,7 @@ use Splicewire\Beam\Ux\Type\UxType;
  */
 class AuthPagesSeeder extends Seeder
 {
+    use AsSystemWriter;
     /** slug => [entry title (admin label), island component name, heading, description]. */
     private const PAGES = [
         'login' => [
@@ -62,6 +65,11 @@ class AuthPagesSeeder extends Seeder
 
     public function run(): void
     {
+        $this->asSystemWriter(fn () => $this->seedShipped());
+    }
+
+    private function seedShipped(): void
+    {
         app(EntryPublication::class)->requireVersionStore();
 
         // The `auth` realm's canonical root — nothing else in this host provisions it (it has no
@@ -81,20 +89,18 @@ class AuthPagesSeeder extends Seeder
         $namespace = config('beam.ux.namespace', 'starter');
         $body = $this->body($island, $heading, $description);
 
-        $publication = app(EntryPublication::class);
-        $entry = BeamUxEntry::firstOrCreate(
+        app(Reasserter::class)->seedBody(
             ['namespace' => $namespace, 'slug' => $slug],
             [
                 'type' => UxType::Page,
+                'format' => 'tsx',
                 'title' => $title,
                 'realm' => RealmRegistry::REALM_AUTH,
                 'realms' => [RealmRegistry::REALM_AUTH],
             ],
+            $body,
+            'package:splicewire/laravel-satellite-starter/auth-pages',
         );
-        $publication->assertStorable($entry, $body);
-        $publication->baseline($entry);
-        $publication->write($entry, $body);
-        $publication->publishWritten($entry->refresh());
     }
 
     /**
