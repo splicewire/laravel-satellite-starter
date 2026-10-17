@@ -172,9 +172,6 @@ return new class extends Migration
         // declared column, and this covers the ones the Blueprint above only declares conditionally.
         $this->addTeamColumnsIfMissing($tableNames, $columnNames);
 
-        app('cache')
-            ->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)
-            ->forget(config('permission.cache.key'));
     }
 
     /**
