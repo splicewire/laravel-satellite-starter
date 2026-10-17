@@ -6640,7 +6640,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/schemastud/laravel-frame.git",
-                "reference": "300cadf80573db455cf856155a5464705c7c3559"
+                "reference": "545df63760d7c7bd1c3eac82def43d44635c89c0"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -6701,7 +6701,7 @@
                 "MIT"
             ],
             "description": "The batteries-UX backend rung for schema-driven admin editors: the resource-definition registry (ResourceDefinition), the #[Widget] -> x-stud-widget projector, #[ReadOnlyField], and a served GET /frame/manifest. Sits one level above a filter-schema controller; resolves a resource key to its whole editor wiring. Pairs with @schemastud/frame on the JS side.",
-            "time": "2026-09-25T09:25:17+00:00"
+            "time": "2026-10-16T22:11:04+00:00"
         },
         {
             "name": "schemastud/laravel-json-ns",
