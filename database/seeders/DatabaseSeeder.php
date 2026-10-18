@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
+use Splicewire\Beam\Ux\Seeders\ThemeSeeder;
 
 class DatabaseSeeder extends Seeder
 {

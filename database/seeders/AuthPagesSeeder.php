@@ -4,13 +4,15 @@ namespace Database\Seeders;
 
 use App\Beam\RealmRegistry;
 use Illuminate\Database\Seeder;
-use Splicewire\Beam\Models\BeamParticle;
+use Splicewire\Beam\Write\AsSystemWriter;
+use Splicewire\Beam\Ux\Provenance\Reasserter;
 use Splicewire\Beam\Ux\Models\BeamUxEntry;
+use Splicewire\Beam\Ux\Publish\EntryPublication;
 use Splicewire\Beam\Ux\Type\UxType;
 
 /**
  * Seeds the 7 auth-page `beam_ux_entries` rows (theme-entries-and-authoring STR-03) —
- * `FortifyServiceProvider` resolves a body for each of these via `App\Beam\EntryBody`. Each entry's
+ * `FortifyServiceProvider` resolves a body for each of these via `Splicewire\Beam\Ux\Support\EntryBody`. Each entry's
  * body is an ordinary composable JsonDoc: a heading + description (today's static copy, as PLAIN
  * editable blocks — an author can retext/delete/reorder them) followed by the sealed island node
  * referencing the real Fortify-bound form (`resources/js/editor/registry.tsx`) — never decomposed.
@@ -31,6 +33,7 @@ use Splicewire\Beam\Ux\Type\UxType;
  */
 class AuthPagesSeeder extends Seeder
 {
+    use AsSystemWriter;
     /** slug => [entry title (admin label), island component name, heading, description]. */
     private const PAGES = [
         'login' => [
@@ -62,6 +65,13 @@ class AuthPagesSeeder extends Seeder
 
     public function run(): void
     {
+        $this->asSystemWriter(fn () => $this->seedShipped());
+    }
+
+    private function seedShipped(): void
+    {
+        app(EntryPublication::class)->requireVersionStore();
+
         // The `auth` realm's canonical root — nothing else in this host provisions it (it has no
         // nav.yml entry, unlike site/account/operator): without this, `author-ux-auth` (and the
         // realm-grant cascade generally) can never resolve TRUE for anyone, no matter how broad their
@@ -79,28 +89,17 @@ class AuthPagesSeeder extends Seeder
         $namespace = config('beam.ux.namespace', 'starter');
         $body = $this->body($island, $heading, $description);
 
-        $entry = BeamUxEntry::query()
-            ->where('namespace', $namespace)
-            ->where('slug', $slug)
-            ->first();
-
-        if ($entry && $entry->particle_id) {
-            BeamParticle::where('id', $entry->particle_id)->update(['payload' => $body]);
-
-            return;
-        }
-
-        $particle = BeamParticle::create(['payload' => $body]);
-
-        BeamUxEntry::updateOrCreate(
+        app(Reasserter::class)->seedBody(
             ['namespace' => $namespace, 'slug' => $slug],
             [
                 'type' => UxType::Page,
+                'format' => 'tsx',
                 'title' => $title,
                 'realm' => RealmRegistry::REALM_AUTH,
                 'realms' => [RealmRegistry::REALM_AUTH],
-                'particle_id' => $particle->id,
             ],
+            $body,
+            'package:splicewire/laravel-satellite-starter/auth-pages',
         );
     }
 

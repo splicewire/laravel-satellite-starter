@@ -13,12 +13,12 @@ use Splicewire\Beam\Accounts\Contracts\AccountShellProvider;
 use Splicewire\Beam\Accounts\Data\AccountShellData;
 use Splicewire\Beam\Brand\Brand;
 use Splicewire\Beam\Entitlements\CanMapBuilder;
-use Splicewire\Beam\Realm\RealmManifestProjector;
 use Splicewire\Beam\Ia\HostIa;
+use Splicewire\Beam\Realm\RealmManifestProjector;
 use Splicewire\Beam\Realm\RealmRegistry;
 use Splicewire\Beam\Ux\Containment\NavProjector;
 use Splicewire\Beam\Ux\Ia\IaInvariants;
-use Splicewire\Beam\Ux\Theme\ThemeResolver;
+use Splicewire\Beam\Ux\Support\EditorProps;
 use Throwable;
 
 class HandleInertiaRequests extends Middleware
@@ -61,7 +61,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => [
                 'user' => $request->user(),
                 // Drives the in-place authoring chrome gate (only a site admin sees the edit UI).
-                'canAuthorUx' => $request->user()?->can('ux.author') ?? false,
+                'canAuthorUx' => EditorProps::canAuthor($request),
             ],
             'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             // Data-driven SITE nav — the `site` sitemap projected via beam-ux's NavProjector. Consumed
@@ -79,7 +79,7 @@ class HandleInertiaRequests extends Middleware
             // The resolved theme (package default → central → tenant, ThemeResolver — ticket
             // theme-entries-and-authoring/01) — {canvas, shell, site}. Consumed by editor/theme.ts's
             // swap off NEUTRAL_THEME and the shell/site CSS-var <style> blocks.
-            'theme' => $this->theme(),
+            'theme' => EditorProps::theme(),
         ];
     }
 
@@ -252,23 +252,5 @@ class HandleInertiaRequests extends Middleware
                 return true;
             }
         )));
-    }
-
-    /**
-     * Resolve the cascaded theme (package default → central → tenant, {@see ThemeResolver}).
-     * Degrades to an empty array on failure — {@see ThemeResolver::resolve()} already never throws,
-     * but this stays defensive like every other share() lookup here (an absent/missing entry still
-     * resolves through schema defaults inside the resolver itself, so this catch is belt-and-suspenders
-     * against a future change, not the resolver's actual degrade path).
-     *
-     * @return array<string, mixed>
-     */
-    protected function theme(): array
-    {
-        try {
-            return app(ThemeResolver::class)->resolve();
-        } catch (Throwable) {
-            return [];
-        }
     }
 }

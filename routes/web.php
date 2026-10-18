@@ -1,10 +1,8 @@
 <?php
 
-use App\Data\Pages\EntryPageData;
 use App\Data\Pages\FrameConsolePageData;
 use App\Data\Pages\PlatformConnectionEndpointsData;
 use App\Data\Pages\PlatformConnectionPageData;
-use App\Support\PageEntryRef;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Schemastud\Frame\Http\Controllers\FrameManifestController;
@@ -14,6 +12,8 @@ use Splicewire\Beam\Facades\Particle;
 use Splicewire\Beam\Ia\Side;
 use Splicewire\Beam\Ia\Sides;
 use Splicewire\Satellite\Pairing\PlatformConnection;
+use Splicewire\Beam\Ux\Data\Pages\EntryPageData;
+use Splicewire\Beam\Ux\Support\PageEntryRef;
 
 // The FRONT DOOR is the OOTB site realm: `/` renders the promoted <SiteLayout> chrome (public) AND —
 // behind the ux.author seam — mounts the in-place visual editor (@/editor). (frontend-surfaces wiring.)
@@ -25,71 +25,8 @@ Route::get('/', fn () => Inertia::render('site/home', EntryPageData::from([
 ])))->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    // The beam-ux entry-body transport (ADR-0214 §1) — load/save a page entry's particle body, the
-    // server half `resources/js/editor`'s in-place editor (VisualEditorMount) round-trips through
-    // (theme-entries-and-authoring STR-03: needed so an `ux.auth.author` holder can actually edit the
-    // promoted auth pages' chrome). Two ordinary particle OPERATIONS on the `beam-ux-entry` resource,
-    // addressed by the entry's **id**.
-    //
-    // This replaces `Route::beamUxEntries()` (beam-docs-satellite ticket 40). That macro mounted a
-    // bespoke `GET|PUT beam/ux/entries/{slug}/body` controller, and it was bespoke for exactly one
-    // reason: it addressed by SLUG where the particle pipeline addresses by id — which is what let a
-    // namespaced and a null-namespace entry sharing one slug serve the WRONG row with no error. The
-    // three starters were the LAST holders of that mount.
-    //
-    // Both ops declare their own `ability: 'ux.author'` with `abilityModel: false` (§3) — that
-    // declaration is the real gate and it is what travels; this group is only auth + verified, exactly
-    // as it was for the macro.
-    //
-    // The read mounts GET (§4): `Particle::ops()` defaults to POST regardless of kind, and the body read is
-    // the hot path on every editor open, takes no input, and is idempotent. Because `EntryBodyShowOp`
-    // declares `input: false`, a GET carrying ANY query key is a 422 — the retired `?namespace=`
-    // disambiguator now fails loudly rather than being silently ignored, which is the point.
-    //
-    // Resource segment is the single hyphenated `beam-ux-entries`, NOT `beam-ux/entries`. The reason
-    // it was CHOSEN is history: a `/` in a resource name broke Wayfinder's generated-helper
-    // relative-import depth calculation, and Wayfinder is retired fleet-wide (beam-runbook ADR-0004,
-    // 2026-08-27). The segment stays as it is because it is now load-bearing for a different reason —
-    // it is in the live URIs and route names, and the front end addresses these ops by string literal.
-    Particle::ops('beam-ux-entries', 'beam-ux-entry', 'body');
-    Particle::ops('beam-ux-entries', 'beam-ux-entry', 'save-body');
-
-    // The DRAFT/PUBLISH half of the same transport (G2-BEAM-DRAFT-PUBLISH). `save-body` above is the
-    // immediate-publish write and keeps that contract; these four let an author work before anyone
-    // reads it, and let them put a page back:
-    //
-    //   save-draft  record an edited body as a version WITHOUT publishing it — a guest keeps reading
-    //               the published body, because the artifact they are served is addressed by the
-    //               entry's publication pin and a draft does not move it;
-    //   publish     move that pin to the working copy, mirror it to disk and compile the artifact
-    //               through the real request path — the same CompileEntryBody a save runs;
-    //   versions    the recorded history plus both pins, which is everything the dock's panel renders;
-    //   restore     roll forward to a recorded version and publish the result.
-    //
-    // Mounted with EXACTLY the same gates as `save-body`: this group's `auth` + `verified`, plus each
-    // op's own declared `ability: 'ux.author'` with `abilityModel: false` (§3), which is the real gate
-    // and the one that travels. A guest reaches none of them.
-    //
-    // ⚠️ **Not `Route::recordVersions()`**, which `splicewire/laravel-beam-versioning` ships and
-    // `BeamUxEntry::versionable()` was annotated for. Its list is right; its `store` and `restore` are
-    // record-agnostic and therefore blind to the publication pin, the placed disk mirror and the
-    // compiled artifact — mounted here, a restore would move the particle and leave the page serving a
-    // module compiled from a body no longer in the record. beam-ux composes the same underlying
-    // `rushing/laravel-versioning` store and declares these next to the compile pipeline that has to
-    // run with them; see `EntryVersionsShowOp`'s docblock for the full reasoning.
-    //
-    // `versions` mounts GET for the same reason `body` does (§4): the panel refetches it on every open,
-    // it takes no input, and it is idempotent.
-    Particle::ops('beam-ux-entries', 'beam-ux-entry', 'save-draft');
-    Particle::ops('beam-ux-entries', 'beam-ux-entry', 'publish');
-    Particle::ops('beam-ux-entries', 'beam-ux-entry', 'versions');
-    Particle::ops('beam-ux-entries', 'beam-ux-entry', 'restore');
-
-    // `clear-body` removes a page's content: it unbinds the entry's particle (its history is kept and
-    // gains a `cleared` version), deletes the placed mirror file and the compiled artifact, and the page
-    // reads as unauthored again. Saving an empty body is NOT this — that is an authored, published empty
-    // document. Same gates as the four above: this group plus the op's own `ux.author` (the publish gate).
-    Particle::ops('beam-ux-entries', 'beam-ux-entry', 'clear-body');
+    // The host owns auth + verified; the packaged operations each declare ux.author.
+    Splicewire\Beam\Ux\Support\EditorRoutes::mount();
 
     // The authed home IS the OOTB account realm, and it is the TENANT realm's dashboard leaf. Fortify
     // redirects login here (`config/fortify.php` home => /dashboard).

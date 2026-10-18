@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Beam\RealmRegistry;
 use App\Models\User;
-use Database\Seeders\ThemeSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
 use Rushing\PermissionCascade\Contracts\AccessGrant;
@@ -13,6 +12,7 @@ use Splicewire\Beam\Accounts\Models\Membership;
 use Splicewire\Beam\Accounts\Models\Team;
 use Splicewire\Beam\Accounts\Sharing\AccessGrants;
 use Splicewire\Beam\Ux\Models\BeamUxEntry;
+use Splicewire\Beam\Ux\Seeders\ThemeSeeder;
 use Splicewire\Beam\Ux\Theme\ThemeResolver;
 use Tests\TestCase;
 
@@ -31,7 +31,7 @@ use Tests\TestCase;
  * machine it was written on and 404 everywhere else — which is why the page is prop-addressed and why
  * the prop is asserted here against the row {@see ThemeSeeder} actually created.
  *
- * @see \App\Support\PageEntryRef::theme()
+ * @see \Splicewire\Beam\Ux\Support\PageEntryRef::theme()
  */
 class ThemeEditorSeatTest extends TestCase
 {

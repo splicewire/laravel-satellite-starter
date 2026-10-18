@@ -5,8 +5,6 @@ namespace App\Providers;
 /* @chisel-registration */
 
 /* @end-chisel-registration */
-use App\Beam\EntryBody;
-use App\Support\PageEntryRef;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
@@ -20,6 +18,8 @@ use Splicewire\Beam\Accounts\Actions\DemoLoginLinks;
 use Splicewire\Beam\Accounts\Data\Pages\AuthEntryPageData;
 use Splicewire\Beam\Accounts\Data\Pages\ResetPasswordPageData;
 use Splicewire\Beam\Accounts\Fortify\ResetUserPassword;
+use Splicewire\Beam\Ux\Support\EntryBody;
+use Splicewire\Beam\Ux\Support\PageEntryRef;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -55,7 +55,7 @@ class FortifyServiceProvider extends ServiceProvider
      * Configure Fortify views.
      *
      * theme-entries-and-authoring STR-03: every view renders the SAME beam-ux entry-resolution page
-     * (`auth/entry`), differentiated by `slug` — the `BeamUxEntry` `App\Beam\EntryBody::forSlug()`
+     * (`auth/entry`), differentiated by `slug` — the `BeamUxEntry` `Splicewire\Beam\Ux\Support\EntryBody::forSlug()`
      * resolves. Every prop these views computed before (`canResetPassword`, `status`, `demoAccounts`,
      * `email`, `token`, `passwordRules`) still flows exactly as before; the sealed form island reads
      * them via `usePage()` instead of receiving them as direct page-component props (it's no longer the

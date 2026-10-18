@@ -6173,7 +6173,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stephenr85/laravel-versioning.git",
-                "reference": "d62f9c5a65f697bd7f4d0215991523f775c93485"
+                "reference": "44d39e8784ff2032779d7b1a8f194bffeffa2461"
             },
             "require": {
                 "illuminate/contracts": "^11.0 || ^12.0 || ^13.0",
@@ -6232,7 +6232,7 @@
                 "snapshot",
                 "versioning"
             ],
-            "time": "2026-08-28T18:40:40+00:00"
+            "time": "2026-10-16T22:04:33+00:00"
         },
         {
             "name": "rushing/php-graphine",
@@ -6548,6 +6548,68 @@
                 }
             ],
             "time": "2026-03-17T22:58:33+00:00"
+        },
+        {
+            "name": "schemastud/laravel-blockdoc",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schemastud/laravel-blockdoc.git",
+                "reference": "a4f06d4e487bb7e762ff27be32ae8a2daa8e37ed"
+            },
+            "require": {
+                "illuminate/contracts": "^11.0|^12.0|^13.0",
+                "illuminate/support": "^11.0|^12.0|^13.0",
+                "php": "^8.3",
+                "rushing/php-popcorn": "dev-main",
+                "spatie/laravel-data": "^4.9",
+                "spatie/laravel-package-tools": "^1.16"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^10.0|^11.0",
+                "pestphp/pest": "^4.0",
+                "pestphp/pest-plugin-laravel": "^4.0",
+                "schemastud/laravel-data-schemas": "dev-main",
+                "wikimedia/composer-merge-plugin": "^2.1"
+            },
+            "suggest": {
+                "schemastud/laravel-data-schemas": "Emit JSON Schema for Block subclasses (BlockJsonSchemaGenerator) for LLM structured output."
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Schemastud\\Blockdoc\\ServiceProvider"
+                    ]
+                },
+                "merge-plugin": {
+                    "include": [
+                        "composer.local.json"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Schemastud\\Blockdoc\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Schemastud\\Blockdoc\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "pint": [
+                    "@php -d memory_limit=512M vendor/bin/pint"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A faithful ProseMirror document model for Laravel (Node/Document/Schema) plus a Spatie Data Block base class. Define your node types as Block subclasses; round-trip ProseMirror JSON.",
+            "time": "2026-10-17T02:08:30+00:00"
         },
         {
             "name": "schemastud/laravel-data-schemas",
@@ -8109,7 +8171,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam.git",
-                "reference": "bf197e95e413c794aa5a8d01947049f922bb9c4a"
+                "reference": "681b3e08c45f1d0a5a122f10fb306fd24fc575c6"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8217,7 +8279,7 @@
                 "MIT"
             ],
             "description": "The schema-driven-CMS core: composes the open schema foundation (schemastud/laravel-data-schemas + schemastud/laravel-frame) and the open versioning foundation (rushing/laravel-versioning) into a schema-typed, snapshot-versioned, migrate-on-read BeamParticle. Depends DOWN on the open foundations (the ADR-0092 direction, paid→open); per ADR-0156 that now includes schemastud/laravel-frame — the agnostic resource-scaffolding rung — so beam natively implements Frame's FrameResourceHandler port (chain: splicewire/beam → schemastud/frame → schemastud/data-schemas, monotonic, no cycle). Also the runtime home of the host-hook registries (webhook / sitemap / doctor), the realm registry, and the particle resource declarations. The media arm (medialibrary + the media model traits + media table) was extracted DOWN into splicewire/laravel-beam-media (HTTP-03 / ADR-0178); base beam no longer requires medialibrary and does NOT require beam-media (no cycle). Headless = no editor SURFACE running; Frame's scaffolding may be present-but-inert. No Beam model is minted; beam is a substrate, not an instance.",
-            "time": "2026-10-15T04:57:54+00:00"
+            "time": "2026-10-18T00:20:19+00:00"
         },
         {
             "name": "splicewire/laravel-beam-accounts",
@@ -8913,7 +8975,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-ux.git",
-                "reference": "adb0c5ee6bb2efc51977acd7030247cab7220d9f"
+                "reference": "508cdb1a2392e042b1c2e88d4dcc82d04f454eff"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -8926,6 +8988,7 @@
                 "rushing/laravel-schema-convergence": "*",
                 "rushing/laravel-versioning": "*",
                 "rushing/php-popcorn": "dev-main",
+                "schemastud/laravel-blockdoc": "*",
                 "schemastud/laravel-data-schemas": "*",
                 "schemastud/laravel-frame": "*",
                 "splicewire/laravel-beam": "*",
@@ -9010,7 +9073,7 @@
                 "splicewire",
                 "ux"
             ],
-            "time": "2026-10-16T21:14:55+00:00"
+            "time": "2026-10-18T00:18:43+00:00"
         },
         {
             "name": "splicewire/laravel-beam-ux-prototype",
