@@ -3,17 +3,17 @@
 use App\Data\Pages\FrameConsolePageData;
 use App\Data\Pages\PlatformConnectionEndpointsData;
 use App\Data\Pages\PlatformConnectionPageData;
+use App\Data\Pages\SitemapExamplePageData;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Schemastud\Frame\Http\Controllers\FrameManifestController;
 use Splicewire\Beam\Authorization\SeatGate;
 use Splicewire\Beam\Dashboard\RealmDashboard;
-use Splicewire\Beam\Facades\Particle;
 use Splicewire\Beam\Ia\Side;
 use Splicewire\Beam\Ia\Sides;
-use Splicewire\Satellite\Pairing\PlatformConnection;
 use Splicewire\Beam\Ux\Data\Pages\EntryPageData;
 use Splicewire\Beam\Ux\Support\PageEntryRef;
+use Splicewire\Satellite\Pairing\PlatformConnection;
 
 // The FRONT DOOR is the OOTB site realm: `/` renders the promoted <SiteLayout> chrome (public) AND —
 // behind the ux.author seam — mounts the in-place visual editor (@/editor). (frontend-surfaces wiring.)
@@ -25,6 +25,14 @@ Route::get('/', fn () => Inertia::render('site/home', EntryPageData::from([
 ])))->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    // An explicit host consumer of Frame's write/read contracts; the writable /sitemap stays intact.
+    Route::get('examples/sitemap-resource', fn () => Inertia::render('examples/sitemap-resource', SitemapExamplePageData::forMode('list')))
+        ->name('examples.sitemap.index');
+    Route::get('examples/sitemap-resource/new', fn () => Inertia::render('examples/sitemap-resource', SitemapExamplePageData::forMode('create')))
+        ->name('examples.sitemap.create');
+    Route::get('examples/sitemap-resource/{id}', fn (string $id) => Inertia::render('examples/sitemap-resource', SitemapExamplePageData::forMode('read', $id)))
+        ->whereUuid('id')->name('examples.sitemap.show');
+
     // The host owns auth + verified; the packaged operations each declare ux.author.
     Splicewire\Beam\Ux\Support\EditorRoutes::mount();
 

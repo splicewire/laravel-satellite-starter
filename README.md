@@ -180,6 +180,13 @@ class SitemapData extends Data { /* … Column-annotated fields … */ }
 See `app/Data/SitemapData.php` for the worked example (the editable sitemap resource). Adding your own
 resource is the same one-file move: annotate a Data class, drop it in `app/Data/`, done.
 
+## Explicit resource read example
+
+[Create and inspect a Satellite sitemap link](docs/examples/satellite-resource-schema-purpose.md)
+uses a fresh local host and the supplied Frame candidates to compose create/list/read-only detail
+over this starter's existing Sitemap backing. It keeps the original writable console and global
+site policy, and documents the exact local overlays and host read-schema seam.
+
 ## Checks
 
 `composer types:generate` derives TypeScript modules from the app's Data classes/enums and
