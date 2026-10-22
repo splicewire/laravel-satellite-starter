@@ -7,6 +7,7 @@ use App\Beam\OperatorPages;
 use App\Beam\RealmRegistry;
 use App\Data\SitemapData;
 use App\Doctor\OrphanedNavItemAudit;
+use App\Frame\Examples\SitemapReadSchemaResolver;
 use App\Models\SitemapRecord;
 use App\Models\User;
 use Carbon\CarbonImmutable;
@@ -17,6 +18,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 use Rushing\PermissionCascade\Contracts\EntitlementResolver;
 use Rushing\PermissionCascade\Support\CascadePolicyRegistrar;
+use Schemastud\Frame\Contracts\ResourceSchemaResolver;
 use Splicewire\Beam\Accounts\Contracts\AccountShellProvider;
 use Splicewire\Beam\Doctor\BeamDoctorManifest;
 use Splicewire\Beam\Ux\Frame\RouteContextPlan;
@@ -53,6 +55,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Keep any producer resolver for other resources and the original write purpose.
+        if ($this->app->bound(ResourceSchemaResolver::class)) {
+            $this->app->extend(ResourceSchemaResolver::class, fn (ResourceSchemaResolver $next): ResourceSchemaResolver => new SitemapReadSchemaResolver($next));
+        } else {
+            $this->app->singleton(ResourceSchemaResolver::class, fn (): ResourceSchemaResolver => new SitemapReadSchemaResolver);
+        }
+
         $this->configureDefaults();
         $this->registerAuthoringGates();
         $this->registerResourcePolicies();
