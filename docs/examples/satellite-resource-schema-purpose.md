@@ -94,6 +94,11 @@ then Satellite config/migrations; its locked help does not have the newer `--sch
 Satellite `--no-seed` flags. Schema authority is the explicit local env value above. Do not use
 `--force` to overwrite committed host config. The existing nonproduction scratch storage knob keeps
 compiled/mirrored bodies in this fresh host's output rather than changing authored source.
+The locked UX seeder may print `No nav data for namespace [starter]` from
+`splicewire:beam:ux:seed-nav` while the enclosing installer returns0. That navigation step
+is not a successful nav seed; it is outside this resource example. Check the actual installer
+exit status and retain its output. The Satellite provider, migrated tables, Sitemap registry,
+manifest, schemas and routes must still be available for the journey below.
 The normal package seed disables demo users here; the guarded helper creates four fresh private
 actors and two teams only after installation. It refuses existing actors/output, a mismatched
 ownership marker, nonlocal host/DB, and nonprivate output. Passwords are not printed.

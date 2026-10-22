@@ -44,6 +44,7 @@ function ExampleFormBody(props: FormBodySlotProps) {
     const schema = useMemo(
         () => ({
             ...props.schema,
+            title: 'Sitemap link',
             properties: Object.fromEntries(
                 Object.entries(props.schema.properties ?? {}).map(
                     ([name, field]) => [
