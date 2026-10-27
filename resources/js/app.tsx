@@ -1,7 +1,7 @@
 import { createInertiaApp } from '@inertiajs/react';
 import { beamInertiaOptions } from '@splicewire/beam-inertia';
 import type { PageModule } from '@splicewire/beam-inertia';
-import { configureDocs } from '@splicewire/beam-docs';
+import { ApiReference, configureDocs } from '@splicewire/beam-docs';
 import { beamDocsPages } from '@splicewire/beam-docs/pages';
 import '@splicewire/beam-ux/tokens-docs.css';
 import { authFeatures } from './beam';
@@ -19,6 +19,11 @@ if (import.meta.env.DEV) {
 const options = beamInertiaOptions({
     development: import.meta.env.DEV,
     features: authFeatures,
+    // Where MDX pages hold blocks (BEAM_UX_MDX_HOLDS_BLOCKS), what their profile offers beyond the packaged islands:
+    // beam-inertia registers SiteNav and ManifestTable, and this starter the docs pages' ApiReference. This starter does
+    // not register the beam-mdx kit yet, so the editor still refuses MDX pages with the switch on.
+    mdxHoldsBlocks: import.meta.env.VITE_BEAM_UX_MDX_HOLDS_BLOCKS === 'true',
+    components: import.meta.env.VITE_BEAM_UX_MDX_HOLDS_BLOCKS === 'true' ? { ApiReference } : {},
     pages: { ...beamDocsPages, ...pages },
 });
 configureDocs();
