@@ -5,9 +5,9 @@ namespace Database\Seeders;
 use App\Beam\RealmRegistry;
 use Illuminate\Database\Seeder;
 use Splicewire\Beam\Write\AsSystemWriter;
-use Splicewire\Beam\Ux\Provenance\Reasserter;
 use Splicewire\Beam\Ux\Models\BeamUxEntry;
 use Splicewire\Beam\Ux\Publish\EntryPublication;
+use Splicewire\Beam\Ux\Provenance\Reasserter;
 use Splicewire\Beam\Ux\Type\UxType;
 
 /**
@@ -34,6 +34,7 @@ use Splicewire\Beam\Ux\Type\UxType;
 class AuthPagesSeeder extends Seeder
 {
     use AsSystemWriter;
+
     /** slug => [entry title (admin label), island component name, heading, description]. */
     private const PAGES = [
         'login' => [

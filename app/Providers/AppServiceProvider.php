@@ -10,7 +10,11 @@ use App\Doctor\OrphanedNavItemAudit;
 use App\Frame\Examples\SitemapReadSchemaResolver;
 use App\Models\SitemapRecord;
 use App\Models\User;
+use App\Support\ServiceDeskSlaHost;
+use App\Support\ServiceRequestTeam;
+use App\Workflows\ServiceRequestApproval;
 use Carbon\CarbonImmutable;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -20,8 +24,13 @@ use Rushing\PermissionCascade\Contracts\EntitlementResolver;
 use Rushing\PermissionCascade\Support\CascadePolicyRegistrar;
 use Schemastud\Frame\Contracts\ResourceSchemaResolver;
 use Splicewire\Beam\Accounts\Contracts\AccountShellProvider;
+use Splicewire\Beam\Authorization\SeatGate;
 use Splicewire\Beam\Doctor\BeamDoctorManifest;
+use Splicewire\Beam\Nav\NavAudience;
+use Splicewire\Beam\Nav\NavSection;
+use Splicewire\Beam\Nav\NavSectionRegistry;
 use Splicewire\Beam\Ux\Frame\RouteContextPlan;
+use Splicewire\ServiceDeskSla\Contracts\ServiceDeskHost;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,10 +39,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        if (interface_exists(ServiceDeskHost::class)) {
+            $this->app->bind(ServiceDeskHost::class, ServiceDeskSlaHost::class);
+        }
+
         // The public /schemas door serves schema documents at their identities. The catalog UI
         // gets its own path through the same plan that projects console routes and navigation.
         $this->app->bind(RouteContextPlan::class, fn (): RouteContextPlan => new RouteContextPlan(
-            resourcePaths: ['schemas' => 'schema-catalog'],
+            resourcePaths: ['schemas' => 'schema-catalog', 'beam-ux-release-files' => 'release-files'],
         ));
 
         // Bind the host account-shell provider over beam-accounts' NullAccountShellProvider default,
@@ -63,12 +76,42 @@ class AppServiceProvider extends ServiceProvider
         }
 
         $this->configureDefaults();
+        if (config('canonical-mdx.enabled', false)) {
+            config(['beam.ux.releases.review_required' => true, 'beam.ux.releases.allow_self_approval' => false]);
+        }
+        ServiceRequestApproval::register();
+        // Creating a team is open to authenticated users, including users without a team.
+        $this->app->booted(function (): void {
+            $this->app->make(Router::class)->getRoutes()->getByName('teams.create')
+                ?->defaults(SeatGate::OPEN_TO_MEMBERS, true);
+        });
+        $this->registerServiceDeskNavigation();
+        Gate::define('service-desk.external.read', fn (User $user): bool => ServiceRequestTeam::forUser($user) !== null);
+        Gate::define('service-desk.usage.read', fn (User $user): bool => ServiceRequestTeam::forUser($user) !== null);
         $this->registerAuthoringGates();
         $this->registerResourcePolicies();
         $this->registerDoctorAudits();
 
         // This host's operator pages, seated in the operator task sections (ux-walkthrough UX-09 C).
         $this->app->booted(fn () => OperatorPages::register($this->app));
+    }
+
+    protected function registerServiceDeskNavigation(): void
+    {
+        $this->app->make(NavSectionRegistry::class)->register(
+            new NavSection(
+                key: 'service-desk',
+                realm: 'tenant',
+                label: 'Service desk',
+                icon: 'Inbox',
+                href: '/service-desk',
+                order: 20,
+                entitlement: null,
+                permission: null,
+                audience: NavAudience::Product,
+            ),
+            by: 'app',
+        );
     }
 
     /**

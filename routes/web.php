@@ -4,6 +4,7 @@ use App\Data\Pages\FrameConsolePageData;
 use App\Data\Pages\PlatformConnectionEndpointsData;
 use App\Data\Pages\PlatformConnectionPageData;
 use App\Data\Pages\SitemapExamplePageData;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Schemastud\Frame\Http\Controllers\FrameManifestController;
@@ -12,17 +13,42 @@ use Splicewire\Beam\Dashboard\RealmDashboard;
 use Splicewire\Beam\Ia\Side;
 use Splicewire\Beam\Ia\Sides;
 use Splicewire\Beam\Ux\Data\Pages\EntryPageData;
+use Splicewire\Beam\Ux\Head\PageHead;
+use Splicewire\Beam\Ux\Http\Middleware\ResolvePreviewContext;
+use Splicewire\Beam\Ux\Intake\IntakeForms;
+use Splicewire\Beam\Ux\Models\BeamUxEntry;
+use Splicewire\Beam\Ux\Preview\PreviewBar;
 use Splicewire\Beam\Ux\Support\PageEntryRef;
 use Splicewire\Satellite\Pairing\PlatformConnection;
+
+require __DIR__.'/local-marketplace.php';
+require __DIR__.'/team-wallet.php';
+require __DIR__.'/canonical-mdx.php';
 
 // The FRONT DOOR is the OOTB site realm: `/` renders the promoted <SiteLayout> chrome (public) AND —
 // behind the ux.author seam — mounts the in-place visual editor (@/editor). (frontend-surfaces wiring.)
 //
 // It shares `entry` ({id, slug}) so the page addresses its beam-ux row by ID (ADR-0214 §2). The server
 // is the only party that can: no compile-time frontend map can carry a per-database uuid.
-Route::get('/', fn () => Inertia::render('site/home', EntryPageData::from([
-    'entry' => PageEntryRef::for('home'),
-])))->name('home');
+//
+// ADR-0234 d2: the Page Head composed from the same row rides along, and the root template prints it before any script.
+//
+// EP-07d: its published forms get their schemas and the door's honeypot field, as a packaged entry page's do.
+//
+// ADR-0232 d15 (EP-18): `/` renders inside a Preview like every packaged page. The Preview middleware verifies the
+// cookie; the entry ref then addresses the Preview's version of the body, the bar rides along, and a home the
+// Preview takes down answers the uniform 404. Outside a Preview nothing here changes.
+Route::get('/', function (Request $request) {
+    abort_if(PageEntryRef::hiddenByPreview('home'), 404);
+    $entry = PageEntryRef::for('home');
+    $model = $entry === null ? null : BeamUxEntry::find($entry['id']);
+    $preview = app(PreviewBar::class)->for($request, $model);
+
+    return Inertia::render('site/home', EntryPageData::from(['entry' => $entry]))
+        ->with($model === null ? [] : app(IntakeForms::class)->pagePropsFor($model))
+        ->with('head', PageHead::forPage('home'))
+        ->with($preview === null ? [] : ['preview' => $preview]);
+})->middleware(ResolvePreviewContext::class)->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // An explicit host consumer of Frame's write/read contracts; the writable /sitemap stays intact.
@@ -32,6 +58,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('examples.sitemap.create');
     Route::get('examples/sitemap-resource/{id}', fn (string $id) => Inertia::render('examples/sitemap-resource', SitemapExamplePageData::forMode('read', $id)))
         ->whereUuid('id')->name('examples.sitemap.show');
+
+    Splicewire\Beam\Facades\Particle::ops('service-requests', 'service-requests', [App\Particle\Operations\ApproveServiceRequest::class, App\Particle\Operations\ReadRequestApprovalHistory::class]);
+
+    Route::get('service-requests/{id}/inspection', App\Http\Controllers\RequestApprovalInspectionController::class)
+        ->whereNumber('id')->name('service-requests.inspection');
 
     // The host owns auth + verified; the packaged operations each declare ux.author.
     Splicewire\Beam\Ux\Support\EditorRoutes::mount();
@@ -87,8 +118,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ⚠️ **Not a bespoke theme UI, deliberately.** `theme-entries-and-authoring`'s PRD closed Part A §5
     // with the ruling that the theme editor is Frame's form on the `ParticleResource` — so the page
     // body is `@splicewire/beam-ux`'s own `<ThemeEditor>`, which is `useEntryBody` →
-    // `RegionInspector`'s `form` body (the REAL `@schemastud/seam` SchemaForm) → `useSaveEntryBody`
-    // over the SAME `body` / `save-body` operations mounted above. The fields are generated from the
+    // `RegionInspector`'s `form` body (the REAL `@schemastud/seam` SchemaForm) → Save draft and
+    // explicit Publish through the SAME entry operations and fixed-version Release service mounted above. The fields are generated from the
     // server's schema (`EntryBodyEnvelope::schemaFor()` answers a theme entry with `ThemeSchemas`'
     // `{canvas, site}`), so adding a token in PHP adds a field here with no frontend change.
     //
