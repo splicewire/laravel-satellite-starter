@@ -1,0 +1,49 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "title": "SitemapExamplePageData",
+    "properties": {
+        "mode": {
+            "type": "string"
+        },
+        "id": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "manifestUrl": {
+            "type": "string"
+        },
+        "resourceUrl": {
+            "type": "string"
+        },
+        "schemaUrl": {
+            "type": "string"
+        },
+        "recordUrlTemplate": {
+            "type": "string"
+        },
+        "listHref": {
+            "type": "string"
+        },
+        "newHref": {
+            "type": "string"
+        },
+        "detailHrefTemplate": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "mode",
+        "id",
+        "manifestUrl",
+        "resourceUrl",
+        "schemaUrl",
+        "recordUrlTemplate",
+        "listHref",
+        "newHref",
+        "detailHrefTemplate"
+    ],
+    "$id": "SitemapExamplePageData"
+}
