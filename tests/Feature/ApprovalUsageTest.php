@@ -12,20 +12,17 @@ use Splicewire\Beam\Accounts\Enums\Role;
 use Splicewire\Beam\Accounts\Teams\TeamProvisioner;
 use Splicewire\Beam\Workflows\Control\TransitionContext;
 use Splicewire\Beam\Workflows\Control\WorkflowActuator;
-use Tests\Concerns\MigratesTenantDirectoryCentrally;
 use Tests\Concerns\WithholdsTables;
 use Tests\TestCase;
 
 class ApprovalUsageTest extends TestCase
 {
-    use MigratesTenantDirectoryCentrally;
     use RefreshDatabase;
     use WithholdsTables;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->migrateTenantDirectoryUnlessCentral();
         config(['app.key' => 'base64:'.base64_encode(str_repeat('u', 32))]);
         $this->withoutVite();
         $this->seed(\Database\Seeders\ServiceRequestApprovalSeeder::class);
@@ -104,7 +101,7 @@ class ApprovalUsageTest extends TestCase
             DB::table('workflow_transition_facts')->insert(array_replace($fact, ['id' => (string) Str::uuid()], $changes));
         };
         $insert(['actor' => 'another:actor', 'occurred_at' => '2001-01-01 00:00:00']);
-        foreach ([['subject_type' => 'other'], ['transition' => 'reject'], ['from' => '["approved"]'], ['from' => '["pending","other"]'], ['to' => '["pending"]'], ['to' => '["approved","other"]'], ['subject_id' => '999999999']] as $change) {
+        foreach ([['subject_type' => 'other'], ['transition' => 'reject'], ['from' => '["approved"]'], ['from' => '["pending","other"]'], ['to' => '["pending"]'], ['to' => '["approved","other"]'], ['subject_id' => '999999999'], ['subject_id' => 'not-a-number']] as $change) {
             $insert($change);
         }
         $quarantined = $this->pending($a);
