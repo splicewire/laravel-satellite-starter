@@ -30,7 +30,6 @@ class AccountNavIaInvariantsTest extends TestCase
     {
         parent::setUp();
 
-        $this->withoutVite();
         Artisan::call('splicewire:beam:ux:seed-nav');
     }
 
@@ -107,28 +106,6 @@ class AccountNavIaInvariantsTest extends TestCase
 
         $this->assertNotContains('/operator', $hrefs);
         $this->assertContains('/dashboard', $hrefs);
-    }
-
-    public function test_team_creation_is_a_dashboard_action_not_an_account_realm_seat(): void
-    {
-        $teamless = User::factory()->create();
-        $this->assertNotContains('/teams/create', $this->accountHrefs($teamless));
-
-        $actions = $this->actingAs($teamless)->getJson('frame/resources/user-dashboard')
-            ->assertOk()->json('data.0.welcome.actions');
-        $this->assertContains(['key' => 'create-team', 'label' => 'Create a team', 'href' => '/teams/create'], $actions);
-        $this->actingAs($teamless)->get('/teams/create')->assertOk();
-
-        $joined = User::factory()->teamMember()->create();
-        $this->assertNotContains('/teams/create', $this->accountHrefs($joined));
-        $this->actingAs($joined)->get('/teams/create')->assertOk();
-    }
-
-    public function test_guests_cannot_open_or_submit_team_creation(): void
-    {
-        $this->get('/teams/create')->assertRedirect('/login');
-        $this->postJson('/teams/create', ['name' => 'Guest team'])->assertUnauthorized();
-        $this->assertDatabaseMissing('beam_teams', ['name' => 'Guest team']);
     }
 
     public function test_an_account_row_that_joins_no_mounted_route_throws_rather_than_vanishing(): void

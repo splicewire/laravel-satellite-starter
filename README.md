@@ -155,8 +155,8 @@ token itself from the central Splicewire UI if it may have leaked.
 
 ## Exposing a model in the admin — drop one annotated Data class
 
-An existing model with its table and authorization policy shows up in the Frame admin by dropping
-**one** `#[ParticleResource]`-annotated Data class into `app/Data/`. That is the whole declaration — no second declaration, no `registerClass()` in a provider,
+A model shows up in the Frame admin by dropping **one** `#[ParticleResource]`-annotated Data class into
+`app/Data/`. That is the whole declaration — no second declaration, no `registerClass()` in a provider,
 no handler-map entry. Beam's boot-time attributed discovery scans `app/Data` (config
 `frame.discover_paths`), reflects the attribute into the admin manifest, and the resource appears at
 `/frame/manifest` with its editor route wired.
@@ -167,24 +167,18 @@ model, nav placement (`group` / `section` / `navOrder` / `icon`), and route iden
 ```php
 #[ParticleResource(
     key: 'sitemap',
-    backing: SitemapRecord::class,
+    model: SitemapRecord::class,
     label: 'Sitemap',           // a non-empty label marks the resource FRAMED (navigable + editable)
     group: 'Site',
     section: 'links',
     navOrder: 99,
+    routeName: 'frame.resources.sitemap',
 )]
 class SitemapData extends Data { /* … Column-annotated fields … */ }
 ```
 
-See `app/Data/SitemapData.php` for the editable sitemap declaration. This registers the resource in
-Frame; a REST API is an explicit host decision using `Particle::mount()` inside the chosen middleware.
-The attribute does not create the model, table or policy and does not mount that REST exposure.
-
-To build an application on this starter end to end, follow the Calcucrypt tutorial: its code is
-[splicewire/calcucrypt-tutorial](https://github.com/splicewire/calcucrypt-tutorial), whose `start`
-tag sits on a commit of this repository and adds one tagged chapter at a time: declared resources
-from the scaffolders, a validated `#[ParticleOp]`, team plans and entitlements, data gated by
-entitlement, and selling a plan on the commerce fake rail.
+See `app/Data/SitemapData.php` for the worked example (the editable sitemap resource). Adding your own
+resource is the same one-file move: annotate a Data class, drop it in `app/Data/`, done.
 
 ## Explicit resource read example
 
@@ -195,12 +189,11 @@ site policy, and documents the exact local overlays and host read-schema seam.
 
 ## Checks
 
-`composer types:generate` runs `typescript:transform`, which writes one TypeScript module per PHP namespace under
-`resources/js/generated/`: the app's Data classes and enums, every type its particle and route declarations reach, and
-the directories its installed packages declare. Edit the PHP declarations, then regenerate. The modules are
-gitignored, one line per top-level namespace in `.gitignore`. The committed `routes.ts`, `aliases.ts` and `hooks/` in
-the same directory belong to the Beam client generator and are not replaced by this command. The provider's shape:
-`vendor/splicewire/laravel-beam/docs/agents/typescript-generation.md`.
+`composer types:generate` derives TypeScript modules from the app's Data classes/enums and
+referenced Frame registry types. Edit the PHP declarations, then regenerate. The DTO modules
+are gitignored under `resources/js/generated/App/` and `resources/js/generated/Schemastud/`.
+The committed `routes.ts` and `aliases.ts` in the same parent directory belong to the Beam
+client generator and are not replaced by this command.
 
 The `dev`, `build`, `build:ssr`, and `types:check` scripts regenerate before consuming these
 modules, so `composer setup` covers generation too. After changing Data during a running dev
@@ -283,10 +276,6 @@ All contributions to the Starter Kits from now on should be made through [Maestr
 ## Code of Conduct
 
 In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## File authoring examples
-
-- [Canonical MDX body takes](docs/examples/canonical-mdx-file-draft.md): explicit draft replacement, unchanged publication and safe retained-compilation warnings.
 
 ## License
 
