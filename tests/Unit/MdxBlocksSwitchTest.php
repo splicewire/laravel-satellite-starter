@@ -18,10 +18,22 @@ class MdxBlocksSwitchTest extends TestCase
         $app = file_get_contents($root.'/resources/js/app.tsx');
         $env = file_get_contents($root.'/.env.example');
 
-        $this->assertStringContainsString("mdxHoldsBlocks: import.meta.env.VITE_BEAM_UX_MDX_HOLDS_BLOCKS === 'true'", $app);
-        $this->assertMatchesRegularExpression("/components: import\\.meta\\.env\\.VITE_BEAM_UX_MDX_HOLDS_BLOCKS === 'true' \\? \\{ ApiReference \\}/", $app);
+        $this->assertStringContainsString($this->squashWhitespace("mdxHoldsBlocks: import.meta.env.VITE_BEAM_UX_MDX_HOLDS_BLOCKS === 'true'"), $this->squashWhitespace($app));
+        $this->assertMatchesRegularExpression("/components: import\\.meta\\.env\\.VITE_BEAM_UX_MDX_HOLDS_BLOCKS === 'true' \\? \\{ ApiReference \\}/", $this->squashWhitespace($app));
         $this->assertStringContainsString('BEAM_UX_MDX_HOLDS_BLOCKS=false', $env);
         $this->assertStringContainsString('VITE_BEAM_UX_MDX_HOLDS_BLOCKS="${BEAM_UX_MDX_HOLDS_BLOCKS}"', $env);
         $this->assertStringContainsString('splicewire:beam:seed', $env);
+    }
+
+    /**
+     * Collapse runs of whitespace to a single space so a prettier line-wrap of the long
+     * components:/mdxHoldsBlocks MDX-flag config reads the same as its single-line form. beam-dx
+     * 84504222 approach, applied ONLY to the two formatting-sensitive app.tsx MDX-config assertions
+     * above (the second is a regex whose literal single spaces match the collapsed form). It collapses
+     * whitespace, never tokens, so a changed condition/value/component still fails the assertion.
+     */
+    private function squashWhitespace(string $value): string
+    {
+        return (string) preg_replace('/\s+/', ' ', $value);
     }
 }
