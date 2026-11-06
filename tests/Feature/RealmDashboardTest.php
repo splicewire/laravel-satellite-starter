@@ -188,7 +188,7 @@ class RealmDashboardTest extends TestCase
 
     public function test_a_member_without_os_operate_is_refused_the_dashboard_and_is_shown_no_leaf(): void
     {
-        $member = User::factory()->create(); // no realm grant ⇒ os.operate false
+        $member = User::factory()->teamMember()->create(); // membership, but no realm grant ⇒ os.operate false
 
         // The resource's own read gate is the realm gate's ability, declared on it (`entitlement:os.operate`).
         $this->actingAs($member)->getJson('/frame/resources/operator-dashboard')->assertForbidden();
@@ -201,6 +201,15 @@ class RealmDashboardTest extends TestCase
         $routeNames = array_column(self::leaves($this->actingAs($member)->getJson('/frame/manifest')->assertOk()->json('nav.items')), 'routeName');
         $this->assertNotContains('operator-dashboard.index', $routeNames);
         $this->assertContains('tenant-dashboard.index', $routeNames);
+
+        // A user in NO team is refused the operator dashboard too, and is not shown the tenant leaf either:
+        // `realm-dashboard.view.tenant` requires current-team membership (laravel-beam 10229c3 with
+        // laravel-beam-ux 4f9350b), because a tenant dashboard carries team data.
+        $teamless = User::factory()->create();
+        $this->actingAs($teamless)->getJson('/frame/resources/operator-dashboard')->assertForbidden();
+        $routeNames = array_column(self::leaves($this->actingAs($teamless)->getJson('/frame/manifest')->assertOk()->json('nav.items')), 'routeName');
+        $this->assertNotContains('operator-dashboard.index', $routeNames);
+        $this->assertNotContains('tenant-dashboard.index', $routeNames);
     }
 
     public function test_a_guest_is_refused_the_dashboard(): void

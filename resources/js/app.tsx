@@ -2,6 +2,7 @@ import { createInertiaApp } from '@inertiajs/react';
 import { beamInertiaOptions } from '@splicewire/beam-inertia';
 import type { PageModule } from '@splicewire/beam-inertia';
 import { ApiReference, configureDocs } from '@splicewire/beam-docs';
+import { Callout, Card, CardGrid, DoctorOutput, FileTree, Figure, SectionLanding, Step, Steps, Terminal } from '@splicewire/beam-mdx/kit';
 import { beamDocsPages } from '@splicewire/beam-docs/pages';
 import '@splicewire/beam-ux/tokens-docs.css';
 import { authFeatures } from './beam';
@@ -19,13 +20,28 @@ if (import.meta.env.DEV) {
 const options = beamInertiaOptions({
     development: import.meta.env.DEV,
     features: authFeatures,
+    fileEditorHref: () => '/account/theme',
+    // The packaged page form, where the server mounts its public intake door (BEAM_INTAKE_ENABLED).
+    intakeForms: import.meta.env.VITE_BEAM_INTAKE_ENABLED === 'true',
     // Where MDX pages hold blocks (BEAM_UX_MDX_HOLDS_BLOCKS), what their profile offers beyond the packaged islands:
-    // beam-inertia registers SiteNav and ManifestTable, and this starter the docs pages' ApiReference. This starter does
-    // not register the beam-mdx kit yet, so the editor still refuses MDX pages with the switch on.
+    // beam-inertia registers SiteNav and ManifestTable, and this starter the beam-mdx kit and the docs pages'
+    // ApiReference. config/beam/mdx.php leaves out the two this starter cannot render (artifacts, references).
     mdxHoldsBlocks: import.meta.env.VITE_BEAM_UX_MDX_HOLDS_BLOCKS === 'true',
     components:
         import.meta.env.VITE_BEAM_UX_MDX_HOLDS_BLOCKS === 'true'
-            ? { ApiReference }
+            ? {
+                  Callout,
+                  Steps,
+                  Step,
+                  Figure,
+                  Terminal,
+                  SectionLanding,
+                  CardGrid,
+                  Card,
+                  DoctorOutput,
+                  FileTree,
+                  ApiReference,
+              }
             : {},
     pages: { ...beamDocsPages, ...pages },
 });

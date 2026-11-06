@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Beam\RealmRegistry;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
@@ -12,6 +11,7 @@ use Splicewire\Beam\Accounts\Enums\Role;
 use Splicewire\Beam\Accounts\Models\Membership;
 use Splicewire\Beam\Accounts\Models\Team;
 use Splicewire\Beam\Accounts\Sharing\AccessGrants;
+use Splicewire\Beam\Realm\RealmRegistry;
 use Splicewire\Beam\Ux\Models\BeamUxEntry;
 use Splicewire\Beam\Ux\Seeders\ThemeSeeder;
 use Splicewire\Beam\Ux\Theme\ThemeResolver;
@@ -54,7 +54,7 @@ class ThemeEditorSeatTest extends TestCase
         Membership::create(['team_id' => $team->id, 'user_id' => $user->id, 'role' => Role::Owner->value]);
         $grants = app(AccessGrants::class);
 
-        foreach (RealmRegistry::realms() as $realm) {
+        foreach (array_keys(app(RealmRegistry::class)->all()) as $realm) {
             $grants->share(BeamUxEntry::rootFor($realm), $team, AccessGrant::ABILITY_MANAGE);
         }
 
