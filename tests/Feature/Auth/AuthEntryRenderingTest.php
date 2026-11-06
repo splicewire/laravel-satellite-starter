@@ -5,6 +5,7 @@ namespace Tests\Feature\Auth;
 use App\Models\User;
 use Database\Seeders\AuthPagesSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Testing\AssertableInertia as Assert;
 use Splicewire\Beam\Models\BeamParticle;
 use Splicewire\Beam\Ux\Models\BeamUxEntry;
@@ -24,6 +25,14 @@ class AuthEntryRenderingTest extends TestCase
 
     /** Registration is closed by default (BUY-05); the register page renders only behind an open door. */
     protected ?string $accountRegistration = 'open';
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        // Isolate the UX mirror disk so rendering/publishing auth entries cannot write compiled tsx
+        // into resources/beam-ux/starter/page/ (authored source js:format then flags). beam-dx b1d232ea.
+        Storage::fake(config('beam.ux.storage.mirror_disk', 'beam-ux'));
+    }
 
     public function test_login_renders_the_auth_entry_page_with_the_login_slug(): void
     {

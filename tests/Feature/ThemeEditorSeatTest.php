@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Beam\RealmRegistry;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Testing\AssertableInertia as Assert;
 use Rushing\PermissionCascade\Contracts\AccessGrant;
 use Splicewire\Beam\Accounts\Enums\Role;
@@ -36,6 +37,14 @@ use Tests\TestCase;
 class ThemeEditorSeatTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        // Isolate the UX mirror disk so publishing theme/page fixtures cannot write compiled tsx/css
+        // into resources/beam-ux/{starter/page,theme}/ (authored source js:format then flags). beam-dx b1d232ea.
+        Storage::fake(config('beam.ux.storage.mirror_disk', 'beam-ux'));
+    }
 
     /** An author: an Owner of a Team holding `manage` on every realm root — the ACC-01 grant cascade. */
     private function author(): User
