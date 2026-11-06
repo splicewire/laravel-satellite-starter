@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Testing\AssertableInertia as Assert;
 use Splicewire\Beam\Models\BeamParticle;
 use Splicewire\Beam\Ux\Models\BeamUxEntry;
@@ -18,6 +19,14 @@ use Tests\TestCase;
 class ThemeSharedPropTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        // Isolate the UX mirror disk so seeding the central theme entry cannot write the compiled
+        // theme/default.css into resources/beam-ux/theme/ (authored source js:format then flags). beam-dx b1d232ea.
+        Storage::fake(config('beam.ux.storage.mirror_disk', 'beam-ux'));
+    }
 
     public function test_theme_shares_schema_defaults_when_no_central_entry_exists(): void
     {
