@@ -5,7 +5,6 @@
 
 // Friendly, non-namespaced re-exports of each return DTO (the `type X = App.Data.Y` bridges).
 
-export type ApprovalUsageData = import("./App/Data").ApprovalUsageData;
 export type AuthUserData = import("./Splicewire/Beam/Accounts/Data").AuthUserData;
 export type BeamUxEntryBodyData = import("./Splicewire/Beam/Ux/Data").BeamUxEntryBodyData;
 export type BeamUxEntryBodyInputData = import("./Splicewire/Beam/Ux/Data").BeamUxEntryBodyInputData;
@@ -17,7 +16,6 @@ export type EntryComponentDuplicateOutputData = import("./Splicewire/Beam/Ux/Dat
 export type EntryMakeEditableOutputData = import("./Splicewire/Beam/Ux/Data").EntryMakeEditableOutputData;
 export type EntryPublicationData = import("./Splicewire/Beam/Ux/Data").EntryPublicationData;
 export type EntrySourceData = import("./Splicewire/Beam/Ux/Data").EntrySourceData;
-export type ExternalRequestData = import("./App/Data").ExternalRequestData;
 export type FileBatchReconcileResultData = import("./Splicewire/Beam/Ux/Data").FileBatchReconcileResultData;
 export type FileInspectionData = import("./Splicewire/Beam/Ux/Data").FileInspectionData;
 export type FileReconcileResultData = import("./Splicewire/Beam/Ux/Data").FileReconcileResultData;
@@ -26,13 +24,10 @@ export type PageEntryRefData = import("./Splicewire/Beam/Ux/Data").PageEntryRefD
 export type PlatformConnectionData = import("./Splicewire/Satellite/Pairing/Data").PlatformConnectionData;
 export type PlatformConnectionHealthData = import("./Splicewire/Satellite/Pairing/Data").PlatformConnectionHealthData;
 export type PreviewLinkData = import("./Splicewire/Beam/Ux/Data").PreviewLinkData;
-export type ReadRequestApprovalHistoryOutputData = import("./App/Data").ReadRequestApprovalHistoryOutputData;
 export type RedirectData = import("./Splicewire/Beam/Ux/Data").RedirectData;
 export type ReleaseChangesData = import("./Splicewire/Beam/Ux/Data").ReleaseChangesData;
 export type ReleaseData = import("./Splicewire/Beam/Ux/Data").ReleaseData;
 export type ReleaseFilesData = import("./Splicewire/Beam/Ux/Data").ReleaseFilesData;
 export type ReleaseReadinessData = import("./Splicewire/Beam/Ux/Data").ReleaseReadinessData;
 export type ReleaseRecordingData = import("./Splicewire/Beam/Ux/Data").ReleaseRecordingData;
-export type ServiceRequestData = import("./App/Data").ServiceRequestData;
 export type TeamData = import("./Splicewire/Beam/Accounts/Data").TeamData;
-export type WorkflowTransitionAttemptData = import("./Splicewire/Beam/Workflows/Data").WorkflowTransitionAttemptData;

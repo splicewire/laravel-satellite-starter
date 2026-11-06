@@ -21,8 +21,6 @@ use Splicewire\Beam\Ux\Preview\PreviewContext;
 use Splicewire\Beam\Ux\Support\PageEntryRef;
 use Splicewire\Satellite\Pairing\PlatformConnection;
 
-require __DIR__.'/local-marketplace.php';
-require __DIR__.'/team-wallet.php';
 require __DIR__.'/canonical-mdx.php';
 
 // The FRONT DOOR is the OOTB site realm: `/` renders the promoted <SiteLayout> chrome (public) AND —
@@ -69,11 +67,6 @@ Route::get('/', function (Request $request) {
 })->middleware(ResolvePreviewContext::class)->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Splicewire\Beam\Facades\Particle::ops('service-requests', 'service-requests', [App\Particle\Operations\ApproveServiceRequest::class, App\Particle\Operations\ReadRequestApprovalHistory::class]);
-
-    Route::get('service-requests/{id}/inspection', App\Http\Controllers\RequestApprovalInspectionController::class)
-        ->whereNumber('id')->name('service-requests.inspection');
-
     // An explicit host consumer of Frame's write/read contracts; the writable /sitemap stays intact.
     Route::get('examples/sitemap-resource', fn () => Inertia::render('examples/sitemap-resource', SitemapExamplePageData::forMode('list')))
         ->name('examples.sitemap.index');
