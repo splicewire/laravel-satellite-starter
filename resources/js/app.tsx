@@ -23,7 +23,10 @@ const options = beamInertiaOptions({
     // beam-inertia registers SiteNav and ManifestTable, and this starter the docs pages' ApiReference. This starter does
     // not register the beam-mdx kit yet, so the editor still refuses MDX pages with the switch on.
     mdxHoldsBlocks: import.meta.env.VITE_BEAM_UX_MDX_HOLDS_BLOCKS === 'true',
-    components: import.meta.env.VITE_BEAM_UX_MDX_HOLDS_BLOCKS === 'true' ? { ApiReference } : {},
+    components:
+        import.meta.env.VITE_BEAM_UX_MDX_HOLDS_BLOCKS === 'true'
+            ? { ApiReference }
+            : {},
     pages: { ...beamDocsPages, ...pages },
 });
 configureDocs();
