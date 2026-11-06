@@ -34,9 +34,9 @@ class HomePreviewTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        // Publishing writes through beam-ux's disk mirror, a tracked directory (resources/beam-ux/). Fake it before
-        // the first publish, which is when the mirror resolves its disk, so these cases leave no page file in the
-        // checkout (the EntryBodyTransportTest convention).
+        // Isolate the UX mirror disk so publishing the fixture 'home' page cannot write the compiled
+        // tsx into the repo's resources/beam-ux/starter/page/ (js:format then flags it). Mirror the
+        // isolation ticket 01 adopts; EntryBodyTransportTest already fakes this disk.
         Storage::fake(config('beam.ux.storage.mirror_disk', 'beam-ux'));
         $this->home = BeamUxEntry::create(['slug' => 'home', 'type' => UxType::Page, 'format' => 'tsx', 'realm' => 'site',
             'namespace' => config('beam.ux.namespace', 'starter')]);

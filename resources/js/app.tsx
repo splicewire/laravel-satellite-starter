@@ -2,7 +2,18 @@ import { createInertiaApp } from '@inertiajs/react';
 import { beamInertiaOptions } from '@splicewire/beam-inertia';
 import type { PageModule } from '@splicewire/beam-inertia';
 import { ApiReference, configureDocs } from '@splicewire/beam-docs';
-import { Callout, Card, CardGrid, DoctorOutput, FileTree, Figure, SectionLanding, Step, Steps, Terminal } from '@splicewire/beam-mdx/kit';
+import {
+    Callout,
+    Card,
+    CardGrid,
+    DoctorOutput,
+    FileTree,
+    Figure,
+    SectionLanding,
+    Step,
+    Steps,
+    Terminal,
+} from '@splicewire/beam-mdx/kit';
 import { beamDocsPages } from '@splicewire/beam-docs/pages';
 import '@splicewire/beam-ux/tokens-docs.css';
 import { authFeatures } from './beam';
