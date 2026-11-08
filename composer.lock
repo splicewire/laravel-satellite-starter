@@ -8464,7 +8464,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-accounts.git",
-                "reference": "48d50a70f76925617a8ed65def81156eaedea115"
+                "reference": "094226bb17535cab3f88cc80d82dce8c9efe5776"
             },
             "require": {
                 "firebase/php-jwt": "^6.0|^7.0",
@@ -8530,6 +8530,11 @@
                     "include": [
                         "composer.local.json"
                     ]
+                },
+                "typescript-transformer": {
+                    "directories": {
+                        "src/Data/Pages": "Inertia page props that host controllers render (ProfilePageData, SecurityPageData, …); no particle declaration names them"
+                    }
                 }
             },
             "autoload": {
@@ -8568,7 +8573,7 @@
                 "schemastud",
                 "teams"
             ],
-            "time": "2026-11-05T15:04:30+00:00"
+            "time": "2026-11-08T04:35:14+00:00"
         },
         {
             "name": "splicewire/laravel-beam-analytics",
@@ -9160,7 +9165,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-ux.git",
-                "reference": "9f04b41170e7b15403e60246c38f58ee4cf9c7d8"
+                "reference": "9105ef5d4a96737984082d74fed0112be5b68b54"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -9265,7 +9270,7 @@
                 "splicewire",
                 "ux"
             ],
-            "time": "2026-11-05T12:08:23+00:00"
+            "time": "2026-11-07T21:15:50+00:00"
         },
         {
             "name": "splicewire/laravel-beam-ux-prototype",
