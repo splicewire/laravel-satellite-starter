@@ -3,47 +3,52 @@
 // Regenerate after any backend route change; the diff is the drift signal (client-sdk-codegen).
 // Source of truth: the in-process route manifest (a RouteManifestSource).
 
-import { useMutation, type UseMutationOptions } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import type { UseMutationOptions } from '@tanstack/react-query';
 import { api } from '@/lib/api';
 import { route } from '@/lib/routes';
 
-type MutationVars = { params?: Record<string, string | number>; body?: unknown };
-type MutationOpts<T> = Omit<Partial<UseMutationOptions<T, Error, MutationVars>>, 'mutationFn'>;
+type MutationOpts<T, V> = Omit<Partial<UseMutationOptions<T, Error, V>>, 'mutationFn'>;
 
-export function usePlatformConnectionCheck(options?: MutationOpts<import("../Splicewire/Satellite/Pairing/Data").PlatformConnectionHealthData>) {
+export function usePlatformConnectionCheck(options?: MutationOpts<import("../Splicewire/Satellite/Pairing/Data").PlatformConnectionHealthData, void>) {
     return useMutation({
-        mutationFn: async (vars: MutationVars) => {
-            const res = await api.post(route('platform-connection.check'), vars.body);
+        mutationFn: async () => {
+            const res = await api.post(route('platform-connection.check'));
+
             return res.data.data as import("../Splicewire/Satellite/Pairing/Data").PlatformConnectionHealthData;
         },
         ...options,
     });
 }
 
-export function usePlatformConnectionConnect(options?: MutationOpts<import("../Splicewire/Satellite/Pairing/Data").PlatformConnectionData>) {
+export type PlatformConnectionConnectVars = { body: import("../Splicewire/Satellite/Pairing/Data").StartPairingInputData };
+export function usePlatformConnectionConnect(options?: MutationOpts<import("../Splicewire/Satellite/Pairing/Data").PlatformConnectionData, PlatformConnectionConnectVars>) {
     return useMutation({
-        mutationFn: async (vars: MutationVars) => {
+        mutationFn: async (vars: PlatformConnectionConnectVars) => {
             const res = await api.post(route('platform-connection.connect'), vars.body);
+
             return res.data.data as import("../Splicewire/Satellite/Pairing/Data").PlatformConnectionData;
         },
         ...options,
     });
 }
 
-export function usePlatformConnectionDisconnect(options?: MutationOpts<import("../Splicewire/Satellite/Pairing/Data").PlatformConnectionData>) {
+export function usePlatformConnectionDisconnect(options?: MutationOpts<import("../Splicewire/Satellite/Pairing/Data").PlatformConnectionData, void>) {
     return useMutation({
-        mutationFn: async (vars: MutationVars) => {
-            const res = await api.post(route('platform-connection.disconnect'), vars.body);
+        mutationFn: async () => {
+            const res = await api.post(route('platform-connection.disconnect'));
+
             return res.data.data as import("../Splicewire/Satellite/Pairing/Data").PlatformConnectionData;
         },
         ...options,
     });
 }
 
-export function usePlatformConnectionPoll(options?: MutationOpts<import("../Splicewire/Satellite/Pairing/Data").PlatformConnectionData>) {
+export function usePlatformConnectionPoll(options?: MutationOpts<import("../Splicewire/Satellite/Pairing/Data").PlatformConnectionData, void>) {
     return useMutation({
-        mutationFn: async (vars: MutationVars) => {
-            const res = await api.post(route('platform-connection.poll'), vars.body);
+        mutationFn: async () => {
+            const res = await api.post(route('platform-connection.poll'));
+
             return res.data.data as import("../Splicewire/Satellite/Pairing/Data").PlatformConnectionData;
         },
         ...options,
