@@ -178,18 +178,21 @@ export default function SitemapExample(address: SitemapExamplePageData) {
                             resource="sitemap"
                             columns={[]}
                             manifest={context}
-                            onOpen={(row) =>
+                            onOpen={(row) => {
+                                // @schemastud/frame 0.4.1 types the opened row as this resource's row Data
+                                // (SitemapData), which declares no `id`; the wire row still carries the record
+                                // key (SitemapWriteAuthorizationTest asserts `data.id`), and a new record opens
+                                // as `{ id: null }`. Read the key from the wire shape.
+                                const id = (row as Record<string, unknown>).id;
                                 router.visit(
-                                    row.id === null
+                                    id === null || id === undefined
                                         ? address.newHref
                                         : address.detailHrefTemplate.replace(
                                               '__id__',
-                                              encodeURIComponent(
-                                                  String(row.id),
-                                              ),
+                                              encodeURIComponent(String(id)),
                                           ),
-                                )
-                            }
+                                );
+                            }}
                         />
                     ) : (
                         <EditShell

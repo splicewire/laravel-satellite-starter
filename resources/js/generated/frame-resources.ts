@@ -6,30 +6,6 @@ export interface FrameResources {
         createResult: import('./Splicewire/Beam/Accounts/Data').AccessGrantData;
         actions: {};
     };
-    'analytics-audience': {
-        row: import('./Splicewire/Beam/Analytics/Data').AnalyticsFigureData;
-        edit: import('./Splicewire/Beam/Analytics/Data').AnalyticsFigureData;
-        createResult: import('./Splicewire/Beam/Analytics/Data').AnalyticsFigureData;
-        actions: {};
-    };
-    'analytics-events': {
-        row: import('./Splicewire/Beam/Analytics/Data').AnalyticsFigureData;
-        edit: import('./Splicewire/Beam/Analytics/Data').AnalyticsFigureData;
-        createResult: import('./Splicewire/Beam/Analytics/Data').AnalyticsFigureData;
-        actions: {};
-    };
-    'analytics-measurement': {
-        row: import('./Splicewire/Beam/Analytics/Data').AnalyticsFigureData;
-        edit: import('./Splicewire/Beam/Analytics/Data').AnalyticsFigureData;
-        createResult: import('./Splicewire/Beam/Analytics/Data').AnalyticsFigureData;
-        actions: {};
-    };
-    'analytics-site': {
-        row: import('./Splicewire/Beam/Analytics/Data').AnalyticsFigureData;
-        edit: import('./Splicewire/Beam/Analytics/Data').AnalyticsFigureData;
-        createResult: import('./Splicewire/Beam/Analytics/Data').AnalyticsFigureData;
-        actions: {};
-    };
     'beam-ux-entry': {
         row: import('./Splicewire/Beam/Ux/Data').BeamUxEntryData;
         edit: import('./Splicewire/Beam/Ux/Data').BeamUxEntryInputData;
@@ -102,12 +78,6 @@ export interface FrameResources {
         createResult: import('./Splicewire/Beam/Accounts/Data').MembershipData;
         actions: {};
     };
-    'operator-analytics-overview': {
-        row: import('./Splicewire/Beam/Ux/Data').DashboardCardRowData;
-        edit: import('./Splicewire/Beam/Ux/Data').DashboardCardRowData;
-        createResult: import('./Splicewire/Beam/Ux/Data').DashboardCardRowData;
-        actions: {};
-    };
     'operator-dashboard': {
         row: import('./Splicewire/Beam/Ux/Data').DashboardCardRowData;
         edit: import('./Splicewire/Beam/Ux/Data').DashboardCardRowData;
@@ -115,7 +85,7 @@ export interface FrameResources {
         actions: {};
     };
     'records': {
-        row: import('./Splicewire/Beam/Data').RecordData | Record<string, unknown>;
+        row: import('./Splicewire/Beam/Data').RecordData | import('./Splicewire/Beam/Collections').PublicRecordData;
         edit: import('./Splicewire/Beam/Data').RecordData;
         createResult: import('./Splicewire/Beam/Data').RecordData;
         actions: {};
@@ -160,12 +130,6 @@ export interface FrameResources {
         row: import('./Splicewire/Beam/Accounts/Data').TeamData;
         edit: import('./Splicewire/Beam/Accounts/Data').TeamData;
         createResult: import('./Splicewire/Beam/Accounts/Data').TeamData;
-        actions: {};
-    };
-    'tenant-analytics-overview': {
-        row: import('./Splicewire/Beam/Ux/Data').DashboardCardRowData;
-        edit: import('./Splicewire/Beam/Ux/Data').DashboardCardRowData;
-        createResult: import('./Splicewire/Beam/Ux/Data').DashboardCardRowData;
         actions: {};
     };
     'tenant-dashboard': {

@@ -10,30 +10,6 @@ import { route } from '@/lib/routes';
 
 type QueryOpts<T> = Omit<Partial<UseQueryOptions<T, Error, T>>, 'queryKey' | 'queryFn'>;
 
-export function useBeamDocsPhpApiIndex(options?: QueryOpts<import("../Splicewire/Beam/Docs/Data").PhpApiIndexData>) {
-    return useQuery({
-        queryKey: ['beam-docs.php-api-index'],
-        queryFn: async () => {
-            const res = await api.get(route('beam-docs.php-api-index'));
-
-            return res.data.data as import("../Splicewire/Beam/Docs/Data").PhpApiIndexData;
-        },
-        ...options,
-    });
-}
-
-export function useBeamDocsPhpApiSymbol(options?: QueryOpts<import("../Splicewire/Beam/Docs/Data").PhpApiSymbolData>) {
-    return useQuery({
-        queryKey: ['beam-docs.php-api-symbol'],
-        queryFn: async () => {
-            const res = await api.get(route('beam-docs.php-api-symbol'));
-
-            return res.data.data as import("../Splicewire/Beam/Docs/Data").PhpApiSymbolData;
-        },
-        ...options,
-    });
-}
-
 export function useBeamDocsSearch(options?: QueryOpts<import("../Splicewire/Beam/Docs/Data").DocsSearchResultsData>) {
     return useQuery({
         queryKey: ['beam-docs.search'],
