@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "baseline": "./message-ratchet.baseline.json",
+  "packages": {
+    "laravel-satellite-starter": [
+      "resources/js"
+    ]
+  }
+}
