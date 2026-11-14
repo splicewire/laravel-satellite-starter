@@ -168,8 +168,28 @@ class RealmDashboardTest extends TestCase
         $tileHrefs = array_column($tiles, 'href');
 
         $this->assertNotEmpty($tiles);
-        $this->assertSame(array_column($rail, 'href'), $tileHrefs);
-        $this->assertSame(array_column($rail, 'title'), array_column($tiles, 'label'));
+        // Beam Analytics (laravel-beam-analytics 72f65d7 + 1cfa31f + 4fe88f0, analytics-area 04/05/08; ADR-0222 d9) gives its
+        // whole rail section ONE dashboard destination, the declared aggregate /operator/analytics, at the section's first
+        // position. Every other rail leaf stays one-to-one with a tile (the fold laravel-beam-starter asserts).
+        $analyticsSection = collect($productNav)->firstWhere('title', 'Analytics');
+        $analyticsHrefs = array_column(self::leaves($analyticsSection === null ? [] : [$analyticsSection]), 'href');
+        $this->assertNotEmpty($analyticsHrefs, 'the Analytics section is on the operator rail');
+        $expectedHrefs = [];
+        $expectedLabels = [];
+        foreach ($rail as $leaf) {
+            if (in_array($leaf['href'], $analyticsHrefs, true)) {
+                if (! in_array('/operator/analytics', $expectedHrefs, true)) {
+                    $expectedHrefs[] = '/operator/analytics';
+                    $expectedLabels[] = 'Analytics';
+                }
+
+                continue;
+            }
+            $expectedHrefs[] = $leaf['href'];
+            $expectedLabels[] = $leaf['title'];
+        }
+        $this->assertSame($expectedHrefs, $tileHrefs);
+        $this->assertSame($expectedLabels, array_column($tiles, 'label'));
         $this->assertNotContains('/operator/dashboard', $tileHrefs);
 
         // ADR-0224: Users and Teams are tiles, not cards; every destination appears once (card XOR tile).

@@ -66,6 +66,9 @@ it('declares the complete profile props while preserving the rendered payload', 
         'entry' => $entry === null ? null : $entry + ['format' => null, 'artifact' => null],
         'mustVerifyEmail' => $verifiesEmail,
         'status' => $status,
+        // laravel-beam-accounts 5336f06 (localization 36): the person's language and the host's supported locales.
+        'preferredLocale' => null,
+        'supportedLocales' => [],
     ]);
 })->with([
     'unseeded, no verification or status' => [false, false, null],

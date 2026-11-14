@@ -16,11 +16,6 @@
             "type": "string"
         }
     },
-    "required": [
-        "connect",
-        "poll",
-        "check",
-        "disconnect"
-    ],
+    "required": ["connect", "poll", "check", "disconnect"],
     "$id": "PlatformConnectionEndpointsData"
 }

@@ -10,10 +10,7 @@
             "$ref": "#/$defs/PlatformConnectionEndpointsData"
         }
     },
-    "required": [
-        "connection",
-        "endpoints"
-    ],
+    "required": ["connection", "endpoints"],
     "$id": "PlatformConnectionPageData",
     "$defs": {
         "PlatformConnectionState": {
@@ -36,23 +33,13 @@
                     "type": "string"
                 },
                 "name": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": ["string", "null"]
                 },
                 "email": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": ["string", "null"]
                 }
             },
-            "required": [
-                "id",
-                "name",
-                "email"
-            ]
+            "required": ["id", "name", "email"]
         },
         "PlatformCapabilityReadData": {
             "type": "object",
@@ -68,22 +55,16 @@
                     "type": "array"
                 },
                 "status": {
-                    "type": [
-                        "integer",
-                        "null"
-                    ]
+                    "type": ["integer", "null"]
                 },
                 "error": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": ["string", "null"]
                 },
                 "invokedAt": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": ["string", "null"]
+                },
+                "errorCode": {
+                    "type": "string"
                 }
             },
             "required": [
@@ -106,46 +87,25 @@
                     "type": "boolean"
                 },
                 "platformUrl": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": ["string", "null"]
                 },
                 "centralUrl": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": ["string", "null"]
                 },
                 "label": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": ["string", "null"]
                 },
                 "userCode": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": ["string", "null"]
                 },
                 "verificationUri": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": ["string", "null"]
                 },
                 "verificationUriComplete": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": ["string", "null"]
                 },
                 "expiresAt": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": ["string", "null"]
                 },
                 "identity": {
                     "anyOf": [
@@ -158,10 +118,7 @@
                     ]
                 },
                 "identityError": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": ["string", "null"]
                 },
                 "lastCapabilityRead": {
                     "anyOf": [
@@ -172,6 +129,12 @@
                             "type": "null"
                         }
                     ]
+                },
+                "errorCode": {
+                    "type": "string"
+                },
+                "identityErrorCode": {
+                    "type": "string"
                 }
             },
             "required": [
@@ -206,12 +169,7 @@
                     "type": "string"
                 }
             },
-            "required": [
-                "connect",
-                "poll",
-                "check",
-                "disconnect"
-            ]
+            "required": ["connect", "poll", "check", "disconnect"]
         }
     }
 }

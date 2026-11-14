@@ -7,10 +7,7 @@
             "type": "string"
         },
         "id": {
-            "type": [
-                "string",
-                "null"
-            ]
+            "type": ["string", "null"]
         },
         "manifestUrl": {
             "type": "string"

@@ -56,7 +56,8 @@ class FrameManifestRouterTest extends TestCase
         $route = app('router')->getRoutes()->getByName('frame.manifest');
 
         $this->assertNotNull($route, 'The manifest route must be MOUNTED, not merely callable.');
-        $this->assertSame(FrameManifestController::class, $route->getActionName());
+        // laravel-frame 15642cb (13e) registers the mount as [FrameManifestController::class, '__invoke'] (FrameRoutes.php:31).
+        $this->assertSame(FrameManifestController::class.'@__invoke', $route->getActionName());
 
         $response = $this->actingAs($this->operator())->getJson('/frame/manifest');
 
@@ -93,7 +94,21 @@ class FrameManifestRouterTest extends TestCase
 
         // The two realms must not merely differ — neither may overlap the other, or a projector
         // leaking one realm's list into the other could still satisfy both blocks above.
-        $this->assertSame([], array_values(array_intersect($tenant, $operator)));
+        // The one declared exception: Beam Analytics seats its section in BOTH realms (AnalyticsSection::REALMS,
+        // laravel-beam-analytics 72f65d7 + 1cfa31f, analytics-area 04/05; the Traffic area 4fe88f0, 08; ADR-0222 d9).
+        // That exact set is kept explicit (as tower-starter 82cdc193 does), so any other cross-realm route still fails.
+        $sharedAnalyticsRoutes = [
+            'analytics-measurement.index',
+            'analytics-events.index',
+            'analytics-site.index',
+            'analytics-audience.index',
+            'analytics-traffic.index',
+            'analytics-traffic-trend.index',
+            'analytics-traffic-pages.index',
+            'analytics-traffic-referrers.index',
+        ];
+        $this->assertSame([], array_values(array_diff(array_intersect($tenant, $operator), $sharedAnalyticsRoutes)));
+        $this->assertEqualsCanonicalizing($sharedAnalyticsRoutes, array_values(array_intersect($tenant, $operator)));
     }
 
     public function test_it_gives_a_resource_the_per_record_twin_its_own_declaration_allows(): void

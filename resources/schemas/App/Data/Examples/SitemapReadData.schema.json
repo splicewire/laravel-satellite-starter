@@ -39,10 +39,7 @@
             "default": 0
         },
         "externalUrl": {
-            "type": [
-                "string",
-                "null"
-            ],
+            "type": ["string", "null"],
             "x-stud-widget-contexts": {
                 "list-column": {
                     "participates": false
@@ -50,12 +47,6 @@
             }
         }
     },
-    "required": [
-        "id",
-        "label",
-        "href",
-        "order",
-        "externalUrl"
-    ],
+    "required": ["id", "label", "href", "order", "externalUrl"],
     "$id": "SitemapReadData"
 }
