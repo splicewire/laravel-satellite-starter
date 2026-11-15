@@ -8,6 +8,8 @@ const profile: ProfilePageData = {
     entry: null,
     mustVerifyEmail: false,
     status: null,
+    preferredLocale: null,
+    supportedLocales: ['en'],
 };
 const auth: AuthEntryPageData = {
     slug: 'confirm-password',
