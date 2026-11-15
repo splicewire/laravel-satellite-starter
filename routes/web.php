@@ -3,70 +3,20 @@
 use App\Data\Pages\PlatformConnectionEndpointsData;
 use App\Data\Pages\PlatformConnectionPageData;
 use App\Data\Pages\SitemapExamplePageData;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Splicewire\Beam\Accounts\Support\TokensEndpoints;
 use Splicewire\Beam\Authorization\SeatGate;
 use Splicewire\Beam\Ia\Side;
 use Splicewire\Beam\Ia\Sides;
 use Splicewire\Beam\Ux\Data\Pages\EntryPageData;
-use Splicewire\Beam\Ux\Head\PageHead;
-use Splicewire\Beam\Ux\Head\PageHeadComposer;
-use Splicewire\Beam\Ux\Http\Middleware\ResolvePreviewContext;
-use Splicewire\Beam\Ux\Http\PublicEntryGate;
-use Splicewire\Beam\Ux\Intake\IntakeForms;
-use Splicewire\Beam\Ux\Models\BeamUxEntry;
-use Splicewire\Beam\Ux\Preview\PreviewBar;
-use Splicewire\Beam\Ux\Preview\PreviewContext;
 use Splicewire\Beam\Ux\Support\PageEntryRef;
 use Splicewire\Satellite\Pairing\PlatformConnection;
 
 require __DIR__.'/canonical-mdx.php';
 
-// The FRONT DOOR is the OOTB site realm: `/` renders the promoted <SiteLayout> chrome (public) AND —
-// behind the ux.author seam — mounts the in-place visual editor (@/editor). (frontend-surfaces wiring.)
-//
-// It shares `entry` ({id, slug}) so the page addresses its beam-ux row by ID (ADR-0214 §2). The server
-// is the only party that can: no compile-time frontend map can carry a per-database uuid.
-//
-// ADR-0234 d2: the Page Head composed from the same row rides along, and the root template prints it before any script.
-//
-// EP-07d: its published forms get their schemas and the door's honeypot field, as a packaged entry page's do.
-//
-// ADR-0232 d15 (EP-18): `/` renders inside a Preview like every packaged page. The Preview middleware verifies the
-// cookie; the entry ref then addresses the Preview's version of the body, the bar rides along, and a home the
-// Preview takes down answers the uniform 404. Outside a Preview nothing here changes.
-Route::get('/', function (Request $request) {
-    abort_if(PageEntryRef::hiddenByPreview('home'), 404);
-    $entry = PageEntryRef::for('home');
-    $model = $entry === null ? null : BeamUxEntry::find($entry['id']);
-    $preview = app(PreviewBar::class)->for($request, $model);
-    $head = PageHead::forPage('home', $request);
-    $context = $request->attributes->get('beam.ux.preview');
-    if ($model !== null && $context instanceof PreviewContext) {
-        // A preview is an immutable view of the Release's entries and ancestry. Never fall
-        // back to live ancestry here: it can differ from the version the guest is previewing.
-        // The chain is root-first and ends at the page, or null when the gate refuses it. Taken as a list, the page
-        // is its last node; an empty or refused chain composes no head, as a refused one always has.
-        $chain = array_values(app(PublicEntryGate::class)->chainForEntry($model, 'site', null, $context) ?? []);
-        $head = $chain === []
-            ? []
-            : app(PageHeadComposer::class)
-                ->compose(
-                    $chain[array_key_last($chain)],
-                    $request->path(),
-                    false,
-                    $request,
-                    $chain,
-                )
-                ->elements();
-    }
-
-    return Inertia::render('site/home', EntryPageData::from(['entry' => $entry]))
-        ->with($model === null ? [] : app(IntakeForms::class)->pagePropsFor($model))
-        ->with('head', $head)
-        ->with($preview === null ? [] : ['preview' => $preview]);
-})->middleware(ResolvePreviewContext::class)->name('home');
+// The opt-in home includes the entry's Preview, head and intake props.
+Route::beamUxHome('site/home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // An explicit host consumer of Frame's write/read contracts; the writable /sitemap stays intact.
@@ -116,7 +66,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ⚠️ These are NOT the tenant frame console's `tokens` / `members` / `invitations` leaves, and
     // those three have been removed from `config('frame.realms')['tenant']` in the same change. Read
     // that file's realm comment for why one capability may not have two surfaces here.
-    Route::get('account/tokens', fn () => Inertia::render('account/tokens'))->name('account.tokens')->defaults(SeatGate::OPEN_TO_MEMBERS, true);
+    // The tokens page's endpoints come from laravel-beam-accounts' own mounted routes, so the page follows
+    // `ACCOUNT_API_ROOT` and writes no URL (frame-foundation 51).
+    Route::get('account/tokens', fn () => Inertia::render('account/tokens', ['endpoints' => TokensEndpoints::props()]))->name('account.tokens')->defaults(SeatGate::OPEN_TO_MEMBERS, true);
     Route::get('account/team', fn () => Inertia::render('account/team'))->name('account.team')->defaults(SeatGate::OPEN_TO_MEMBERS, true);
 
     // ── The THEME entry's editor seat (G2-BEAM-THEME-NAV) ────────────────────────────────────────
@@ -223,51 +175,8 @@ Route::splicewireTeamRoutes(middleware: ['auth', 'verified'], guestMiddleware: [
 
 require __DIR__.'/settings.php';
 
-// ── The TENANT FRAME CONSOLE mount ──────────────────────────────────────────────────────────────────
-//
-// One page component (`resources/js/pages/frame/console.tsx`) served at every path the tenant realm
-// projects, so the client router in `resources/js/frame/router.tsx` can match the leaf. Which surface
-// renders is the MANIFEST's decision, read from the same `routeContext` the nav's hrefs come from — a
-// second server-side resource→page mapping here would be a copy that can drift from the nav.
-//
-// ⚠️ **The segment list is DERIVED, never written down.** `RouteContextProjector::hrefs('tenant')` is
-// the same call the manifest's own hrefs come from, so a resource this host adds to
-// `config('frame.realms')['tenant']` is mounted by adding it there and nowhere else. Writing the
-// segments out would be the third copy of a list that already exists twice.
-//
-// ⚠️ **Registered BEFORE `Route::beamUxSite()` and constrained to those segments.** The renderer below
-// takes a `{path}` catch-all; an unconstrained catch-all here would swallow every authored page.
-// `rescue(..., [])` means a projector failure mounts NOTHING rather than mounting everything.
-Route::middleware(['auth', 'verified'])->group(function () {
-    $hrefs = rescue(function (): array {
-        $paths = array_values(app(Splicewire\Beam\Ux\Frame\RouteContextProjector::class)->hrefs('tenant'));
-
-        // Every seat DECLARED for the realm, not the seats some viewer is shown. Routes are registered
-        // once, with no actor, so the gated nav projection here was a GUEST's nav: its section hrefs
-        // mounted only while a resource with no read boundary kept a seat populated for everyone.
-        // Mounting a seat's path serves the console shell; what it lists is the read boundary's call.
-        $sections = array_map(
-            fn (Splicewire\Beam\Nav\NavSection $seat): string => $seat->href,
-            app(Splicewire\Beam\Nav\NavSectionRegistry::class)->for('tenant')
-        );
-
-        return array_filter([...$paths, ...$sections]);
-    }, [], false);
-
-    // Only the FIRST segment is enumerated; the optional second matches the `/:id` record twin. Every
-    // tenant leaf is one of those two shapes (the projector emits `path` and `path/:id`, nothing
-    // deeper), so this stays exact rather than greedy.
-    $segments = array_values(array_unique(array_map(
-        fn (string $href): string => explode('/', trim($href, '/'))[0],
-        $hrefs
-    )));
-
-    if ($segments !== []) {
-        Route::get('{frameRoute}', fn () => Inertia::render('frame/console'))
-            ->where('frameRoute', '('.implode('|', array_map(fn (string $s): string => preg_quote($s, '/'), $segments)).')(\/[^\/]+)?')
-            ->name('frame.console');
-    }
-});
+// The tenant console derives its segments from the realm before the site's catch-all.
+Route::beamRealmConsole('tenant', ['auth', 'verified']);
 
 // ── The OPERATOR FRAME CONSOLE mount ────────────────────────────────────────────────────────────────
 //
@@ -278,8 +187,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // console cannot be a softer door than the dashboard behind it. Registered BEFORE `Route::beamUxSite()`, whose
 // `{path}` catch-all would otherwise take the realm's URLs.
 //
-// The tenant console above stays hand-mounted: the macro refuses a realm at `/`, whose console is the host's root
-// mount (no prefix, no home, frame's own unscoped manifest, and the absent props `dashboard` shares).
 Route::beamRealmConsole('operator', ['auth', 'verified']);
 
 // The PUBLIC ENTRY RENDERER (ADR-0209 §2) — resolves any unclaimed URL against the `site` realm's

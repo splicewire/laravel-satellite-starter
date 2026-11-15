@@ -94,15 +94,16 @@ class FrameManifestRouterTest extends TestCase
 
         // The two realms must not merely differ — neither may overlap the other, or a projector
         // leaking one realm's list into the other could still satisfy both blocks above.
-        // The one declared exception: Beam Analytics seats its section in BOTH realms (AnalyticsSection::REALMS,
-        // laravel-beam-analytics 72f65d7 + 1cfa31f, analytics-area 04/05; the Traffic area 4fe88f0, 08; ADR-0222 d9).
-        // That exact set is kept explicit (as tower-starter 82cdc193 does), so any other cross-realm route still fails.
+        // The one declared exception: Beam Analytics seats its section in BOTH realms (laravel-beam-analytics
+        // 1cfa31f, analytics-area 05), and laravel-beam-accounts 93cb550 + 74f0688 compose analytics.view from
+        // either grant and wire the Audience area, so an operator sees the section's resources in each realm.
+        // That exact set is kept explicit (as tower-starter 0c307e2 does), so any other cross-realm leak still fails.
         $sharedAnalyticsRoutes = [
             'analytics-measurement.index',
+            'analytics-traffic.index',
             'analytics-events.index',
             'analytics-site.index',
             'analytics-audience.index',
-            'analytics-traffic.index',
             'analytics-traffic-trend.index',
             'analytics-traffic-pages.index',
             'analytics-traffic-referrers.index',

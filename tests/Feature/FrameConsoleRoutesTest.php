@@ -31,6 +31,13 @@ class FrameConsoleRoutesTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function test_the_packaged_tenant_console_preserves_the_hosts_middleware(): void
+    {
+        $route = \Illuminate\Support\Facades\Route::getRoutes()->getByName('frame.console');
+        $this->assertNotNull($route);
+        $this->assertSame(['auth', 'verified'], array_values(array_filter($route->middleware(), fn (string $name): bool => $name !== 'web')));
+    }
+
     public function test_every_projected_tenant_href_serves_the_frame_console(): void
     {
         $this->actingAs(User::factory()->create());

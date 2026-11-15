@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -17,6 +18,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Splicewire\Beam\Accounts\Concerns\BelongsToTeams;
+use Splicewire\Beam\Accounts\Concerns\HasPreferredLocale;
 
 /**
  * @property string $id
@@ -28,12 +30,13 @@ use Splicewire\Beam\Accounts\Concerns\BelongsToTeams;
  * @property string|null $two_factor_recovery_codes
  * @property Carbon|null $two_factor_confirmed_at
  * @property string|null $remember_token
+ * @property string|null $preferred_locale the person's chosen language, null = automatic (localization 36)
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  */
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
-class User extends Authenticatable implements PasskeyUser
+class User extends Authenticatable implements HasLocalePreference, PasskeyUser
 {
     /** @use HasFactory<UserFactory> */
     // ⚠️ `HasApiTokens` is NOT decoration and is not optional for this host. Sanctum's guard refuses
@@ -44,6 +47,11 @@ class User extends Authenticatable implements PasskeyUser
     // authenticate — without this line every minted token is a credential that silently does not
     // work, and nothing in the mint path can tell you why.
     use BelongsToTeams, HasApiTokens, HasFactory, HasRoles, HasUuids, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable;
+
+    // localization 36 (ruling 03 owner resolution (d)): this host OPTS IN. Mail and notifications to this user read their
+    // chosen language, and a self-addressed send uses the request's. The column comes from this host's committed
+    // add_preferred_locale_to_users_table; the choice is written through profile.update, never by fill().
+    use HasPreferredLocale;
 
     /**
      * Get the attributes that should be cast.

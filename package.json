@@ -11,8 +11,8 @@
         "format:check": "prettier --check resources/",
         "lint": "eslint . --fix",
         "lint:check": "eslint .",
-        "types:check": "composer types:generate && tsc --noEmit && tsc -p tsconfig.generated.json",
-        "frame:vocabulary": "frame-vocabulary",
+        "types:check": "composer types:generate && tsc --noEmit && tsc -p tsconfig.generated.json && pnpm frame:vocabulary",
+        "frame:vocabulary": "frame-vocabulary --readers @splicewire/beam-inertia/frame-readers",
         "beam:verify-prototype-boundary": "beam-verify-prototype-boundary"
     },
     "devDependencies": {

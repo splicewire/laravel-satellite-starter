@@ -66,7 +66,9 @@ it('declares each route page and preserves initial populated and missing entry p
     $request = routePropsRequest($component, null, $staffEvaluations);
     $factory = new ResponseFactory;
     Inertia::partialMock()->shouldReceive('render')->once()->andReturnUsing(function ($actualComponent, $props) use ($component, $dataClass, $factory) {
-        expect($actualComponent)->toBe($component)->and($props)->toBeInstanceOf($dataClass);
+        // The packaged EntryRenderer port receives an array; the payload remains the declared Data shape.
+        expect($actualComponent)->toBe($component)->and($props)->toBeArray();
+        expect($dataClass::from(['entry' => $props['entry']])->toArray()['entry'])->toBe($props['entry']);
 
         return $factory->render($actualComponent, $props);
     });
@@ -76,14 +78,16 @@ it('declares each route page and preserves initial populated and missing entry p
             $counts++;
         }
     });
-    $response = Route::getRoutes()->getByName($route)->bind($request)->run();
+    $matched = Route::getRoutes()->getByName($route)->bind($request);
+    $request->setRouteResolver(fn () => $matched);
+    $response = $matched->run();
     expect($staffEvaluations)->toBe(0)->and($counts)->toBe(0);
     // The entry ref carries `format` and `artifact` beside `{id, slug}` (G2-BEAM-AUTHOR-ENTRY): a save
     // address alone left `/` unreadable and let the canvas open an mdx entry. Both are null for these
     // rows — the fixture inserts no format and compiles no artifact — and null is the honest answer
     // ("the host did not say" / "never authored"), which is exactly what the client must receive.
     $expected = ['entry' => $entry === null ? null : $entry + ['format' => null, 'artifact' => null]];
-    $props = $response->toResponse($request)->getData(true)['props'];
+    $props = $response->getData(true)['props'];
     expect(Arr::except($props, 'head'))->toBe($expected);
     // EP-28 (ADR-0234 d2): `/` also passes the Page Head composed from its home row, and none where no row exists, so
     // the root template keeps its fallback title.

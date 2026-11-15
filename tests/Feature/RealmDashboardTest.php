@@ -168,9 +168,10 @@ class RealmDashboardTest extends TestCase
         $tileHrefs = array_column($tiles, 'href');
 
         $this->assertNotEmpty($tiles);
-        // Beam Analytics (laravel-beam-analytics 72f65d7 + 1cfa31f + 4fe88f0, analytics-area 04/05/08; ADR-0222 d9) gives its
-        // whole rail section ONE dashboard destination, the declared aggregate /operator/analytics, at the section's first
-        // position. Every other rail leaf stays one-to-one with a tile (the fold laravel-beam-starter asserts).
+        // Beam Analytics (laravel-beam-analytics 72f65d7 + 1cfa31f, reached here with laravel-beam-accounts
+        // 74f0688's Audience area) gives its whole rail section ONE dashboard destination, the declared aggregate
+        // /operator/analytics, at the section's first position. Every other rail leaf stays one-to-one with a
+        // tile, as tower-starter 0c307e2 asserts it.
         $analyticsSection = collect($productNav)->firstWhere('title', 'Analytics');
         $analyticsHrefs = array_column(self::leaves($analyticsSection === null ? [] : [$analyticsSection]), 'href');
         $this->assertNotEmpty($analyticsHrefs, 'the Analytics section is on the operator rail');

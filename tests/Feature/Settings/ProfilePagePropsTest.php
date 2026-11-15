@@ -68,7 +68,7 @@ it('declares the complete profile props while preserving the rendered payload', 
         'status' => $status,
         // laravel-beam-accounts 5336f06 (localization 36): the person's language and the host's supported locales.
         'preferredLocale' => null,
-        'supportedLocales' => [],
+        'supportedLocales' => ['en'],
     ]);
 })->with([
     'unseeded, no verification or status' => [false, false, null],

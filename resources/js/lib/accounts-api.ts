@@ -1,24 +1,20 @@
 /**
- * The transport half of the two packaged account surfaces — `@splicewire/beam-accounts`'
- * <TokensRoster> and <TeamPage>.
+ * The transport half of `@splicewire/beam-accounts`' <TeamPage>.
  *
- * Those components own their own react-query data logic, their own presentation and their own DTO
- * typing; the ONE thing they take from a host is a client (contract §1), and this file is the whole
- * of it for this starter. Nothing about a token or an invitation is decided here.
+ * The component owns its own react-query data logic, its own presentation and its own DTO typing; the
+ * ONE thing it takes from a host is a client (contract §1), and this file is the whole of it for this
+ * starter. Nothing about an invitation is decided here. The tokens surface needs no client here: the
+ * package ships `createTokensClient`, and `pages/account/tokens.tsx` hands it frame's session request
+ * and the endpoints laravel-beam-accounts builds from its routes (frame-foundation 51).
  *
  * ⚠️ **These URLs are literals and the mount they point at is CONFIG-DRIVEN** —
  * `config('beam.accounts.api_root')`, mounted by `Route::splicewireAccountApiRoutes()` in
  * `routes/web.php`. Wayfinder is retired fleet-wide (beam-runbook ADR-0004), so nothing links these
  * strings to that config: change the root and every call here 404s silently. The same warning
- * `@splicewire/beam-inertia`'s frame transport carries, for the same reason. If the token or team
- * surface shows an empty table, diff these paths against `route:list` BEFORE looking anywhere else.
+ * `@splicewire/beam-inertia`'s frame transport carries, for the same reason. If the team surface
+ * shows an empty table, diff these paths against `route:list` BEFORE looking anywhere else.
  */
-import type {
-    ApiTokenData,
-    CreatedTokenData,
-    TeamClient,
-    TokensClient,
-} from '@splicewire/beam-accounts';
+import type { TeamClient } from '@splicewire/beam-accounts';
 
 const ROOT = '/beam/accounts';
 
@@ -80,71 +76,6 @@ async function call<T>(
 
     return payload?.data as T;
 }
-
-export const tokensClient: TokensClient = {
-    list: () =>
-        call<ApiTokenData[]>('GET', '/tokens').then((rows) => rows ?? []),
-    create: ({ name, abilities, expiresInDays }) => {
-        const body: Record<string, unknown> = { name };
-
-        // Omitted, not null: an absent `abilities` is the unscoped default and an absent
-        // `expiresInDays` is a token that never expires — both declared `Optional` server-side, so
-        // sending an explicit null would be a different (still legal, but noisier) request.
-        if (abilities && abilities.length > 0) {
-            body.abilities = abilities;
-        }
-
-        if (expiresInDays) {
-            body.expiresInDays = expiresInDays;
-        }
-
-        return call<CreatedTokenData>('POST', '/tokens', body);
-    },
-    renew: ({ id, expiresInDays }) =>
-        call<ApiTokenData>(
-            'POST',
-            `/tokens/${id}/renew`,
-            expiresInDays ? { expiresInDays } : {},
-        ),
-    rotate: ({ id, expiresInDays }) =>
-        call<CreatedTokenData>(
-            'POST',
-            `/tokens/${id}/rotate`,
-            expiresInDays ? { expiresInDays } : {},
-        ),
-    // Archive is the soft-revoke (row retained for audit); remove is the hard delete, which the
-    // server admits only for an already-archived token.
-    archive: async (id) => {
-        await call('DELETE', `/tokens/${id}`);
-    },
-    remove: async (id) => {
-        await call('DELETE', `/tokens/${id}/permanent`);
-    },
-    revokeOtherSessions: async () => {
-        const res = await fetch(`${ROOT}/tokens/sessions/others`, {
-            method: 'DELETE',
-            headers: headers(),
-            credentials: 'same-origin',
-        });
-        const payload = (await res.json()) as {
-            message: string;
-            data: { revoked: number };
-        };
-
-        if (!res.ok) {
-            throw new Error(payload?.message ?? 'Sweep failed');
-        }
-
-        return { message: payload.message, revoked: payload.data.revoked };
-    },
-    // The scoped-create picker's vocabulary. The flagship reads this from `GET me`; a bare beam host
-    // does not necessarily mount that resource, so beam-accounts serves it off the token surface
-    // itself — one endpoint at every host, and the same list the mint's clamp validates against.
-    listPermissions: () =>
-        call<{ permissions: string[] }>('GET', '/tokens/permissions').then(
-            (data) => data?.permissions ?? [],
-        ),
-};
 
 export const teamClient: TeamClient = {
     members: () => call('GET', '/members'),
