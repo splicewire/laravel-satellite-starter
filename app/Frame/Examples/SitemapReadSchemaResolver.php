@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace App\Frame\Examples;
 
 use App\Data\Examples\SitemapReadData;
+use App\Localization\FrameExampleError;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 use ReflectionClass;
 use Schemastud\DataSchemas\Generators\Generator;
 use Schemastud\Frame\Contracts\ResourceSchemaResolver;
 use Schemastud\Frame\Registry\ResourceDefinition;
+use Splicewire\Beam\Localization\CodedValidationException;
 
 final class SitemapReadSchemaResolver implements ResourceSchemaResolver
 {
@@ -25,9 +26,7 @@ final class SitemapReadSchemaResolver implements ResourceSchemaResolver
             // a 200 for `purpose=unknown` would hand the caller the wrong document behind a success.
             $purpose = $request->query('purpose', 'write');
             if (! in_array($purpose, ['write', 'read'], true)) {
-                throw ValidationException::withMessages([
-                    'purpose' => "Unknown schema purpose [{$purpose}]; expected one of: write, read.",
-                ]);
+                throw CodedValidationException::for('purpose', FrameExampleError::UnknownSchemaPurpose, ['purpose' => (string) $purpose]);
             }
 
             if ($purpose === 'read') {
