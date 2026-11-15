@@ -1,6 +1,6 @@
 {
     "check": "particle.undeclared-surface",
-    "count": 69,
+    "count": 86,
     "baseline": {
         "environment": "local",
         "php": "8.4",
@@ -9,16 +9,17 @@
     },
     "counts": {
         "by_tier": {
-            "guided": 55,
-            "manual": 14
+            "guided": 70,
+            "manual": 16
         },
         "by_origin": {
-            "laravel/fortify": 24,
-            "app": 19,
-            "schemastud/laravel-frame": 8,
+            "laravel/fortify": 22,
+            "app": 21,
+            "schemastud/laravel-frame": 15,
+            "splicewire/laravel-beam-ux": 9,
             "laravel/passkeys": 7,
             "inertiajs/inertia-laravel": 4,
-            "splicewire/laravel-beam-ux": 2,
+            "splicewire/laravel-beam-accounts": 3,
             "splicewire/laravel-beam-mcp": 1,
             "rushing/laravel-marquee": 1,
             "splicewire/laravel-satellite": 1,
@@ -55,10 +56,76 @@
                 "GET"
             ],
             "name": "home",
-            "action": "Closure",
-            "tier": "manual",
-            "origin": "app",
-            "location": "closure route [home]"
+            "action": "Splicewire\\Beam\\Ux\\Http\\Controllers\\HomeEntryController",
+            "tier": "guided",
+            "origin": "splicewire/laravel-beam-ux",
+            "location": "splicewire/laravel-beam-ux/src/Http/Controllers/HomeEntryController.php:22"
+        },
+        {
+            "uri": "_beam/preview/exit",
+            "methods": [
+                "GET"
+            ],
+            "name": "beam.ux.site.preview.exit",
+            "action": "Splicewire\\Beam\\Ux\\Http\\Controllers\\PreviewExitController",
+            "tier": "guided",
+            "origin": "splicewire/laravel-beam-ux",
+            "location": "splicewire/laravel-beam-ux/src/Http/Controllers/PreviewExitController.php:10"
+        },
+        {
+            "uri": "_beam/preview/open/{release}",
+            "methods": [
+                "GET"
+            ],
+            "name": "beam.ux.site.preview.open",
+            "action": "Splicewire\\Beam\\Ux\\Http\\Controllers\\PreviewReleaseController",
+            "tier": "guided",
+            "origin": "splicewire/laravel-beam-ux",
+            "location": "splicewire/laravel-beam-ux/src/Http/Controllers/PreviewReleaseController.php:25"
+        },
+        {
+            "uri": "_beam/preview/release/{release}",
+            "methods": [
+                "GET"
+            ],
+            "name": "beam.ux.site.preview.link",
+            "action": "Splicewire\\Beam\\Ux\\Http\\Controllers\\PreviewLinkController",
+            "tier": "guided",
+            "origin": "splicewire/laravel-beam-ux",
+            "location": "splicewire/laravel-beam-ux/src/Http/Controllers/PreviewLinkController.php:22"
+        },
+        {
+            "uri": "_beam/preview/switch",
+            "methods": [
+                "GET"
+            ],
+            "name": "beam.ux.site.preview.switch",
+            "action": "Splicewire\\Beam\\Ux\\Http\\Controllers\\PreviewSwitchController",
+            "tier": "guided",
+            "origin": "splicewire/laravel-beam-ux",
+            "location": "splicewire/laravel-beam-ux/src/Http/Controllers/PreviewSwitchController.php:17"
+        },
+        {
+            "uri": "_beam/preview/view-as-me",
+            "methods": [
+                "GET"
+            ],
+            "name": "beam.ux.site.preview.view-as-me",
+            "action": "Splicewire\\Beam\\Ux\\Http\\Controllers\\PreviewViewAsMeController",
+            "tier": "guided",
+            "origin": "splicewire/laravel-beam-ux",
+            "location": "splicewire/laravel-beam-ux/src/Http/Controllers/PreviewViewAsMeController.php:13"
+        },
+        {
+            "uri": "_beam/preview/{token}",
+            "methods": [
+                "GET"
+            ],
+            "name": "beam.ux.site.preview.start",
+            "action": "Splicewire\\Beam\\Ux\\Http\\Controllers\\PreviewStartController",
+            "tier": "guided",
+            "origin": "splicewire/laravel-beam-ux",
+            "location": "splicewire/laravel-beam-ux/src/Http/Controllers/PreviewStartController.php:18"
         },
         {
             "uri": "_inertia/devtools/entries",
@@ -157,7 +224,7 @@
             "action": "Splicewire\\Beam\\Ux\\Http\\Controllers\\EntryArtifactController",
             "tier": "guided",
             "origin": "splicewire/laravel-beam-ux",
-            "location": "splicewire/laravel-beam-ux/src/Http/Controllers/EntryArtifactController.php:39"
+            "location": "splicewire/laravel-beam-ux/src/Http/Controllers/EntryArtifactController.php:40"
         },
         {
             "uri": "dashboard",
@@ -204,6 +271,39 @@
             "location": "laravel/fortify/src/Http/Controllers/VerifyEmailController.php:18"
         },
         {
+            "uri": "examples/sitemap-resource",
+            "methods": [
+                "GET"
+            ],
+            "name": "examples.sitemap.index",
+            "action": "Closure",
+            "tier": "manual",
+            "origin": "app",
+            "location": "closure route [examples.sitemap.index]"
+        },
+        {
+            "uri": "examples/sitemap-resource/new",
+            "methods": [
+                "GET"
+            ],
+            "name": "examples.sitemap.create",
+            "action": "Closure",
+            "tier": "manual",
+            "origin": "app",
+            "location": "closure route [examples.sitemap.create]"
+        },
+        {
+            "uri": "examples/sitemap-resource/{id}",
+            "methods": [
+                "GET"
+            ],
+            "name": "examples.sitemap.show",
+            "action": "Closure",
+            "tier": "manual",
+            "origin": "app",
+            "location": "closure route [examples.sitemap.show]"
+        },
+        {
             "uri": "forgot-password",
             "methods": [
                 "GET"
@@ -231,21 +331,10 @@
                 "GET"
             ],
             "name": "frame.manifest",
-            "action": "Schemastud\\Frame\\Http\\Controllers\\FrameManifestController",
+            "action": "Schemastud\\Frame\\Http\\Controllers\\FrameManifestController@__invoke",
             "tier": "guided",
             "origin": "schemastud/laravel-frame",
-            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameManifestController.php:38"
-        },
-        {
-            "uri": "frame/resources/{resource}",
-            "methods": [
-                "GET"
-            ],
-            "name": "frame.resources.index",
-            "action": "Schemastud\\Frame\\Http\\Controllers\\FrameResourceController@index",
-            "tier": "guided",
-            "origin": "schemastud/laravel-frame",
-            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameResourceController.php:69"
+            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameManifestController.php:41"
         },
         {
             "uri": "frame/resources/{resource}",
@@ -256,7 +345,18 @@
             "action": "Schemastud\\Frame\\Http\\Controllers\\FrameResourceController@store",
             "tier": "guided",
             "origin": "schemastud/laravel-frame",
-            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameResourceController.php:136"
+            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameResourceController.php:161"
+        },
+        {
+            "uri": "frame/resources/{resource}/actions/{action}/schema",
+            "methods": [
+                "GET"
+            ],
+            "name": "frame.resources.actions.schema",
+            "action": "Schemastud\\Frame\\Http\\Controllers\\FrameResourceController@actionSchema",
+            "tier": "guided",
+            "origin": "schemastud/laravel-frame",
+            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameResourceController.php:223"
         },
         {
             "uri": "frame/resources/{resource}/records/{id}",
@@ -267,7 +367,7 @@
             "action": "Schemastud\\Frame\\Http\\Controllers\\FrameResourceController@destroy",
             "tier": "guided",
             "origin": "schemastud/laravel-frame",
-            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameResourceController.php:157"
+            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameResourceController.php:182"
         },
         {
             "uri": "frame/resources/{resource}/records/{id}",
@@ -278,7 +378,7 @@
             "action": "Schemastud\\Frame\\Http\\Controllers\\FrameResourceController@show",
             "tier": "guided",
             "origin": "schemastud/laravel-frame",
-            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameResourceController.php:129"
+            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameResourceController.php:154"
         },
         {
             "uri": "frame/resources/{resource}/records/{id}",
@@ -289,7 +389,7 @@
             "action": "Schemastud\\Frame\\Http\\Controllers\\FrameResourceController@update",
             "tier": "guided",
             "origin": "schemastud/laravel-frame",
-            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameResourceController.php:144"
+            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameResourceController.php:169"
         },
         {
             "uri": "frame/resources/{resource}/schema",
@@ -300,7 +400,18 @@
             "action": "Schemastud\\Frame\\Http\\Controllers\\FrameResourceController@schema",
             "tier": "guided",
             "origin": "schemastud/laravel-frame",
-            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameResourceController.php:88"
+            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameResourceController.php:108"
+        },
+        {
+            "uri": "invitations/{token}",
+            "methods": [
+                "GET"
+            ],
+            "name": "invitations.accept",
+            "action": "Splicewire\\Beam\\Accounts\\Http\\Controllers\\InvitationAcceptController@show",
+            "tier": "guided",
+            "origin": "splicewire/laravel-beam-accounts",
+            "location": "splicewire/laravel-beam-accounts/src/Http/Controllers/InvitationAcceptController.php:29"
         },
         {
             "uri": "login",
@@ -323,6 +434,17 @@
             "tier": "guided",
             "origin": "laravel/fortify",
             "location": "laravel/fortify/src/Http/Controllers/AuthenticatedSessionController.php:58"
+        },
+        {
+            "uri": "logout",
+            "methods": [
+                "GET"
+            ],
+            "name": "logout.confirm",
+            "action": "Splicewire\\Beam\\Accounts\\Http\\Controllers\\LogoutConfirmController",
+            "tier": "guided",
+            "origin": "splicewire/laravel-beam-accounts",
+            "location": "splicewire/laravel-beam-accounts/src/Http/Controllers/LogoutConfirmController.php:16"
         },
         {
             "uri": "logout",
@@ -366,7 +488,7 @@
             "action": "Schemastud\\Frame\\Http\\Controllers\\FrameManifestController",
             "tier": "guided",
             "origin": "schemastud/laravel-frame",
-            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameManifestController.php:38"
+            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameManifestController.php:41"
         },
         {
             "uri": "operator/platform-connection",
@@ -446,28 +568,6 @@
             "location": "laravel/passkeys/src/Http/Controllers/PasskeyLoginController.php:27"
         },
         {
-            "uri": "register",
-            "methods": [
-                "GET"
-            ],
-            "name": "register",
-            "action": "Laravel\\Fortify\\Http\\Controllers\\RegisteredUserController@create",
-            "tier": "guided",
-            "origin": "laravel/fortify",
-            "location": "laravel/fortify/src/Http/Controllers/RegisteredUserController.php:41"
-        },
-        {
-            "uri": "register",
-            "methods": [
-                "POST"
-            ],
-            "name": "register.store",
-            "action": "Laravel\\Fortify\\Http\\Controllers\\RegisteredUserController@store",
-            "tier": "guided",
-            "origin": "laravel/fortify",
-            "location": "laravel/fortify/src/Http/Controllers/RegisteredUserController.php:53"
-        },
-        {
             "uri": "reset-password",
             "methods": [
                 "POST"
@@ -536,7 +636,7 @@
             "action": "App\\Http\\Controllers\\Settings\\SecurityController@update",
             "tier": "guided",
             "origin": "app",
-            "location": "app/Http/Controllers/Settings/SecurityController.php:67"
+            "location": "app/Http/Controllers/Settings/SecurityController.php:71"
         },
         {
             "uri": "settings/profile",
@@ -547,7 +647,7 @@
             "action": "App\\Http\\Controllers\\Settings\\ProfileController@destroy",
             "tier": "guided",
             "origin": "app",
-            "location": "app/Http/Controllers/Settings/ProfileController.php:56"
+            "location": "app/Http/Controllers/Settings/ProfileController.php:58"
         },
         {
             "uri": "settings/profile",
@@ -558,7 +658,7 @@
             "action": "App\\Http\\Controllers\\Settings\\ProfileController@edit",
             "tier": "guided",
             "origin": "app",
-            "location": "app/Http/Controllers/Settings/ProfileController.php:22"
+            "location": "app/Http/Controllers/Settings/ProfileController.php:25"
         },
         {
             "uri": "settings/profile",
@@ -569,7 +669,7 @@
             "action": "App\\Http\\Controllers\\Settings\\ProfileController@update",
             "tier": "guided",
             "origin": "app",
-            "location": "app/Http/Controllers/Settings/ProfileController.php:38"
+            "location": "app/Http/Controllers/Settings/ProfileController.php:45"
         },
         {
             "uri": "settings/security",
@@ -580,7 +680,7 @@
             "action": "App\\Http\\Controllers\\Settings\\SecurityController@edit",
             "tier": "guided",
             "origin": "app",
-            "location": "app/Http/Controllers/Settings/SecurityController.php:20"
+            "location": "app/Http/Controllers/Settings/SecurityController.php:23"
         },
         {
             "uri": "sitemap.xml",
@@ -614,6 +714,94 @@
             "tier": "manual",
             "origin": "app",
             "location": "closure route [storage.local.upload]"
+        },
+        {
+            "uri": "stud/frame/manifest",
+            "methods": [
+                "GET"
+            ],
+            "name": "stud.frame.manifest",
+            "action": "Schemastud\\Frame\\Http\\Controllers\\FrameManifestController@__invoke",
+            "tier": "guided",
+            "origin": "schemastud/laravel-frame",
+            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameManifestController.php:41"
+        },
+        {
+            "uri": "stud/frame/resources/{resource}",
+            "methods": [
+                "POST"
+            ],
+            "name": "stud.frame.resources.store",
+            "action": "Schemastud\\Frame\\Http\\Controllers\\FrameResourceController@store",
+            "tier": "guided",
+            "origin": "schemastud/laravel-frame",
+            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameResourceController.php:161"
+        },
+        {
+            "uri": "stud/frame/resources/{resource}/actions/{action}/schema",
+            "methods": [
+                "GET"
+            ],
+            "name": "stud.frame.resources.actions.schema",
+            "action": "Schemastud\\Frame\\Http\\Controllers\\FrameResourceController@actionSchema",
+            "tier": "guided",
+            "origin": "schemastud/laravel-frame",
+            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameResourceController.php:223"
+        },
+        {
+            "uri": "stud/frame/resources/{resource}/records/{id}",
+            "methods": [
+                "DELETE"
+            ],
+            "name": "stud.frame.resources.destroy",
+            "action": "Schemastud\\Frame\\Http\\Controllers\\FrameResourceController@destroy",
+            "tier": "guided",
+            "origin": "schemastud/laravel-frame",
+            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameResourceController.php:182"
+        },
+        {
+            "uri": "stud/frame/resources/{resource}/records/{id}",
+            "methods": [
+                "GET"
+            ],
+            "name": "stud.frame.resources.show",
+            "action": "Schemastud\\Frame\\Http\\Controllers\\FrameResourceController@show",
+            "tier": "guided",
+            "origin": "schemastud/laravel-frame",
+            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameResourceController.php:154"
+        },
+        {
+            "uri": "stud/frame/resources/{resource}/records/{id}",
+            "methods": [
+                "PUT"
+            ],
+            "name": "stud.frame.resources.update",
+            "action": "Schemastud\\Frame\\Http\\Controllers\\FrameResourceController@update",
+            "tier": "guided",
+            "origin": "schemastud/laravel-frame",
+            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameResourceController.php:169"
+        },
+        {
+            "uri": "stud/frame/resources/{resource}/schema",
+            "methods": [
+                "GET"
+            ],
+            "name": "stud.frame.resources.schema",
+            "action": "Schemastud\\Frame\\Http\\Controllers\\FrameResourceController@schema",
+            "tier": "guided",
+            "origin": "schemastud/laravel-frame",
+            "location": "schemastud/laravel-frame/src/Http/Controllers/FrameResourceController.php:108"
+        },
+        {
+            "uri": "teams/create",
+            "methods": [
+                "GET"
+            ],
+            "name": "teams.create",
+            "action": "Splicewire\\Beam\\Accounts\\Http\\Controllers\\TeamController@create",
+            "tier": "guided",
+            "origin": "splicewire/laravel-beam-accounts",
+            "location": "splicewire/laravel-beam-accounts/src/Http/Controllers/TeamController.php:21"
         },
         {
             "uri": "two-factor-challenge",
@@ -723,7 +911,7 @@
             "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorAuthenticationController@destroy",
             "tier": "guided",
             "origin": "laravel/fortify",
-            "location": "laravel/fortify/src/Http/Controllers/TwoFactorAuthenticationController.php:44"
+            "location": "laravel/fortify/src/Http/Controllers/TwoFactorAuthenticationController.php:35"
         },
         {
             "uri": "user/two-factor-authentication",
@@ -734,7 +922,7 @@
             "action": "Laravel\\Fortify\\Http\\Controllers\\TwoFactorAuthenticationController@store",
             "tier": "guided",
             "origin": "laravel/fortify",
-            "location": "laravel/fortify/src/Http/Controllers/TwoFactorAuthenticationController.php:22"
+            "location": "laravel/fortify/src/Http/Controllers/TwoFactorAuthenticationController.php:21"
         },
         {
             "uri": "user/two-factor-qr-code",
@@ -800,7 +988,7 @@
             "action": "Splicewire\\Beam\\Ux\\Http\\Controllers\\PublicEntryController",
             "tier": "guided",
             "origin": "splicewire/laravel-beam-ux",
-            "location": "splicewire/laravel-beam-ux/src/Http/Controllers/PublicEntryController.php:103"
+            "location": "splicewire/laravel-beam-ux/src/Http/Controllers/PublicEntryController.php:109"
         }
     ]
 }
