@@ -18,6 +18,21 @@
     "mdx_review.release_unavailable": "The Release is unavailable.",
     "mdx_review.reload_versions": "Reload saved versions",
     "mdx_review.this_release_unavailable": "This Release is unavailable.",
-    "mdx_review.title": "Review an MDX publication"
+    "mdx_review.title": "Review an MDX publication",
+    "sitemap_example.back_to_list": "Back to list",
+    "sitemap_example.field_external_url": "External URL",
+    "sitemap_example.field_id": "ID",
+    "sitemap_example.field_label": "Label",
+    "sitemap_example.field_order": "Order",
+    "sitemap_example.field_path": "Path",
+    "sitemap_example.form_title": "Sitemap link",
+    "sitemap_example.intro": "Site-wide links, with an explicit read-only resource view.",
+    "sitemap_example.loading_permissions": "Loading resource permissions…",
+    "sitemap_example.request_failed": ":method :url failed (:status)",
+    "sitemap_example.retry_permissions": "Retry permissions",
+    "sitemap_example.sign_in_required": "Sign in before using the Sitemap example.",
+    "sitemap_example.singular_label": "link",
+    "sitemap_example.title": "Sitemap resource example",
+    "sitemap_example.unavailable": "This resource is unavailable to your account."
   }
 }

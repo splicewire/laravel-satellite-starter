@@ -16,7 +16,7 @@
 // @schemastud/messages, the page and its catalog REAL; the page's other imports (Inertia, the beam packages, sonner, the host's
 // API clients) are tiny VIRTUAL stubs that render their children and capture the callbacks, so the check measures exactly the copy.
 import { execFileSync } from 'node:child_process';
-import { mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import { readFileSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createServer } from 'vite';
@@ -26,7 +26,10 @@ const PAGES = [
     'pages/account/team.tsx',
     'pages/account/tokens.tsx',
     'pages/account/canonical-mdx-review.tsx',
+    'pages/examples/sitemap-resource.tsx',
 ];
+// modules outside the pages that read the catalog (S4: the sitemap transport's user-facing error)
+const SOURCES = ['examples/sitemap-transport.ts'];
 const git = (...args) =>
     execFileSync('git', args, { cwd: root, encoding: 'utf8' }).trim();
 
@@ -86,7 +89,8 @@ for (const p of PAGES) {
 const STUBS = {
     '@inertiajs/react': `import { createElement } from 'react';
         export const Head = ({ title }) => createElement('title', null, title);
-        export const usePage = () => ({ props: { auth: { user: { id: 1 } } } });
+        export const usePage = () => ({ props: { auth: { user: globalThis.__noUser ? null : { id: 1 } } } });
+        export const Link = ({ href, children }) => createElement('a', { href }, children);
         export const router = { reload() {} };`,
     sonner: `export const toast = { success: (m) => globalThis.__toasts.push(['success', m]), error: (m) => globalThis.__toasts.push(['error', m]) };`,
     '@splicewire/beam-accounts': `import { createElement, Fragment } from 'react';
@@ -100,6 +104,22 @@ const STUBS = {
     '@splicewire/beam-ux': `import { createElement } from 'react';
         export const ReleasePanel = ({ onCommand }) => { globalThis.__onCommand = onCommand; return createElement('aside', null, 'release-panel'); };`,
     '@/lib/accounts-api': `export const teamClient = { stubbedBy: 'host-messages-stubs' };`,
+    '@tanstack/react-query': `export const useQuery = () => globalThis.__query;`,
+    '@schemastud/frame': `import { createElement, Fragment } from 'react';
+        export const FrameProvider = ({ value, children }) => { globalThis.__injection = value; return createElement(Fragment, null, children); };
+        export const DefaultFormBody = ({ schema }) => createElement('form', { title: schema.title }, Object.values(schema.properties ?? {}).map((f) => createElement('label', { key: f.title }, f.title)));
+        export const ListShell = () => createElement('section', null, 'frame-shell');
+        export const EditShell = ListShell;
+        export const createWidgetRegistry = () => ({});
+        export const useBrowserUrlState = () => [{}, () => {}];
+        export const createResourceTransport = (impl) => impl;
+        export const parseResourcePage = (x) => x;`,
+    '@schemastud/frame/shadcn': `export const shadcnEditSlots = {}; export const shadcnListSlots = {};`,
+    '@schemastud/ui': `import { createElement } from 'react';
+        const C = (tag) => ({ children, onClick }) => createElement(tag, { onClick }, children);
+        export const Button = C('button'); export const Input = C('input'); export const Label = C('label'); export const Badge = C('span');
+        export const Skeleton = C('div'); export const Popover = C('div'); export const PopoverTrigger = C('div'); export const PopoverContent = C('div');
+        export const SimpleSelect = C('select');`,
 };
 const stubPlugin = {
     name: 'host-messages-stubs',
@@ -196,7 +216,21 @@ try {
             ]),
         ),
     };
+    // the sitemap example's state per render: loaded by default (create mode, the Back link shown), overridden per state below
+    const LOADED = {
+        isPending: false,
+        isError: false,
+        data: { contexts: { sitemap: { can: { create: true } } } },
+        refetch() {},
+    };
+    globalThis.__query = LOADED;
     const pageProps = {
+        manifestUrl: '/frame/manifest',
+        resourceUrl: '/api/sitemap',
+        schemaUrl: '/api/sitemap/schema',
+        recordUrlTemplate: '/api/sitemap/__id__',
+        mode: 'create',
+        listHref: '/examples/sitemap-resource',
         endpoints: {},
         entryId: 'e1',
         title: 'Guide',
@@ -238,6 +272,7 @@ try {
                 ].map((m) => m[1]),
             );
     const DATA = new Set([
+        'frame-shell',
         'team-body',
         'tokens-body',
         'release-panel',
@@ -368,13 +403,237 @@ try {
     );
 
     // the catalog: every key the pages use exists, and every key is used (no dead lines)
-    const src = PAGES.map((p) =>
-        execFileSync('cat', [resolve(root, 'resources/js', p)], {
-            encoding: 'utf8',
-        }),
-    ).join('\n');
+    // S4: the sitemap example in EVERY state, byte-identical with no provider and fully marked under pseudo
+    const SITEMAP = 'pages/examples/sitemap-resource.tsx';
+
+    // a REAL request failure for the error state: the real frameJson with fetch stubbed to a 404 (never a hand-made message)
+    globalThis.document ??= { cookie: '' };
+    const realFetch = globalThis.fetch;
+    globalThis.fetch = async () => ({
+        ok: false,
+        status: 404,
+        json: async () => ({}),
+    });
+    const { frameJson: realFrameJson } = await server.ssrLoadModule(
+        '/resources/js/examples/sitemap-transport.ts',
+    );
+    const httpError = await realFrameJson('/frame/manifest').then(
+        () => null,
+        (e) => e,
+    );
+    check(
+        'a real failed request is the English request line',
+        httpError?.message === 'GET /frame/manifest failed (404)',
+        httpError?.message,
+    );
+
+    for (const [label, q] of [
+        ['pending', { isPending: true }],
+        [
+            'error (a real 404)',
+            { isPending: false, isError: true, error: httpError, refetch() {} },
+        ],
+        [
+            'no access',
+            { isPending: false, isError: false, data: { contexts: {} } },
+        ],
+    ]) {
+        globalThis.__query = q;
+        const before = await render(
+            '/scripts/.host-messages-original/' + SITEMAP,
+            false,
+        );
+        const plain = await render('/resources/js/' + SITEMAP, false);
+        const pseudo = await render('/resources/js/' + SITEMAP, true);
+        check(
+            `${SITEMAP} (${label}): with NO provider, byte-identical to before`,
+            plain.html === before.html,
+            { before: before.html, after: plain.html },
+        );
+        const unmarked = copyOf(pseudo.html).filter(
+            (x) => !DATA.has(x) && !/^⟦[\s\S]*⟧$/.test(x),
+        );
+        check(
+            `${SITEMAP} (${label}): under pseudo EVERY copy line is marked`,
+            unmarked.length === 0,
+            unmarked,
+        );
+    }
+
+    globalThis.__query = LOADED;
+    // its FORM: the field titles come from the FormBody slot the page injects into Frame; rendered against the ORIGINAL page's slot
+    const schema = {
+        title: 'from the schema',
+        properties: {
+            id: { title: 'id' },
+            label: { title: 'label' },
+            href: { title: 'href' },
+            order: { title: 'order' },
+            externalUrl: { title: 'externalUrl' },
+        },
+    };
+    const formOf = async (file, withProvider) => {
+        await render(file, withProvider);
+        const Body = globalThis.__injection.editSlots.FormBody;
+        const el = createElement(Body, { schema });
+
+        return renderToStaticMarkup(
+            withProvider
+                ? createElement(
+                      MessageProvider,
+                      { value: catalog, pseudo: true },
+                      el,
+                  )
+                : el,
+        );
+    };
+    const formBefore = await formOf(
+        '/scripts/.host-messages-original/' + SITEMAP,
+        false,
+    );
+    check(
+        `${SITEMAP}: the form's field titles, with NO provider, byte-identical to before`,
+        (await formOf('/resources/js/' + SITEMAP, false)) === formBefore,
+        formBefore,
+    );
+    const formPseudo = await formOf('/resources/js/' + SITEMAP, true);
+    const formUnmarked = copyOf(formPseudo).filter(
+        (x) => !/^⟦[\s\S]*⟧$/.test(x),
+    );
+    check(
+        `${SITEMAP}: under pseudo every field title (and the form title) is marked`,
+        formUnmarked.length === 0 && /⟦/.test(formPseudo),
+        formUnmarked,
+    );
+    // its TRANSPORT's user-facing error, end to end: no signed-in user -> the transport the page built rejects with the seam's line
+    globalThis.__noUser = true;
+
+    for (const [withProvider, expect, label] of [
+        [true, (m) => /^⟦[\s\S]*⟧$/.test(m), 'marked'],
+        [
+            false,
+            (m) => m === 'Sign in before using the Sitemap example.',
+            'plain English',
+        ],
+    ]) {
+        await render('/resources/js/' + SITEMAP, withProvider);
+        const msg = await globalThis.__injection.transport
+            .get('sitemap', 1)
+            .then(
+                () => null,
+                (e) => e.message,
+            );
+        check(
+            `${SITEMAP}: the transport's sign-in error, from the page's own transport, is ${label}`,
+            expect(msg ?? ''),
+            msg,
+        );
+    }
+
+    globalThis.__noUser = false;
+    // the page's OWN transport and schemaFetcher on a real 500: the keyed request line (marked under pseudo, English with none)
+    globalThis.fetch = async () => ({
+        ok: false,
+        status: 500,
+        json: async () => ({}),
+    });
+
+    for (const [withProvider, expect, label] of [
+        [
+            true,
+            (m) =>
+                /^⟦[\s\S]*⟧$/.test(m) &&
+                m.includes('/api/sitemap') &&
+                m.includes('500'),
+            'marked, method/url/status inside',
+        ],
+        [
+            false,
+            (m) => m === 'GET /api/sitemap failed (500)',
+            'the English request line',
+        ],
+    ]) {
+        await render('/resources/js/' + SITEMAP, withProvider);
+        const listMsg = await globalThis.__injection.transport
+            .list('sitemap', {})
+            .then(
+                () => null,
+                (e) => e.message,
+            );
+        check(
+            `${SITEMAP}: the transport's failed request is ${label}`,
+            expect(listMsg ?? ''),
+            listMsg,
+        );
+        const schemaMsg = await globalThis.__injection
+            .schemaFetcher('/api/sitemap')
+            .then(
+                () => null,
+                (e) => e.message,
+            );
+        check(
+            `${SITEMAP}: schemaFetcher's failed request is ${label}`,
+            expect(schemaMsg ?? ''),
+            schemaMsg,
+        );
+    }
+
+    globalThis.fetch = realFetch;
+    // the transport is built ONCE: its memo depends on the stable text function, never on the messages (no rebuild per catalog)
+    // (S4 confirm nit 3) read with readFileSync, and take EXACTLY the useMemo(...) call by matching its parentheses, never a slice
+    // up to whatever declaration happens to come next
+    const pageSrc = readFileSync(
+        resolve(root, 'resources/js', SITEMAP),
+        'utf8',
+    );
+    const memoAt = pageSrc.indexOf('const transport = useMemo(');
+    const memo = (() => {
+        if (memoAt < 0) {
+            return '';
+        }
+
+        const open = pageSrc.indexOf('(', memoAt);
+
+        for (let i = open, depth = 0; i < pageSrc.length; i++) {
+            if (pageSrc[i] === '(') {
+                depth++;
+            } else if (pageSrc[i] === ')' && --depth === 0) {
+                return pageSrc.slice(memoAt, i + 1);
+            }
+        }
+
+        return '';
+    })();
+    check(
+        `${SITEMAP}: the transport memo depends on the stable text, not on the messages`,
+        /\btext,/.test(memo) && !/\bmessages\b/.test(memo),
+        memo.slice(-200),
+    );
+
+    // the record NOUN Frame shows ('New link', …): the manifest the page injects carries it through the seam
+    for (const [withProvider, expect, label] of [
+        [true, (s) => /^⟦[\s\S]*⟧$/.test(s), 'marked'],
+        [false, (s) => s === 'link', "'link'"],
+    ]) {
+        await render('/resources/js/' + SITEMAP, withProvider);
+        const noun =
+            globalThis.__injection.manifestFor('sitemap')?.singularLabel;
+        check(
+            `${SITEMAP}: the injected manifest's singularLabel is ${label}`,
+            expect(noun ?? ''),
+            noun,
+        );
+    }
+
+    const src = PAGES.concat(SOURCES)
+        .map((p) =>
+            execFileSync('cat', [resolve(root, 'resources/js', p)], {
+                encoding: 'utf8',
+            }),
+        )
+        .join('\n');
     const used = new Set(
-        [...src.matchAll(/messages\.t\(\s*'([a-z_]+\.[a-z_]+)'/g)].map(
+        [...src.matchAll(/(?:messages\.t|text)\(\s*'([a-z_]+\.[a-z_]+)'/g)].map(
             (m) => m[1],
         ),
     );

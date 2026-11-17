@@ -1,5 +1,5 @@
 import { Head, Link, router, usePage } from '@inertiajs/react';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import {
@@ -28,23 +28,33 @@ import {
     PopoverContent,
     SimpleSelect,
 } from '@schemastud/ui';
+import {
+    frameJson,
+    sitemapTransport,
+    SitemapRequestError,
+    SitemapTextBox,
+} from '@/examples/sitemap-transport';
+import { useHostMessages } from '@/lib/messages';
 import type { SitemapExamplePageData } from '@/generated/App/Data/Pages';
-import { frameJson, sitemapTransport } from '@/examples/sitemap-transport';
 
 const Box = ({ children }: { children?: ReactNode }) => <div>{children}</div>;
-const fieldTitles: Record<string, string> = {
-    id: 'ID',
-    label: 'Label',
-    href: 'Path',
-    order: 'Order',
-    externalUrl: 'External URL',
-};
 function ExampleFormBody(props: FormBodySlotProps) {
+    const messages = useHostMessages();
     // Presentation labels only; the served schema, field names and validation rules are preserved.
-    const schema = useMemo(
-        () => ({
+    const schema = useMemo(() => {
+        // the form's field titles, through the seam (they were a module-level map of literals: copy the ratchet's scanner does
+        // not count); inside the memo, which follows the messages, so a language switch re-reads them
+        const fieldTitles: Record<string, string> = {
+            id: messages.t('sitemap_example.field_id'),
+            label: messages.t('sitemap_example.field_label'),
+            href: messages.t('sitemap_example.field_path'),
+            order: messages.t('sitemap_example.field_order'),
+            externalUrl: messages.t('sitemap_example.field_external_url'),
+        };
+
+        return {
             ...props.schema,
-            title: 'Sitemap link',
+            title: messages.t('sitemap_example.form_title'),
             properties: Object.fromEntries(
                 Object.entries(props.schema.properties ?? {}).map(
                     ([name, field]) => [
@@ -53,9 +63,8 @@ function ExampleFormBody(props: FormBodySlotProps) {
                     ],
                 ),
             ),
-        }),
-        [props.schema],
-    );
+        };
+    }, [props.schema, messages]);
 
     return <DefaultFormBody {...props} schema={schema} />;
 }
@@ -75,6 +84,15 @@ const primitives: FrameInjection['primitives'] = {
 
 /** Existing app chrome and QueryClient surround this small host-owned Frame consumer. */
 export default function SitemapExample(address: SitemapExamplePageData) {
+    const messages = useHostMessages();
+    // the seam's text for the transport, STABLE across catalogs (SitemapTextBox): the transport and Frame's injection are built once,
+    // and a locale switch never rebuilds them (that would reset Frame's cache and could drop an open form); the effect hands the box
+    // the current catalog's `t`
+    const [textBox] = useState(() => new SitemapTextBox(messages.t));
+    useEffect(() => {
+        textBox.use(messages.t);
+    }, [textBox, messages]);
+    const text = textBox.text;
     const { auth } = usePage<{
         auth: { user: { id: string | number } | null };
     }>().props;
@@ -84,6 +102,9 @@ export default function SitemapExample(address: SitemapExamplePageData) {
         queryFn: () =>
             frameJson<{ contexts: Record<string, ContextManifest> }>(
                 address.manifestUrl,
+                'GET',
+                undefined,
+                text,
             ),
         staleTime: 0,
     });
@@ -91,9 +112,16 @@ export default function SitemapExample(address: SitemapExamplePageData) {
     const context = useMemo(
         () =>
             sourceContext
-                ? { ...sourceContext, singularLabel: 'link' }
+                ? {
+                      ...sourceContext,
+                      // the record NOUN Frame composes into its own phrases ('New link', …). Its LIMIT, stated: a bare noun cannot
+                      // carry gender, case or a plural; Frame's composition owns that (its package localization), not this host
+                      singularLabel: messages.t(
+                          'sitemap_example.singular_label',
+                      ),
+                  }
                 : undefined,
-        [sourceContext],
+        [sourceContext, messages],
     );
     // The transport's identity is Frame's cache authority boundary; keep it stable per actor/endpoint.
     const transport = useMemo(
@@ -105,8 +133,11 @@ export default function SitemapExample(address: SitemapExamplePageData) {
                     recordUrlTemplate: address.recordUrlTemplate,
                 },
                 actor,
+                // the transport's user-facing error reads the seam through the page (it is outside React itself)
+                text,
             ),
         [
+            text,
             actor,
             address.resourceUrl,
             address.schemaUrl,
@@ -120,7 +151,8 @@ export default function SitemapExample(address: SitemapExamplePageData) {
             registry,
             primitives,
             useUrlState: useBrowserUrlState,
-            schemaFetcher: (ref: string): Promise<SchemaNode> => frameJson(ref),
+            schemaFetcher: (ref: string): Promise<SchemaNode> =>
+                frameJson(ref, 'GET', undefined, text),
             can: (action, resource) => {
                 if (resource !== 'sitemap' || !context) {
                     return false;
@@ -138,39 +170,46 @@ export default function SitemapExample(address: SitemapExamplePageData) {
             listSlots: shadcnListSlots,
             editSlots: { ...shadcnEditSlots, FormBody: ExampleFormBody },
         }),
-        [transport, registry, context],
+        [transport, registry, context, text],
     );
 
     return (
         <div className="space-y-6 p-6">
-            <Head title="Sitemap resource example" />
+            <Head title={messages.t('sitemap_example.title')} />
             <div className="flex items-center justify-between gap-4">
                 <div>
                     <h1 className="text-2xl font-semibold">
-                        Sitemap resource example
+                        {messages.t('sitemap_example.title')}
                     </h1>
                     <p className="text-sm text-muted-foreground">
-                        Site-wide links, with an explicit read-only resource
-                        view.
+                        {messages.t('sitemap_example.intro')}
                     </p>
                 </div>
                 {address.mode !== 'list' && (
-                    <Link href={address.listHref}>Back to list</Link>
+                    <Link href={address.listHref}>
+                        {messages.t('sitemap_example.back_to_list')}
+                    </Link>
                 )}
             </div>
             {manifest.isPending ? (
-                <p>Loading resource permissions…</p>
+                <p>{messages.t('sitemap_example.loading_permissions')}</p>
             ) : manifest.isError ? (
                 <div role="alert">
-                    <p>{manifest.error.message}</p>
+                    <p>
+                        {manifest.error instanceof SitemapRequestError
+                            ? messages.t('sitemap_example.request_failed', {
+                                  method: manifest.error.method,
+                                  url: manifest.error.url,
+                                  status: manifest.error.status,
+                              })
+                            : manifest.error.message}
+                    </p>
                     <Button onClick={() => void manifest.refetch()}>
-                        Retry permissions
+                        {messages.t('sitemap_example.retry_permissions')}
                     </Button>
                 </div>
             ) : !context ? (
-                <p role="alert">
-                    This resource is unavailable to your account.
-                </p>
+                <p role="alert">{messages.t('sitemap_example.unavailable')}</p>
             ) : (
                 <FrameProvider value={injection}>
                     {address.mode === 'list' ? (
