@@ -11,6 +11,8 @@
         "format:check": "prettier --check resources/",
         "lint": "eslint . --fix",
         "lint:check": "eslint .",
+        "messages:collect": "schemastud-messages collect --out resources/beam/messages.json --write",
+        "messages:check": "schemastud-messages collect --out resources/beam/messages.json",
         "types:check": "composer types:generate && tsc --noEmit && tsc -p tsconfig.generated.json && pnpm frame:vocabulary",
         "frame:vocabulary": "frame-vocabulary --readers @splicewire/beam-inertia/frame-readers",
         "beam:verify-prototype-boundary": "beam-verify-prototype-boundary"
@@ -98,7 +100,8 @@
         "@schemastud/combobox": "github:schemastud/js#8c3a702a959cb5cf7bc4f9053a8529b024c790b8&path:/combobox",
         "@splicewire/_resources": "git+https://github.com/splicewire/_resources.git#33be024a9c5386f0a18bd8f928cc092485a12346",
         "@splicewire/beam-intake": "github:splicewire/beam#a41e21b9568b3764d3b95a85a78cd1ba6b47ce5b&path:/beam-intake",
-        "@splicewire/beam-workflows": "github:splicewire/beam#5516d64059a4d073459392c29be5d25881fc3b07&path:/beam-workflows"
+        "@splicewire/beam-workflows": "github:splicewire/beam#5516d64059a4d073459392c29be5d25881fc3b07&path:/beam-workflows",
+        "zustand": "^5"
     },
     "optionalDependencies": {
         "@rollup/rollup-linux-x64-gnu": "4.9.5",

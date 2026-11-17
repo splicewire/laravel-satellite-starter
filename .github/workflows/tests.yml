@@ -78,6 +78,15 @@ jobs:
       - name: Run CI Checks
         run: composer ci:check
 
+      # The messages catalog is collected from the installed packages and COMMITTED (launch 59), so a
+      # dependency that adds, changes or drops a message must ship the regenerated file with it. Read-only:
+      # it compares bytes and exits 1 on drift ("Catalog missing or different"); regenerate with
+      # `pnpm run messages:collect`. It reads `composer setup`'s `pnpm install --frozen-lockfile`; `always()` and the
+      # setup outcome guard, like the freshness checks below, so a stale catalog never costs the suite's signal.
+      - name: Committed messages catalog is fresh
+        if: always() && steps.setup-tree.outcome == 'success'
+        run: pnpm run messages:check
+
       # `always()` so a failing ci:check still reports a dirty tree too; the outcome guard so a setup
       # that never finished cannot produce a misleading "dirty tree" failure on top of its real one.
       # This step, not SchemaArtifactDriftTest, fails CI on stale or missing committed schema projections:

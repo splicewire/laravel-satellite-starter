@@ -8,3 +8,6 @@ resources/schemas/App/**
 resources/beam-mcp/docs/history/**
 # A record splicewire:beam:install writes (beam-ux shell stamp); setup regenerates it, so it keeps PHP's JSON style.
 resources/beam-ux/shell-stamp.json
+# The collected messages catalog (launch 59): `pnpm run messages:collect` writes it as canonical JSON and CI
+# compares it byte for byte (`messages:check`), so hand- or prettier-formatting would make it drift.
+resources/beam/messages.json
