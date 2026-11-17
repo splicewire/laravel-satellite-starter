@@ -152,6 +152,9 @@ $gates = [
     'php:lint' => ['cmd' => [...$phpRun, 'vendor/bin/pint', '--parallel', '--test'], 'env' => $phpEnv],
     'php:types' => ['cmd' => [...$phpRun, 'vendor/bin/phpstan', 'analyse'], 'env' => $phpEnv],
     'js:lint' => ['cmd' => ['npm', 'run', 'lint:check']],
+    // localization 40: the display-copy ratchet over ticket 18's baseline (message-ratchet.*.json). It fails on an
+    // increase AND on a stale decrease: a sweep that removes copy re-baselines with `--write` in its own commit.
+    'js:messages' => ['cmd' => ['npm', 'run', 'lint:messages']],
     'js:format' => ['cmd' => ['npm', 'run', 'format:check']],
     'js:types' => ['cmd' => ['npm', 'run', 'types:check']],
 ];
@@ -435,7 +438,7 @@ foreach ($results as $name => $r) {
             : sprintf(', %d tests', $r['tests']);
     }
 
-    fwrite(STDOUT, sprintf("  %-6s %-10s %s, %d bytes%s\n", $label, $name, $code, $r['bytes'], $tests));
+    fwrite(STDOUT, sprintf("  %-6s %-11s %s, %d bytes%s\n", $label, $name, $code, $r['bytes'], $tests));
 
     match ($r['status']) {
         'PASS' => null,

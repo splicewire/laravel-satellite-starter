@@ -14,6 +14,7 @@
         "lint:check": "eslint .",
         "messages:collect": "schemastud-messages collect --out resources/beam/messages.json --write",
         "messages:check": "schemastud-messages collect --out resources/beam/messages.json",
+        "lint:messages": "node --preserve-symlinks-main node_modules/@schemastud/messages/bin/schemastud-message-ratchet.mjs --config message-ratchet.config.json",
         "types:check": "composer types:generate && tsc --noEmit && tsc -p tsconfig.generated.json && pnpm frame:vocabulary",
         "frame:vocabulary": "frame-vocabulary --readers @splicewire/beam-inertia/frame-readers",
         "beam:verify-prototype-boundary": "beam-verify-prototype-boundary"
