@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "sourceLocale": "en",
+  "messages": {
+    "account.request_failed": "Something went wrong.",
+    "account.team_title": "Team",
+    "account.tokens_title": "API tokens",
+    "mdx_review.choose_release": "Choose a Release, or create one",
+    "mdx_review.choose_version": "Choose an explicitly saved version. A later working draft does not replace a fixed Release member. Another author must review before publication.",
+    "mdx_review.create_release": "Create a Release",
+    "mdx_review.existing_release": "Existing Release",
+    "mdx_review.publication_note": "Publication writes the selected version’s mirror and records it locally. It does not check a last-minute external file hash.",
+    "mdx_review.refresh_release": "Refresh Release",
+    "mdx_review.release_commands_unavailable": "Release commands are unavailable.",
+    "mdx_review.release_creation_unavailable": "Release creation is unavailable.",
+    "mdx_review.release_default_title": "Review: :title",
+    "mdx_review.release_not_created": "The Release could not be created.",
+    "mdx_review.release_unavailable": "The Release is unavailable.",
+    "mdx_review.reload_versions": "Reload saved versions",
+    "mdx_review.this_release_unavailable": "This Release is unavailable.",
+    "mdx_review.title": "Review an MDX publication"
+  }
+}

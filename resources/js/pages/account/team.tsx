@@ -4,6 +4,7 @@ import type { TeamServices } from '@splicewire/beam-accounts';
 import { useMemo } from 'react';
 import { toast } from 'sonner';
 import { teamClient } from '@/lib/accounts-api';
+import { useHostMessages } from '@/lib/messages';
 
 /**
  * The ACCOUNT-realm team surface — members, roles and invitations.
@@ -28,6 +29,8 @@ export default function AccountTeam() {
         ? String(page.props.auth.user.id)
         : null;
 
+    const messages = useHostMessages();
+
     const services = useMemo<TeamServices>(
         () => ({
             client: teamClient,
@@ -39,15 +42,16 @@ export default function AccountTeam() {
                 toast.error(
                     error instanceof Error
                         ? error.message
-                        : 'Something went wrong.',
+                        : messages.t('account.request_failed'),
                 ),
         }),
-        [],
+        // the fallback follows the served catalog: a language switch re-reads it
+        [messages],
     );
 
     return (
         <>
-            <Head title="Team" />
+            <Head title={messages.t('account.team_title')} />
             <div className="p-6">
                 <TeamProvider services={services}>
                     {/* `teams.create` (splicewire/laravel-beam-accounts `routes/teams.php`). */}

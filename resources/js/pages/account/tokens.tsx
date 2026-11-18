@@ -11,6 +11,7 @@ import type {
 } from '@splicewire/beam-accounts';
 import { useMemo } from 'react';
 import { toast } from 'sonner';
+import { useHostMessages } from '@/lib/messages';
 
 /**
  * The ACCOUNT-realm API-tokens surface.
@@ -36,6 +37,8 @@ export default function AccountTokens({
 }: {
     endpoints: TokensEndpoints;
 }) {
+    const messages = useHostMessages();
+
     const services = useMemo<TokensServices>(
         () => ({
             client: createTokensClient(createSessionRequest(), endpoints),
@@ -50,15 +53,16 @@ export default function AccountTokens({
                 toast.error(
                     error instanceof Error
                         ? error.message
-                        : 'Something went wrong.',
+                        : messages.t('account.request_failed'),
                 ),
         }),
-        [endpoints],
+        // the fallback follows the served catalog: a language switch re-reads it
+        [endpoints, messages],
     );
 
     return (
         <>
-            <Head title="API tokens" />
+            <Head title={messages.t('account.tokens_title')} />
             <div className="p-6">
                 <TokensProvider services={services}>
                     <TokensRoster />

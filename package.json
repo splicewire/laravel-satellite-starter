@@ -4,6 +4,7 @@
     "packageManager": "pnpm@9.15.3",
     "type": "module",
     "scripts": {
+        "test:messages": "node scripts/check-host-messages.mjs",
         "build": "pnpm run types:check && vite build",
         "build:ssr": "pnpm run types:check && vite build && vite build --ssr",
         "dev": "composer types:generate && vite",

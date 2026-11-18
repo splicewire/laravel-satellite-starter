@@ -26,4 +26,20 @@ class ShellBrandTest extends TestCase
         $response->assertSee('<title>Satellite</title>', false);
         $response->assertDontSee('<title>Laravel</title>', false);
     }
+
+    /**
+     * localization 35 (root ruling 35b): the brand is authored configuration. A host's declared name (BEAM_BRAND_NAME, read into
+     * `beam.brand.name`) wins over the committed default, in the shared prop and in the server-rendered `<title>`.
+     */
+    public function test_a_declared_brand_wins_over_the_committed_default(): void
+    {
+        config(['app.name' => 'Laravel', 'beam.brand.name' => 'Acme Field Notes']);
+
+        $response = $this->get('/login');
+
+        $response->assertOk();
+        $this->assertSame('Acme Field Notes', $response->viewData('page')['props']['brand']['name'] ?? null);
+        $response->assertSee('<title>Acme Field Notes</title>', false);
+        $response->assertDontSee('<title>Satellite</title>', false);
+    }
 }

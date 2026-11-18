@@ -1,5 +1,6 @@
 {
   "version": 1,
+  "_why": "localization 35 (S1): the starter's own front end reads its copy through the messages seam (messages.default.json). The baseline counts EXACTLY the dev-only prototype host's literals (resources/js/_prototype: scaffolding auto-mounted at /_prototype/starter, outside every production bundle by the prototype boundary; root ruling 35a), and nothing else: scripts/check-host-messages.mjs is the converted pages' proof. The ratchet has no exclusion option (its roots are directories), so _prototype stays inside 'resources/js' and is counted here, stated.",
   "baseline": "./message-ratchet.baseline.json",
   "packages": {
     "laravel-satellite-starter": [
