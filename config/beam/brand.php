@@ -10,7 +10,8 @@ return [
     // The product name users see. Unset → `config('app.name')`.
     // localization 35 (root ruling 35b): the brand is AUTHORED CONFIG, never a catalog line: a proper noun the host
     // declares here or in BEAM_BRAND_NAME, not product copy to translate. The committed default stays (UX-03b,
-    // ShellBrandTest: live .env files say APP_NAME=Laravel, so falling back to app.name would brand a deployment "Laravel").
+    // ShellBrandTest: live .env files still carry Laravel's default app name, so falling back to app.name would brand a
+    // deployment with the framework's name).
     'name' => env('BEAM_BRAND_NAME', 'Satellite'),
 
     // A URL or public path to the logo. Unset → none (renderers draw the name).
