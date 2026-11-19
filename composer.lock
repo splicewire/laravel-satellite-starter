@@ -17278,7 +17278,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-dev.git",
-                "reference": "868ebe50270d1e1a0c95cd603a194b972b4b11b0"
+                "reference": "9461719e66dcec30507f6374a1e52cbfc222f524"
             },
             "require": {
                 "illuminate/console": "^11.0|^12.0|^13.0",
@@ -17352,7 +17352,7 @@
                 "sqlite",
                 "testing"
             ],
-            "time": "2026-10-23T19:25:57+00:00"
+            "time": "2026-11-19T12:14:31+00:00"
         },
         {
             "name": "splicewire/laravel-beam-provision",
@@ -17593,7 +17593,6 @@
         "schemastud/laravel-data-schema-org": 20,
         "schemastud/laravel-data-schemas": 20,
         "splicewire/laravel-beam": 20,
-        "splicewire/laravel-beam-accounts": 20,
         "splicewire/laravel-beam-dev": 20,
         "splicewire/laravel-beam-docs": 20,
         "splicewire/laravel-beam-mcp": 20,
