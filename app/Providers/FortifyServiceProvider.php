@@ -150,7 +150,8 @@ class FortifyServiceProvider extends ServiceProvider
      *
      * Empty ⇒ no buttons, which is the shipped default: turn one host on with
      * `ACCOUNT_DEMO_LOGIN_LINKS=true`. The subjects themselves are provisioned by the package
-     * `DemoTeamSeeder` (called from DatabaseSeeder); a key with no seeded user is omitted.
+     * `DemoTeamSeeder`, a `demo` seed step `splicewire:beam:seed` runs under the `local` and `preview` scenarios
+     * (config/beam/seed.php); a key with no seeded user is omitted.
      *
      * @return list<array{key: string, label: string, url: string}>
      */

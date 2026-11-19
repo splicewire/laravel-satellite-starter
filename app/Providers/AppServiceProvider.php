@@ -10,6 +10,9 @@ use App\Models\SitemapRecord;
 use App\Models\User;
 use App\Sitemap\RecordLeaf;
 use Carbon\CarbonImmutable;
+use Database\Seeders\AuthPagesSeeder;
+use Database\Seeders\DemoUsersSeeder;
+use Database\Seeders\RealmNavSeeder;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -21,9 +24,12 @@ use Schemastud\Frame\Contracts\ResourceSchemaResolver;
 use Splicewire\Beam\Analytics\Contracts\AnalyticsDestinations;
 use Splicewire\Beam\Authorization\SeatGate;
 use Splicewire\Beam\Doctor\BeamDoctorManifest;
+use Splicewire\Beam\Seed\BeamSeedManifest;
+use Splicewire\Beam\Seed\SeedStep;
 use Splicewire\Beam\Ux\Doctor\OrphanedNavItemAudit;
 use Splicewire\Beam\Ux\Frame\RouteContextPlan;
 use Splicewire\Beam\Ux\Nav\Contracts\NavItemSource;
+use Splicewire\Beam\Ux\Seeders\ThemeSeeder;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -78,9 +84,25 @@ class AppServiceProvider extends ServiceProvider
         $this->registerAuthoringGates();
         $this->registerResourcePolicies();
         $this->registerDoctorAudits();
+        $this->registerSeedSteps();
 
         // This host's operator pages, seated in the operator task sections (ux-walkthrough UX-09 C).
         $this->app->booted(fn () => OperatorPages::register($this->app));
+    }
+
+    /**
+     * This host's own seed data, as steps in the beam seed manifest (seeding-scenarios 02), so `DatabaseSeeder` and
+     * `splicewire:beam:install` reach it through one `splicewire:beam:seed` run. Each is filed under a sub-coordinate
+     * of this starter's name (the registry supersedes by coordinate) and ordered below beam-accounts' demo team (10):
+     * the Demo Team's realm-root grants need the realm roots to exist first. Every step is idempotent.
+     */
+    protected function registerSeedSteps(): void
+    {
+        $this->app->make(BeamSeedManifest::class)
+            ->register('splicewire/laravel-beam-starter/realm-nav', RealmNavSeeder::class, order: 1)
+            ->register('splicewire/laravel-beam-starter/auth-pages', AuthPagesSeeder::class, order: 2)
+            ->register('splicewire/laravel-beam-starter/theme', ThemeSeeder::class, order: 3)
+            ->register('splicewire/laravel-beam-starter/demo-users', DemoUsersSeeder::class, order: 4, memberships: SeedStep::DEMO);
     }
 
     /**
