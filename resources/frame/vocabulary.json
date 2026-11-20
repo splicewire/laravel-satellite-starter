@@ -217,6 +217,13 @@
         "json": [
             {}
         ],
+        "link": [
+            {
+                "contexts": [
+                    "list-column"
+                ]
+            }
+        ],
         "nav-tile": [
             {}
         ],
