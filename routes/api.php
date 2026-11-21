@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,5 +28,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    // The caller's own record, read through the user policy's `view` (credential-scope 08): a scoped token passes only
+    // carrying `user.view` or `user.{id}.view`, as `GET api/v1/me` asks; a session and a `*` token are unchanged.
+    Gate::authorize('view', $request->user());
+
     return $request->user()->only(['id', 'name', 'email']);
 })->name('api.user');
