@@ -36,7 +36,8 @@ return new class extends Migration
             $table->string('agreement_key');
             $table->string('act');
             $table->boolean('grants');
-            $table->foreignUuid('revokes_entry_id')->nullable()->constrained('agreement_entries');
+            // agreements 16: the self-reference is added below, once the table (and its primary key) exists.
+            $table->uuid('revokes_entry_id')->nullable();
             $table->string('party_type')->nullable();
             $table->string('party_id')->nullable();
             $table->string('counterparty_contact')->nullable();
@@ -55,6 +56,13 @@ return new class extends Migration
             $table->index(['agreement_key', 'party_type', 'party_id']);
             $table->index(['agreement_key', 'counterparty_contact']);
             $table->index('revokes_entry_id');
+        });
+
+        // agreements 16: a Withdrawal revokes an entry of the same table. Declared inside the create, PostgreSQL received
+        // this foreign key BEFORE the `id` primary key ("no unique constraint matching given keys"), so the ledger could
+        // not be created on pgsql at all; SQLite never checked. Added after the create, the key exists on every driver.
+        Schema::table('agreement_entries', function (Blueprint $table): void {
+            $table->foreign('revokes_entry_id')->references('id')->on('agreement_entries');
         });
     }
 
