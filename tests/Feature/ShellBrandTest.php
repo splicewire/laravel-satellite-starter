@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Dotenv\Repository\Adapter\PutenvAdapter;
 use Dotenv\Repository\RepositoryBuilder;
 use Dotenv\Repository\RepositoryInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -40,7 +41,9 @@ class ShellBrandTest extends TestCase
 
     private static function mutableEnvironmentRepository(): RepositoryInterface
     {
-        return RepositoryBuilder::createWithDefaultAdapters()->make();
+        // Laravel's Env repository adds PutenvAdapter to Dotenv's defaults (Illuminate\Support\Env::getRepository()),
+        // so a clear() here must reach getenv() too, or a process-exported value still wins.
+        return RepositoryBuilder::createWithDefaultAdapters()->addAdapter(PutenvAdapter::class)->make();
     }
 
     private function bootWithBrandEnvironment(string $appName, ?string $brandName): void
