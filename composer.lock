@@ -13866,12 +13866,12 @@
             "version": "v5.6.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/vlucas/phpdotenv.git",
+                "url": "https://github.com/phpdotenv/phpdotenv.git",
                 "reference": "416df702837983f8d5ff48c9c3fee4f5f57b980b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/416df702837983f8d5ff48c9c3fee4f5f57b980b",
+                "url": "https://api.github.com/repos/phpdotenv/phpdotenv/zipball/416df702837983f8d5ff48c9c3fee4f5f57b980b",
                 "reference": "416df702837983f8d5ff48c9c3fee4f5f57b980b",
                 "shasum": ""
             },
@@ -19321,26 +19321,22 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "splicewire/laravel-beam": 20,
-        "splicewire/laravel-beam-mcp": 20,
-        "splicewire/laravel-beam-agreements": 20,
         "rushing/laravel-agreements": 20,
+        "rushing/laravel-surgeon": 20,
         "schemastud/laravel-data-schema-org": 20,
         "schemastud/laravel-data-schemas": 20,
-        "splicewire/laravel-beam-docs": 20,
-        "rushing/laravel-surgeon": 20,
+        "splicewire/laravel-beam": 20,
+        "splicewire/laravel-beam-agreements": 20,
         "splicewire/laravel-beam-dev": 20,
-        "splicewire/laravel-beam-provision": 20,
-        "rushing/laravel-permission-cascade": 20,
-        "rushing/php-popcorn": 20,
-        "schemastud/laravel-frame": 20,
-        "splicewire/laravel-beam-accounts": 20
+        "splicewire/laravel-beam-docs": 20,
+        "splicewire/laravel-beam-mcp": 20,
+        "splicewire/laravel-beam-provision": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.4"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.6.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
