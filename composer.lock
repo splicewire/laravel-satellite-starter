@@ -9363,7 +9363,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/splicewire/laravel-beam-ux.git",
-                "reference": "ec51057f3047c5e132647e40f836c551e2002937"
+                "reference": "f8662c1987752bd147d2273f3303466dcd61735a"
             },
             "require": {
                 "illuminate/contracts": "^11.0|^12.0|^13.0",
@@ -9387,6 +9387,7 @@
                 "splicewire/laravel-beam-sync": "*",
                 "splicewire/laravel-beam-taxonomy": "*",
                 "splicewire/laravel-beam-workflows": "*",
+                "splicewire/laravel-composition-spine": "dev-main",
                 "symfony/process": "^6.4|^7.0|^8.0"
             },
             "require-dev": {
@@ -9468,7 +9469,7 @@
                 "splicewire",
                 "ux"
             ],
-            "time": "2026-11-14T03:23:07+00:00"
+            "time": "2026-11-24T03:07:15+00:00"
         },
         {
             "name": "splicewire/laravel-beam-ux-prototype",
