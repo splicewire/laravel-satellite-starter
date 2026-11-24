@@ -38,12 +38,18 @@
             },
             "required": ["id", "label"]
         },
+        "UxType": {
+            "type": "string",
+            "title": "UxType",
+            "enum": ["layout", "template", "page", "component", "theme"],
+            "enumNames": ["layout", "template", "page", "component", "theme"]
+        },
         "ReleaseMemberData": {
             "type": "object",
             "title": "Release member",
             "properties": {
                 "entryId": {
-                    "type": "string"
+                    "type": ["string", "null"]
                 },
                 "versionId": {
                     "type": ["string", "null"]
@@ -56,6 +62,25 @@
                 },
                 "stale": {
                     "type": "boolean"
+                },
+                "kind": {
+                    "type": "string"
+                },
+                "ref": {
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "entryType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/UxType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 }
             },
             "required": [
@@ -63,7 +88,11 @@
                 "versionId",
                 "observedPin",
                 "redirectTarget",
-                "stale"
+                "stale",
+                "kind",
+                "ref",
+                "label",
+                "entryType"
             ]
         },
         "WorkflowProjectionData": {
@@ -125,6 +154,28 @@
                 "canRetry",
                 "message"
             ]
+        },
+        "ReleaseRedirectRowData": {
+            "type": "object",
+            "title": "Release redirect row",
+            "properties": {
+                "id": {
+                    "type": ["string", "null"]
+                },
+                "path": {
+                    "type": "string"
+                },
+                "match": {
+                    "type": "string"
+                },
+                "to": {
+                    "type": ["string", "null"]
+                },
+                "origin": {
+                    "type": "string"
+                }
+            },
+            "required": ["id", "path", "match", "to", "origin"]
         },
         "ReleaseData": {
             "type": "object",
@@ -220,6 +271,9 @@
                 },
                 "redirects": {
                     "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/ReleaseRedirectRowData"
+                    },
                     "default": []
                 }
             },

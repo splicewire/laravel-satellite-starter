@@ -2,6 +2,7 @@
   "version": 1,
   "sourceLocale": "en",
   "messages": {
+    "account.agreements_title": "Agreements & consents",
     "account.request_failed": "Something went wrong.",
     "account.team_title": "Team",
     "account.tokens_title": "API tokens",

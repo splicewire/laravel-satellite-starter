@@ -26,6 +26,7 @@ const PAGES = [
     'pages/account/team.tsx',
     'pages/account/tokens.tsx',
     'pages/account/canonical-mdx-review.tsx',
+    'pages/account/agreements.tsx',
     'pages/examples/sitemap-resource.tsx',
 ];
 // modules outside the pages that read the catalog (S4: the sitemap transport's user-facing error)
@@ -99,6 +100,8 @@ const STUBS = {
         export const TeamPage = () => createElement('section', null, 'team-body');
         export const TokensRoster = () => createElement('section', null, 'tokens-body');
         export const createTokensClient = () => ({});`,
+    '@splicewire/beam-agreements': `import { createElement } from 'react';
+        export const AgreementsAndConsents = () => createElement('section', null, 'agreements-body');`,
     '@schemastud/frame/session': `export const createSessionRequest = () => () => null;`,
     '@splicewire/beam-inertia': `export const bodyClient = {};`,
     '@splicewire/beam-ux': `import { createElement } from 'react';
@@ -275,6 +278,7 @@ try {
         'frame-shell',
         'team-body',
         'tokens-body',
+        'agreements-body',
         'release-panel',
         'Guide',
         'Spring (draft)',
