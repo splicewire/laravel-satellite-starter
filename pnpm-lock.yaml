@@ -108,35 +108,38 @@ importers:
         specifier: git+https://github.com/splicewire/_resources.git#33be024a9c5386f0a18bd8f928cc092485a12346
         version: git+https://github.com/splicewire/_resources.git#33be024a9c5386f0a18bd8f928cc092485a12346
       '@splicewire/beam-accounts':
-        specifier: github:splicewire/beam#4df32be98dd06c74ff072140320f7f52ec2451d9&path:/beam-accounts
-        version: https://codeload.github.com/splicewire/beam/tar.gz/4df32be98dd06c74ff072140320f7f52ec2451d9#path:/beam-accounts(wheg6ouviehrdrlfrv2ehn6ck4)
+        specifier: github:splicewire/beam#568060e39b078c2f5fbd7652f54eea2aa7b84162&path:/beam-accounts
+        version: https://codeload.github.com/splicewire/beam/tar.gz/568060e39b078c2f5fbd7652f54eea2aa7b84162#path:/beam-accounts(zxjekiggtu7ky5a6saz5vct4f4)
+      '@splicewire/beam-agreements':
+        specifier: github:splicewire/beam#7cfee94ffd6d6744d86be09812104311bba828a1&path:/beam-agreements
+        version: https://codeload.github.com/splicewire/beam/tar.gz/7cfee94ffd6d6744d86be09812104311bba828a1#path:/beam-agreements(6ggqcce2g4jhch435z42xgijbm)
       '@splicewire/beam-docs':
-        specifier: github:splicewire/beam#5501012d1485f55c7c0a4fadf3b2ac887f2f8d6d&path:/beam-docs
-        version: https://codeload.github.com/splicewire/beam/tar.gz/5501012d1485f55c7c0a4fadf3b2ac887f2f8d6d#path:/beam-docs(tkqcs2ytpeez2yw3r7nxwtfk34)
+        specifier: github:splicewire/beam#6ed20f90d4b047cf1327f8e606934e4424b6ce86&path:/beam-docs
+        version: https://codeload.github.com/splicewire/beam/tar.gz/6ed20f90d4b047cf1327f8e606934e4424b6ce86#path:/beam-docs(vmhc7itlvxbuhoutshtcvbfmni)
       '@splicewire/beam-inertia':
-        specifier: github:splicewire/beam#dc50f38d8bb7cae0b9ac3758f518bf540fc715b6&path:/beam-inertia
-        version: https://codeload.github.com/splicewire/beam/tar.gz/dc50f38d8bb7cae0b9ac3758f518bf540fc715b6#path:/beam-inertia(evmicsfbrf4c6jrhnc2pdi3tky)
+        specifier: github:splicewire/beam#241fb706b9b66219bf9a1c2829b2ed39ac7b6247&path:/beam-inertia
+        version: https://codeload.github.com/splicewire/beam/tar.gz/241fb706b9b66219bf9a1c2829b2ed39ac7b6247#path:/beam-inertia(uvzjfaz6f3jk7jjqzqq5j7zosa)
       '@splicewire/beam-intake':
-        specifier: github:splicewire/beam#4f0115fc4dc17d70e48dc0d6318bfb8a6bc44f9d&path:/beam-intake
-        version: https://codeload.github.com/splicewire/beam/tar.gz/4f0115fc4dc17d70e48dc0d6318bfb8a6bc44f9d#path:/beam-intake(dl452tyhfunjnunuw5w6vqs3wy)
+        specifier: github:splicewire/beam#edbd80484306194f408e4da17c56d92fc69a1260&path:/beam-intake
+        version: https://codeload.github.com/splicewire/beam/tar.gz/edbd80484306194f408e4da17c56d92fc69a1260#path:/beam-intake(dl452tyhfunjnunuw5w6vqs3wy)
       '@splicewire/beam-mainframe':
         specifier: github:splicewire/beam#f2c38346cc1d23fb621bdfdb5a625b17a92c2126&path:/beam-mainframe
         version: https://codeload.github.com/splicewire/beam/tar.gz/f2c38346cc1d23fb621bdfdb5a625b17a92c2126#path:/beam-mainframe(@preact/signals-core@1.14.4)(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(@schemastud/messages@https://codeload.github.com/schemastud/js/tar.gz/d512ca82472a09a39370bd0b42606899cdee8003#path:/messages(react@19.2.8)(typescript@5.9.3))(ajv@8.20.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
       '@splicewire/beam-mdx':
-        specifier: github:splicewire/beam#e37c98ecf65bdcddce74f3b4b0fcd65a8fa6ff8a&path:/beam-mdx
-        version: https://codeload.github.com/splicewire/beam/tar.gz/e37c98ecf65bdcddce74f3b4b0fcd65a8fa6ff8a#path:/beam-mdx(@inertiajs/react@3.6.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@mdx-js/mdx@3.1.1)(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(@splicewire/beam-ux@https://codeload.github.com/splicewire/beam/tar.gz/82abf507157b0b955b78f4cfce48359790b10a3e#path:/beam-ux(gzt2cyfwmw3fcmsagxhy7safsy))(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
+        specifier: github:splicewire/beam#bd2b64e845a919952e57e31843fcc5cbb4ca3f12&path:/beam-mdx
+        version: https://codeload.github.com/splicewire/beam/tar.gz/bd2b64e845a919952e57e31843fcc5cbb4ca3f12#path:/beam-mdx(@inertiajs/react@3.6.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@mdx-js/mdx@3.1.1)(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(@splicewire/beam-ux@https://codeload.github.com/splicewire/beam/tar.gz/50bb34055ea28f33e62de86164b4c1d737a637b0#path:/beam-ux(gu5ytslqehpba2zlhubrprtabu))(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
       '@splicewire/beam-resources':
-        specifier: github:splicewire/beam#d32aa1ba0ff8453b7a212cbeb4fa60e743f5e04c&path:/beam-resources
-        version: https://codeload.github.com/splicewire/beam/tar.gz/d32aa1ba0ff8453b7a212cbeb4fa60e743f5e04c#path:/beam-resources
+        specifier: github:splicewire/beam#d4c60c05cf9658febc401d1634c2a6c9fb917516&path:/beam-resources
+        version: https://codeload.github.com/splicewire/beam/tar.gz/d4c60c05cf9658febc401d1634c2a6c9fb917516#path:/beam-resources
       '@splicewire/beam-ux':
-        specifier: github:splicewire/beam#82abf507157b0b955b78f4cfce48359790b10a3e&path:/beam-ux
-        version: https://codeload.github.com/splicewire/beam/tar.gz/82abf507157b0b955b78f4cfce48359790b10a3e#path:/beam-ux(gzt2cyfwmw3fcmsagxhy7safsy)
+        specifier: github:splicewire/beam#50bb34055ea28f33e62de86164b4c1d737a637b0&path:/beam-ux
+        version: https://codeload.github.com/splicewire/beam/tar.gz/50bb34055ea28f33e62de86164b4c1d737a637b0#path:/beam-ux(gu5ytslqehpba2zlhubrprtabu)
       '@splicewire/beam-ux-prototype':
         specifier: github:splicewire/beam#7d7874ff78ba82e0b2e1e838a001c585c5e28137&path:/beam-ux-prototype
         version: https://codeload.github.com/splicewire/beam/tar.gz/7d7874ff78ba82e0b2e1e838a001c585c5e28137#path:/beam-ux-prototype(@schemastud/ui@https://codeload.github.com/schemastud/js/tar.gz/85adf3d498a76c2a993cfbbe03281a9225d8b853#path:/ui(bn4fwwcvxz6bbg3ch74tosqpyu))(lucide-react@0.475.0(react@19.2.8))(react-router@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
       '@splicewire/beam-workflows':
-        specifier: github:splicewire/beam#b73c2d220b334d227b372cd57291f97e0e480e5e&path:/beam-workflows
-        version: https://codeload.github.com/splicewire/beam/tar.gz/b73c2d220b334d227b372cd57291f97e0e480e5e#path:/beam-workflows(@schemastud/messages@https://codeload.github.com/schemastud/js/tar.gz/d512ca82472a09a39370bd0b42606899cdee8003#path:/messages(react@19.2.8)(typescript@5.9.3))(@schemastud/ui@https://codeload.github.com/schemastud/js/tar.gz/85adf3d498a76c2a993cfbbe03281a9225d8b853#path:/ui(bn4fwwcvxz6bbg3ch74tosqpyu))(@tanstack/react-query@5.101.4(react@19.2.8))(@xyflow/react@12.12.1(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(immer@9.0.21)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(lucide-react@0.475.0(react@19.2.8))(react@19.2.8)
+        specifier: github:splicewire/beam#a54faa640c60700100ab2e77414132d87f2bc03c&path:/beam-workflows
+        version: https://codeload.github.com/splicewire/beam/tar.gz/a54faa640c60700100ab2e77414132d87f2bc03c#path:/beam-workflows(@schemastud/messages@https://codeload.github.com/schemastud/js/tar.gz/d512ca82472a09a39370bd0b42606899cdee8003#path:/messages(react@19.2.8)(typescript@5.9.3))(@schemastud/ui@https://codeload.github.com/schemastud/js/tar.gz/85adf3d498a76c2a993cfbbe03281a9225d8b853#path:/ui(bn4fwwcvxz6bbg3ch74tosqpyu))(@tanstack/react-query@5.101.4(react@19.2.8))(@xyflow/react@12.12.1(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(immer@9.0.21)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(lucide-react@0.475.0(react@19.2.8))(react@19.2.8)
       '@tailwindcss/vite':
         specifier: ^4.1.11
         version: 4.3.3(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
@@ -2018,23 +2021,37 @@ packages:
     resolution: {commit: 33be024a9c5386f0a18bd8f928cc092485a12346, repo: https://github.com/splicewire/_resources.git, type: git}
     version: 0.5.0
 
-  '@splicewire/beam-accounts@https://codeload.github.com/splicewire/beam/tar.gz/4df32be98dd06c74ff072140320f7f52ec2451d9#path:/beam-accounts':
-    resolution: {path: /beam-accounts, tarball: https://codeload.github.com/splicewire/beam/tar.gz/4df32be98dd06c74ff072140320f7f52ec2451d9}
-    version: 0.5.9
+  '@splicewire/beam-accounts@https://codeload.github.com/splicewire/beam/tar.gz/568060e39b078c2f5fbd7652f54eea2aa7b84162#path:/beam-accounts':
+    resolution: {path: /beam-accounts, tarball: https://codeload.github.com/splicewire/beam/tar.gz/568060e39b078c2f5fbd7652f54eea2aa7b84162}
+    version: 0.7.0
     peerDependencies:
       '@schemastud/combobox': '>=0.1.0'
       '@schemastud/frame': '*'
+      '@schemastud/messages': ^0.1.0 || ^0.2.0
       '@schemastud/seam': '>=0.2.2'
       '@schemastud/ui': ^0.1.2 || ^0.2.0 || ^0.3.0
-      '@splicewire/beam-ux': ^0.6.0 || ^0.7.0 || ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^0.14.0 || ^0.15.0 || ^0.16.0 || ^0.17.0
+      '@splicewire/beam-agreements': '*'
+      '@splicewire/beam-ux': ^0.6.0 || ^0.7.0 || ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^0.14.0 || ^0.15.0 || ^0.16.0 || ^0.17.0 || ^0.18.0
       '@tanstack/react-query': '>=5'
       '@tanstack/react-table': '>=8'
       lucide-react: '>=0.400.0'
       react: '>=18'
+    peerDependenciesMeta:
+      '@splicewire/beam-agreements':
+        optional: true
 
-  '@splicewire/beam-docs@https://codeload.github.com/splicewire/beam/tar.gz/5501012d1485f55c7c0a4fadf3b2ac887f2f8d6d#path:/beam-docs':
-    resolution: {path: /beam-docs, tarball: https://codeload.github.com/splicewire/beam/tar.gz/5501012d1485f55c7c0a4fadf3b2ac887f2f8d6d}
-    version: 0.6.4
+  '@splicewire/beam-agreements@https://codeload.github.com/splicewire/beam/tar.gz/7cfee94ffd6d6744d86be09812104311bba828a1#path:/beam-agreements':
+    resolution: {path: /beam-agreements, tarball: https://codeload.github.com/splicewire/beam/tar.gz/7cfee94ffd6d6744d86be09812104311bba828a1}
+    version: 0.2.3
+    peerDependencies:
+      '@schemastud/frame': '*'
+      '@schemastud/seam': '*'
+      '@tanstack/react-query': '>=5'
+      react: '>=18'
+
+  '@splicewire/beam-docs@https://codeload.github.com/splicewire/beam/tar.gz/6ed20f90d4b047cf1327f8e606934e4424b6ce86#path:/beam-docs':
+    resolution: {path: /beam-docs, tarball: https://codeload.github.com/splicewire/beam/tar.gz/6ed20f90d4b047cf1327f8e606934e4424b6ce86}
+    version: 0.6.7
     peerDependencies:
       '@inertiajs/react': '>=2'
       '@rjsf/utils': '>=6'
@@ -2050,9 +2067,9 @@ packages:
       '@inertiajs/react':
         optional: true
 
-  '@splicewire/beam-inertia@https://codeload.github.com/splicewire/beam/tar.gz/dc50f38d8bb7cae0b9ac3758f518bf540fc715b6#path:/beam-inertia':
-    resolution: {path: /beam-inertia, tarball: https://codeload.github.com/splicewire/beam/tar.gz/dc50f38d8bb7cae0b9ac3758f518bf540fc715b6}
-    version: 0.9.3
+  '@splicewire/beam-inertia@https://codeload.github.com/splicewire/beam/tar.gz/241fb706b9b66219bf9a1c2829b2ed39ac7b6247#path:/beam-inertia':
+    resolution: {path: /beam-inertia, tarball: https://codeload.github.com/splicewire/beam/tar.gz/241fb706b9b66219bf9a1c2829b2ed39ac7b6247}
+    version: 0.11.3
     peerDependencies:
       '@inertiajs/core': ^3.5.0
       '@inertiajs/react': ^3.5.0
@@ -2070,14 +2087,14 @@ packages:
       '@radix-ui/react-toggle': ^1.1.2
       '@radix-ui/react-toggle-group': ^1.1.2
       '@radix-ui/react-tooltip': ^1.1.8
-      '@schemastud/frame': ^0.2.2 || ^0.3.0 || ^0.4.0 || ^0.5.0 || ^0.7.0 || ^0.8.0 || ^0.9.0
+      '@schemastud/frame': ^0.2.2 || ^0.3.0 || ^0.4.0 || ^0.5.0 || ^0.7.0 || ^0.8.0 || ^0.9.0 || ^0.10.0
       '@schemastud/mainframe': 0.1.0 || ^0.1.0 || ^0.2.0
       '@schemastud/messages': ^0.1.0 || ^0.2.0
       '@schemastud/seam': 0.2.2 || ^0.3.0 || ^0.4.0 || ^0.5.0
       '@schemastud/ui': ^0.1.2 || ^0.2.0 || ^0.3.0
-      '@splicewire/beam-accounts': ^0.3.0 || ^0.4.0 || ^0.5.0
+      '@splicewire/beam-accounts': ^0.3.0 || ^0.4.0 || ^0.5.0 || ^0.6.0 || ^0.7.0
       '@splicewire/beam-mainframe': ^0.1.0 || 0.1.1 || ^0.2.0
-      '@splicewire/beam-ux': ^0.7.0 || ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^0.14.0 || ^0.16.0 || ^0.17.0
+      '@splicewire/beam-ux': ^0.7.0 || ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^0.14.0 || ^0.16.0 || ^0.17.0 || ^0.18.0
       '@tanstack/react-query': ^5.0.0
       class-variance-authority: ^0.7.1
       clsx: ^2.1.1
@@ -2088,9 +2105,9 @@ packages:
       sonner: ^2.0.0
       tailwind-merge: ^3.0.1
 
-  '@splicewire/beam-intake@https://codeload.github.com/splicewire/beam/tar.gz/4f0115fc4dc17d70e48dc0d6318bfb8a6bc44f9d#path:/beam-intake':
-    resolution: {path: /beam-intake, tarball: https://codeload.github.com/splicewire/beam/tar.gz/4f0115fc4dc17d70e48dc0d6318bfb8a6bc44f9d}
-    version: 0.4.6
+  '@splicewire/beam-intake@https://codeload.github.com/splicewire/beam/tar.gz/edbd80484306194f408e4da17c56d92fc69a1260#path:/beam-intake':
+    resolution: {path: /beam-intake, tarball: https://codeload.github.com/splicewire/beam/tar.gz/edbd80484306194f408e4da17c56d92fc69a1260}
+    version: 0.4.9
     peerDependencies:
       '@schemastud/frame': '*'
       '@schemastud/seam': '*'
@@ -2104,9 +2121,9 @@ packages:
     peerDependencies:
       react: '>=18'
 
-  '@splicewire/beam-mdx@https://codeload.github.com/splicewire/beam/tar.gz/e37c98ecf65bdcddce74f3b4b0fcd65a8fa6ff8a#path:/beam-mdx':
-    resolution: {path: /beam-mdx, tarball: https://codeload.github.com/splicewire/beam/tar.gz/e37c98ecf65bdcddce74f3b4b0fcd65a8fa6ff8a}
-    version: 0.2.12
+  '@splicewire/beam-mdx@https://codeload.github.com/splicewire/beam/tar.gz/bd2b64e845a919952e57e31843fcc5cbb4ca3f12#path:/beam-mdx':
+    resolution: {path: /beam-mdx, tarball: https://codeload.github.com/splicewire/beam/tar.gz/bd2b64e845a919952e57e31843fcc5cbb4ca3f12}
+    version: 0.2.15
     peerDependencies:
       '@inertiajs/react': '>=2'
       '@mdx-js/mdx': ^3
@@ -2116,7 +2133,7 @@ packages:
       '@rjsf/shadcn': ^6
       '@rjsf/utils': ^6
       '@rjsf/validator-ajv8': ^6
-      '@splicewire/beam-ux': '>=0.9.0 <0.12.0 || ^0.12.0 || ^0.13.0 || ^0.14.0 || ^0.15.0 || ^0.16.0 || ^0.17.0'
+      '@splicewire/beam-ux': '>=0.9.0 <0.12.0 || ^0.12.0 || ^0.13.0 || ^0.14.0 || ^0.15.0 || ^0.16.0 || ^0.17.0 || ^0.18.0'
       react: '>=18'
       remark-frontmatter: ^5
       remark-mdx-frontmatter: ^5
@@ -2145,9 +2162,9 @@ packages:
       vite:
         optional: true
 
-  '@splicewire/beam-resources@https://codeload.github.com/splicewire/beam/tar.gz/d32aa1ba0ff8453b7a212cbeb4fa60e743f5e04c#path:/beam-resources':
-    resolution: {path: /beam-resources, tarball: https://codeload.github.com/splicewire/beam/tar.gz/d32aa1ba0ff8453b7a212cbeb4fa60e743f5e04c}
-    version: 0.6.0
+  '@splicewire/beam-resources@https://codeload.github.com/splicewire/beam/tar.gz/d4c60c05cf9658febc401d1634c2a6c9fb917516#path:/beam-resources':
+    resolution: {path: /beam-resources, tarball: https://codeload.github.com/splicewire/beam/tar.gz/d4c60c05cf9658febc401d1634c2a6c9fb917516}
+    version: 0.9.0
 
   '@splicewire/beam-ux-prototype@https://codeload.github.com/splicewire/beam/tar.gz/7d7874ff78ba82e0b2e1e838a001c585c5e28137#path:/beam-ux-prototype':
     resolution: {path: /beam-ux-prototype, tarball: https://codeload.github.com/splicewire/beam/tar.gz/7d7874ff78ba82e0b2e1e838a001c585c5e28137}
@@ -2159,9 +2176,9 @@ packages:
       react: '>=18'
       react-router: '>=7'
 
-  '@splicewire/beam-ux@https://codeload.github.com/splicewire/beam/tar.gz/82abf507157b0b955b78f4cfce48359790b10a3e#path:/beam-ux':
-    resolution: {path: /beam-ux, tarball: https://codeload.github.com/splicewire/beam/tar.gz/82abf507157b0b955b78f4cfce48359790b10a3e}
-    version: 0.17.1
+  '@splicewire/beam-ux@https://codeload.github.com/splicewire/beam/tar.gz/50bb34055ea28f33e62de86164b4c1d737a637b0#path:/beam-ux':
+    resolution: {path: /beam-ux, tarball: https://codeload.github.com/splicewire/beam/tar.gz/50bb34055ea28f33e62de86164b4c1d737a637b0}
+    version: 0.18.2
     hasBin: true
     peerDependencies:
       '@inertiajs/react': '>=2'
@@ -2188,9 +2205,9 @@ packages:
       '@schemastud/mainframe':
         optional: true
 
-  '@splicewire/beam-workflows@https://codeload.github.com/splicewire/beam/tar.gz/b73c2d220b334d227b372cd57291f97e0e480e5e#path:/beam-workflows':
-    resolution: {path: /beam-workflows, tarball: https://codeload.github.com/splicewire/beam/tar.gz/b73c2d220b334d227b372cd57291f97e0e480e5e}
-    version: 0.4.1
+  '@splicewire/beam-workflows@https://codeload.github.com/splicewire/beam/tar.gz/a54faa640c60700100ab2e77414132d87f2bc03c#path:/beam-workflows':
+    resolution: {path: /beam-workflows, tarball: https://codeload.github.com/splicewire/beam/tar.gz/a54faa640c60700100ab2e77414132d87f2bc03c}
+    version: 0.4.4
     peerDependencies:
       '@schemastud/messages': ^0.1.0 || ^0.2.0
       '@schemastud/ui': '*'
@@ -7722,34 +7739,44 @@ snapshots:
 
   '@splicewire/_resources@git+https://github.com/splicewire/_resources.git#33be024a9c5386f0a18bd8f928cc092485a12346': {}
 
-  '@splicewire/beam-accounts@https://codeload.github.com/splicewire/beam/tar.gz/4df32be98dd06c74ff072140320f7f52ec2451d9#path:/beam-accounts(wheg6ouviehrdrlfrv2ehn6ck4)':
+  '@splicewire/beam-accounts@https://codeload.github.com/splicewire/beam/tar.gz/568060e39b078c2f5fbd7652f54eea2aa7b84162#path:/beam-accounts(zxjekiggtu7ky5a6saz5vct4f4)':
     dependencies:
       '@schemastud/combobox': https://codeload.github.com/schemastud/js/tar.gz/9d4997753a6c0a241534453cffdc0ee00c494077#path:/combobox(@schemastud/messages@https://codeload.github.com/schemastud/js/tar.gz/d512ca82472a09a39370bd0b42606899cdee8003#path:/messages(react@19.2.8)(typescript@5.9.3))(react@19.2.8)
       '@schemastud/frame': https://codeload.github.com/schemastud/js/tar.gz/c84b1a8a77cdb0a0ff6f2dabb6414b511ea1831c#path:/frame(djb4gck7ccejblrp6fft6fkmle)
+      '@schemastud/messages': https://codeload.github.com/schemastud/js/tar.gz/d512ca82472a09a39370bd0b42606899cdee8003#path:/messages(react@19.2.8)(typescript@5.9.3)
       '@schemastud/seam': https://codeload.github.com/schemastud/js/tar.gz/ceaa0076c1e444a311e72bbef0f379e40e91d4fe#path:/seam(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(@schemastud/messages@https://codeload.github.com/schemastud/js/tar.gz/d512ca82472a09a39370bd0b42606899cdee8003#path:/messages(react@19.2.8)(typescript@5.9.3))(ajv@8.20.0)(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
       '@schemastud/ui': https://codeload.github.com/schemastud/js/tar.gz/85adf3d498a76c2a993cfbbe03281a9225d8b853#path:/ui(bn4fwwcvxz6bbg3ch74tosqpyu)
-      '@splicewire/beam-resources': https://codeload.github.com/splicewire/beam/tar.gz/d32aa1ba0ff8453b7a212cbeb4fa60e743f5e04c#path:/beam-resources
-      '@splicewire/beam-ux': https://codeload.github.com/splicewire/beam/tar.gz/82abf507157b0b955b78f4cfce48359790b10a3e#path:/beam-ux(gzt2cyfwmw3fcmsagxhy7safsy)
+      '@splicewire/beam-resources': https://codeload.github.com/splicewire/beam/tar.gz/d4c60c05cf9658febc401d1634c2a6c9fb917516#path:/beam-resources
+      '@splicewire/beam-ux': https://codeload.github.com/splicewire/beam/tar.gz/50bb34055ea28f33e62de86164b4c1d737a637b0#path:/beam-ux(gu5ytslqehpba2zlhubrprtabu)
       '@tanstack/react-query': 5.101.4(react@19.2.8)
       '@tanstack/react-table': 8.21.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       lucide-react: 0.475.0(react@19.2.8)
       react: 19.2.8
+    optionalDependencies:
+      '@splicewire/beam-agreements': https://codeload.github.com/splicewire/beam/tar.gz/7cfee94ffd6d6744d86be09812104311bba828a1#path:/beam-agreements(6ggqcce2g4jhch435z42xgijbm)
 
-  '@splicewire/beam-docs@https://codeload.github.com/splicewire/beam/tar.gz/5501012d1485f55c7c0a4fadf3b2ac887f2f8d6d#path:/beam-docs(tkqcs2ytpeez2yw3r7nxwtfk34)':
+  '@splicewire/beam-agreements@https://codeload.github.com/splicewire/beam/tar.gz/7cfee94ffd6d6744d86be09812104311bba828a1#path:/beam-agreements(6ggqcce2g4jhch435z42xgijbm)':
+    dependencies:
+      '@schemastud/frame': https://codeload.github.com/schemastud/js/tar.gz/c84b1a8a77cdb0a0ff6f2dabb6414b511ea1831c#path:/frame(djb4gck7ccejblrp6fft6fkmle)
+      '@schemastud/seam': https://codeload.github.com/schemastud/js/tar.gz/ceaa0076c1e444a311e72bbef0f379e40e91d4fe#path:/seam(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(@schemastud/messages@https://codeload.github.com/schemastud/js/tar.gz/d512ca82472a09a39370bd0b42606899cdee8003#path:/messages(react@19.2.8)(typescript@5.9.3))(ajv@8.20.0)(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
+      '@tanstack/react-query': 5.101.4(react@19.2.8)
+      react: 19.2.8
+
+  '@splicewire/beam-docs@https://codeload.github.com/splicewire/beam/tar.gz/6ed20f90d4b047cf1327f8e606934e4424b6ce86#path:/beam-docs(vmhc7itlvxbuhoutshtcvbfmni)':
     dependencies:
       '@rjsf/utils': 6.7.1(react@19.2.8)
       '@schemastud/combobox': https://codeload.github.com/schemastud/js/tar.gz/9d4997753a6c0a241534453cffdc0ee00c494077#path:/combobox(@schemastud/messages@https://codeload.github.com/schemastud/js/tar.gz/d512ca82472a09a39370bd0b42606899cdee8003#path:/messages(react@19.2.8)(typescript@5.9.3))(react@19.2.8)
       '@schemastud/frame': https://codeload.github.com/schemastud/js/tar.gz/c84b1a8a77cdb0a0ff6f2dabb6414b511ea1831c#path:/frame(djb4gck7ccejblrp6fft6fkmle)
       '@schemastud/nav': https://codeload.github.com/schemastud/js/tar.gz/5bbee2598f45df91b3690f8cbcf5410f79c008a5#path:/nav(@schemastud/messages@https://codeload.github.com/schemastud/js/tar.gz/d512ca82472a09a39370bd0b42606899cdee8003#path:/messages(react@19.2.8)(typescript@5.9.3))(react@19.2.8)
       '@schemastud/seam': https://codeload.github.com/schemastud/js/tar.gz/ceaa0076c1e444a311e72bbef0f379e40e91d4fe#path:/seam(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(@schemastud/messages@https://codeload.github.com/schemastud/js/tar.gz/d512ca82472a09a39370bd0b42606899cdee8003#path:/messages(react@19.2.8)(typescript@5.9.3))(ajv@8.20.0)(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
-      '@splicewire/beam-mdx': https://codeload.github.com/splicewire/beam/tar.gz/e37c98ecf65bdcddce74f3b4b0fcd65a8fa6ff8a#path:/beam-mdx(@inertiajs/react@3.6.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@mdx-js/mdx@3.1.1)(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(@splicewire/beam-ux@https://codeload.github.com/splicewire/beam/tar.gz/82abf507157b0b955b78f4cfce48359790b10a3e#path:/beam-ux(gzt2cyfwmw3fcmsagxhy7safsy))(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
-      '@splicewire/beam-ux': https://codeload.github.com/splicewire/beam/tar.gz/82abf507157b0b955b78f4cfce48359790b10a3e#path:/beam-ux(gzt2cyfwmw3fcmsagxhy7safsy)
+      '@splicewire/beam-mdx': https://codeload.github.com/splicewire/beam/tar.gz/bd2b64e845a919952e57e31843fcc5cbb4ca3f12#path:/beam-mdx(@inertiajs/react@3.6.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@mdx-js/mdx@3.1.1)(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(@splicewire/beam-ux@https://codeload.github.com/splicewire/beam/tar.gz/50bb34055ea28f33e62de86164b4c1d737a637b0#path:/beam-ux(gu5ytslqehpba2zlhubrprtabu))(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
+      '@splicewire/beam-ux': https://codeload.github.com/splicewire/beam/tar.gz/50bb34055ea28f33e62de86164b4c1d737a637b0#path:/beam-ux(gu5ytslqehpba2zlhubrprtabu)
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
     optionalDependencies:
       '@inertiajs/react': 3.6.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
 
-  '@splicewire/beam-inertia@https://codeload.github.com/splicewire/beam/tar.gz/dc50f38d8bb7cae0b9ac3758f518bf540fc715b6#path:/beam-inertia(evmicsfbrf4c6jrhnc2pdi3tky)':
+  '@splicewire/beam-inertia@https://codeload.github.com/splicewire/beam/tar.gz/241fb706b9b66219bf9a1c2829b2ed39ac7b6247#path:/beam-inertia(uvzjfaz6f3jk7jjqzqq5j7zosa)':
     dependencies:
       '@inertiajs/core': 3.6.1
       '@inertiajs/react': 3.6.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -7772,11 +7799,11 @@ snapshots:
       '@schemastud/messages': https://codeload.github.com/schemastud/js/tar.gz/d512ca82472a09a39370bd0b42606899cdee8003#path:/messages(react@19.2.8)(typescript@5.9.3)
       '@schemastud/seam': https://codeload.github.com/schemastud/js/tar.gz/ceaa0076c1e444a311e72bbef0f379e40e91d4fe#path:/seam(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(@schemastud/messages@https://codeload.github.com/schemastud/js/tar.gz/d512ca82472a09a39370bd0b42606899cdee8003#path:/messages(react@19.2.8)(typescript@5.9.3))(ajv@8.20.0)(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
       '@schemastud/ui': https://codeload.github.com/schemastud/js/tar.gz/85adf3d498a76c2a993cfbbe03281a9225d8b853#path:/ui(bn4fwwcvxz6bbg3ch74tosqpyu)
-      '@splicewire/beam-accounts': https://codeload.github.com/splicewire/beam/tar.gz/4df32be98dd06c74ff072140320f7f52ec2451d9#path:/beam-accounts(wheg6ouviehrdrlfrv2ehn6ck4)
-      '@splicewire/beam-intake': https://codeload.github.com/splicewire/beam/tar.gz/4f0115fc4dc17d70e48dc0d6318bfb8a6bc44f9d#path:/beam-intake(dl452tyhfunjnunuw5w6vqs3wy)
+      '@splicewire/beam-accounts': https://codeload.github.com/splicewire/beam/tar.gz/568060e39b078c2f5fbd7652f54eea2aa7b84162#path:/beam-accounts(zxjekiggtu7ky5a6saz5vct4f4)
+      '@splicewire/beam-intake': https://codeload.github.com/splicewire/beam/tar.gz/edbd80484306194f408e4da17c56d92fc69a1260#path:/beam-intake(dl452tyhfunjnunuw5w6vqs3wy)
       '@splicewire/beam-mainframe': https://codeload.github.com/splicewire/beam/tar.gz/f2c38346cc1d23fb621bdfdb5a625b17a92c2126#path:/beam-mainframe(@preact/signals-core@1.14.4)(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(@schemastud/messages@https://codeload.github.com/schemastud/js/tar.gz/d512ca82472a09a39370bd0b42606899cdee8003#path:/messages(react@19.2.8)(typescript@5.9.3))(ajv@8.20.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
-      '@splicewire/beam-resources': https://codeload.github.com/splicewire/beam/tar.gz/d32aa1ba0ff8453b7a212cbeb4fa60e743f5e04c#path:/beam-resources
-      '@splicewire/beam-ux': https://codeload.github.com/splicewire/beam/tar.gz/82abf507157b0b955b78f4cfce48359790b10a3e#path:/beam-ux(gzt2cyfwmw3fcmsagxhy7safsy)
+      '@splicewire/beam-resources': https://codeload.github.com/splicewire/beam/tar.gz/d4c60c05cf9658febc401d1634c2a6c9fb917516#path:/beam-resources
+      '@splicewire/beam-ux': https://codeload.github.com/splicewire/beam/tar.gz/50bb34055ea28f33e62de86164b4c1d737a637b0#path:/beam-ux(gu5ytslqehpba2zlhubrprtabu)
       '@tanstack/react-query': 5.101.4(react@19.2.8)
       class-variance-authority: 0.7.1
       clsx: 2.1.1
@@ -7787,12 +7814,12 @@ snapshots:
       sonner: 2.0.8(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       tailwind-merge: 3.6.0
 
-  '@splicewire/beam-intake@https://codeload.github.com/splicewire/beam/tar.gz/4f0115fc4dc17d70e48dc0d6318bfb8a6bc44f9d#path:/beam-intake(dl452tyhfunjnunuw5w6vqs3wy)':
+  '@splicewire/beam-intake@https://codeload.github.com/splicewire/beam/tar.gz/edbd80484306194f408e4da17c56d92fc69a1260#path:/beam-intake(dl452tyhfunjnunuw5w6vqs3wy)':
     dependencies:
       '@schemastud/frame': https://codeload.github.com/schemastud/js/tar.gz/c84b1a8a77cdb0a0ff6f2dabb6414b511ea1831c#path:/frame(djb4gck7ccejblrp6fft6fkmle)
       '@schemastud/seam': https://codeload.github.com/schemastud/js/tar.gz/ceaa0076c1e444a311e72bbef0f379e40e91d4fe#path:/seam(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(@schemastud/messages@https://codeload.github.com/schemastud/js/tar.gz/d512ca82472a09a39370bd0b42606899cdee8003#path:/messages(react@19.2.8)(typescript@5.9.3))(ajv@8.20.0)(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
       '@schemastud/ui': https://codeload.github.com/schemastud/js/tar.gz/85adf3d498a76c2a993cfbbe03281a9225d8b853#path:/ui(bn4fwwcvxz6bbg3ch74tosqpyu)
-      '@splicewire/beam-resources': https://codeload.github.com/splicewire/beam/tar.gz/d32aa1ba0ff8453b7a212cbeb4fa60e743f5e04c#path:/beam-resources
+      '@splicewire/beam-resources': https://codeload.github.com/splicewire/beam/tar.gz/d4c60c05cf9658febc401d1634c2a6c9fb917516#path:/beam-resources
       '@tanstack/react-query': 5.101.4(react@19.2.8)
       react: 19.2.8
 
@@ -7812,7 +7839,7 @@ snapshots:
       - react-dom
       - vite
 
-  '@splicewire/beam-mdx@https://codeload.github.com/splicewire/beam/tar.gz/e37c98ecf65bdcddce74f3b4b0fcd65a8fa6ff8a#path:/beam-mdx(@inertiajs/react@3.6.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@mdx-js/mdx@3.1.1)(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(@splicewire/beam-ux@https://codeload.github.com/splicewire/beam/tar.gz/82abf507157b0b955b78f4cfce48359790b10a3e#path:/beam-ux(gzt2cyfwmw3fcmsagxhy7safsy))(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))':
+  '@splicewire/beam-mdx@https://codeload.github.com/splicewire/beam/tar.gz/bd2b64e845a919952e57e31843fcc5cbb4ca3f12#path:/beam-mdx(@inertiajs/react@3.6.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(@mdx-js/mdx@3.1.1)(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(@splicewire/beam-ux@https://codeload.github.com/splicewire/beam/tar.gz/50bb34055ea28f33e62de86164b4c1d737a637b0#path:/beam-ux(gu5ytslqehpba2zlhubrprtabu))(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))':
     dependencies:
       '@inertiajs/react': 3.6.1(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       mdast-util-from-markdown: 2.0.3
@@ -7830,12 +7857,12 @@ snapshots:
       '@rjsf/shadcn': 6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3)
       '@rjsf/utils': 6.7.1(react@19.2.8)
       '@rjsf/validator-ajv8': 6.7.1(@rjsf/utils@6.7.1(react@19.2.8))
-      '@splicewire/beam-ux': https://codeload.github.com/splicewire/beam/tar.gz/82abf507157b0b955b78f4cfce48359790b10a3e#path:/beam-ux(gzt2cyfwmw3fcmsagxhy7safsy)
+      '@splicewire/beam-ux': https://codeload.github.com/splicewire/beam/tar.gz/50bb34055ea28f33e62de86164b4c1d737a637b0#path:/beam-ux(gu5ytslqehpba2zlhubrprtabu)
       vite: 8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1)
     transitivePeerDependencies:
       - supports-color
 
-  '@splicewire/beam-resources@https://codeload.github.com/splicewire/beam/tar.gz/d32aa1ba0ff8453b7a212cbeb4fa60e743f5e04c#path:/beam-resources': {}
+  '@splicewire/beam-resources@https://codeload.github.com/splicewire/beam/tar.gz/d4c60c05cf9658febc401d1634c2a6c9fb917516#path:/beam-resources': {}
 
   '@splicewire/beam-ux-prototype@https://codeload.github.com/splicewire/beam/tar.gz/7d7874ff78ba82e0b2e1e838a001c585c5e28137#path:/beam-ux-prototype(@schemastud/ui@https://codeload.github.com/schemastud/js/tar.gz/85adf3d498a76c2a993cfbbe03281a9225d8b853#path:/ui(bn4fwwcvxz6bbg3ch74tosqpyu))(lucide-react@0.475.0(react@19.2.8))(react-router@7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)':
     dependencies:
@@ -7844,7 +7871,7 @@ snapshots:
       react: 19.2.8
       react-router: 7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
 
-  '@splicewire/beam-ux@https://codeload.github.com/splicewire/beam/tar.gz/82abf507157b0b955b78f4cfce48359790b10a3e#path:/beam-ux(gzt2cyfwmw3fcmsagxhy7safsy)':
+  '@splicewire/beam-ux@https://codeload.github.com/splicewire/beam/tar.gz/50bb34055ea28f33e62de86164b4c1d737a637b0#path:/beam-ux(gu5ytslqehpba2zlhubrprtabu)':
     dependencies:
       '@babel/parser': 7.29.8
       '@babel/types': 7.29.8
@@ -7859,8 +7886,8 @@ snapshots:
       '@schemastud/registry': https://codeload.github.com/schemastud/js/tar.gz/a50cd2805f696b59cbe4882e22df40c7149666e2#path:/registry
       '@schemastud/seam': https://codeload.github.com/schemastud/js/tar.gz/ceaa0076c1e444a311e72bbef0f379e40e91d4fe#path:/seam(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/shadcn@6.7.1(@rjsf/core@6.7.1(@rjsf/utils@6.7.1(react@19.2.8))(react@19.2.8)(vue@3.5.42(typescript@5.9.3)))(@rjsf/utils@6.7.1(react@19.2.8))(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(tailwindcss@4.3.3))(@rjsf/utils@6.7.1(react@19.2.8))(@rjsf/validator-ajv8@6.7.1(@rjsf/utils@6.7.1(react@19.2.8)))(@schemastud/messages@https://codeload.github.com/schemastud/js/tar.gz/d512ca82472a09a39370bd0b42606899cdee8003#path:/messages(react@19.2.8)(typescript@5.9.3))(ajv@8.20.0)(react@19.2.8)(vite@8.2.1(@types/node@22.20.1)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(yaml@2.9.1))
       '@schemastud/ui': https://codeload.github.com/schemastud/js/tar.gz/85adf3d498a76c2a993cfbbe03281a9225d8b853#path:/ui(bn4fwwcvxz6bbg3ch74tosqpyu)
-      '@splicewire/beam-resources': https://codeload.github.com/splicewire/beam/tar.gz/d32aa1ba0ff8453b7a212cbeb4fa60e743f5e04c#path:/beam-resources
-      '@splicewire/beam-workflows': https://codeload.github.com/splicewire/beam/tar.gz/b73c2d220b334d227b372cd57291f97e0e480e5e#path:/beam-workflows(@schemastud/messages@https://codeload.github.com/schemastud/js/tar.gz/d512ca82472a09a39370bd0b42606899cdee8003#path:/messages(react@19.2.8)(typescript@5.9.3))(@schemastud/ui@https://codeload.github.com/schemastud/js/tar.gz/85adf3d498a76c2a993cfbbe03281a9225d8b853#path:/ui(bn4fwwcvxz6bbg3ch74tosqpyu))(@tanstack/react-query@5.101.4(react@19.2.8))(@xyflow/react@12.12.1(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(immer@9.0.21)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(lucide-react@0.475.0(react@19.2.8))(react@19.2.8)
+      '@splicewire/beam-resources': https://codeload.github.com/splicewire/beam/tar.gz/d4c60c05cf9658febc401d1634c2a6c9fb917516#path:/beam-resources
+      '@splicewire/beam-workflows': https://codeload.github.com/splicewire/beam/tar.gz/a54faa640c60700100ab2e77414132d87f2bc03c#path:/beam-workflows(@schemastud/messages@https://codeload.github.com/schemastud/js/tar.gz/d512ca82472a09a39370bd0b42606899cdee8003#path:/messages(react@19.2.8)(typescript@5.9.3))(@schemastud/ui@https://codeload.github.com/schemastud/js/tar.gz/85adf3d498a76c2a993cfbbe03281a9225d8b853#path:/ui(bn4fwwcvxz6bbg3ch74tosqpyu))(@tanstack/react-query@5.101.4(react@19.2.8))(@xyflow/react@12.12.1(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(immer@9.0.21)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(lucide-react@0.475.0(react@19.2.8))(react@19.2.8)
       '@tanstack/react-query': 5.101.4(react@19.2.8)
       lucide-react: 0.475.0(react@19.2.8)
       mdast-util-from-markdown: 2.0.3
@@ -7873,11 +7900,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@splicewire/beam-workflows@https://codeload.github.com/splicewire/beam/tar.gz/b73c2d220b334d227b372cd57291f97e0e480e5e#path:/beam-workflows(@schemastud/messages@https://codeload.github.com/schemastud/js/tar.gz/d512ca82472a09a39370bd0b42606899cdee8003#path:/messages(react@19.2.8)(typescript@5.9.3))(@schemastud/ui@https://codeload.github.com/schemastud/js/tar.gz/85adf3d498a76c2a993cfbbe03281a9225d8b853#path:/ui(bn4fwwcvxz6bbg3ch74tosqpyu))(@tanstack/react-query@5.101.4(react@19.2.8))(@xyflow/react@12.12.1(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(immer@9.0.21)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(lucide-react@0.475.0(react@19.2.8))(react@19.2.8)':
+  '@splicewire/beam-workflows@https://codeload.github.com/splicewire/beam/tar.gz/a54faa640c60700100ab2e77414132d87f2bc03c#path:/beam-workflows(@schemastud/messages@https://codeload.github.com/schemastud/js/tar.gz/d512ca82472a09a39370bd0b42606899cdee8003#path:/messages(react@19.2.8)(typescript@5.9.3))(@schemastud/ui@https://codeload.github.com/schemastud/js/tar.gz/85adf3d498a76c2a993cfbbe03281a9225d8b853#path:/ui(bn4fwwcvxz6bbg3ch74tosqpyu))(@tanstack/react-query@5.101.4(react@19.2.8))(@xyflow/react@12.12.1(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(immer@9.0.21)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(lucide-react@0.475.0(react@19.2.8))(react@19.2.8)':
     dependencies:
       '@schemastud/messages': https://codeload.github.com/schemastud/js/tar.gz/d512ca82472a09a39370bd0b42606899cdee8003#path:/messages(react@19.2.8)(typescript@5.9.3)
       '@schemastud/ui': https://codeload.github.com/schemastud/js/tar.gz/85adf3d498a76c2a993cfbbe03281a9225d8b853#path:/ui(bn4fwwcvxz6bbg3ch74tosqpyu)
-      '@splicewire/beam-resources': https://codeload.github.com/splicewire/beam/tar.gz/d32aa1ba0ff8453b7a212cbeb4fa60e743f5e04c#path:/beam-resources
+      '@splicewire/beam-resources': https://codeload.github.com/splicewire/beam/tar.gz/d4c60c05cf9658febc401d1634c2a6c9fb917516#path:/beam-resources
       '@tanstack/react-query': 5.101.4(react@19.2.8)
       '@xyflow/react': 12.12.1(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(immer@9.0.21)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       lucide-react: 0.475.0(react@19.2.8)

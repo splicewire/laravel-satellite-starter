@@ -16,7 +16,7 @@
         "messages:check": "schemastud-messages collect --out resources/beam/messages.json",
         "lint:messages": "node --preserve-symlinks-main node_modules/@schemastud/messages/bin/schemastud-message-ratchet.mjs --config message-ratchet.config.json",
         "types:check": "composer types:generate && tsc --noEmit && tsc -p tsconfig.generated.json && pnpm frame:vocabulary",
-        "frame:vocabulary": "frame-vocabulary --readers @splicewire/beam-inertia/frame-readers",
+        "frame:vocabulary": "frame-vocabulary --readers @splicewire/beam-inertia/frame-readers --widgets @splicewire/beam-agreements/widgets",
         "beam:verify-prototype-boundary": "beam-verify-prototype-boundary"
     },
     "devDependencies": {
@@ -56,18 +56,31 @@
         "@radix-ui/react-toggle": "^1.1.2",
         "@radix-ui/react-toggle-group": "^1.1.2",
         "@radix-ui/react-tooltip": "^1.1.8",
+        "@scalar/cli": "2.1.0",
+        "@schemastud/blockdoc": "github:schemastud/js#2d3a1a1af7635e75eb6c8ea0b734e909e70ef326&path:/blockdoc",
+        "@schemastud/chat": "github:schemastud/js#9155a99b2b6b6f5ead0d412a7b2e4eb819b67e69&path:/chat",
+        "@schemastud/combobox": "github:schemastud/js#9d4997753a6c0a241534453cffdc0ee00c494077&path:/combobox",
+        "@schemastud/facets": "github:schemastud/js#4414044f4b3297a84b1eb158be39236ce966fa17&path:/facets",
         "@schemastud/frame": "github:schemastud/js#c84b1a8a77cdb0a0ff6f2dabb6414b511ea1831c&path:/frame",
         "@schemastud/frame-remote": "github:schemastud/js#ba915f21b56c4aa4adfb90d8a18ad8417742a115&path:/frame-remote",
         "@schemastud/mainframe": "github:schemastud/js#8ce718cc476a60245237ff0cdd4db801e0310b83&path:/mainframe",
         "@schemastud/messages": "github:schemastud/js#d512ca82472a09a39370bd0b42606899cdee8003&path:/messages",
         "@schemastud/nav": "github:schemastud/js#5bbee2598f45df91b3690f8cbcf5410f79c008a5&path:/nav",
+        "@schemastud/registry": "github:schemastud/js#a50cd2805f696b59cbe4882e22df40c7149666e2&path:/registry",
         "@schemastud/seam": "github:schemastud/js#ceaa0076c1e444a311e72bbef0f379e40e91d4fe&path:/seam",
         "@schemastud/ui": "github:schemastud/js#85adf3d498a76c2a993cfbbe03281a9225d8b853&path:/ui",
-        "@splicewire/beam-accounts": "github:splicewire/beam#4df32be98dd06c74ff072140320f7f52ec2451d9&path:/beam-accounts",
-        "@splicewire/beam-inertia": "github:splicewire/beam#dc50f38d8bb7cae0b9ac3758f518bf540fc715b6&path:/beam-inertia",
+        "@splicewire/_resources": "git+https://github.com/splicewire/_resources.git#33be024a9c5386f0a18bd8f928cc092485a12346",
+        "@splicewire/beam-accounts": "github:splicewire/beam#568060e39b078c2f5fbd7652f54eea2aa7b84162&path:/beam-accounts",
+        "@splicewire/beam-agreements": "github:splicewire/beam#7cfee94ffd6d6744d86be09812104311bba828a1&path:/beam-agreements",
+        "@splicewire/beam-docs": "github:splicewire/beam#6ed20f90d4b047cf1327f8e606934e4424b6ce86&path:/beam-docs",
+        "@splicewire/beam-inertia": "github:splicewire/beam#241fb706b9b66219bf9a1c2829b2ed39ac7b6247&path:/beam-inertia",
+        "@splicewire/beam-intake": "github:splicewire/beam#edbd80484306194f408e4da17c56d92fc69a1260&path:/beam-intake",
         "@splicewire/beam-mainframe": "github:splicewire/beam#f2c38346cc1d23fb621bdfdb5a625b17a92c2126&path:/beam-mainframe",
-        "@splicewire/beam-ux": "github:splicewire/beam#82abf507157b0b955b78f4cfce48359790b10a3e&path:/beam-ux",
+        "@splicewire/beam-mdx": "github:splicewire/beam#bd2b64e845a919952e57e31843fcc5cbb4ca3f12&path:/beam-mdx",
+        "@splicewire/beam-resources": "github:splicewire/beam#d4c60c05cf9658febc401d1634c2a6c9fb917516&path:/beam-resources",
+        "@splicewire/beam-ux": "github:splicewire/beam#50bb34055ea28f33e62de86164b4c1d737a637b0&path:/beam-ux",
         "@splicewire/beam-ux-prototype": "github:splicewire/beam#7d7874ff78ba82e0b2e1e838a001c585c5e28137&path:/beam-ux-prototype",
+        "@splicewire/beam-workflows": "github:splicewire/beam#a54faa640c60700100ab2e77414132d87f2bc03c&path:/beam-workflows",
         "@tailwindcss/vite": "^4.1.11",
         "@tanstack/react-query": "^5.0.0",
         "@tanstack/react-table": "^8.20.5",
@@ -92,19 +105,7 @@
         "tw-animate-css": "^1.4.0",
         "typescript": "^5.7.2",
         "vite": "^8.0.0",
-        "@splicewire/beam-docs": "github:splicewire/beam#5501012d1485f55c7c0a4fadf3b2ac887f2f8d6d&path:/beam-docs",
-        "@splicewire/beam-mdx": "github:splicewire/beam#e37c98ecf65bdcddce74f3b4b0fcd65a8fa6ff8a&path:/beam-mdx",
-        "@scalar/cli": "2.1.0",
-        "@schemastud/blockdoc": "github:schemastud/js#2d3a1a1af7635e75eb6c8ea0b734e909e70ef326&path:/blockdoc",
-        "@schemastud/chat": "github:schemastud/js#9155a99b2b6b6f5ead0d412a7b2e4eb819b67e69&path:/chat",
-        "@schemastud/facets": "github:schemastud/js#4414044f4b3297a84b1eb158be39236ce966fa17&path:/facets",
-        "@splicewire/beam-resources": "github:splicewire/beam#d32aa1ba0ff8453b7a212cbeb4fa60e743f5e04c&path:/beam-resources",
-        "@schemastud/combobox": "github:schemastud/js#9d4997753a6c0a241534453cffdc0ee00c494077&path:/combobox",
-        "@splicewire/_resources": "git+https://github.com/splicewire/_resources.git#33be024a9c5386f0a18bd8f928cc092485a12346",
-        "@splicewire/beam-intake": "github:splicewire/beam#4f0115fc4dc17d70e48dc0d6318bfb8a6bc44f9d&path:/beam-intake",
-        "@splicewire/beam-workflows": "github:splicewire/beam#b73c2d220b334d227b372cd57291f97e0e480e5e&path:/beam-workflows",
-        "zustand": "^5",
-        "@schemastud/registry": "github:schemastud/js#a50cd2805f696b59cbe4882e22df40c7149666e2&path:/registry"
+        "zustand": "^5"
     },
     "optionalDependencies": {
         "@rollup/rollup-linux-x64-gnu": "4.9.5",
@@ -116,5 +117,8 @@
     },
     "prototype": {
         "outDir": "public/build"
+    },
+    "pnpm": {
+        "overrides": {}
     }
 }

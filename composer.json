@@ -43,6 +43,10 @@
         },
         {
             "type": "git",
+            "url": "https://github.com/splicewire/laravel-beam-agreements.git"
+        },
+        {
+            "type": "git",
             "url": "https://github.com/splicewire/laravel-beam-sitemap.git"
         },
         {
@@ -64,6 +68,10 @@
         {
             "type": "git",
             "url": "https://github.com/stephenr85/laravel-permission-cascade.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/stephenr85/laravel-agreements.git"
         },
         {
             "type": "git",
@@ -351,6 +359,8 @@
         "splicewire/laravel-beam-mdx": "*",
         "splicewire/laravel-beam-ux": "*",
         "splicewire/laravel-beam-accounts": "*",
+        "splicewire/laravel-beam-agreements": "dev-main",
+        "rushing/laravel-agreements": "dev-main",
         "splicewire/laravel-beam-sitemap": "*",
         "splicewire/laravel-beam-ux-prototype": "*",
         "schemastud/laravel-frame": "*",
@@ -370,11 +380,13 @@
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.9.3",
         "pestphp/pest": "^4.0",
+        "pestphp/pest-plugin-browser": "^4.3",
         "phpunit/phpunit": "^12.5.23",
         "rushing/laravel-surgeon": "dev-main",
         "rushing/php-package-topology": "*",
         "splicewire/laravel-beam-dev": "dev-main",
-        "splicewire/laravel-beam-provision": "dev-main"
+        "splicewire/laravel-beam-provision": "dev-main",
+        "symfony/process": "^7.4.8"
     },
     "autoload": {
         "psr-4": {
@@ -419,7 +431,7 @@
         ],
         "test": [
             "@php artisan config:clear --ansi",
-            "@php -d memory_limit=1G artisan test"
+            "@php -d memory_limit=1G artisan test --exclude-testsuite=Browser"
         ],
         "test:packages": [
             "@php bin/test-packages"

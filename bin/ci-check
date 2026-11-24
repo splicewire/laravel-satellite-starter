@@ -143,8 +143,14 @@ $prelude = [...$phpRun, 'artisan', 'config:clear', '--ansi'];
  * one is phpstan, the npm one is tsc. Both print, so neither can be mistaken for the other.
  */
 $gates = [
+    // ticket 13 host-mount contract: the Browser testsuite (vendor/splicewire/*/tests/Browser, mounted
+    // in phpunit.xml) is EXCLUDED from the default CI gate. Browser tests require a provisioned node +
+    // playwright env and run ONLY on an explicit `artisan test --testsuite=Browser`. Without this the
+    // default gate discovers the vendored browser suites and hard-throws PlaywrightNotInstalled on any
+    // clone that has not installed the playwright browsers (CI has no browser-provision step). Default
+    // gate stays green; browser is explicit + provisioned.
     'php:test' => [
-        'cmd' => [...$phpRun, 'artisan', 'test'],
+        'cmd' => [...$phpRun, 'artisan', 'test', '--exclude-testsuite=Browser'],
         'env' => ['PAO_DISABLE' => '1'] + $phpEnv,
         'witness' => true,
         'count' => true,
@@ -277,10 +283,38 @@ function ci_test_count(?string $logPath): ?int
  * cases the audit resolves null, and the record would then read as a pass from another commit — the
  * audit reporting drift that is really an instrument mismatch. Null when the sha cannot be read; the
  * record carries `null`, never a guess, and R3 warns rather than passing on it.
+ *
+ * A LINKED WORKTREE's `.git` is a FILE holding `gitdir: <the worktree's own git dir>`, not a
+ * directory, and the branch ref the worktree's symbolic HEAD names lives in the COMMON git dir
+ * (`<gitDir>/commondir`), not under the worktree git dir. Reading `.git/HEAD` as a literal path
+ * returns null in a worktree, so the record carried `null` on every space run and R3 read it as
+ * unattributable; resolving the gitdir pointer and commondir makes a worktree read the same sha a
+ * plain checkout does. Loose refs only — the mirror on the audit side resolves refs identically, so
+ * a packed-refs fallback here is the very divergence this docblock warns against.
  */
 function ci_head_commit(string $root): ?string
 {
-    $head = $root.'/.git/HEAD';
+    $dotGit = $root.'/.git';
+
+    if (is_file($dotGit)) {
+        $pointer = trim((string) file_get_contents($dotGit));
+
+        if (! str_starts_with($pointer, 'gitdir: ')) {
+            return null;
+        }
+
+        $gitDir = trim(substr($pointer, 8));
+
+        if (! str_starts_with($gitDir, '/')) {
+            $gitDir = dirname($dotGit).'/'.$gitDir;
+        }
+    } elseif (is_dir($dotGit)) {
+        $gitDir = $dotGit;
+    } else {
+        return null;
+    }
+
+    $head = $gitDir.'/HEAD';
 
     if (! is_readable($head)) {
         return null;
@@ -292,7 +326,17 @@ function ci_head_commit(string $root): ?string
         return preg_match('/^[0-9a-f]{40}$/', $contents) === 1 ? $contents : null;
     }
 
-    $ref = $root.'/.git/'.trim(substr($contents, 5));
+    $commonDir = $gitDir;
+
+    if (is_readable($gitDir.'/commondir')) {
+        $commonDir = trim((string) file_get_contents($gitDir.'/commondir'));
+
+        if (! str_starts_with($commonDir, '/')) {
+            $commonDir = $gitDir.'/'.$commonDir;
+        }
+    }
+
+    $ref = $commonDir.'/'.trim(substr($contents, 5));
 
     return is_readable($ref) ? trim((string) file_get_contents($ref)) : null;
 }

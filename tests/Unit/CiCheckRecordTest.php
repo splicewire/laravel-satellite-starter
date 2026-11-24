@@ -187,6 +187,31 @@ class CiCheckRecordTest extends TestCase
         $this->assertSame($sha, $this->readRecord()['commit']);
     }
 
+    /**
+     * A LINKED WORKTREE's `.git` is a FILE (`gitdir:` pointer), not a directory, and the branch ref it
+     * names lives in the COMMON git dir — the shape every whiffletree space runs ci:check under. A
+     * literal `.git/HEAD` read returns null there, so the record carried `commit: null` on every space
+     * run and R3 read each as unattributable. The sha must resolve through the gitdir pointer + commondir,
+     * exactly as the audit's mirror does, or R3's staleness branch fires on an instrument mismatch.
+     */
+    public function test_a_worktree_gitdir_pointer_resolves_head_through_the_common_dir(): void
+    {
+        $sha = str_repeat('e', 40);
+
+        // The worktree's own git dir holds the per-worktree HEAD + commondir; the common dir holds the
+        // shared refs. `.git` is a FILE pointing at the worktree git dir.
+        mkdir($this->tree.'/common.git/refs/heads/space', 0o775, true);
+        mkdir($this->tree.'/common.git/worktrees/wt', 0o775, true);
+        file_put_contents($this->tree.'/common.git/worktrees/wt/HEAD', "ref: refs/heads/space/x\n");
+        file_put_contents($this->tree.'/common.git/worktrees/wt/commondir', "../..\n");
+        file_put_contents($this->tree.'/common.git/refs/heads/space/x', $sha."\n");
+        file_put_contents($this->tree.'/.git', 'gitdir: '.$this->tree.'/common.git/worktrees/wt'."\n");
+
+        $this->runRunner();
+
+        $this->assertSame($sha, $this->readRecord()['commit']);
+    }
+
     public function test_a_detached_head_records_the_sha_it_holds(): void
     {
         $sha = str_repeat('d', 40);

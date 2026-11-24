@@ -121,6 +121,9 @@ it('declares each Fortify view as whole props with unchanged JSON', function (st
         $expected['passwordRules'] = Password::defaults()->toPasswordRulesString();
     }
     expect($props)->toBe($expected);
+    if ($slug === 'register') {
+        expect($props)->not->toHaveKey('agreements');
+    }
     $schema = (new JsonSchemaGenerator)->generate(new ReflectionClass($slug === 'reset-password' ? ResetPasswordPageData::class : AuthEntryPageData::class));
     $document = json_decode(json_encode($schema, JSON_THROW_ON_ERROR), flags: JSON_THROW_ON_ERROR);
     expect((new Validator)->validate(json_decode(json_encode($props, JSON_THROW_ON_ERROR)), $document)->isValid())->toBeTrue();

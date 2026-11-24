@@ -1,5 +1,7 @@
 import { createInertiaApp } from '@inertiajs/react';
-import { beamInertiaOptions } from '@splicewire/beam-inertia';
+import { beamInertiaOptions, configureBeamInertia } from '@splicewire/beam-inertia';
+import { beamAgreementsPages } from '@splicewire/beam-agreements';
+import registerAgreementWidgets from '@splicewire/beam-agreements/widgets';
 import type { PageModule } from '@splicewire/beam-inertia';
 import { ApiReference, configureDocs } from '@splicewire/beam-docs';
 import {
@@ -17,6 +19,9 @@ import {
 import { beamDocsPages } from '@splicewire/beam-docs/pages';
 import '@splicewire/beam-ux/tokens-docs.css';
 import { authFeatures } from './beam';
+
+// The same registration module feeds every mounted kit and the generated frame vocabulary.
+configureBeamInertia({ frameKit: () => ({ widgets: registerAgreementWidgets }) });
 
 const pages = import.meta.glob<PageModule>([
     './pages/**/*.tsx',
@@ -54,7 +59,7 @@ const options = beamInertiaOptions({
                   ApiReference,
               }
             : {},
-    pages: { ...beamDocsPages, ...pages },
+    pages: { ...beamAgreementsPages, ...beamDocsPages, ...pages },
 });
 configureDocs();
 

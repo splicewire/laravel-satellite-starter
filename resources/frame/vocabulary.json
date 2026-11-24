@@ -67,6 +67,9 @@
     ],
     "version": 1,
     "widgets": {
+        "agreement-member": [
+            {}
+        ],
         "alt-date": [
             {
                 "stock": [

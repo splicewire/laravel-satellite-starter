@@ -14,6 +14,7 @@ use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
 use Laravel\Fortify\Fortify;
+use Splicewire\Beam\Accounts\Actions\AgreementPageProps;
 use Splicewire\Beam\Accounts\Actions\DemoLoginLinks;
 use Splicewire\Beam\Accounts\Data\Pages\AuthEntryPageData;
 use Splicewire\Beam\Accounts\Data\Pages\ResetPasswordPageData;
@@ -107,6 +108,7 @@ class FortifyServiceProvider extends ServiceProvider
             'entry' => PageEntryRef::for('register'),
             'body' => $entryBody->forSlug('register'),
             'passwordRules' => Password::defaults()->toPasswordRulesString(),
+            ...AgreementPageProps::forBehavior('auth.register'),
         ])));
         /* @end-chisel-registration */
 

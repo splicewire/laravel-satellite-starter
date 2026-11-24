@@ -11,3 +11,6 @@ resources/beam-ux/shell-stamp.json
 # The collected messages catalog (launch 59): `pnpm run messages:collect` writes it as canonical JSON and CI
 # compares it byte for byte (`messages:check`), so hand- or prettier-formatting would make it drift.
 resources/beam/messages.json
+# Frame vocabulary: `frame-vocabulary --write` generates it (header says "Do not edit") and `pnpm frame:vocabulary`
+# verifies it inside `types:check`, so hand- or prettier-formatting would make it drift against the generator.
+resources/frame/vocabulary.json

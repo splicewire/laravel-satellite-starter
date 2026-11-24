@@ -6,6 +6,7 @@ use App\Data\Pages\SitemapExamplePageData;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Splicewire\Beam\Accounts\Support\TokensEndpoints;
+use Splicewire\Beam\Agreements\Routing\AgreementsRoutes;
 use Splicewire\Beam\Authorization\SeatGate;
 use Splicewire\Beam\Ia\Side;
 use Splicewire\Beam\Ia\Sides;
@@ -70,6 +71,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // `ACCOUNT_API_ROOT` and writes no URL (frame-foundation 51).
     Route::get('account/tokens', fn () => Inertia::render('account/tokens', ['endpoints' => TokensEndpoints::props()]))->name('account.tokens')->defaults(SeatGate::OPEN_TO_MEMBERS, true);
     Route::get('account/team', fn () => Inertia::render('account/team'))->name('account.team')->defaults(SeatGate::OPEN_TO_MEMBERS, true);
+    Route::get('account/agreements', fn () => Inertia::render('account/agreements', ['resource' => 'agreement-entries']))
+        ->name('account.agreements')->defaults(SeatGate::OPEN_TO_MEMBERS, true);
+
+    // Agreements resources inherit the host's authenticated and verified account boundary.
+    AgreementsRoutes::mount();
 
     // ── The THEME entry's editor seat (G2-BEAM-THEME-NAV) ────────────────────────────────────────
     //

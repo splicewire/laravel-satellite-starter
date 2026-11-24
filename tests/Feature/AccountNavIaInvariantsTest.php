@@ -109,6 +109,19 @@ class AccountNavIaInvariantsTest extends TestCase
         $this->assertContains('/dashboard', $hrefs);
     }
 
+    public function test_a_member_can_open_their_agreements_and_consents_account_page(): void
+    {
+        $member = User::factory()->create();
+
+        $this->assertContains('/account/agreements', $this->accountHrefs($member));
+
+        $this->actingAs($member)->get('/account/agreements')->assertOk()->assertInertia(
+            fn (Assert $page) => $page
+                ->component('account/agreements')
+                ->where('resource', 'agreement-entries'),
+        );
+    }
+
     public function test_team_creation_is_a_dashboard_action_not_an_account_realm_seat(): void
     {
         $teamless = User::factory()->create();

@@ -9,10 +9,10 @@ use Database\Seeders\RealmNavSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
+use RuntimeException;
 use Splicewire\Beam\Seed\BeamSeedManifest;
 use Splicewire\Beam\Seed\SeedStep;
 use Splicewire\Beam\Ux\Seeders\ThemeSeeder;
-use RuntimeException;
 use Tests\TestCase;
 
 /**

@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\ServiceProvider;
 use Splicewire\Beam\Install\MigrationFiles;
 
-uses(Tests\TestCase::class);
+uses(Tests\TestCase::class, RefreshDatabase::class);
 
 it('resolves every published host migration onto its existing copy', function () {
     // MigrationFiles::pathsFor() describes the central migrator and intentionally excludes the
@@ -77,4 +78,22 @@ it('resolves every published host migration onto its existing copy', function ()
     // additional shared/ inventory. These controls fail if either part of the probe is omitted.
     expect($resolved)->toHaveKey('create_teams_table');
     expect($resolved)->toHaveKey('add_slug_to_teams_table');
+});
+
+it('publishes and migrates the agreements ledger into the shared store', function () {
+    foreach ([
+        'create_agreement_ledger_tables',
+        'add_summary_to_agreement_versions',
+        'create_agreement_consent_requests_table',
+    ] as $stem) {
+        expect(glob(database_path('migrations/shared/*_'.$stem.'.php')))
+            ->toHaveCount(1, "{$stem} must be published exactly once into shared migrations");
+    }
+
+    $missing = array_values(array_filter(
+        ['agreement_versions', 'agreement_entries', 'agreement_consent_requests'],
+        fn (string $table): bool => ! \Illuminate\Support\Facades\Schema::hasTable($table),
+    ));
+
+    expect($missing)->toBe([], 'Agreement ledger tables were not migrated: '.implode(', ', $missing));
 });

@@ -18,6 +18,7 @@ class HostIaSeamTest extends TestCase
     {
         return [
             'T5 nav.yml:account-team realm=account' => 'UX-12b: account rows move under the user realm at /settings/*',
+            'T5 nav.yml:account-agreements realm=account' => 'agreements 14: assent and agreement history are available in the account realm',
             'T5 nav.yml:account-theme realm=account' => 'UX-12b: account rows move under the user realm at /settings/*',
             'T5 nav.yml:account-tokens realm=account' => 'UX-12b: account rows move under the user realm at /settings/*',
             'T5 nav.yml:dashboard realm=account' => 'UX-12b: account rows move under the user realm at /settings/*',

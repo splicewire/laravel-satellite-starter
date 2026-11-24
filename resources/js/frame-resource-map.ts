@@ -7,4 +7,9 @@
 import type {} from '@schemastud/frame';
 import type { FrameResources } from '@/generated/frame-resources';
 
-declare module '@schemastud/frame' { interface FrameResourceMap extends FrameResources {} }
+declare module '@schemastud/frame' {
+    // Module augmentation: an empty interface that extends is the only form that merges
+    // into frame's FrameResourceMap (a type alias does not merge inside `declare module`).
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+    interface FrameResourceMap extends FrameResources {}
+}
