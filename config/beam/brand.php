@@ -1,19 +1,26 @@
 <?php
 
 /*
- * The family's ONE brand declaration (tower-is-splicewire D8′; ux-walkthrough R2 D-2), read as `config('beam.brand.*')`
- * and resolved by `Splicewire\Beam\Brand\BrandData::current()`. Hosts and the SPA CARRY it (Inertia shares it; the SPA
- * receives it in runtime config); none of them authors a brand string. This file ships no literal brand: an unset key
- * falls back to `config('app.name')` or a neutral sentence.
+ * The brand is authored host configuration, not catalog copy.
+ * Per localization 49 and root ruling 35b, a nonblank BEAM_BRAND_NAME wins; otherwise use a nonblank APP_NAME
+ * unless it is Laravel; otherwise use this product's app.php default. The framework default name is treated as unset.
+ * Resolve this during config loading so the result remains safe for config:cache.
  */
 return [
-    // The product name users see. Unset → `config('app.name')`.
-    // localization 35 (root ruling 35b): the brand is AUTHORED CONFIG, never a catalog line: a proper noun the host
-    // declares here or in BEAM_BRAND_NAME, not product copy to translate. The committed default stays (UX-03b,
-    // ShellBrandTest: live .env files still carry Laravel's default app name, so falling back to app.name would brand a
-    // deployment with the framework's name).
-    'name' => env('BEAM_BRAND_NAME', 'Satellite'),
+    // The product brand after the BEAM_BRAND_NAME / APP_NAME precedence and Laravel-name guard above.
+    'name' => (static function (): string {
+        $brandName = env('BEAM_BRAND_NAME');
+        if (is_string($brandName) && trim($brandName) !== '') {
+            return $brandName;
+        }
 
+        $appName = env('APP_NAME');
+        if (is_string($appName) && trim($appName) !== '' && $appName !== 'Laravel') {
+            return $appName;
+        }
+
+        return 'Satellite';
+    })(),
     // A URL or public path to the logo. Unset → none (renderers draw the name).
     'logo' => env('BEAM_BRAND_LOGO'),
 
